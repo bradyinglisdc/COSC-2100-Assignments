@@ -19,10 +19,20 @@ namespace ClassExercise1
     #region Class definition
     public static class GuessTheNumberSettings
     {
-        #region Difficulty
-        public const int Easy = 10;
-        public const int Medium = 100;
-        public const int Hard = 1000;
+        #region Difficulty Settings
+        public const int EasyMode = 10;
+        public const int MediumMode = 100;
+        public const int HardMode = 1000;
+
+        public const int EasyDifficultyIndex = 0;
+        public const int MediumDifficultyIndex = 1;
+        public const int HardDifficultyIndex = 2;
+        #endregion
+
+        #region Default/Starting Settings
+        // General defaults
+        public const int StartingAttempts = 0;
+        public const int StartingDifficultyIndex = EasyDifficultyIndex;
         #endregion
     }
     #endregion

@@ -63,6 +63,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameControlObjects\GuessTheNumber\GuessTheNumberSettings.cs" />
+    <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControlObjects\MainMenuPanel.Backend.cs">
       <SubType>Component</SubType>
     </Compile>
