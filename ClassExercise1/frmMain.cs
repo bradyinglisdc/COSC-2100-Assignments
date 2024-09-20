@@ -1,9 +1,9 @@
 ﻿/*
- * Title: MainMenuPanel
+ * Title: frmMain
  * Name: Brady Inglis (100926284)
  * Date: 2024-09-19
  * Purpose: The purpose of this class is to provide the main back-end logic for
- * displaying MainMenuPanel, as well as any playable games.
+ * the main form.
  */
 
 # region Namespaces Used
@@ -122,8 +122,6 @@ namespace ClassExercise1
             }
 
         }
-
-
         #endregion
 
     }

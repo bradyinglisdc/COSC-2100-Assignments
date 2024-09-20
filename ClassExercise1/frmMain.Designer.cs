@@ -37,10 +37,15 @@
             this.tpgCartMenu = new System.Windows.Forms.TabPage();
             this.lblCartMenuFooter = new System.Windows.Forms.Label();
             this.lblGameOpenPrompt = new System.Windows.Forms.Label();
+            this.pnlProductPanelView = new System.Windows.Forms.Panel();
+            this.pnlProduct = new System.Windows.Forms.Panel();
+            this.lblProductPrice = new System.Windows.Forms.Label();
+            this.lblProductName = new System.Windows.Forms.Label();
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
             this.tpgCartMenu.SuspendLayout();
+            this.pnlProduct.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExitProgram
@@ -67,10 +72,10 @@
             // 
             this.tctrlContentArea.Controls.Add(this.tpgOrderTotal);
             this.tctrlContentArea.Controls.Add(this.tpgCartMenu);
-            this.tctrlContentArea.Location = new System.Drawing.Point(17, 42);
+            this.tctrlContentArea.Location = new System.Drawing.Point(17, 27);
             this.tctrlContentArea.Name = "tctrlContentArea";
             this.tctrlContentArea.SelectedIndex = 0;
-            this.tctrlContentArea.Size = new System.Drawing.Size(626, 357);
+            this.tctrlContentArea.Size = new System.Drawing.Size(626, 372);
             this.tctrlContentArea.TabIndex = 0;
             // 
             // tpgOrderTotal
@@ -80,7 +85,7 @@
             this.tpgOrderTotal.Location = new System.Drawing.Point(4, 22);
             this.tpgOrderTotal.Name = "tpgOrderTotal";
             this.tpgOrderTotal.Padding = new System.Windows.Forms.Padding(3);
-            this.tpgOrderTotal.Size = new System.Drawing.Size(618, 331);
+            this.tpgOrderTotal.Size = new System.Drawing.Size(618, 346);
             this.tpgOrderTotal.TabIndex = 0;
             this.tpgOrderTotal.Text = "Order Total";
             this.tpgOrderTotal.UseVisualStyleBackColor = true;
@@ -107,17 +112,19 @@
             this.lblOrderTotalFooter.ForeColor = System.Drawing.Color.White;
             this.lblOrderTotalFooter.Location = new System.Drawing.Point(-2, 306);
             this.lblOrderTotalFooter.Name = "lblOrderTotalFooter";
-            this.lblOrderTotalFooter.Size = new System.Drawing.Size(622, 29);
+            this.lblOrderTotalFooter.Size = new System.Drawing.Size(622, 44);
             this.lblOrderTotalFooter.TabIndex = 1;
             this.lblOrderTotalFooter.Text = "Ice Cream Sales Helper - Order Total";
             // 
             // tpgCartMenu
             // 
+            this.tpgCartMenu.Controls.Add(this.pnlProduct);
+            this.tpgCartMenu.Controls.Add(this.pnlProductPanelView);
             this.tpgCartMenu.Controls.Add(this.lblCartMenuFooter);
             this.tpgCartMenu.Location = new System.Drawing.Point(4, 22);
             this.tpgCartMenu.Name = "tpgCartMenu";
             this.tpgCartMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.tpgCartMenu.Size = new System.Drawing.Size(618, 331);
+            this.tpgCartMenu.Size = new System.Drawing.Size(618, 346);
             this.tpgCartMenu.TabIndex = 1;
             this.tpgCartMenu.Text = "Cart Menu";
             this.tpgCartMenu.UseVisualStyleBackColor = true;
@@ -133,7 +140,7 @@
             this.lblCartMenuFooter.ForeColor = System.Drawing.Color.White;
             this.lblCartMenuFooter.Location = new System.Drawing.Point(-2, 306);
             this.lblCartMenuFooter.Name = "lblCartMenuFooter";
-            this.lblCartMenuFooter.Size = new System.Drawing.Size(622, 29);
+            this.lblCartMenuFooter.Size = new System.Drawing.Size(622, 44);
             this.lblCartMenuFooter.TabIndex = 2;
             this.lblCartMenuFooter.Text = "Ice Cream Sales Helper - Cart Menu";
             // 
@@ -145,6 +152,45 @@
             this.lblGameOpenPrompt.Size = new System.Drawing.Size(345, 13);
             this.lblGameOpenPrompt.TabIndex = 1;
             this.lblGameOpenPrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
+            // 
+            // pnlProductPanelView
+            // 
+            this.pnlProductPanelView.Location = new System.Drawing.Point(6, 6);
+            this.pnlProductPanelView.Name = "pnlProductPanelView";
+            this.pnlProductPanelView.Size = new System.Drawing.Size(606, 297);
+            this.pnlProductPanelView.TabIndex = 3;
+            // 
+            // pnlProduct
+            // 
+            this.pnlProduct.BackColor = System.Drawing.Color.LightGray;
+            this.pnlProduct.Controls.Add(this.lblProductName);
+            this.pnlProduct.Controls.Add(this.lblProductPrice);
+            this.pnlProduct.Location = new System.Drawing.Point(6, 6);
+            this.pnlProduct.Name = "pnlProduct";
+            this.pnlProduct.Size = new System.Drawing.Size(606, 34);
+            this.pnlProduct.TabIndex = 0;
+            // 
+            // lblProductPrice
+            // 
+            this.lblProductPrice.AutoSize = true;
+            this.lblProductPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductPrice.ForeColor = System.Drawing.Color.Green;
+            this.lblProductPrice.Location = new System.Drawing.Point(3, 7);
+            this.lblProductPrice.Name = "lblProductPrice";
+            this.lblProductPrice.Size = new System.Drawing.Size(54, 20);
+            this.lblProductPrice.TabIndex = 0;
+            this.lblProductPrice.Text = "$9.99";
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductName.ForeColor = System.Drawing.Color.Green;
+            this.lblProductName.Location = new System.Drawing.Point(63, 7);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(54, 20);
+            this.lblProductName.TabIndex = 1;
+            this.lblProductName.Text = "$9.99";
             // 
             // frmMain
             // 
@@ -166,6 +212,8 @@
             this.tpgOrderTotal.ResumeLayout(false);
             this.tpgOrderTotal.PerformLayout();
             this.tpgCartMenu.ResumeLayout(false);
+            this.pnlProduct.ResumeLayout(false);
+            this.pnlProduct.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -180,6 +228,10 @@
         private System.Windows.Forms.Label lblCartMenuFooter;
         private System.Windows.Forms.Label lblCartEmptyIndiactor;
         private System.Windows.Forms.Label lblGameOpenPrompt;
+        private System.Windows.Forms.Panel pnlProductPanelView;
+        private System.Windows.Forms.Panel pnlProduct;
+        private System.Windows.Forms.Label lblProductPrice;
+        private System.Windows.Forms.Label lblProductName;
     }
 }
 

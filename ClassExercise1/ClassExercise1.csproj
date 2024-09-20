@@ -63,6 +63,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameControlObjects\GuessTheNumber\GuessTheNumberSettings.cs" />
+    <Compile Include="GameControlObjects\Ice Cream\ProductPanelView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControlObjects\MainMenuPanel.Backend.cs">
       <SubType>Component</SubType>
@@ -74,6 +77,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GameControlObjects\Ice Cream\ProductPanelView.resx">
+      <DependentUpon>ProductPanelView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainControlObjects\MainMenuPanel.Frontend.resx">
       <DependentUpon>MainMenuPanel.Frontend.cs</DependentUpon>
@@ -100,8 +106,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameControlObjects\Ice Cream\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
