@@ -13,10 +13,7 @@
 
 #region Namespaces Used
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
 #endregion
@@ -97,6 +94,7 @@ namespace ClassExercise1
                 pnlProductView.ProductsAdded.Clear();
                 RefreshOrders();
                 MessageBox.Show($"Order complete. New cash box balance: {CashBoxTotal}");
+
             });
         }
         #endregion
