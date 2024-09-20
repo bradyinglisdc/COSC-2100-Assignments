@@ -1,15 +1,15 @@
 ﻿/*
- * Title: MainMenuPanel
+ * Title: GuessTheNumberGamePanel Frontend
  * Name: Brady Inglis (100926284)
  * Date: 2024-09-19
  * Purpose: This class contains the front-end design for the guess the number game.
  * It is a child of the Panel class to promote modularity within the main form's logic.
  * 
- * Essentially, this class serves as a premade form for quickly and cleany instantiating
+ * Essentially, this class serves as a premade panel for quickly and cleany instantiating
  * new instances of the Guess The Number Game.
  * 
  * This portion of the partial class contains the fronted/UI for the game.
- * The backend/logic is contained within the first partial definition of this class (GuessTheNumberGamePanel.Frontend.cs).
+ * The backend/logic is contained within the second partial definition of this class (GuessTheNumberGamePanel.Backend.cs).
  */
 
 #region Namespaces Used
@@ -44,25 +44,11 @@ namespace ClassExercise1
         private Panel pnlPlayArea { get; set; }
         private Button btnSubmitGuess { get; set; }
         private Panel pnlOutputArea { get; set; }
-        private Label lblOutputArea { get; set; }
+        private Label lblAttempts { get; set; }
         private Label lblGuessOutput { get; set; }
         private ToolTip mainFrmToolTip { get; set; }
         private ToolTip pnlGuessTheNumberToolTips { get; set; }
         private Container Components { get; set; }
-        #endregion
-
-        #region Constructor(s)
-        public GuessTheNumberGamePanel()
-        {
-            // Instantiate all controls on constructor call
-            SetAllProperties();
-
-            // Style each control
-            StyleAllControls();
-
-            // Subscribe event handler methods
-            /*SubscribeEventHandlers();*/
-        }
         #endregion
 
         #region Control Setup/Styling Methods
@@ -99,7 +85,7 @@ namespace ClassExercise1
 
             // Output area
             pnlOutputArea = new System.Windows.Forms.Panel();
-            lblOutputArea = new System.Windows.Forms.Label();
+            lblAttempts = new System.Windows.Forms.Label();
             lblGuessOutput = new System.Windows.Forms.Label();
         }
 
@@ -118,7 +104,7 @@ namespace ClassExercise1
             pnlOutputArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             pnlOutputArea.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             pnlOutputArea.Controls.Add(lblGuessOutput);
-            pnlOutputArea.Controls.Add(lblOutputArea);
+            pnlOutputArea.Controls.Add(lblAttempts);
             pnlOutputArea.Location = new System.Drawing.Point(5, 242);
             pnlOutputArea.Name = "pnlOutputArea";
             pnlOutputArea.Size = new System.Drawing.Size(652, 162);
@@ -137,15 +123,15 @@ namespace ClassExercise1
             pnlGuessTheNumberToolTips.SetToolTip(lblGuessOutput, "Your guess output will be displayed here, indicating if you should guess higher o" +
         "r lower.");
             // 
-            // lblOutputArea
+            // lblAttempts
             // 
-            lblOutputArea.AutoSize = true;
-            lblOutputArea.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            lblOutputArea.Location = new System.Drawing.Point(4, 4);
-            lblOutputArea.Name = "lblOutputArea";
-            lblOutputArea.Size = new System.Drawing.Size(39, 13);
-            lblOutputArea.TabIndex = 0;
-            lblOutputArea.Text = "Output";
+            lblAttempts.AutoSize = true;
+            lblAttempts.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            lblAttempts.Location = new System.Drawing.Point(4, 4);
+            lblAttempts.Name = "lblOutputArea";
+            lblAttempts.Size = new System.Drawing.Size(39, 13);
+            lblAttempts.TabIndex = 0;
+            lblAttempts.Text = $"Attempts: {Attempts}";
             // 
             // pnlPlayArea
             // 
@@ -240,7 +226,7 @@ namespace ClassExercise1
             lblMaximumGuess.Name = "lblMaximumGuess";
             lblMaximumGuess.Size = new System.Drawing.Size(13, 13);
             lblMaximumGuess.TabIndex = 5;
-            lblMaximumGuess.Text = "0";
+            lblMaximumGuess.Text = "1";
             pnlGuessTheNumberToolTips.SetToolTip(lblMaximumGuess, "Maximum allowed guess displayed here");
             // 
             // lblMinimumGuess
@@ -252,7 +238,7 @@ namespace ClassExercise1
             lblMinimumGuess.Name = "lblMinimumGuess";
             lblMinimumGuess.Size = new System.Drawing.Size(13, 13);
             lblMinimumGuess.TabIndex = 4;
-            lblMinimumGuess.Text = "0";
+            lblMinimumGuess.Text = "1";
             pnlGuessTheNumberToolTips.SetToolTip(lblMinimumGuess, "Minimum allowed guess displayed here");
             // 
             // lblMaximumGuessNumber
@@ -320,7 +306,6 @@ namespace ClassExercise1
             Controls.Add(btnBegin);
             Controls.Add(gbxSettings);
             Controls.Add(lblGameHeader);
-
 
             // Next, styling and positioning applied for the panel itself
             BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
