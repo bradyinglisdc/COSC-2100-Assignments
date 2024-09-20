@@ -41,6 +41,7 @@
             this.pnlProduct = new System.Windows.Forms.Panel();
             this.lblProductPrice = new System.Windows.Forms.Label();
             this.lblProductName = new System.Windows.Forms.Label();
+            this.btnAddProduct = new System.Windows.Forms.Button();
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
@@ -163,6 +164,7 @@
             // pnlProduct
             // 
             this.pnlProduct.BackColor = System.Drawing.Color.LightGray;
+            this.pnlProduct.Controls.Add(this.btnAddProduct);
             this.pnlProduct.Controls.Add(this.lblProductName);
             this.pnlProduct.Controls.Add(this.lblProductPrice);
             this.pnlProduct.Location = new System.Drawing.Point(6, 6);
@@ -185,12 +187,23 @@
             // 
             this.lblProductName.AutoSize = true;
             this.lblProductName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductName.ForeColor = System.Drawing.Color.Green;
+            this.lblProductName.ForeColor = System.Drawing.Color.Black;
             this.lblProductName.Location = new System.Drawing.Point(63, 7);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(54, 20);
+            this.lblProductName.Size = new System.Drawing.Size(122, 20);
             this.lblProductName.TabIndex = 1;
-            this.lblProductName.Text = "$9.99";
+            this.lblProductName.Text = "Product Name";
+            // 
+            // btnAddProduct
+            // 
+            this.btnAddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddProduct.ForeColor = System.Drawing.Color.Green;
+            this.btnAddProduct.Location = new System.Drawing.Point(502, 6);
+            this.btnAddProduct.Name = "btnAddProduct";
+            this.btnAddProduct.Size = new System.Drawing.Size(100, 23);
+            this.btnAddProduct.TabIndex = 2;
+            this.btnAddProduct.Text = "Add To Cart";
+            this.btnAddProduct.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -232,6 +245,7 @@
         private System.Windows.Forms.Panel pnlProduct;
         private System.Windows.Forms.Label lblProductPrice;
         private System.Windows.Forms.Label lblProductName;
+        private System.Windows.Forms.Button btnAddProduct;
     }
 }
 
