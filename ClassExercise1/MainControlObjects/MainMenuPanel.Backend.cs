@@ -46,6 +46,13 @@ namespace ClassExercise1
         {
             // On btnMinimize click, call the appropriate method to minimize menu
             btnMinimize.Click += new EventHandler(btnMinimize_Click);
+
+            // On any game start button click, start the apropriate game
+            foreach (Button gameStartButton in GameStartButtons)
+            {
+                // Add the evnet handler, getting the game by the button text
+                gameStartButton.Click += new EventHandler(btnGameStart_Click);
+            }
         }
 
         public void btnMinimize_Click(object sender, EventArgs e)
@@ -60,9 +67,22 @@ namespace ClassExercise1
             // Call method to maximize main menu panel
             MaximizePanel();
         }
+
+        /// <summary>
+        /// Called on any game button clicked.
+        /// Simply grabs the game name to switch to and switches to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void btnGameStart_Click(object sender, EventArgs e)
+        {
+            // Cast the sender object to a control to access the text of the button which was clicked
+            Control btnGameClicked = (Control)sender;
+            ChangeGame(btnGameClicked.Text);
+        }
         #endregion
 
-        #region Control Methods
+        #region Control Functionality Methods
         public void MinimizePanel()
         {
             // Shrink the panel so that only the tab bar is showing
@@ -84,14 +104,40 @@ namespace ClassExercise1
 
         public void MaximizePanel()
         {
-            // Grab reference to parent form
-            Control parent = Parent;
 
-            // Removes this menu from parent form, and then creates a new instance of the main menu
+            // Grab reference to parent form
+            frmMain parent = (frmMain)Parent;
+
+            // Remove this menu and set parent forms menu to a new instance of the main menu, essentially refreshing it
             parent.Controls.Remove(this);
-            parent.Controls.Add(new MainMenuPanel(parent.Height));
+            parent.pnlMainMenu = new MainMenuPanel(parent.Height);
         }
 
+        /// <summary>
+        /// Switches current game to whatever was selected (gameName string)
+        /// if it exists.
+        /// </summary>
+        /// <param name="gameName">The name of the game to switch to.</param>
+        public void ChangeGame(string gameName)
+        {
+            // Ensure game name exist. Display error and return otherwise.
+            if (!AvailableGames.GameNames.Contains(gameName)) 
+            {
+                DisplayError($"Attempted to access game that does not exist. ({gameName})\nPlease see 'AvailableGames'" +
+                    "class for list of all games.");
+                return;
+            }
+
+            // Ensure parent (mainFrm) exists
+            if (Parent == null)
+            {
+                DisplayError("Main menu has no form to display the game on.");
+            }
+
+            // If all is valid, switch games (cast parent control to frmMain first)
+            frmMain parent = (frmMain)Parent;
+            parent.ChangeGame(gameName);
+        }
         #endregion
 
     }

@@ -52,6 +52,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameControlObjects\AvailableGames.cs" />
     <Compile Include="MainControlObjects\MainMenuPanel.Backend.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -88,8 +89,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameControlObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,6 +24,14 @@ namespace ClassExercise1
     #region Class Definition
     public partial class MainMenuPanel : Panel
     {
+
+        #region Constants
+        // To appropriately layout each new game starting button
+        private const int GameStartButtonsStartingTab = 3; 
+        private const int GameStartButtonsStartingPositionY = 6; 
+        private const int GameStartButtonsSpacingY = 30; 
+        #endregion
+
         #region Properties
         // Tab bar
         public Panel pnlTabBar
@@ -39,14 +47,11 @@ namespace ClassExercise1
             get; set;
         }
 
-        // Game selection buttons
-        public Button btnStartGuessTheNumber
+        // Game selection buttons - each stored in list so new games can easily be added
+        public List<Button> GameStartButtons
         {
-            get; set;
-        }
-        public Button btnStartIceCream
-        {
-            get; set;
+            get;
+            set;
         }
         #endregion
 
@@ -57,8 +62,13 @@ namespace ClassExercise1
             pnlTabBar = new Panel();
             lblMenuHeader = new Label();
             btnMinimize = new Button();
-            btnStartGuessTheNumber = new Button();
-            btnStartIceCream = new Button();
+
+            // Instantiate a new button for each available games
+            GameStartButtons = new List<Button>();
+            foreach(string game in AvailableGames.GameNames)
+            {
+                GameStartButtons.Add(new Button() { Text = game });
+            }
         }
 
         private void StyleAllControls(int formHeight)
@@ -83,10 +93,14 @@ namespace ClassExercise1
         {
             // Firstly, add each control property to this instance.
             Controls.Add(pnlTabBar);
-            Controls.Add(btnStartGuessTheNumber);
-            Controls.Add(btnStartIceCream);
             pnlTabBar.Controls.Add(lblMenuHeader);
             pnlTabBar.Controls.Add(btnMinimize);
+
+            // Add each button in list of game start buttons
+            foreach (Button gameStartButton in GameStartButtons)
+            {
+                Controls.Add(gameStartButton);
+            }
 
             // Next, set this instances anchor, size, colour, name, positioning
             Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -138,25 +152,38 @@ namespace ClassExercise1
 
         private void StyleGameStartButtons()
         {
-            // Style start guess the number button
-            btnStartGuessTheNumber.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            btnStartGuessTheNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnStartGuessTheNumber.Location = new System.Drawing.Point(0, 36);
-            btnStartGuessTheNumber.Name = "btnStartGuessTheNumber";
-            btnStartGuessTheNumber.Size = new System.Drawing.Size(183, 34);
-            btnStartGuessTheNumber.TabIndex = 3;
-            btnStartGuessTheNumber.Text = "Guess The Number";
-            btnStartGuessTheNumber.UseVisualStyleBackColor = false;
-     
-            // Style start ice cream button
-            btnStartIceCream.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            btnStartIceCream.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            btnStartIceCream.Location = new System.Drawing.Point(0, 76);
-            btnStartIceCream.Name = "btnStartIceCream";
-            btnStartIceCream.Size = new System.Drawing.Size(183, 34);
-            btnStartIceCream.TabIndex = 4;
-            btnStartIceCream.Text = "Ice Cream";
-            btnStartIceCream.UseVisualStyleBackColor = false;
+            // Iterate through each button in list of game start buttons, styling each
+            int currentTab = GameStartButtonsStartingTab;
+            int currentYPosition = GameStartButtonsStartingPositionY;
+            foreach (Button gameStartButton in GameStartButtons)
+            {
+                // First, get actual y position by adding current y position with spacing
+                currentYPosition += GameStartButtonsSpacingY;
+
+                gameStartButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
+                gameStartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                gameStartButton.Location = new System.Drawing.Point(0, currentYPosition);
+                gameStartButton.Name = "btnStartGuessTheNumber";
+                gameStartButton.Size = new System.Drawing.Size(183, 34);
+                gameStartButton.TabIndex = currentTab;
+                gameStartButton.UseVisualStyleBackColor = false;
+
+                // Add one to tab each iteration
+                currentTab++;
+            }
+
+        }
+        #endregion
+
+        #region General Methods
+        /// <summary>
+        /// Displays a MessageBox with some specific error text.
+        /// </summary>
+        /// <param name="errorText">The message for this error.</param>
+        private void DisplayError(string errorText)
+        {
+            // Show the message box w/ error
+            MessageBox.Show(errorText);
         }
         #endregion
     }
