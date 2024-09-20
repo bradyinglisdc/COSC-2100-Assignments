@@ -36,8 +36,7 @@
             this.lblOrderTotalFooter = new System.Windows.Forms.Label();
             this.tpgCartMenu = new System.Windows.Forms.TabPage();
             this.lblCartMenuFooter = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblOpenGamePrompt = new System.Windows.Forms.Label();
+            this.lblGameOpenPrompt = new System.Windows.Forms.Label();
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
@@ -114,7 +113,6 @@
             // 
             // tpgCartMenu
             // 
-            this.tpgCartMenu.Controls.Add(this.panel1);
             this.tpgCartMenu.Controls.Add(this.lblCartMenuFooter);
             this.tpgCartMenu.Location = new System.Drawing.Point(4, 22);
             this.tpgCartMenu.Name = "tpgCartMenu";
@@ -139,21 +137,14 @@
             this.lblCartMenuFooter.TabIndex = 2;
             this.lblCartMenuFooter.Text = "Ice Cream Sales Helper - Cart Menu";
             // 
-            // panel1
+            // lblGameOpenPrompt
             // 
-            this.panel1.Location = new System.Drawing.Point(79, 69);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 100);
-            this.panel1.TabIndex = 3;
-            // 
-            // lblOpenGamePrompt
-            // 
-            this.lblOpenGamePrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblOpenGamePrompt.Location = new System.Drawing.Point(170, 224);
-            this.lblOpenGamePrompt.Name = "lblOpenGamePrompt";
-            this.lblOpenGamePrompt.Size = new System.Drawing.Size(345, 13);
-            this.lblOpenGamePrompt.TabIndex = 1;
-            this.lblOpenGamePrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
+            this.lblGameOpenPrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblGameOpenPrompt.Location = new System.Drawing.Point(170, 224);
+            this.lblGameOpenPrompt.Name = "lblGameOpenPrompt";
+            this.lblGameOpenPrompt.Size = new System.Drawing.Size(345, 13);
+            this.lblGameOpenPrompt.TabIndex = 1;
+            this.lblGameOpenPrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
             // 
             // frmMain
             // 
@@ -163,7 +154,7 @@
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.pnlIceCream);
             this.Controls.Add(this.btnExitProgram);
-            this.Controls.Add(this.lblOpenGamePrompt);
+            this.Controls.Add(this.lblGameOpenPrompt);
             this.MaximumSize = new System.Drawing.Size(700, 500);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "frmMain";
@@ -188,8 +179,7 @@
         private System.Windows.Forms.Label lblOrderTotalFooter;
         private System.Windows.Forms.Label lblCartMenuFooter;
         private System.Windows.Forms.Label lblCartEmptyIndiactor;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblOpenGamePrompt;
+        private System.Windows.Forms.Label lblGameOpenPrompt;
     }
 }
 
