@@ -104,7 +104,7 @@ namespace ClassExercise1
             Controls.Add((Control)Activator.CreateInstance(gameType));
 
             // Hide game open prompt behind game. If no game is open, user will be prompted again
-            lblOpenGamePrompt.SendToBack();
+            label1.SendToBack();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace ClassExercise1
             foreach (Control control in Controls)
             {
                 // If the control is not the menu, a child of the main menu, or exit program btn, delete it
-                if (control != pnlMainMenu && !pnlMainMenu.Contains(control) && control != btnExitProgram && control != lblOpenGamePrompt)
+                if (control != pnlMainMenu && !pnlMainMenu.Contains(control) && control != btnExitProgram && control != label1)
                 {
                     Controls.Remove(control);
                 }

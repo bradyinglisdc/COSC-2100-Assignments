@@ -36,15 +36,12 @@
             this.lblOrderTotalFooter = new System.Windows.Forms.Label();
             this.tpgCartMenu = new System.Windows.Forms.TabPage();
             this.lblCartMenuFooter = new System.Windows.Forms.Label();
-            this.pnlProductListView = new System.Windows.Forms.Panel();
-            this.pnlProduct = new System.Windows.Forms.Panel();
-            this.btnAddProduct = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblOpenGamePrompt = new System.Windows.Forms.Label();
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
             this.tpgCartMenu.SuspendLayout();
-            this.pnlProductListView.SuspendLayout();
-            this.pnlProduct.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnExitProgram
@@ -117,7 +114,7 @@
             // 
             // tpgCartMenu
             // 
-            this.tpgCartMenu.Controls.Add(this.pnlProductListView);
+            this.tpgCartMenu.Controls.Add(this.panel1);
             this.tpgCartMenu.Controls.Add(this.lblCartMenuFooter);
             this.tpgCartMenu.Location = new System.Drawing.Point(4, 22);
             this.tpgCartMenu.Name = "tpgCartMenu";
@@ -142,33 +139,21 @@
             this.lblCartMenuFooter.TabIndex = 2;
             this.lblCartMenuFooter.Text = "Ice Cream Sales Helper - Cart Menu";
             // 
-            // pnlProductListView
+            // panel1
             // 
-            this.pnlProductListView.Controls.Add(this.pnlProduct);
-            this.pnlProductListView.Location = new System.Drawing.Point(6, 3);
-            this.pnlProductListView.Name = "pnlProductListView";
-            this.pnlProductListView.Size = new System.Drawing.Size(606, 300);
-            this.pnlProductListView.TabIndex = 3;
+            this.panel1.Location = new System.Drawing.Point(79, 69);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 100);
+            this.panel1.TabIndex = 3;
             // 
-            // pnlProduct
+            // lblOpenGamePrompt
             // 
-            this.pnlProduct.Controls.Add(this.btnAddProduct);
-            this.pnlProduct.Location = new System.Drawing.Point(0, 55);
-            this.pnlProduct.Name = "pnlProduct";
-            this.pnlProduct.Size = new System.Drawing.Size(606, 41);
-            this.pnlProduct.TabIndex = 0;
-            // 
-            // btnAddProduct
-            // 
-            this.btnAddProduct.BackColor = System.Drawing.Color.Transparent;
-            this.btnAddProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddProduct.ForeColor = System.Drawing.Color.Green;
-            this.btnAddProduct.Location = new System.Drawing.Point(499, 9);
-            this.btnAddProduct.Name = "btnAddProduct";
-            this.btnAddProduct.Size = new System.Drawing.Size(99, 23);
-            this.btnAddProduct.TabIndex = 0;
-            this.btnAddProduct.Text = "Add To Order";
-            this.btnAddProduct.UseVisualStyleBackColor = false;
+            this.lblOpenGamePrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblOpenGamePrompt.Location = new System.Drawing.Point(170, 224);
+            this.lblOpenGamePrompt.Name = "lblOpenGamePrompt";
+            this.lblOpenGamePrompt.Size = new System.Drawing.Size(345, 13);
+            this.lblOpenGamePrompt.TabIndex = 1;
+            this.lblOpenGamePrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
             // 
             // frmMain
             // 
@@ -178,6 +163,7 @@
             this.ClientSize = new System.Drawing.Size(684, 461);
             this.Controls.Add(this.pnlIceCream);
             this.Controls.Add(this.btnExitProgram);
+            this.Controls.Add(this.lblOpenGamePrompt);
             this.MaximumSize = new System.Drawing.Size(700, 500);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "frmMain";
@@ -189,8 +175,6 @@
             this.tpgOrderTotal.ResumeLayout(false);
             this.tpgOrderTotal.PerformLayout();
             this.tpgCartMenu.ResumeLayout(false);
-            this.pnlProductListView.ResumeLayout(false);
-            this.pnlProduct.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -204,9 +188,8 @@
         private System.Windows.Forms.Label lblOrderTotalFooter;
         private System.Windows.Forms.Label lblCartMenuFooter;
         private System.Windows.Forms.Label lblCartEmptyIndiactor;
-        private System.Windows.Forms.Panel pnlProductListView;
-        private System.Windows.Forms.Panel pnlProduct;
-        private System.Windows.Forms.Button btnAddProduct;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblOpenGamePrompt;
     }
 }
 
