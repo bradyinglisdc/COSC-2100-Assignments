@@ -30,7 +30,8 @@ namespace ClassExercise1
         /// </summary>
         public static List<Type> Games = new List<Type>
         {
-            typeof(GuessTheNumberGamePanel)
+            typeof(GuessTheNumberGamePanel),
+            typeof(IceCreamGamePanel)
         };
         #endregion
 

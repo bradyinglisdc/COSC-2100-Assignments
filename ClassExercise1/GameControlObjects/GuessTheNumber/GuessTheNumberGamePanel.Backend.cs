@@ -194,7 +194,7 @@ namespace ClassExercise1
         private void CloseGame()
         {
             // Close after msg box prompt to user returns true
-            if (MessageBox.Show("Exit game? Unsaved game states will be lost.", "Quit Game", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Exit game? Your progress will be lost", "Quit Game", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 Parent.Controls.Remove(this);
             }

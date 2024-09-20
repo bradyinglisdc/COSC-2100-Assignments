@@ -53,6 +53,24 @@ namespace ClassExercise1
             Products.Add(this);
         }
         #endregion
+
+        #region Static Methods
+        /// <summary>
+        /// Searches through static list of products and returns if a match is found,
+        /// otherwise returns null.
+        /// </summary>
+        /// <param name="name">The name of the product to find.</param>
+        /// <returns></returns>
+        public static Product FindByName(string name)
+        {
+            foreach (Product product in Products)
+            {
+                if (product.Name == name) { return product; }
+            }
+
+            return null;
+        }
+        #endregion
     }
     #endregion
 }

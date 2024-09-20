@@ -63,6 +63,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameControlObjects\GuessTheNumber\GuessTheNumberSettings.cs" />
+    <Compile Include="GameControlObjects\Ice Cream\IceCreamGamePanel.Backend.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameControlObjects\Ice Cream\IceCreamGamePanel.Frontend.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GameControlObjects\Ice Cream\Product.cs" />
     <Compile Include="GameControlObjects\Ice Cream\ProductDriver.cs" />
     <Compile Include="GameControlObjects\Ice Cream\ProductPanelView.cs">
