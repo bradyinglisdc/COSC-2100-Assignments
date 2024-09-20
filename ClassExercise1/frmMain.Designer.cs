@@ -50,6 +50,7 @@
             this.lblOrderTotalHeader = new System.Windows.Forms.Label();
             this.lblAmountDue = new System.Windows.Forms.Label();
             this.pnlOrderList = new System.Windows.Forms.Panel();
+            this.btnCancelOrder = new System.Windows.Forms.Button();
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
@@ -90,6 +91,7 @@
             // 
             // tpgOrderTotal
             // 
+            this.tpgOrderTotal.Controls.Add(this.btnCancelOrder);
             this.tpgOrderTotal.Controls.Add(this.lblAmountDue);
             this.tpgOrderTotal.Controls.Add(this.lblOrderTotalHeader);
             this.tpgOrderTotal.Controls.Add(this.btnCard);
@@ -246,7 +248,7 @@
             this.btnCash.Name = "btnCash";
             this.btnCash.Size = new System.Drawing.Size(75, 23);
             this.btnCash.TabIndex = 3;
-            this.btnCash.Text = "Pay Cash";
+            this.btnCash.Text = "Paying Cash";
             this.btnCash.UseVisualStyleBackColor = true;
             // 
             // btnCard
@@ -256,7 +258,7 @@
             this.btnCard.Name = "btnCard";
             this.btnCard.Size = new System.Drawing.Size(75, 23);
             this.btnCard.TabIndex = 4;
-            this.btnCard.Text = "Pay Card";
+            this.btnCard.Text = "Paying Card";
             this.btnCard.UseVisualStyleBackColor = true;
             // 
             // lblOrderTotalHeader
@@ -290,6 +292,16 @@
             this.pnlOrderList.Name = "pnlOrderList";
             this.pnlOrderList.Size = new System.Drawing.Size(618, 215);
             this.pnlOrderList.TabIndex = 7;
+            // 
+            // btnCancelOrder
+            // 
+            this.btnCancelOrder.ForeColor = System.Drawing.Color.Red;
+            this.btnCancelOrder.Location = new System.Drawing.Point(525, 14);
+            this.btnCancelOrder.Name = "btnCancelOrder";
+            this.btnCancelOrder.Size = new System.Drawing.Size(87, 23);
+            this.btnCancelOrder.TabIndex = 8;
+            this.btnCancelOrder.Text = "&Cancel Order";
+            this.btnCancelOrder.UseVisualStyleBackColor = true;
             // 
             // frmMain
             // 
@@ -340,6 +352,7 @@
         private System.Windows.Forms.Label lblOrderTotalHeader;
         private System.Windows.Forms.Label lblAmountDue;
         private System.Windows.Forms.Panel pnlOrderList;
+        private System.Windows.Forms.Button btnCancelOrder;
     }
 }
 

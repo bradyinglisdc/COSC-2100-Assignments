@@ -39,6 +39,9 @@ namespace ClassExercise1
         private System.Windows.Forms.Panel pnlOrderArea { get; set; }
         private System.Windows.Forms.Label lblOrderTotalHeader { get; set; }
         private System.Windows.Forms.Label lblAmountDue { get; set; }
+        private System.Windows.Forms.Button btnCancelOrder { get; set; }
+        private System.Windows.Forms.Button btnPayCash { get; set; }
+        private System.Windows.Forms.Button btnPayCard { get; set; }
         #endregion
 
         #region Styling/Setup methods
@@ -62,9 +65,12 @@ namespace ClassExercise1
             pnlOrderArea = new Panel();
             lblOrderTotalHeader = new Label();
             lblAmountDue = new Label();
+            btnCancelOrder = new Button();
+            btnPayCash = new Button();
+            btnPayCard = new Button();
 
             // Product view area (ProductPanelView)
-            pnlProductView = new ProductPanelView();
+            pnlProductView = new ProductPanelView(this);
         }
 
         /// <summary>
@@ -95,6 +101,8 @@ namespace ClassExercise1
             tpgOrderTotal.Controls.Add(pnlOrderArea);
             tpgOrderTotal.Controls.Add(lblOrderTotalFooter);
             tpgOrderTotal.Controls.Add(lblOrderTotalHeader);
+            tpgOrderTotal.Controls.Add(btnPayCard);
+            tpgOrderTotal.Controls.Add(btnPayCash);
             tpgOrderTotal.Location = new System.Drawing.Point(4, 22);
             tpgOrderTotal.Name = "tpgOrderTotal";
             tpgOrderTotal.Padding = new System.Windows.Forms.Padding(3);
@@ -161,6 +169,7 @@ namespace ClassExercise1
 
             // Order total header
             lblOrderTotalHeader.Controls.Add(lblAmountDue);
+            lblOrderTotalHeader.Controls.Add(btnCancelOrder);
             lblOrderTotalHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(85)))), ((int)(((byte)(0)))));
             lblOrderTotalHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblOrderTotalHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -182,6 +191,36 @@ namespace ClassExercise1
             lblAmountDue.TabIndex = 6;
             lblAmountDue.Text = "$0";
             lblOrderTotalHeader.BringToFront();
+
+            // Cancel order button
+            btnPayCash.Enabled = false;
+            btnCancelOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            btnCancelOrder.ForeColor = System.Drawing.Color.Red;
+            btnCancelOrder.Location = new System.Drawing.Point(525, 14);
+            btnCancelOrder.Name = "btnCancelOrder";
+            btnCancelOrder.Size = new System.Drawing.Size(87, 23);
+            btnCancelOrder.TabIndex = 8;
+            btnCancelOrder.Text = "&Cancel Order";
+            btnCancelOrder.UseVisualStyleBackColor = true;
+
+            // Pay cash button
+            btnPayCash.Enabled = false;
+            btnPayCash.Location = new System.Drawing.Point(540, 310);
+            btnPayCash.Size = new System.Drawing.Size(75, 23);
+            btnPayCash.TabIndex = 3;
+            btnPayCash.Text = "Paying Cash";
+            btnPayCash.UseVisualStyleBackColor = true;
+            btnPayCash.BringToFront();
+
+            // Pay card button
+            btnPayCard.Enabled = false;
+            btnPayCard.Location = new System.Drawing.Point(459, 310);
+            btnPayCard.Size = new System.Drawing.Size(75, 23);
+            btnPayCard.TabIndex = 4;
+            btnPayCard.Text = "Paying Card";
+            btnPayCard.UseVisualStyleBackColor = true;
+            btnPayCard.BringToFront(); 
+
         }
         #endregion
     }

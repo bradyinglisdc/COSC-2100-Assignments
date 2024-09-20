@@ -27,6 +27,11 @@ namespace ClassExercise1
             get;
             set;
         }
+        public IceCreamGamePanel BoundPanel
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constansts
@@ -38,8 +43,9 @@ namespace ClassExercise1
         /// Constructor sets up self and child controls (each product panel).
         /// If true is passes as argument, products will be created to be removeable.
         /// </summary>
-        public ProductPanelView()
+        public ProductPanelView(IceCreamGamePanel boundPanel)
         {
+            BoundPanel = boundPanel;
             ProductsAdded = new List<Product>();
             CreateAndAddControls();
         }
@@ -49,7 +55,7 @@ namespace ClassExercise1
         /// <summary>
         /// Sets up each product panel's child elements, the child panel and the PanelView itself
         /// </summary>
-        public void CreateAndAddControls()
+        private void CreateAndAddControls()
         {
             int currentProductYSpacing = 0;
 
@@ -197,7 +203,7 @@ namespace ClassExercise1
                 lblPrice.Location = new System.Drawing.Point(6, 7);
                 lblPrice.Size = new System.Drawing.Size(54, 20);
                 lblPrice.TabIndex = 3;
-                lblPrice.Text = product.Price.ToString();
+                lblPrice.Text = $"${product.Price.ToString()}";
 
                 // For remove button
                 btnRemoveProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -207,6 +213,14 @@ namespace ClassExercise1
                 btnRemoveProduct.TabIndex = 3;
                 btnRemoveProduct.Text = "Remove From Order";
                 btnRemoveProduct.UseVisualStyleBackColor = true;
+
+                // Remove product from list if remove button clicked and refresh
+                btnRemoveProduct.Click += new EventHandler((object sender, EventArgs e) =>
+                {
+                    ProductsAdded.Remove(product);
+                    BoundPanel.RefreshOrders();
+                    
+                });
 
                 // Add each control to product panel
                 pnlProductOrder.Controls.Add(lblPrice);
@@ -222,6 +236,23 @@ namespace ClassExercise1
 
             // Finally return the panel
             return pnlRemoveableList;
+        }
+
+        /// <summary>
+        /// Adds total of al orders user has added.
+        /// </summary>
+        /// <returns>The total of all orders that the user added.</returns>
+        public double GetTotal()
+        {
+            // Iterate through each product, adding to total
+            double total = 0;
+            foreach (Product product in ProductsAdded)
+            {
+                total += product.Price;
+            }
+
+            // Return the total
+            return total;
         }
 
   
