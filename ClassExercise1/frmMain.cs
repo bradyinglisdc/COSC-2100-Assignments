@@ -80,9 +80,6 @@ namespace ClassExercise1
         }
         #endregion
 
-
-
-
     }
     #endregion
 }

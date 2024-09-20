@@ -100,6 +100,9 @@ namespace ClassExercise1
 
             // Add maximize menu event handler
             btnMinimize.Click += new EventHandler(btnMaximize_Click);
+
+            // Bring the panel to the front to ensure it is fully viewable over any game
+            BringToFront();
         }
 
         public void MaximizePanel()
@@ -110,7 +113,10 @@ namespace ClassExercise1
 
             // Remove this menu and set parent forms menu to a new instance of the main menu, essentially refreshing it
             parent.Controls.Remove(this);
+            
+            // Ensure main menu is brough to front before adding it
             parent.pnlMainMenu = new MainMenuPanel(parent.Height);
+            parent.pnlMainMenu.BringToFront(); // Bring to front
         }
 
         /// <summary>
