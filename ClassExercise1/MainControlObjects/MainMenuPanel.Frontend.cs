@@ -160,12 +160,11 @@ namespace ClassExercise1
             {
                 // First, get actual y position by adding current y position with spacing
                 currentYPosition += GameStartButtonsSpacingY;
-
                 gameStartButton.BackColor = System.Drawing.SystemColors.ControlLightLight;
                 gameStartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 gameStartButton.Location = new System.Drawing.Point(0, currentYPosition);
                 gameStartButton.Name = "btnStartGuessTheNumber";
-                gameStartButton.Size = new System.Drawing.Size(183, 34);
+                gameStartButton.Size = new System.Drawing.Size(183, 30);
                 gameStartButton.TabIndex = currentTab;
                 gameStartButton.UseVisualStyleBackColor = false;
 

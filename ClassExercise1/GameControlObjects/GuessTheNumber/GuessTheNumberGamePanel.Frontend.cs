@@ -49,6 +49,7 @@ namespace ClassExercise1
         private ToolTip mainFrmToolTip { get; set; }
         private ToolTip pnlGuessTheNumberToolTips { get; set; }
         private Container Components { get; set; }
+        private Button btnPlayAgain { get; set; }
         #endregion
 
         #region Control Setup/Styling Methods
@@ -82,6 +83,7 @@ namespace ClassExercise1
             btnSubmitGuess = new System.Windows.Forms.Button();
             lblGuessNumberPrompt = new System.Windows.Forms.Label();
             nudUserGuess = new System.Windows.Forms.NumericUpDown();
+            btnPlayAgain = new System.Windows.Forms.Button();
 
             // Output area
             pnlOutputArea = new System.Windows.Forms.Panel();
@@ -98,9 +100,13 @@ namespace ClassExercise1
             StyleGamePanel();
 
             // Styling for everything else
+
             // 
             // pnlOutputArea
             // 
+            pnlOutputArea.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             pnlOutputArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             pnlOutputArea.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             pnlOutputArea.Controls.Add(lblGuessOutput);
@@ -114,11 +120,10 @@ namespace ClassExercise1
             // 
             lblGuessOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblGuessOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(85)))), ((int)(((byte)(0)))));
-            lblGuessOutput.Location = new System.Drawing.Point(139, 64);
-            lblGuessOutput.Name = "lblGuessOutput";
-            lblGuessOutput.Size = new System.Drawing.Size(370, 23);
+            lblGuessOutput.Location = new System.Drawing.Point(139, 35);
+            lblGuessOutput.Size = new System.Drawing.Size(380, 120);
             lblGuessOutput.TabIndex = 1;
-            lblGuessOutput.Text = "BEGIN THE GAME BY PRESSING \'Begin\'!";
+            lblGuessOutput.Text = "BEGIN THE GAME BY PRESSING \'Begin\'!\n";
             lblGuessOutput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             pnlGuessTheNumberToolTips.SetToolTip(lblGuessOutput, "Your guess output will be displayed here, indicating if you should guess higher o" +
         "r lower.");
@@ -128,13 +133,15 @@ namespace ClassExercise1
             lblAttempts.AutoSize = true;
             lblAttempts.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             lblAttempts.Location = new System.Drawing.Point(4, 4);
-            lblAttempts.Name = "lblOutputArea";
             lblAttempts.Size = new System.Drawing.Size(39, 13);
             lblAttempts.TabIndex = 0;
             lblAttempts.Text = $"Attempts: {Attempts}";
             // 
             // pnlPlayArea
             // 
+            pnlPlayArea.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             pnlPlayArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             pnlPlayArea.Controls.Add(btnSubmitGuess);
             pnlPlayArea.Controls.Add(lblGuessNumberPrompt);
@@ -143,6 +150,8 @@ namespace ClassExercise1
             pnlPlayArea.Name = "pnlPlayArea";
             pnlPlayArea.Size = new System.Drawing.Size(300, 49);
             pnlPlayArea.TabIndex = 7;
+            pnlPlayArea.Hide();
+
             // 
             // btnSubmitGuess
             // 
@@ -157,7 +166,7 @@ namespace ClassExercise1
             btnSubmitGuess.UseVisualStyleBackColor = false;
             // 
             // lblGuessNumberPrompt
-            // 
+            //
             lblGuessNumberPrompt.AutoSize = true;
             lblGuessNumberPrompt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             lblGuessNumberPrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -175,6 +184,7 @@ namespace ClassExercise1
             0,
             0,
             0});
+            nudUserGuess.Minimum = 1;
             nudUserGuess.Name = "nudUserGuess";
             nudUserGuess.Size = new System.Drawing.Size(63, 20);
             nudUserGuess.TabIndex = 6;
@@ -190,6 +200,15 @@ namespace ClassExercise1
             pnlGuessTheNumberToolTips.SetToolTip(btnExitGame, "To exit this game, click here.");
             btnExitGame.UseVisualStyleBackColor = true;
             // 
+            // btnPlayAgain
+            // 
+            btnPlayAgain.Location = new System.Drawing.Point(255, 146);
+            btnPlayAgain.Size = new System.Drawing.Size(71, 23);
+            btnPlayAgain.TabIndex = 4;
+            btnPlayAgain.Text = "Play Again?";
+            btnPlayAgain.UseVisualStyleBackColor = true;
+            btnPlayAgain.Visible = false;
+            // 
             // btnBegin
             // 
             btnBegin.Location = new System.Drawing.Point(5, 146);
@@ -202,6 +221,9 @@ namespace ClassExercise1
             // 
             // gbxSettings
             // 
+            gbxSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             gbxSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             gbxSettings.Controls.Add(lblMaximumGuess);
             gbxSettings.Controls.Add(lblMinimumGuess);
@@ -212,7 +234,7 @@ namespace ClassExercise1
             gbxSettings.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             gbxSettings.Location = new System.Drawing.Point(5, 58);
             gbxSettings.Name = "gbxSettings";
-            gbxSettings.Size = new System.Drawing.Size(300, 82);
+            gbxSettings.Size = new System.Drawing.Size(320, 82);
             gbxSettings.TabIndex = 2;
             gbxSettings.TabStop = false;
             gbxSettings.Text = "Settings";
@@ -304,14 +326,15 @@ namespace ClassExercise1
             Controls.Add(pnlPlayArea);
             Controls.Add(btnExitGame);
             Controls.Add(btnBegin);
+            Controls.Add(btnPlayAgain);
             Controls.Add(gbxSettings);
             Controls.Add(lblGameHeader);
 
             // Next, styling and positioning applied for the panel itself
             BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                | System.Windows.Forms.AnchorStyles.Left)
-                | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
 
             Location = new System.Drawing.Point(12, 12);
             Name = "pnlGuessTheNumber";

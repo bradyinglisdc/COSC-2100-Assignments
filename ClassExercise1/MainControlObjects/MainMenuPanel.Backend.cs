@@ -27,6 +27,14 @@ namespace ClassExercise1
         private const int MinimizedMininimzeButtonX = 105;
         #endregion
 
+        #region Properties
+        public bool Minimized
+        {
+            get;
+            set;
+        }
+        #endregion
+
         #region Constructor(s)
         public MainMenuPanel(int formHeight)
         {
@@ -86,6 +94,8 @@ namespace ClassExercise1
         #region Control Functionality Methods
         public void MinimizePanel()
         {
+            if (Minimized) { return; }
+
             // Shrink the panel so that only the tab bar is showing
             Size = new System.Drawing.Size(MinimizedWidth, pnlTabBar.Size.Height);
 
@@ -99,25 +109,29 @@ namespace ClassExercise1
             // Remove current Click event handler from minimize btn
             btnMinimize.Click -= btnMinimize_Click;
 
-            // Add maximize menu event handler
+            // Add maximize menu event handler and bring to front. Set minimized to true.
             btnMinimize.Click += new EventHandler(btnMaximize_Click);
-
-            // Bring the panel to the front to ensure it is fully viewable over any game
             BringToFront();
+            Minimized = true;
         }
 
         public void MaximizePanel()
         {
+            if(!Minimized) { return; }
 
             // Grab reference to parent form
             frmMain parent = (frmMain)Parent;
 
+            // Return instantly if parent is null
+            /*if (parent == null) { return; }*/
+ 
             // Remove this menu and set parent forms menu to a new instance of the main menu, essentially refreshing it
-            parent.Controls.Remove(this);
+            if (parent.Controls.Contains(this)) { parent.Controls.Remove(this); }
             
-            // Ensure main menu is brough to front before adding it
+            // Ensure main menu is brough to front before adding it. Set minimized to false.
             parent.pnlMainMenu = new MainMenuPanel(parent.Height);
-            parent.pnlMainMenu.BringToFront(); // Bring to front
+            parent.pnlMainMenu.BringToFront(); 
+            Minimized = false;
         }
 
         /// <summary>

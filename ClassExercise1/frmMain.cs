@@ -55,6 +55,21 @@ namespace ClassExercise1
             // Setup the main menu
             InitializeMenu();
         }
+
+
+        /// <summary>
+        /// Called on exit program button click.
+        /// If the user proceeds to click yes on the msg box, application closes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExitProgram_Click(object sender, EventArgs e)
+        {
+            if ((MessageBox.Show("Are you sure you want to exit the program?", "Exit Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes))
+            {
+                Close();
+            }
+        }
         #endregion
 
         #region Form Setup Methods
@@ -78,8 +93,9 @@ namespace ClassExercise1
         /// <param name="gameName">Game name to change to.</param>
         public void ChangeGame(string gameName)
         {
-            // Firstly, minimize menu
+            // Firstly, minimize menu and clear all controls except main menu
             pnlMainMenu.MinimizePanel();
+            ClearGames();
 
             // Next, get the game type
             Type gameType = AvailableGames.GetTypeByName(gameName);
@@ -90,6 +106,24 @@ namespace ClassExercise1
             // Hide game open prompt behind game. If no game is open, user will be prompted again
             lblOpenGamePrompt.SendToBack();
         }
+
+        /// <summary>
+        /// Clears any game instances (game panels) from form and memory.
+        /// </summary>
+        private void ClearGames()
+        {
+            foreach (Control control in Controls)
+            {
+                // If the control is not the menu, a child of the main menu, or exit program btn, delete it
+                if (control != pnlMainMenu && !pnlMainMenu.Contains(control) && control != btnExitProgram && control != lblOpenGamePrompt)
+                {
+                    Controls.Remove(control);
+                }
+            }
+
+        }
+
+
         #endregion
 
     }

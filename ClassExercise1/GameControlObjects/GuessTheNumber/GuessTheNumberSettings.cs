@@ -20,6 +20,7 @@ namespace ClassExercise1
     public static class GuessTheNumberSettings
     {
         #region Difficulty Settings
+        public const int MinimumGuess = 1;
         public const int EasyMode = 10;
         public const int MediumMode = 100;
         public const int HardMode = 1000;
@@ -33,6 +34,13 @@ namespace ClassExercise1
         // General defaults
         public const int StartingAttempts = 0;
         public const int StartingDifficultyIndex = EasyDifficultyIndex;
+        #endregion
+
+        #region Output strings
+        public const string GuessHigherOutput = " is too high!\n";
+        public const string GuessLowerOutput = " is too low!\n";
+        public const string GuessWinnerOutput = " is correct!\n";
+        public const string GameStartedString = "Game started! Enter your guess.\n";
         #endregion
     }
     #endregion

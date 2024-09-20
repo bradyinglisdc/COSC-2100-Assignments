@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 #endregion
 
 # region Namespac Definition
@@ -43,7 +44,7 @@ namespace ClassExercise1
             {
                 // Setter updates difficulty range and gens number within that range
                 _difficultyRange = value;
-                NumberToGuess = Tools.GetRandomNumber(1, DifficultyRange);
+                NumberToGuess = Tools.GetRandomNumber(GuessTheNumberSettings.MinimumGuess, DifficultyRange);
             }
         }
         public int NumberToGuess
@@ -57,9 +58,6 @@ namespace ClassExercise1
         #region Constructor(s)
         public GuessTheNumberGamePanel()
         {
-            // Set game default rules/settings
-            SetDefaultRules();
-
             // Instantiate all controls on constructor call
             SetAllProperties();
 
@@ -68,6 +66,9 @@ namespace ClassExercise1
 
             // Subscribe event handler methods
             SubscribeEventHandlers();
+
+            // Set game default rules/settings
+            SetDefaultRules();
         }
         #endregion
 
@@ -77,8 +78,9 @@ namespace ClassExercise1
         /// </summary>
         private void SetDefaultRules()
         {
+            // Attempts and difficulty
             Attempts = GuessTheNumberSettings.StartingAttempts;
-            cbxDifficultySelection.SelectedIndex = GuessTheNumberSettings.StartingDifficultyIndex;
+            cbxDifficultySelection.SelectedIndex = GuessTheNumberSettings.StartingDifficultyIndex; // Triggers index change
         }
 
         /// <summary>
@@ -87,11 +89,14 @@ namespace ClassExercise1
         private void SubscribeEventHandlers()
         {
             cbxDifficultySelection.SelectedIndexChanged += new EventHandler(cboDifficultySelection_SelectedIndexChanged);
+            btnBegin.Click += new EventHandler(btnBegin_Clicked);
+            btnSubmitGuess.Click += new EventHandler(btnSubmitGuess_Clicked);
+            btnPlayAgain.Click += new EventHandler(btnPlayAgain_Clicked);
+            btnExitGame.Click += new EventHandler(btnExitGame_Clicked);
         }
         #endregion
 
         #region Event Handler Methods
-
         /// <summary>
         /// Method is called on difficulty index change.
         /// Will be called when initial change is made to setup, thus setting
@@ -103,7 +108,50 @@ namespace ClassExercise1
         {
             ChangeDifficulty();
         }
+
+        /// <summary>
+        /// Method is called when begin button is pressed.
+        /// Starts game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBegin_Clicked(object sender, EventArgs e)
+        {
+            StartGame();
+        }
+
+        /// <summary>
+        /// Method is called when submit guess button is pressed. Checks guess.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSubmitGuess_Clicked(object sender, EventArgs e)
+        {
+            CheckGuess();
+        }
+
+        /// <summary>
+        /// Method is called when play again button is clicked.
+        /// Just instantiate a new instance of the panel.
+        /// </summary>
+        private void btnPlayAgain_Clicked(object sender, EventArgs e)
+        {
+            // Grab parent, call change game method on it.
+            frmMain parent = (frmMain)Parent;
+            parent.ChangeGame(GameName);
+        }
         #endregion
+
+        /// <summary>
+        /// Method is called when exit game button is clicked.
+        /// Removes this game insance from form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name=""></param>
+        private void btnExitGame_Clicked(object sender, EventArgs e)
+        {
+            CloseGame();
+        }
 
         #region General logic methods
         /// <summary>
@@ -135,9 +183,66 @@ namespace ClassExercise1
             // Update max label apropriately
             lblMaximumGuess.Text = range.ToString();
 
-            // Update random number apropriately
-
+            // Update difficulty range
+            DifficultyRange = range;
         }
+        #endregion
+
+        /// <summary>
+        /// Verifies user wants to close, then closes.
+        /// </summary>
+        private void CloseGame()
+        {
+            // Close after msg box prompt to user returns true
+            if (MessageBox.Show("Exit game? Unsaved game states will be lost.", "Quit Game", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                Parent.Controls.Remove(this);
+            }
+        }
+
+        #region Main Logic
+        /// <summary>
+        /// Starts the game, allowing user to attempt to guess number
+        /// </summary>
+        private void StartGame()
+        {
+            // Show play area and set difficulty
+            pnlPlayArea.Show();
+            nudUserGuess.Maximum = DifficultyRange;
+
+            // Disable begin button
+            btnBegin.Enabled = false;
+
+            // Change output to inform user game start
+            lblGuessOutput.Text = GuessTheNumberSettings.GameStartedString;
+        }
+        
+        /// <summary>
+        /// Checks user guess against number to guess.
+        /// Tells them when to guess higher, or lower, or a win condition happens.
+        /// </summary>
+        private void CheckGuess()
+        {
+            // Incriment attempts
+            Attempts++;
+            
+            // Check for win condition
+            if (nudUserGuess.Value > NumberToGuess) { lblGuessOutput.Text = nudUserGuess.Value + GuessTheNumberSettings.GuessHigherOutput + lblGuessOutput.Text; }
+            else if (nudUserGuess.Value < NumberToGuess) { lblGuessOutput.Text = nudUserGuess.Value + GuessTheNumberSettings.GuessLowerOutput + lblGuessOutput.Text; }
+            else
+            {
+                // On win condition, disable additional guessing and prompt user to play again.
+                lblGuessOutput.Text = nudUserGuess.Value + GuessTheNumberSettings.GuessWinnerOutput + $"It took you {Attempts} attempts.\n";
+                btnPlayAgain.Show();
+                btnSubmitGuess.Enabled = false;
+                nudUserGuess.Enabled = false;
+                cbxDifficultySelection.Enabled = false;
+            }
+
+            // Update attempts on label on screen
+            lblAttempts.Text = $"Attempts: {Attempts}";
+        }
+
         #endregion
 
     }
