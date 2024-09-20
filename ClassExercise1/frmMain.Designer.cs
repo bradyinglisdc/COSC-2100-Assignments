@@ -28,7 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.lblOpenGamePrompt = new System.Windows.Forms.Label();
+            // 
+            // lblOpenGamePrompt
+            // 
+            this.lblOpenGamePrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblOpenGamePrompt.Location = new System.Drawing.Point(170, 224);
+            this.lblOpenGamePrompt.Name = "lblOpenGamePrompt";
+            this.lblOpenGamePrompt.Size = new System.Drawing.Size(345, 13);
+            this.lblOpenGamePrompt.TabIndex = 1;
+            this.lblOpenGamePrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
+            this.lblOpenGamePrompt.SendToBack();
+
+/*            this.components = new System.ComponentModel.Container();
             this.pnlGuessTheNumber = new System.Windows.Forms.Panel();
             this.pnlOutputArea = new System.Windows.Forms.Panel();
             this.lblGuessOutput = new System.Windows.Forms.Label();
@@ -47,7 +59,7 @@
             this.lblDifficultyLabel = new System.Windows.Forms.Label();
             this.cbxDifficultySelection = new System.Windows.Forms.ComboBox();
             this.lblGameHeader = new System.Windows.Forms.Label();
-            this.lblOpenGamePrompt = new System.Windows.Forms.Label();
+
             this.btnExitProgram = new System.Windows.Forms.Button();
             this.mainFrmToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.pnlGuessTheNumberToolTips = new System.Windows.Forms.ToolTip(this.components);
@@ -269,15 +281,6 @@
             this.lblGameHeader.TabIndex = 0;
             this.lblGameHeader.Text = "Guess The Number!";
             // 
-            // lblOpenGamePrompt
-            // 
-            this.lblOpenGamePrompt.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblOpenGamePrompt.Location = new System.Drawing.Point(170, 224);
-            this.lblOpenGamePrompt.Name = "lblOpenGamePrompt";
-            this.lblOpenGamePrompt.Size = new System.Drawing.Size(345, 13);
-            this.lblOpenGamePrompt.TabIndex = 1;
-            this.lblOpenGamePrompt.Text = "No game open...Press the \'+\' on the Game Picker menu to pick a game!";
-            // 
             // btnExitProgram
             // 
             this.btnExitProgram.Location = new System.Drawing.Point(576, 434);
@@ -286,7 +289,7 @@
             this.btnExitProgram.TabIndex = 2;
             this.btnExitProgram.Text = "E&xit My Games";
             this.mainFrmToolTip.SetToolTip(this.btnExitProgram, "Click here to exit program and close window.");
-            this.btnExitProgram.UseVisualStyleBackColor = true;
+            this.btnExitProgram.UseVisualStyleBackColor = true;*/
             // 
             // frmMain
             // 
@@ -294,16 +297,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.ClientSize = new System.Drawing.Size(684, 461);
-            this.Controls.Add(this.btnExitProgram);
-            this.Controls.Add(this.pnlGuessTheNumber);
+           /* this.Controls.Add(this.pnlGuessTheNumber);*/
             this.Controls.Add(this.lblOpenGamePrompt);
+            this.Controls.Add(this.btnExitProgram);
             this.MaximumSize = new System.Drawing.Size(1000, 600);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "My Games";
-            this.mainFrmToolTip.SetToolTip(this, "You can start a game by pressing the plus icon on the game picker menu.\r\n");
-            this.Load += new System.EventHandler(this.frmMain_Load);
-            this.pnlGuessTheNumber.ResumeLayout(false);
+/*            this.mainFrmToolTip.SetToolTip(this, "You can start a game by pressing the plus icon on the game picker menu.\r\n");
+*/            this.Load += new System.EventHandler(this.frmMain_Load);
+  /*          this.pnlGuessTheNumber.ResumeLayout(false);
             this.pnlGuessTheNumber.PerformLayout();
             this.pnlOutputArea.ResumeLayout(false);
             this.pnlOutputArea.PerformLayout();
@@ -312,7 +315,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudUserGuess)).EndInit();
             this.gbxSettings.ResumeLayout(false);
             this.gbxSettings.PerformLayout();
-            this.ResumeLayout(false);
+            this.ResumeLayout(false);*/
 
         }
 

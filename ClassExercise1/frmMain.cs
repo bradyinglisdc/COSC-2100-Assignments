@@ -63,8 +63,11 @@ namespace ClassExercise1
         /// </summary>
         private void InitializeMenu()
         {
-            // Insatioate and add main menu to form controls
+            // Insatiate and add main menu to form controls
             pnlMainMenu = new MainMenuPanel(Height);
+
+            // Minimize main menu for now
+            pnlMainMenu.MinimizePanel();
         }
         #endregion
 
@@ -72,11 +75,20 @@ namespace ClassExercise1
         /// <summary>
         /// Switches to specified game.
         /// </summary>
-        /// <param name="gameName">Game to change to.</param>
+        /// <param name="gameName">Game name to change to.</param>
         public void ChangeGame(string gameName)
         {
             // Firstly, minimize menu
             pnlMainMenu.MinimizePanel();
+
+            // Next, get the game type
+            Type gameType = AvailableGames.GetTypeByName(gameName);
+
+            // Create an instance of the game type and add it to controls.
+            Controls.Add((Control)Activator.CreateInstance(gameType));
+
+            // Hide game open prompt behind game. If no game is open, user will be prompted again
+            lblOpenGamePrompt.SendToBack();
         }
         #endregion
 

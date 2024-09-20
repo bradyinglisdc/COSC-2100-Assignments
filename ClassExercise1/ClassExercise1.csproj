@@ -53,6 +53,12 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="GameControlObjects\AvailableGames.cs" />
+    <Compile Include="GameControlObjects\GenericGamePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameControlObjects\GuessTheNumberGamePanel.Frontend.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainControlObjects\MainMenuPanel.Backend.cs">
       <SubType>Component</SubType>
     </Compile>

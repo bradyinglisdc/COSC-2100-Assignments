@@ -12,6 +12,7 @@
 
 #region Namespaces Used
 using System;
+using System.Linq;
 using System.Windows.Forms;
 #endregion
 
@@ -123,11 +124,11 @@ namespace ClassExercise1
         /// Switches current game to whatever was selected (gameName string)
         /// if it exists.
         /// </summary>
-        /// <param name="gameName">The name of the game to switch to.</param>
+        /// <param name="game">The game name to switch to.</param>
         public void ChangeGame(string gameName)
         {
             // Ensure game name exist. Display error and return otherwise.
-            if (!AvailableGames.GameNames.Contains(gameName)) 
+            if (!AvailableGames.ContainsGameByName(gameName)) 
             {
                 DisplayError($"Attempted to access game that does not exist. ({gameName})\nPlease see 'AvailableGames'" +
                     "class for list of all games.");

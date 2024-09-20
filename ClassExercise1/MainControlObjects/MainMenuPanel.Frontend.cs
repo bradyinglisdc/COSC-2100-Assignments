@@ -16,6 +16,7 @@
 #region Namespaces Used
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System;
 #endregion
 
 #region Namespace Definition
@@ -65,9 +66,9 @@ namespace ClassExercise1
 
             // Instantiate a new button for each available games
             GameStartButtons = new List<Button>();
-            foreach(string game in AvailableGames.GameNames)
+            foreach (Type gameType in AvailableGames.Games)
             {
-                GameStartButtons.Add(new Button() { Text = game });
+                GameStartButtons.Add(new Button() { Text = ((GenericGamePanel)Activator.CreateInstance(gameType)).GameName });
             }
         }
 
