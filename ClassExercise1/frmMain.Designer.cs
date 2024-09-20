@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnExitProgram = new System.Windows.Forms.Button();
             this.pnlIceCream = new System.Windows.Forms.Panel();
             this.tctrlContentArea = new System.Windows.Forms.TabControl();
@@ -42,6 +43,7 @@
             this.lblProductPrice = new System.Windows.Forms.Label();
             this.lblProductName = new System.Windows.Forms.Label();
             this.btnAddProduct = new System.Windows.Forms.Button();
+            this.IceCreamHelperToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.pnlIceCream.SuspendLayout();
             this.tctrlContentArea.SuspendLayout();
             this.tpgOrderTotal.SuspendLayout();
@@ -101,6 +103,7 @@
             this.lblCartEmptyIndiactor.Text = "Looks like your order is empty...\r\nHead over to the \'Cart Menu\' tab to create you" +
     "r order.";
             this.lblCartEmptyIndiactor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IceCreamHelperToolTips.SetToolTip(this.lblCartEmptyIndiactor, "Navigate to \'Cart Menu\' tab to add items to order.");
             // 
             // lblOrderTotalFooter
             // 
@@ -171,6 +174,7 @@
             this.pnlProduct.Name = "pnlProduct";
             this.pnlProduct.Size = new System.Drawing.Size(606, 34);
             this.pnlProduct.TabIndex = 0;
+            this.IceCreamHelperToolTips.SetToolTip(this.pnlProduct, "Click \"Add To Order\" on this product to add it to your order.");
             // 
             // lblProductPrice
             // 
@@ -202,7 +206,7 @@
             this.btnAddProduct.Name = "btnAddProduct";
             this.btnAddProduct.Size = new System.Drawing.Size(100, 23);
             this.btnAddProduct.TabIndex = 2;
-            this.btnAddProduct.Text = "Add To Cart";
+            this.btnAddProduct.Text = "Add To Order";
             this.btnAddProduct.UseVisualStyleBackColor = true;
             // 
             // frmMain
@@ -246,6 +250,7 @@
         private System.Windows.Forms.Label lblProductPrice;
         private System.Windows.Forms.Label lblProductName;
         private System.Windows.Forms.Button btnAddProduct;
+        private System.Windows.Forms.ToolTip IceCreamHelperToolTips;
     }
 }
 

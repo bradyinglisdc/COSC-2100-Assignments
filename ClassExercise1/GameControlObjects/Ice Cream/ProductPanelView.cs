@@ -34,6 +34,49 @@ namespace ClassExercise1
         /// </summary>
         public void CreateAndAddControls()
         {
+            foreach (Product product in Product.Products)
+            {
+                // Create new product panel and it's child controls
+                Panel pnlProduct = new Panel();
+                Label lblName = new Label();
+                Label lblPrice = new Label();
+                Button btnAddToOrder = new Button();
+
+                // Style product panel
+                pnlProduct.BackColor = System.Drawing.Color.LightGray;
+
+                pnlProduct.Location = new System.Drawing.Point(6, 6);
+                pnlProduct.Name = "pnlProduct";
+                pnlProduct.Size = new System.Drawing.Size(606, 34);
+                pnlProduct.TabIndex = 0;
+
+                // Style product name
+                lblName.AutoSize = true;
+                lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblName.ForeColor = System.Drawing.Color.Black;
+                lblName.Location = new System.Drawing.Point(63, 7);
+                lblName.Name = "lblProductName";
+                lblName.Size = new System.Drawing.Size(122, 20);
+                lblName.TabIndex = 1;
+                lblName.Text = "Product Name";
+
+                // Style product price
+                lblPrice.AutoSize = true;
+                lblPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                lblPrice.ForeColor = System.Drawing.Color.Green;
+                lblPrice.Location = new System.Drawing.Point(3, 7);
+                lblPrice.Name = "lblProductPrice";
+                lblPrice.Size = new System.Drawing.Size(54, 20);
+                lblPrice.TabIndex = 0;
+                lblPrice.Text = "$9.99";
+
+                // Add children to product panel
+                pnlProduct.Controls.Add(lblPrice);
+                pnlProduct.Controls.Add(lblName);
+                pnlProduct.Controls.Add(lblName);
+
+                // Finally, add product panel to this ProductPanelView
+            }
 
         }
         #endregion

@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 #endregion
 
 #region Namespace Definition
-namespace ClassExercise1.GameControlObjects.Ice_Cream
+namespace ClassExercise1
 {
     #region Class Definition
     public class Product
