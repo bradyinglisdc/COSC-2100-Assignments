@@ -35,7 +35,7 @@ namespace Assignment1
         /// <summary>
         /// Main menu constructor simply instantiates, adds logic to, and styles all child controls
         /// </summary>
-        public MainMenuPanel()
+        public MainMenuPanel() : base()
         {
             InstantiateControls();
             SubscribeEventHandlers();
@@ -94,7 +94,7 @@ namespace Assignment1
             #region lblMenuHeader Styling
             lblMenuHeader.Text = "Tic Tac Toe";
             lblMenuHeader.ForeColor = Color.FromArgb(0, 200, 0);
-            lblMenuHeader.Width = Parent.Width;
+            lblMenuHeader.Width = 282;
             lblMenuHeader.Height = 46;
             lblMenuHeader.TextAlign = ContentAlignment.MiddleCenter;
             lblMenuHeader.Font = new Font("Courier New", 30, FontStyle.Underline);
@@ -138,7 +138,7 @@ namespace Assignment1
             #endregion
         }
         #endregion
-
+        
         #region Event Handlers
         /// <summary>
         /// Start a new HumanVsHuman game on click.
@@ -151,7 +151,11 @@ namespace Assignment1
             if (Parent == null) { return; }
 
             // Clear parent controls, instantiate and add HumanVsHuman panel
-            Parent.Controls.Clear();
+            Control parent = Parent;
+            parent.Controls.Clear();
+
+            GenericGamePanel pnlHumanVsHuman = new GenericGamePanel();
+            parent.Controls.Add(pnlHumanVsHuman);
         }
 
         /// <summary>
@@ -165,7 +169,12 @@ namespace Assignment1
             if (Parent == null) { return; }
 
             // Clear parent controls, instantiate and add HumanVsAI panel
-            Parent.Controls.Clear();
+            Control parent = Parent;
+            parent.Controls.Clear();
+
+            GenericGamePanel pnlHumanVsAI = new GenericGamePanel();
+            pnlHumanVsAI.StyleControls();
+            parent.Controls.Add(pnlHumanVsAI);
         }
 
         /// <summary>

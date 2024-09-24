@@ -52,7 +52,10 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainControls\GenericGamePanel.cs" />
+    <Compile Include="HelperClasses\Tools.cs" />
+    <Compile Include="MainControls\GenericGamePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainControls\MainMenuPanel.cs">
       <SubType>Component</SubType>
     </Compile>

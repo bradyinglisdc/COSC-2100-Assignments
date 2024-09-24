@@ -9,6 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Drawing;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 #endregion
 
 #region Namespace Definition
@@ -17,8 +19,28 @@ namespace Assignment1
     #region Class Definition
     public partial class frmMain : Form
     {
+        #region Backing Data Members
+        private MainMenuPanel _pnlMainMenu;
+        #endregion
+
         #region Properties
-        public MainMenuPanel pnlMainMenu { get; set; }
+        /// <summary>
+        /// Gets and sets main menu panel for the application.
+        /// When setter is called, controls will be cleared and
+        /// the new main menu value will replace any other controls.
+        /// </summary>
+        public MainMenuPanel pnlMainMenu
+        {
+            get { return _pnlMainMenu; }
+            set
+            {
+                this._pnlMainMenu = value;
+                this.Controls.Clear();
+                this.Controls.Add(value);
+                this._pnlMainMenu.StyleControls();
+                this._pnlMainMenu.StyleControls();
+            }
+        }
         #endregion
 
         #region Constructor(s)
@@ -39,18 +61,8 @@ namespace Assignment1
         /// </summary>
         private void SetupControls()
         {
-            DefineControls();
-        }
-
-        /// <summary>
-        /// Defines each control, adds to parent control/form
-        /// </summary>
-        private void DefineControls()
-        {
             #region Main Menu
             pnlMainMenu = new MainMenuPanel();
-            this.Controls.Add(pnlMainMenu);
-            pnlMainMenu.StyleControls(); 
             #endregion
         }
 
