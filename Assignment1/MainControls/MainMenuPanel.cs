@@ -28,6 +28,7 @@ namespace Assignment1
         public Button btnStartHumanVsAI { get; set; }
         public Button btnExitGame { get; set; }
         public int[] ParentControlDimensions { get; set; }
+        public ToolTip ToolTips { get; set; }
         #endregion
 
         #region Consructor(s)
@@ -52,6 +53,7 @@ namespace Assignment1
             btnStartHumanVsHuman = new Button();
             btnStartHumanVsAI = new Button();
             btnExitGame = new Button();
+            ToolTips = new ToolTip();
 
             // Add to controls to collection of controls
             this.Controls.Add(lblMenuHeader);
@@ -66,7 +68,8 @@ namespace Assignment1
         private void SubscribeEventHandlers()
         {
             btnStartHumanVsHuman.Click += new EventHandler(btnStartHumanVsHuman_Click);
-
+            btnStartHumanVsAI.Click += new EventHandler(btnStartHumanVsHuman_Click);
+            btnExitGame.Click += new EventHandler(btnExitGame_Click);
         }
 
         /// <summary>
@@ -92,47 +95,101 @@ namespace Assignment1
             lblMenuHeader.Text = "Tic Tac Toe";
             lblMenuHeader.ForeColor = Color.FromArgb(0, 200, 0);
             lblMenuHeader.Width = Parent.Width;
-            lblMenuHeader.Height = verticalCentre / 2;
+            lblMenuHeader.Height = 46;
             lblMenuHeader.TextAlign = ContentAlignment.MiddleCenter;
-            lblMenuHeader.Font = new Font("Segoe UI", 30);
-            lblMenuHeader.Location = new Point(horizontalCentre - lblMenuHeader.Width / 2, verticalCentre / 4);
+            lblMenuHeader.Font = new Font("Courier New", 30, FontStyle.Underline);
+            lblMenuHeader.Location = new Point(horizontalCentre - lblMenuHeader.Width / 2, verticalCentre / 2);
             #endregion
 
-
-            #region btnStartHumanVsHumn Styling
-            btnStartHumanVsHuman.Text = "Human Vs Human";
-            btnStartHumanVsHuman.BackColor = Color.FromArgb(190, 190, 190);
+            #region btnStartHumanVsHuman Styling
+            ToolTips.SetToolTip(btnStartHumanVsHuman, "To start a Human Vs Human Tic Tac Toe game, click here, or press Alt + H");
+            btnStartHumanVsHuman.Text = "Human Vs &Human";
+            btnStartHumanVsHuman.BackColor = Color.FromArgb(255, 255, 255);
+            btnStartHumanVsHuman.ForeColor = Color.FromArgb(0, 100, 0);
+            btnStartHumanVsHuman.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnStartHumanVsHuman.Width = horizontalCentre;
             btnStartHumanVsHuman.Height = 25;
-            btnStartHumanVsHuman.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, verticalCentre - btnStartHumanVsHuman.Height);
+            btnStartHumanVsHuman.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, lblMenuHeader.Location.Y + lblMenuHeader.Height * 2);
+            btnStartHumanVsHuman.MaximumSize = new Size(500, 25);
             #endregion
 
             #region btnStartHumanVsAI Styling
-            btnStartHumanVsAI.Text = "Human Vs AI";
-            btnStartHumanVsAI.BackColor = Color.FromArgb(190, 190, 190);
+            ToolTips.SetToolTip(btnStartHumanVsAI, "To start a Human Vs AI Tic Tac Toe game, click here, or press Alt + A");
+            btnStartHumanVsAI.Text = "Human Vs &AI";
+            btnStartHumanVsAI.BackColor = Color.FromArgb(255, 255, 255);
+            btnStartHumanVsAI.ForeColor = Color.FromArgb(0, 100, 0);
+            btnStartHumanVsAI.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnStartHumanVsAI.Width = horizontalCentre;
             btnStartHumanVsAI.Height = 25;
-            btnStartHumanVsAI.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, verticalCentre);
+            btnStartHumanVsAI.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, btnStartHumanVsHuman.Location.Y + btnStartHumanVsHuman.Height);
+            btnStartHumanVsAI.MaximumSize = new Size(500, 25);
             #endregion
 
             #region btnStartHumanVsAI Styling
-            btnExitGame.Text = "Exit Game";
-            btnExitGame.BackColor = Color.FromArgb(190, 190, 190);
+            ToolTips.SetToolTip(btnExitGame, "To exit the application, click here, or press Alt + X");
+            btnExitGame.Text = "E&xit Game";
+            btnExitGame.BackColor = Color.FromArgb(255, 255, 255);
+            btnExitGame.ForeColor = Color.FromArgb(0, 100, 0);
+            btnExitGame.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnExitGame.Width = horizontalCentre / 2;
             btnExitGame.Height = 25;
-            btnExitGame.Location = new Point(horizontalCentre - btnExitGame.Width / 2, verticalCentre + btnExitGame.Height);
+            btnExitGame.Location = new Point(horizontalCentre - btnExitGame.Width / 2, btnStartHumanVsAI.Location.Y + btnStartHumanVsAI.Height);
+            btnExitGame.MaximumSize = new Size(300, 25);
             #endregion
         }
         #endregion
 
         #region Event Handlers
         /// <summary>
-        /// All event handler methods defined here
+        /// Start a new HumanVsHuman game on click.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnStartHumanVsHuman_Click(object sender, EventArgs e)
         {
+            // Ensure parent isn't null
+            if (Parent == null) { return; }
+
+            // Clear parent controls, instantiate and add HumanVsHuman panel
+            Parent.Controls.Clear();
+        }
+
+        /// <summary>
+        /// Start a new HumanVsAI game on click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnStartHumanVsAI_Click(object sender, EventArgs e)
+        {
+            // Ensure parent isn't null
+            if (Parent == null) { return; }
+
+            // Clear parent controls, instantiate and add HumanVsAI panel
+            Parent.Controls.Clear();
+        }
+
+        /// <summary>
+        /// Exit the application on click.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExitGame_Click(object sender, EventArgs e)
+        {
+            CloseParentForm();
+        }
+        #endregion
+
+        #region General Methods
+        /// <summary>
+        /// Ensures parent is a valid Form and then closes it.
+        /// </summary>
+        private void CloseParentForm()
+        {
+            // Ensure parent exists and is a form first
+            if (Parent == null || !(Parent is Form)) { return; }
+
+            // Convert parent control to it's child type (Form), and then close it
+            ((Form)Parent).Close();
         }
         #endregion
     }
