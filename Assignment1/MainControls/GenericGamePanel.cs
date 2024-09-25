@@ -24,8 +24,8 @@ namespace Assignment1
     public class GenericGamePanel : Panel
     {
         #region Properties
-        private Button btnExitToMenu { get; set; }
-        private ToolTip ToolTips { get; set; }
+        public Button btnExitToMenu { get; set; }
+        public ToolTip ToolTips { get; set; }
         #endregion
 
         #region Constructor(s)
@@ -35,8 +35,8 @@ namespace Assignment1
         public GenericGamePanel() : base()
         {
             InstantiateControls();
-            StyleControls();
             SubscribeEventHandlers();
+            StyleControls();
         }
         #endregion
 

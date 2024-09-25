@@ -21,6 +21,7 @@ namespace Assignment1
     {
         #region Backing Data Members
         private MainMenuPanel _pnlMainMenu;
+        private HumanVsHumanPanel _pnlHumanVsHuman;
         #endregion
 
         #region Properties
@@ -37,8 +38,26 @@ namespace Assignment1
                 this._pnlMainMenu = value;
                 this.Controls.Clear();
                 this.Controls.Add(value);
-                this._pnlMainMenu.StyleControls();
-                this._pnlMainMenu.StyleControls();
+                this.pnlMainMenu.StyleControls();
+                StyleControls();
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets human vs human panel for the application.
+        /// When the setter is called, controls will be cleared and
+        /// the human vs human value will replace any other controls.
+        /// </summary>
+        public HumanVsHumanPanel pnlHumanVsHuman
+        {
+            get { return _pnlHumanVsHuman; }
+            set
+            {
+                this._pnlHumanVsHuman = value;
+                this.Controls.Clear();
+                this.Controls.Add(value);
+                this.pnlHumanVsHuman.StyleSetupControls();
+                StyleControls();
             }
         }
         #endregion
@@ -73,15 +92,26 @@ namespace Assignment1
         {
             this.Resize += RestyleControls;
         }
+
+        /// <summary>
+        /// Styles any main controls if they are currently children (pnlMainMenu, 
+        /// pnlHumanVsHuman and/or pnlHumanVsAI)
+        /// </summary>
+        private void StyleControls()
+        {
+            if (pnlMainMenu != null) { pnlMainMenu.StyleControls(); }
+            if (pnlHumanVsHuman != null) { pnlHumanVsHuman.StyleSetupControls(); }
+        }
+
         #endregion
 
-        #region General Methods
+        #region Event Handler Methods
         /// <summary>
-        /// Restyles whichever panel control isn't null
+        /// Restyles whichever panel controls aren't null
         /// </summary>
         private void RestyleControls(object sender, EventArgs e)
         {
-            if (pnlMainMenu != null) { pnlMainMenu.StyleControls(); }
+            StyleControls();
         }
         #endregion
     }

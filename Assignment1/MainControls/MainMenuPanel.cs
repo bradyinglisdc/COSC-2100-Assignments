@@ -68,7 +68,7 @@ namespace Assignment1
         private void SubscribeEventHandlers()
         {
             btnStartHumanVsHuman.Click += new EventHandler(btnStartHumanVsHuman_Click);
-            btnStartHumanVsAI.Click += new EventHandler(btnStartHumanVsHuman_Click);
+            btnStartHumanVsAI.Click += new EventHandler(btnStartHumanVsAI_Click);
             btnExitGame.Click += new EventHandler(btnExitGame_Click);
         }
 
@@ -103,6 +103,7 @@ namespace Assignment1
 
             #region btnStartHumanVsHuman Styling
             ToolTips.SetToolTip(btnStartHumanVsHuman, "To start a Human Vs Human Tic Tac Toe game, click here, or press Alt + H");
+            btnStartHumanVsHuman.TabIndex = 0;
             btnStartHumanVsHuman.Text = "Human Vs &Human";
             btnStartHumanVsHuman.BackColor = Color.FromArgb(255, 255, 255);
             btnStartHumanVsHuman.ForeColor = Color.FromArgb(0, 100, 0);
@@ -111,10 +112,12 @@ namespace Assignment1
             btnStartHumanVsHuman.Height = 25;
             btnStartHumanVsHuman.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, lblMenuHeader.Location.Y + lblMenuHeader.Height * 2);
             btnStartHumanVsHuman.MaximumSize = new Size(500, 25);
+            btnStartHumanVsHuman.Focus();
             #endregion
 
             #region btnStartHumanVsAI Styling
             ToolTips.SetToolTip(btnStartHumanVsAI, "To start a Human Vs AI Tic Tac Toe game, click here, or press Alt + A");
+            btnStartHumanVsAI.TabIndex = 1;
             btnStartHumanVsAI.Text = "Human Vs &AI";
             btnStartHumanVsAI.BackColor = Color.FromArgb(255, 255, 255);
             btnStartHumanVsAI.ForeColor = Color.FromArgb(0, 100, 0);
@@ -125,8 +128,9 @@ namespace Assignment1
             btnStartHumanVsAI.MaximumSize = new Size(500, 25);
             #endregion
 
-            #region btnStartHumanVsAI Styling
+            #region btnExitGame Styling
             ToolTips.SetToolTip(btnExitGame, "To exit the application, click here, or press Alt + X");
+            btnExitGame.TabIndex = 2;
             btnExitGame.Text = "E&xit Game";
             btnExitGame.BackColor = Color.FromArgb(255, 255, 255);
             btnExitGame.ForeColor = Color.FromArgb(0, 100, 0);
@@ -147,16 +151,11 @@ namespace Assignment1
         /// <param name="e"></param>
         private void btnStartHumanVsHuman_Click(object sender, EventArgs e)
         {
-            // Ensure parent isn't null
-            if (Parent == null) { return; }
+            // Ensure parent exists and is frmMain
+            if (Parent == null || !(Parent is frmMain)) { return; }
 
-            // Clear parent controls, instantiate and add HumanVsHuman panel
-            Control parent = Parent;
-            parent.Controls.Clear();
-
-            HumanVsHumanPanel pnlHumanVsHuman = new HumanVsHumanPanel();
-            parent.Controls.Add(pnlHumanVsHuman);
-            pnlHumanVsHuman.StyleControls();
+            // Set parent control to a new instance of the HumanVsHuman panel
+            ((frmMain)Parent).pnlHumanVsHuman = new HumanVsHumanPanel();
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>10.0</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5685BB3B-39E3-426D-962A-CFF88C36C949}</ProjectGuid>
@@ -52,9 +53,20 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GamePanels\HumanVsHumanPanel.cs">
+    <Compile Include="GameModes\BoardPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GameModes\GameInfoPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameModes\GameState.cs" />
+    <Compile Include="GameModes\HumanVsHuman\HumanVsHumanPanel.Backend.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameModes\HumanVsHuman\HumanVsHumanPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GameModes\Settings.cs" />
     <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControls\GenericGamePanel.cs">
       <SubType>Component</SubType>
