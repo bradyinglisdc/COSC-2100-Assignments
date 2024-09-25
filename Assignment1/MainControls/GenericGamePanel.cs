@@ -24,8 +24,8 @@ namespace Assignment1
     public class GenericGamePanel : Panel
     {
         #region Properties
-        public Button btnExitToMenu { get; set; }
-        public ToolTip ToolTips { get; set; }
+        private Button btnExitToMenu { get; set; }
+        private ToolTip ToolTips { get; set; }
         #endregion
 
         #region Constructor(s)
@@ -66,7 +66,7 @@ namespace Assignment1
         /// <summary>
         /// Styles the child controls.
         /// </summary>
-        public void StyleControls()
+        private void StyleControls()
         {
             #region btnExitToMenu Styling
             ToolTips.SetToolTip(btnExitToMenu, "Click here, or press Alt + X to return to Main menu");

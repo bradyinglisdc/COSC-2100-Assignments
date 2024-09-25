@@ -23,12 +23,12 @@ namespace Assignment1
     public class MainMenuPanel : Panel
     {
         #region Properties
-        public Label lblMenuHeader { get; set; }
-        public Button btnStartHumanVsHuman { get; set; }
-        public Button btnStartHumanVsAI { get; set; }
-        public Button btnExitGame { get; set; }
-        public int[] ParentControlDimensions { get; set; }
-        public ToolTip ToolTips { get; set; }
+        private int[] ParentControlDimensions { get; set; }
+        private Label lblMenuHeader { get; set; }
+        private Button btnStartHumanVsHuman { get; set; }
+        private Button btnStartHumanVsAI { get; set; }
+        private Button btnExitGame { get; set; }
+        private ToolTip ToolTips { get; set; }
         #endregion
 
         #region Consructor(s)
@@ -154,8 +154,9 @@ namespace Assignment1
             Control parent = Parent;
             parent.Controls.Clear();
 
-            GenericGamePanel pnlHumanVsHuman = new GenericGamePanel();
+            HumanVsHumanPanel pnlHumanVsHuman = new HumanVsHumanPanel();
             parent.Controls.Add(pnlHumanVsHuman);
+            pnlHumanVsHuman.StyleControls();
         }
 
         /// <summary>
@@ -173,7 +174,6 @@ namespace Assignment1
             parent.Controls.Clear();
 
             GenericGamePanel pnlHumanVsAI = new GenericGamePanel();
-            pnlHumanVsAI.StyleControls();
             parent.Controls.Add(pnlHumanVsAI);
         }
 
