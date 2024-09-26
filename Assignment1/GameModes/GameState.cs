@@ -157,13 +157,6 @@ namespace Assignment1
         /// <returns>PlayerOneWin/PlayerTwoWin/Draw/None</returns>
         public BoardState GetBoardState()
         {
-            // Check for draw
-            if (CheckDraw()) 
-            {
-                GameOver = true;
-                return BoardState.Draw; 
-            }
-
             // Check for horizontal and vertical wins
             for (int i = 0; i < CurrentBoard.GetLength(0); i++)
             {
@@ -199,6 +192,14 @@ namespace Assignment1
                 GameOver = true;
                 return BoardState.Win;
             }
+
+            // Check for draw
+            if (CheckDraw())
+            {
+                GameOver = true;
+                return BoardState.Draw;
+            }
+
             return BoardState.None;
         }
 

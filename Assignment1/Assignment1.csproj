@@ -67,6 +67,9 @@
     <Compile Include="GameModes\HumanVsHuman\HumanVsHumanPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GameModes\ScoreBlock.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GameModes\Settings.cs" />
     <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControls\GenericGamePanel.cs">

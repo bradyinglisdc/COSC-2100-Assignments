@@ -54,7 +54,6 @@ namespace Assignment1
                 StyleGameControls();
             }
         }
-        public GameInfoPanel pnlGameInfo { get; set; }
         private Label lblCurrentPlayerHeader { get; set; }
         public Button btnPlayAgain { get; set; }
 
