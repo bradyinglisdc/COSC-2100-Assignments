@@ -13,7 +13,7 @@ namespace Assignment1
     {
         #region Name Lengths + Name Length Error Messages
         public const int MinimumNameLength = 2;
-        public const int MaximumNameLength = 30;
+        public const int MaximumNameLength = 15;
 
         public static string NameLengthError = $"Error - All player names must be from {MinimumNameLength} to {MaximumNameLength} characters in length, inclusive.";
         #endregion
@@ -26,6 +26,14 @@ namespace Assignment1
             { '#','#','#' },
         };
         public const int BoardSize = 9;
+        #endregion
+
+        #region Game Info Panel Settings
+        // Focus change
+        public const string MinmizeInfoPanelToolTip = "Click here, or press Alt + S to minimize scorecard.";
+        public const string MaximizeInfoPanelToolTip = "Click here, or press Alt + S to maximize scorecard.";
+        public const string MinmizeInfoPanelPrompt = "Hide &Scorecard";
+        public const string MaximizeInfoPanelPrompt = "View &Scorecard";
         #endregion
     }
     #endregion

@@ -68,6 +68,7 @@ namespace Assignment1
             this.Controls.Add(lblCurrentPlayerHeader);
             this.Controls.Add(btnPlayAgain);
             pnlGameBoard = new BoardPanel();
+            pnlGameInfo = new GameInfoPanel(BoundGameState);
         }
         #endregion
 

@@ -151,7 +151,6 @@ namespace Assignment1
         /// <param name="gridPosition"></param>
         private void AddPlayerMark(Label gridPosition)
         {
-   
             // Just return if the parent does not exist or the label already contains a marker
             if (Parent == null || gridPosition.Text != "") { return; }
 
@@ -162,9 +161,6 @@ namespace Assignment1
                 parentPanel.UpdateCurrentState(gridPosition);
             }
             /*else if (this.Parent is HumanVsAIPanel) { gameState = ((HumanVsAIPanel)this.Parent).BoundGameState; }*/
-
-            // Return if it is not of the correct type
-            else { return; }
         }
         #endregion
 

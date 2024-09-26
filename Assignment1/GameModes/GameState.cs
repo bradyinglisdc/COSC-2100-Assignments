@@ -165,6 +165,7 @@ namespace Assignment1
                     (CurrentBoard[0, i] == 'X' && CurrentBoard[1, i] == 'X' && CurrentBoard[2, i] == 'X'))
                 {
                     GameOver = true;
+                    Scores[0]++;
                     return BoardState.Win;
                 }
 
@@ -173,6 +174,7 @@ namespace Assignment1
                     (CurrentBoard[0, i] == 'O' && CurrentBoard[1, i] == 'O' && CurrentBoard[2, i] == 'O'))
                 {
                     GameOver = true;
+                    Scores[1]++;
                     return BoardState.Win;
                 }
             }
@@ -182,6 +184,7 @@ namespace Assignment1
                 (CurrentBoard[0, 2] == 'X' && CurrentBoard[1, 1] == 'X' && CurrentBoard[2, 0] == 'X'))
             {
                 GameOver = true;
+                Scores[0]++;
                 return BoardState.Win;
             }
 
@@ -190,6 +193,7 @@ namespace Assignment1
                 (CurrentBoard[0, 2] == 'O' && CurrentBoard[1, 1] == 'O' && CurrentBoard[2, 0] == 'O'))
             {
                 GameOver = true;
+                Scores[1]++;
                 return BoardState.Win;
             }
 
@@ -197,6 +201,7 @@ namespace Assignment1
             if (CheckDraw())
             {
                 GameOver = true;
+                Scores[2]++;
                 return BoardState.Draw;
             }
 

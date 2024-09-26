@@ -24,6 +24,7 @@ namespace Assignment1
     {
         #region Backing Data Members
         private BoardPanel _pnlGameBoard;
+        private GameInfoPanel _pnlGameInfo;
         #endregion
 
         #region Properties
@@ -51,7 +52,20 @@ namespace Assignment1
                 this._pnlGameBoard = value;
                 this.Controls.Add(value);
                 value.StyleControls();
-                StyleGameControls();
+            }
+        }
+        /// <summary>
+        /// The game info panel. Contains info about the game.
+        /// </summary>
+        public GameInfoPanel pnlGameInfo
+        {
+            get { return _pnlGameInfo; }
+            set
+            {
+                this._pnlGameInfo = value;
+                this.Controls.Add(value);
+                value.StyleControls();
+                StyleGameControls(); // Ensure all game controls are styled
             }
         }
         private Label lblCurrentPlayerHeader { get; set; }
@@ -136,7 +150,7 @@ namespace Assignment1
             #endregion
 
             #region lblPlayerOneNamePrompt
-            lblPlayerOneNamePrompt.Text = "Player X, enter your name here:";
+            lblPlayerOneNamePrompt.Text = "Player X, enter your nickname here:";
             lblPlayerOneNamePrompt.ForeColor = Color.FromArgb(0, 200, 0);
             lblPlayerOneNamePrompt.Width = pnlGameSetup.Width;
             lblPlayerOneNamePrompt.Height = 40;
@@ -158,7 +172,7 @@ namespace Assignment1
             #endregion
 
             #region lblPlayerTwoNamePrompt
-            lblPlayerTwoNamePrompt.Text = "Player O, enter your name here:";
+            lblPlayerTwoNamePrompt.Text = "Player O, enter your nickname here:";
             lblPlayerTwoNamePrompt.ForeColor = Color.FromArgb(0, 200, 0);
             lblPlayerTwoNamePrompt.Width = pnlGameSetup.Width;
             lblPlayerTwoNamePrompt.Height = 40;
@@ -197,7 +211,6 @@ namespace Assignment1
 
             // Style main game controls if a board is present
             StyleGameControls();
-
         }
 
         /// <summary>
@@ -220,7 +233,7 @@ namespace Assignment1
 
             #region btnPlayAgain Styling
             pnlGameBoard.ToolTips.SetToolTip(btnPlayAgain, "To play again and save this score to memory, click here, or press Alt + P");
-            btnPlayAgain.TabIndex = 0;
+            btnPlayAgain.TabIndex = 2;
             btnPlayAgain.Text = "&Play Again?";
             btnPlayAgain.BackColor = Color.FromArgb(255, 255, 255);
             btnPlayAgain.ForeColor = Color.FromArgb(0, 100, 0);
@@ -236,6 +249,10 @@ namespace Assignment1
 
             #region pnlGameBoard Styling
             pnlGameBoard.StyleControls();
+            #endregion
+
+            #region pnlGameInfo Styling
+            pnlGameInfo.StyleControls();
             #endregion
         }
 
