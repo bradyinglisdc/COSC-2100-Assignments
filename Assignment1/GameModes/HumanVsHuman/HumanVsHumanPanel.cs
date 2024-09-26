@@ -51,9 +51,13 @@ namespace Assignment1
                 this._pnlGameBoard = value;
                 this.Controls.Add(value);
                 value.StyleControls();
+                StyleGameControls();
             }
         }
         public GameInfoPanel pnlGameInfo { get; set; }
+        private Label lblCurrentPlayerHeader { get; set; }
+        public Button btnPlayAgain { get; set; }
+
         #endregion
 
         #endregion
@@ -62,9 +66,9 @@ namespace Assignment1
         /// <summary>
         /// Instantiates and adds all setup controls
         /// </summary>
-        private void InstantiateSetupControls()
+        private void InstantiateControls()
         {
-            // Instantiating Controlss
+            // Instantiating Controls - Setup
             pnlGameSetup = new Panel();
             lblGameSetupHeader = new Label();
             lblPlayerOneNamePrompt = new Label();
@@ -73,7 +77,11 @@ namespace Assignment1
             txtPlayerTwoNameInput = new TextBox();
             btnStartGame = new Button();
 
-            // Adding controls to their children
+            // Instantiating Controls - Game
+            lblCurrentPlayerHeader = new Label();
+            btnPlayAgain = new Button();
+
+            // Adding game setup controls to their parent
             pnlGameSetup.Controls.Add(lblGameSetupHeader);
             pnlGameSetup.Controls.Add(lblPlayerOneNamePrompt);
             pnlGameSetup.Controls.Add(txtPlayerOneNameInput);
@@ -86,7 +94,7 @@ namespace Assignment1
         /// <summary>
         /// Subscribes all setup event handlers
         /// </summary>
-        private void SubscribeSetupEventHandlers()
+        private void SubscribeEventHandlers()
         {
             #region Main/Game Setup Event Handlers
             btnStartGame.Click += new EventHandler(btnStartGame_Click);
@@ -96,7 +104,7 @@ namespace Assignment1
         /// <summary>
         /// Styles child controls. To be called after parent is defined. If no parent is defined, instantly returns
         /// </summary>
-        public void StyleSetupControls()
+        public void StyleControls()
         {
             // Return if parent deosn't exist
             if (Parent == null) { return; }
@@ -129,7 +137,7 @@ namespace Assignment1
             #endregion
 
             #region lblPlayerOneNamePrompt
-            lblPlayerOneNamePrompt.Text = "Player one, enter your name here:";
+            lblPlayerOneNamePrompt.Text = "Player X, enter your name here:";
             lblPlayerOneNamePrompt.ForeColor = Color.FromArgb(0, 200, 0);
             lblPlayerOneNamePrompt.Width = pnlGameSetup.Width;
             lblPlayerOneNamePrompt.Height = 40;
@@ -151,7 +159,7 @@ namespace Assignment1
             #endregion
 
             #region lblPlayerTwoNamePrompt
-            lblPlayerTwoNamePrompt.Text = "Player two, enter your name here:";
+            lblPlayerTwoNamePrompt.Text = "Player O, enter your name here:";
             lblPlayerTwoNamePrompt.ForeColor = Color.FromArgb(0, 200, 0);
             lblPlayerTwoNamePrompt.Width = pnlGameSetup.Width;
             lblPlayerTwoNamePrompt.Height = 40;
@@ -160,7 +168,7 @@ namespace Assignment1
             lblPlayerTwoNamePrompt.Location = new Point(10, txtPlayerOneNameInput.Location.Y + txtPlayerOneNameInput.Height * 2);
             #endregion
 
-            #region txtPlayerOneNameInput
+            #region txtPlayerTwoNameInput
             ToolTips.SetToolTip(txtPlayerTwoNameInput, "Player two, click here or navigate to tab index 1 to begin typing your name");
             txtPlayerTwoNameInput.TabIndex = 1;
             txtPlayerTwoNameInput.BackColor = Color.White;
@@ -188,7 +196,48 @@ namespace Assignment1
             btnExitToMenu.TabIndex = 4;
             #endregion
 
+            // Style main game controls if a board is present
+            StyleGameControls();
 
+        }
+
+        /// <summary>
+        /// Styles/Restyles game board
+        /// </summary>
+        private void StyleGameControls()
+        {
+            // Return if the board/game state hasn't been instantiated
+            if (pnlGameBoard == null || BoundGameState == null) { return; }
+
+            #region lblCurrentPlayerHeader Styling
+            UpdateCurrentPlayerLabel();
+            lblCurrentPlayerHeader.ForeColor = Color.FromArgb(0, 200, 0);
+            lblCurrentPlayerHeader.Width = this.Width;
+            lblCurrentPlayerHeader.Height = 46;
+            lblCurrentPlayerHeader.TextAlign = ContentAlignment.MiddleCenter;
+            lblCurrentPlayerHeader.Font = new Font("Courier New", 25, FontStyle.Underline);
+            lblCurrentPlayerHeader.Location = new Point(ParentControlDimensions[0] / 2 - lblCurrentPlayerHeader.Width / 2, 10);
+            #endregion
+
+            #region btnPlayAgain Styling
+            pnlGameBoard.ToolTips.SetToolTip(btnPlayAgain, "To play again and save this score to memory, click here, or press Alt + P");
+            btnPlayAgain.TabIndex = 0;
+            btnPlayAgain.Text = "&Play Again?";
+            btnPlayAgain.BackColor = Color.FromArgb(255, 255, 255);
+            btnPlayAgain.ForeColor = Color.FromArgb(0, 100, 0);
+            btnPlayAgain.Font = new Font("Courier New", 10, FontStyle.Bold);
+            btnPlayAgain.Width = this.Width / 4;
+            btnPlayAgain.Height = 30;
+            btnPlayAgain.Location = new Point(this.Width / 2 - btnPlayAgain.Width / 2, lblCurrentPlayerHeader.Location.Y + lblCurrentPlayerHeader.Height);
+            btnPlayAgain.MaximumSize = new Size(500, 30);
+
+            // Button only shows when game is over
+            btnPlayAgain.Visible = BoundGameState.GameOver;
+            #endregion
+
+            #region pnlGameBoard Styling
+            pnlGameBoard.StyleControls();
+            #endregion
         }
 
         #endregion

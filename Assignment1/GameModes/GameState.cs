@@ -44,15 +44,15 @@ namespace Assignment1
             set
             {
                 ValidateName(value);
-                _playerOneName = value;
+                _playerTwoName = value;
             }
         }
 
         /// <summary>
-        /// The game board, represented by a 2d string array:
+        /// The game board, represented by a 2d char array:
         /// { "###", "###", "###" }.
         /// </summary>
-        public string[] CurrentBoard
+        public char[,] CurrentBoard
         {
             get;
             set;
@@ -78,6 +78,15 @@ namespace Assignment1
             set;
         }
 
+        /// <summary>
+        /// True if the game is over
+        /// </summary>
+        public bool GameOver
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Constructor(s)
@@ -90,13 +99,30 @@ namespace Assignment1
         {
             PlayerOneName = playerOneName;
             PlayerTwoName = playerTwoName;
-            CurrentBoard = Settings.StartingBoard;
+            CurrentBoard = CreateBoard();
             Scores = new int[] { 0, 0, 0 };
             PlayerOneTurn = GetFirstTurn();
         }
         #endregion
 
         #region Validation and Helper Methods
+        /// <summary>
+        /// Creates a new char array board.
+        /// </summary>
+        /// <returns>The char array board</returns>
+        private static char[,] CreateBoard()
+        {
+            char[,] newBoard = new char[Settings.BoardSize / 3, Settings.BoardSize / 3];
+            for (int i = 0; i < newBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < newBoard.GetLength(1); j++)
+                {
+                    newBoard[i, j] = Settings.StartingBoard[i, j];
+                }
+            }
+            return newBoard;
+        }
+
         /// <summary>
         /// Validates a player name based on the values defined in Settings.cs.
         /// Throws an error if the name is not within the correct range.
@@ -125,6 +151,69 @@ namespace Assignment1
         }
         #endregion
 
+        /// <summary>
+        /// Checks if there is a win/draw/none, returns result.
+        /// </summary>
+        /// <returns>PlayerOneWin/PlayerTwoWin/Draw/None</returns>
+        public BoardState GetBoardState()
+        {
+            // Check for draw
+            if (CheckDraw()) 
+            {
+                GameOver = true;
+                return BoardState.Draw; 
+            }
+
+            // Check for horizontal and vertical wins
+            for (int i = 0; i < CurrentBoard.GetLength(0); i++)
+            {
+                // Player One (X)
+                if ((CurrentBoard[i, 0] == 'X' && CurrentBoard[i, 1] == 'X' && CurrentBoard[i, 2] == 'X') ||
+                    (CurrentBoard[0, i] == 'X' && CurrentBoard[1, i] == 'X' && CurrentBoard[2, i] == 'X'))
+                {
+                    GameOver = true;
+                    return BoardState.Win;
+                }
+
+                // Player Two (O)
+                else if ((CurrentBoard[i, 0] == 'O' && CurrentBoard[i, 1] == 'O' && CurrentBoard[i, 2] == 'O') ||
+                    (CurrentBoard[0, i] == 'O' && CurrentBoard[1, i] == 'O' && CurrentBoard[2, i] == 'O'))
+                {
+                    GameOver = true;
+                    return BoardState.Win;
+                }
+            }
+
+            // Check for diagnol wins (Player X)
+            if ((CurrentBoard[0, 0] == 'X' && CurrentBoard[1, 1] == 'X' && CurrentBoard[2, 2] == 'X') ||
+                (CurrentBoard[0, 2] == 'X' && CurrentBoard[1, 1] == 'X' && CurrentBoard[2, 0] == 'X'))
+            {
+                GameOver = true;
+                return BoardState.Win;
+            }
+
+            // Check for diagnol wins (Player O)
+            else if ((CurrentBoard[0, 0] == 'O' && CurrentBoard[1, 1] == 'O' && CurrentBoard[2, 2] == 'O') ||
+                (CurrentBoard[0, 2] == 'O' && CurrentBoard[1, 1] == 'O' && CurrentBoard[2, 0] == 'O'))
+            {
+                GameOver = true;
+                return BoardState.Win;
+            }
+            return BoardState.None;
+        }
+
+        /// <summary>
+        /// Checks for a draw by iterating through board array
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckDraw()
+        {
+            foreach (char character in CurrentBoard)
+            {
+                if (character == '#') { return false; }
+            }
+            return true;
+        } 
     }
     #endregion
 }

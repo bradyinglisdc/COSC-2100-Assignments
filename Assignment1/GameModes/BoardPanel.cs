@@ -28,6 +28,11 @@ namespace Assignment1
             get;
             set;
         }
+        public ToolTip ToolTips
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region Constructor(s)
@@ -47,8 +52,9 @@ namespace Assignment1
         /// </summary>
         private void SetupControls()
         {
-            // Instantiate list of grid positions
+            // Instantiate list of grid positions and tool tips
             GameGrid = new Label[3,3];
+            ToolTips = new ToolTip();
 
             // Itereate through board length and instantiate + keep track of label for each proposed grid position
             int tabIndex = 0;
@@ -59,6 +65,7 @@ namespace Assignment1
                     Label gridPosition = new Label();
                     gridPosition.Click += new EventHandler(GridPosition_Click);
                     gridPosition.TabIndex = tabIndex++;
+                    ToolTips.SetToolTip(gridPosition, "There is no X or O on this square yet. Click here to add one!");
 
                     GameGrid[i, j] = gridPosition;
                     this.Controls.Add(gridPosition);
@@ -77,7 +84,8 @@ namespace Assignment1
             #region Panel
             this.Width = Parent.Width / 2;
             this.Height = Parent.Height / 2;
-            this.BackColor = Color.Yellow;
+            this.MaximumSize = new Size(1100, 1100);
+            this.BackColor = Color.FromArgb(0, 100, 0);
             #endregion
 
             #region Game Grid
@@ -94,9 +102,10 @@ namespace Assignment1
                 for (int j = 0; j < GameGrid.GetLength(1); j++)
                 {
                     // Color, font and size
-                    GameGrid[i,j].Font = new Font("Courier New", 30, FontStyle.Bold);
+                    GameGrid[i,j].Font = new Font("Courier New", (this.Width + this .Height) / 15, FontStyle.Bold);
                     GameGrid[i, j].TextAlign = ContentAlignment.MiddleCenter;
-                    GameGrid[i, j].BackColor = Color.Red;
+                    GameGrid[i, j].BackColor = Color.FromArgb(255, 255, 255);
+                    GameGrid[i, j].ForeColor = Color.FromArgb(0, 100, 0);
                     GameGrid[i, j].Size = new Size(labelDimensions[0], labelDimensions[1]);
 
                     // Location
@@ -113,9 +122,9 @@ namespace Assignment1
             this.Height += margin * 4 - 2;
 
             // Update location, keep centre
-            this.Location = new Point(Parent.Width / 2 - this.Width / 2 - 5, 100);
+            this.Location = new Point(Parent.Width / 2 - this.Width / 2 - 5, ((HumanVsHumanPanel)Parent).btnPlayAgain.Location.Y +
+                ((HumanVsHumanPanel)Parent).btnPlayAgain.Height + margin);
             #endregion
-
         }
 
         #endregion
@@ -142,22 +151,35 @@ namespace Assignment1
         /// <param name="gridPosition"></param>
         private void AddPlayerMark(Label gridPosition)
         {
-            // The game state to be checked
-            GameState gameState;
-
+   
             // Just return if the parent does not exist or the label already contains a marker
             if (Parent == null || gridPosition.Text != "") { return; }
 
-            // If the parent is a HumanVsHumanPanel/HumanVsAIPanel, cast it and grab the game state
-            if (this.Parent is HumanVsHumanPanel) { gameState = ((HumanVsHumanPanel)this.Parent).BoundGameState; }
+            // If the parent is a HumanVsHumanPanel/HumanVsAIPanel, cast it and grab the game state then change turns
+            if (this.Parent is HumanVsHumanPanel) 
+            {
+                HumanVsHumanPanel parentPanel = (HumanVsHumanPanel)Parent;
+                parentPanel.UpdateCurrentState(gridPosition);
+            }
             /*else if (this.Parent is HumanVsAIPanel) { gameState = ((HumanVsAIPanel)this.Parent).BoundGameState; }*/
 
             // Return if it is not of the correct type
             else { return; }
+        }
+        #endregion
 
-            // If it's player one's turn, place an X on the label, else an O
-            if (gameState.PlayerOneTurn) { gridPosition.Text = "X"; }
-            else { gridPosition.Text = "O"; }
+        #region Cleanup Methods
+        /// <summary>
+        /// To be called when an end state is found. Ubsubscribes all event handler methods
+        /// and changes tool tips.
+        /// </summary>
+        public void DisableBoard()
+        {
+            foreach (Label label in GameGrid)
+            {
+                label.Click -= GridPosition_Click;
+                ToolTips.SetToolTip(label, "Game is over!");
+            }
         }
         #endregion
     }

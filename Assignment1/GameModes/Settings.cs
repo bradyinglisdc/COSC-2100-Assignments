@@ -19,11 +19,11 @@ namespace Assignment1
         #endregion
 
         #region Game Settings/Setup
-        public static string[] StartingBoard =
+        public static char[,] StartingBoard =
         {
-            "###",
-            "###",
-            "###"
+            { '#','#','#' },
+            { '#','#','#' },
+            { '#','#','#' },
         };
         public const int BoardSize = 9;
         #endregion

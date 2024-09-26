@@ -56,7 +56,7 @@ namespace Assignment1
                 this._pnlHumanVsHuman = value;
                 this.Controls.Clear();
                 this.Controls.Add(value);
-                this.pnlHumanVsHuman.StyleSetupControls();
+                this.pnlHumanVsHuman.StyleControls();
                 StyleControls();
             }
         }
@@ -100,7 +100,7 @@ namespace Assignment1
         private void StyleControls()
         {
             if (pnlMainMenu != null) { pnlMainMenu.StyleControls(); }
-            if (pnlHumanVsHuman != null) { pnlHumanVsHuman.StyleSetupControls(); }
+            if (pnlHumanVsHuman != null) { pnlHumanVsHuman.StyleControls(); }
         }
 
         #endregion
