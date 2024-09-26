@@ -109,9 +109,9 @@ namespace Assignment1
             btnStartHumanVsHuman.ForeColor = Color.FromArgb(0, 100, 0);
             btnStartHumanVsHuman.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnStartHumanVsHuman.Width = horizontalCentre;
-            btnStartHumanVsHuman.Height = 25;
+            btnStartHumanVsHuman.Height = 30;
             btnStartHumanVsHuman.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, lblMenuHeader.Location.Y + lblMenuHeader.Height * 2);
-            btnStartHumanVsHuman.MaximumSize = new Size(500, 25);
+            btnStartHumanVsHuman.MaximumSize = new Size(500, 30);
             btnStartHumanVsHuman.Focus();
             #endregion
 
@@ -123,9 +123,9 @@ namespace Assignment1
             btnStartHumanVsAI.ForeColor = Color.FromArgb(0, 100, 0);
             btnStartHumanVsAI.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnStartHumanVsAI.Width = horizontalCentre;
-            btnStartHumanVsAI.Height = 25;
+            btnStartHumanVsAI.Height = 30;
             btnStartHumanVsAI.Location = new Point(horizontalCentre - btnStartHumanVsHuman.Width / 2, btnStartHumanVsHuman.Location.Y + btnStartHumanVsHuman.Height);
-            btnStartHumanVsAI.MaximumSize = new Size(500, 25);
+            btnStartHumanVsAI.MaximumSize = new Size(500, 30);
             #endregion
 
             #region btnExitGame Styling
@@ -136,9 +136,9 @@ namespace Assignment1
             btnExitGame.ForeColor = Color.FromArgb(0, 100, 0);
             btnExitGame.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnExitGame.Width = horizontalCentre / 2;
-            btnExitGame.Height = 25;
+            btnExitGame.Height = 30;
             btnExitGame.Location = new Point(horizontalCentre - btnExitGame.Width / 2, btnStartHumanVsAI.Location.Y + btnStartHumanVsAI.Height);
-            btnExitGame.MaximumSize = new Size(300, 25);
+            btnExitGame.MaximumSize = new Size(300, 30);
             #endregion
         }
         #endregion

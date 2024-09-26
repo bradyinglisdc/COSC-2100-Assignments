@@ -92,6 +92,7 @@ namespace Assignment1
             PlayerTwoName = playerTwoName;
             CurrentBoard = Settings.StartingBoard;
             Scores = new int[] { 0, 0, 0 };
+            PlayerOneTurn = GetFirstTurn();
         }
         #endregion
 
@@ -120,7 +121,7 @@ namespace Assignment1
         public static bool GetFirstTurn()
         {
             // Grab random number between 0 and 1, return the result
-            return (Tools.GetRandomNumber(0, 1) == 0) ? true : false;
+            return (Tools.GetRandomNumber(0, 2) == 0) ? true : false;
         }
         #endregion
 

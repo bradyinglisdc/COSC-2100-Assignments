@@ -25,6 +25,7 @@ namespace Assignment1
             "###",
             "###"
         };
+        public const int BoardSize = 9;
         #endregion
     }
     #endregion

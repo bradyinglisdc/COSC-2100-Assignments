@@ -22,6 +22,10 @@ namespace Assignment1
     #region Class Definition
     public partial class HumanVsHumanPanel : GenericGamePanel
     {
+        #region Backing Data Members
+        private BoardPanel _pnlGameBoard;
+        #endregion
+
         #region Properties
 
         #region Game Setup Properties
@@ -36,7 +40,19 @@ namespace Assignment1
         #endregion
 
         #region Game Board Properties
-        public BoardPanel pnlGameBoard { get; set; }
+        /// <summary>
+        /// The game board panel. Setter auto clears controls and adds the value.
+        /// </summary>
+        public BoardPanel pnlGameBoard
+        {
+            get { return _pnlGameBoard; }
+            set
+            {
+                this._pnlGameBoard = value;
+                this.Controls.Add(value);
+                value.StyleControls();
+            }
+        }
         public GameInfoPanel pnlGameInfo { get; set; }
         #endregion
 
@@ -99,7 +115,7 @@ namespace Assignment1
             #region pnlGameSetup Styling
             pnlGameSetup.Width = horizontalCentre + 50;
             pnlGameSetup.Height = this.Height;
-            pnlGameSetup.Location = new Point(horizontalCentre - pnlGameSetup.Width / 2, verticalCentre - pnlGameSetup.Height / 2);
+            pnlGameSetup.Location = new Point(horizontalCentre - pnlGameSetup.Width / 2, verticalCentre - pnlGameSetup.Height / 2 + 20);
             pnlGameSetup.MaximumSize = new Size(800, 0);
             #endregion
 
@@ -163,9 +179,9 @@ namespace Assignment1
             btnStartGame.ForeColor = Color.FromArgb(0, 100, 0);
             btnStartGame.Font = new Font("Courier New", 10, FontStyle.Bold);
             btnStartGame.Width = horizontalCentre / 2;
-            btnStartGame.Height = 25;
+            btnStartGame.Height = 30;
             btnStartGame.Location = new Point(pnlGameSetup.Width / 2 - btnStartGame.Width / 2, txtPlayerTwoNameInput.Location.Y + txtPlayerTwoNameInput.Height * 2);
-            btnStartGame.MaximumSize = new Size(300, 25);
+            btnStartGame.MaximumSize = new Size(300, 30);
             #endregion
 
             #region btnExitToMenu Styling

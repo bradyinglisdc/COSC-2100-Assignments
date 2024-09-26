@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 #endregion
 
 #region Namespace Definition
@@ -24,7 +25,7 @@ namespace Assignment1
         /// <summary>
         /// The gamestate bound to this game instance - to be instantiated on each new game.
         /// </summary>
-        private GameState BoundGameState
+        public GameState BoundGameState
         {
             get;
             set;
@@ -51,19 +52,11 @@ namespace Assignment1
         /// </summary>
         private void StartGame()
         {
-            // Get the first turn
-            bool playerOneGoesFirst = GameState.GetFirstTurn();
-
-            // Instantiate a fresh game state based on the first turn (this will swap player 1 and 2 if needed)
-            if (playerOneGoesFirst) { BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text); }
-            else { BoundGameState = new GameState(txtPlayerTwoNameInput.Text, txtPlayerOneNameInput.Text); }
-
-            // Set the current turn to player one
-            BoundGameState.PlayerOneTurn = true;
+            // Instantiate a fresh game state - constructor randomly chooses first turn
+            BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text);
 
             // Instantiate and style a new board area
             SetupBoardArea();
-
         }
 
         /// <summary>
@@ -72,6 +65,7 @@ namespace Assignment1
         private void SetupBoardArea()
         {
             this.Controls.Remove(pnlGameSetup);
+            pnlGameBoard = new BoardPanel();
         }
         #endregion
 
