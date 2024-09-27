@@ -64,11 +64,58 @@ namespace Assignment1
         /// </summary>
         private void SetupBoardArea()
         {
-            this.Controls.Remove(pnlGameSetup);
+            if (this.Controls.Contains(pnlGameSetup)) { this.Controls.Remove(pnlGameSetup); }
             this.Controls.Add(lblCurrentPlayerHeader);
             this.Controls.Add(btnPlayAgain);
             pnlGameBoard = new BoardPanel();
             pnlGameInfo = new GameInfoPanel(BoundGameState);
+        }
+        #endregion
+
+        #region Cleanup/Restart Methods
+        /// <summary>
+        /// Starts the game with already existing player names/game state.
+        /// Essentially just resets game state and updates UI.
+        /// </summary>
+        public void ResetGame()
+        {
+            // Instantiate a fresh game state with the names
+            BoundGameState = new GameState(BoundGameState.PlayerOneName, BoundGameState.PlayerTwoName);
+
+            // Instantiate and style a new board area, removing the old one
+            this.Controls.Remove(lblCurrentPlayerHeader);
+            this.Controls.Remove(btnPlayAgain);
+            this.Controls.Remove(pnlGameBoard);
+            this.Controls.Remove(pnlGameInfo);
+            SetupBoardArea();
+        }
+
+        /// <summary>
+        /// Just resets board's backend representation and frontend representation.
+        /// </summary>
+        private void ResetBoard()
+        {
+            // Ensure board exists
+            if (pnlGameBoard == null) { return; }
+
+            // Instantiate new game board
+            Controls.Remove(pnlGameBoard);
+            pnlGameBoard = new BoardPanel();
+
+            // Clear backend board representation and update label
+            BoundGameState.ResetBoard();
+            UpdateCurrentPlayerLabel();
+            btnPlayAgain.Visible = false;
+        }
+
+        /// <summary>
+        /// Disables board, updates score UI, and prompts user to play again.
+        /// </summary>
+        private void EndGame()
+        {
+            pnlGameBoard.DisableBoard();
+            btnPlayAgain.Visible = true;
+            pnlGameInfo.UpdateScores();
         }
         #endregion
 
@@ -80,7 +127,7 @@ namespace Assignment1
         public void UpdateCurrentPlayerLabel()
         {
             // Get the board state
-            string labelText = BoundGameState.PlayerOneTurn ? $"{BoundGameState.PlayerOneName}'s turn!" : $"{BoundGameState.PlayerTwoName}'s turn!";
+            string labelText = BoundGameState.PlayerOneTurn ? $"{BoundGameState.PlayerOneName} (X)'s turn!" : $"{BoundGameState.PlayerTwoName} (O)'s turn!";
             BoardState boardState = BoundGameState.GetBoardState();
             
             // Check and update text based on result
@@ -117,7 +164,7 @@ namespace Assignment1
             // Add mark to the grid, X or O based on current turn
             AddMark(gridPosition);
 
-            // Update the current player label then change turn
+            // Change turn and update the current player label
             BoundGameState.PlayerOneTurn = !BoundGameState.PlayerOneTurn;
             UpdateCurrentPlayerLabel();
         }
@@ -155,17 +202,6 @@ namespace Assignment1
                     else if (pnlGameBoard.GameGrid[i, j].Text == "O") { BoundGameState.CurrentBoard[i, j] = 'O'; }
                 }
             }
-        }
-        #endregion
-
-        #region Clean Up Methods
-        /// <summary>
-        /// Disables board and prompts to play again
-        /// </summary>
-        private void EndGame()
-        {
-            pnlGameBoard.DisableBoard();
-            btnPlayAgain.Visible = true;
         }
         #endregion
     }

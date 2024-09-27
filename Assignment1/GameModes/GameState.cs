@@ -31,7 +31,7 @@ namespace Assignment1
             set
             {
                 ValidateName(value);
-                _playerOneName = value;
+                _playerOneName = value.Replace(" ", "");
             }
         }
 
@@ -44,7 +44,7 @@ namespace Assignment1
             set
             {
                 ValidateName(value);
-                _playerTwoName = value;
+                _playerTwoName = value.Replace(" ", "");
             }
         }
 
@@ -151,6 +151,7 @@ namespace Assignment1
         }
         #endregion
 
+        #region Game State Info Methods
         /// <summary>
         /// Checks if there is a win/draw/none, returns result.
         /// </summary>
@@ -219,7 +220,24 @@ namespace Assignment1
                 if (character == '#') { return false; }
             }
             return true;
-        } 
+        }
+        #endregion
+
+        #region Game State Changing Methods
+        /// <summary>
+        /// Resets board so user's can continue to play.
+        /// </summary>
+        public void ResetBoard()
+        {
+            for (int i = 0; i < CurrentBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < CurrentBoard.GetLength(1); j++)
+                {
+                    if (CurrentBoard[i,j] != '#') { CurrentBoard[i, j] = '#'; }
+                }
+            }
+        }
+        #endregion
     }
     #endregion
 }

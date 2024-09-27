@@ -38,6 +38,7 @@ namespace Assignment1
         private Label lblPlayerTwoNamePrompt { get; set; }
         private TextBox txtPlayerTwoNameInput { get; set; }
         private Button btnStartGame { get; set; }
+        private Label lblDisclaimer { get; set; }
         #endregion
 
         #region Game Board Properties
@@ -89,6 +90,7 @@ namespace Assignment1
             lblPlayerTwoNamePrompt = new Label();
             txtPlayerTwoNameInput = new TextBox();
             btnStartGame = new Button();
+            lblDisclaimer = new Label();
 
             // Instantiating Controls - Game
             lblCurrentPlayerHeader = new Label();
@@ -101,6 +103,7 @@ namespace Assignment1
             pnlGameSetup.Controls.Add(lblPlayerTwoNamePrompt);
             pnlGameSetup.Controls.Add(txtPlayerTwoNameInput);
             pnlGameSetup.Controls.Add(btnStartGame);
+            pnlGameSetup.Controls.Add(lblDisclaimer);
             this.Controls.Add(pnlGameSetup);
         }
 
@@ -111,6 +114,7 @@ namespace Assignment1
         {
             #region Main/Game Setup Event Handlers
             btnStartGame.Click += new EventHandler(btnStartGame_Click);
+            btnPlayAgain.Click += new EventHandler(btnPlayAgain_Click);
             #endregion
         }
 
@@ -209,6 +213,18 @@ namespace Assignment1
             btnExitToMenu.TabIndex = 4;
             #endregion
 
+            #region lblDisclaimer Styling
+            lblDisclaimer.Text = "First turn is randomly picked*";
+            lblDisclaimer.ForeColor = Color.FromArgb(0, 50, 0);
+            lblDisclaimer.BackColor = Color.FromArgb(255, 255, 255);
+            lblDisclaimer.Width = pnlGameSetup.Width;
+            lblDisclaimer.Height = (pnlGameSetup.Width + pnlGameSetup.Height) / 20;
+            lblDisclaimer.TextAlign = ContentAlignment.MiddleCenter;
+            lblDisclaimer.Font = new Font("Courier New", (pnlGameSetup.Size.Width + pnlGameSetup.Size.Height) / 75, FontStyle.Bold);
+            lblDisclaimer.Location = new Point(pnlGameSetup.Width / 2 - lblDisclaimer.Width / 2, btnStartGame.Location.Y + btnStartGame.Height + 20);
+
+            #endregion
+
             // Style main game controls if a board is present
             StyleGameControls();
         }
@@ -281,9 +297,23 @@ namespace Assignment1
                 return;
             }
 
-            // Otherwise start the game
+            // Otherwise, subscribe exit confirmation method to the exit button then start game
+            btnExitToMenu.Click -= btnExitToMenu_Click;
+            btnExitToMenu.Click += btnExitToMenuConfirmation_Click;
             StartGame();
         }
+
+        /// <summary>
+        /// Instantiates a new game board, removing the previous one and
+        /// updating backend board state.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void btnPlayAgain_Click(object sender, EventArgs args)
+        {
+            ResetBoard();
+        }
+
         #endregion
     }
     #endregion

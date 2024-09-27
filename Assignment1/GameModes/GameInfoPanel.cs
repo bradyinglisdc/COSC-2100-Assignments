@@ -119,7 +119,7 @@ namespace Assignment1
             #endregion
 
             // Score board should be minimized at first
-            ChangeFocus();
+            Minimize();
         }
 
         /// <summary>
@@ -174,18 +174,39 @@ namespace Assignment1
         private void SubscribeEventHandlers()
         {
             btnChangeFocus.Click += new EventHandler(btnChangeFocus_Click);
+            btnResetGame.Click += new EventHandler(btnResetGame_Click);
         }
         #endregion
 
         #region Event Handler Methods
+        /// <summary>
+        /// Minimizes/maximizes this panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void btnChangeFocus_Click(object sender, EventArgs args)
         {
             ChangeFocus();
         }
+
+        /// <summary>
+        /// Informs backend to wipe scores, clean board state and UI.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void btnResetGame_Click(object sender, EventArgs args)
+        {
+            // Prompt user to confirm before reset.
+            if (MessageBox.Show("Are you sure you want to reset the game? " +
+                "This will completely wipe all existing scores.", "Reset Game Confirmation", 
+                MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            {
+                ResetGame();
+            }
+        }
         #endregion
 
-
-        #region Focus Control Methods
+        #region Game Logic Methods
         public void ChangeFocus()
         {
             if (IsMinimized) { Maximize(); }
@@ -214,6 +235,35 @@ namespace Assignment1
             IsMinimized = true;
         }
 
+        /// <summary>
+        /// Informs backend to reset the game state.
+        /// </summary>
+        private void ResetGame()
+        {
+            // Ensure parent exists
+            if (Parent == null) { return; }
+
+            // If parent is HumanVsHuman or HumanVsAI panel, reset
+            if (Parent is HumanVsHumanPanel)
+            {
+                ((HumanVsHumanPanel)Parent).ResetGame();
+            }
+        }
+
+        /// <summary>
+        /// Simply updates all score labels
+        /// </summary>
+        public void UpdateScores()
+        {
+            ToolTips.SetToolTip(lblPlayerOneScore, $"{BoundGameState.PlayerOneName}'s win count is: {BoundGameState.Scores[0]}");
+            lblPlayerOneScore.Text = $"{BoundGameState.PlayerOneName}'s Wins: {BoundGameState.Scores[0]}";
+
+            ToolTips.SetToolTip(lblPlayerTwoScore, $"{BoundGameState.PlayerTwoName}'s win count is: {BoundGameState.Scores[1]}");
+            lblPlayerTwoScore.Text = $"{BoundGameState.PlayerTwoName}'s Wins: {BoundGameState.Scores[1]}";
+
+            ToolTips.SetToolTip(lblDrawScore, $"Draw count is: {BoundGameState.Scores[2]}");
+            lblDrawScore.Text = $"Draws: {BoundGameState.Scores[2]}";
+        }
 
         #endregion
     }

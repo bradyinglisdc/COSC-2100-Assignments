@@ -87,7 +87,7 @@ namespace Assignment1
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnExitToMenu_Click(object sender, EventArgs e)
+        public void btnExitToMenu_Click(object sender, EventArgs e)
         {
             // Ensure parent exists and is the main form
             if (Parent == null || !(Parent is frmMain)) { return; }
@@ -95,6 +95,21 @@ namespace Assignment1
             // Provided parent exists, add a new main menu
             frmMain parent = (frmMain)Parent;
             parent.pnlMainMenu = new MainMenuPanel();
+        }
+
+        /// <summary>
+        /// Returns to main menu after prompting user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void btnExitToMenuConfirmation_Click(object sender, EventArgs e)
+        {
+            // If user confirms they want to exit, then exit
+            if (MessageBox.Show("Are you sure you want to exit to the main menu? Your game progress," +
+                "including all scores will be lost.", "Exit Game?", MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            {
+                btnExitToMenu_Click(sender, e);
+            }
         }
         #endregion
     }

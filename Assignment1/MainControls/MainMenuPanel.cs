@@ -196,8 +196,12 @@ namespace Assignment1
             // Ensure parent exists and is a form first
             if (Parent == null || !(Parent is Form)) { return; }
 
-            // Convert parent control to it's child type (Form), and then close it
-            ((Form)Parent).Close();
+            // Convert parent control to it's child type (Form), and then close it if user confirms
+            if (MessageBox.Show("Are you sure you want to exit the program?", "Exit Confirmation", 
+                MessageBoxButtons.YesNoCancel) == DialogResult.Yes)
+            {
+                ((Form)Parent).Close();
+            }
         }
         #endregion
     }
