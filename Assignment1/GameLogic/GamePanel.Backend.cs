@@ -56,8 +56,16 @@ namespace Assignment1
         /// </summary>
         private void StartGame()
         {
-            // Instantiate a fresh game state - constructor randomly chooses first turn
-            BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text);
+            // Instantiate a fresh game state - constructor randomly chooses first turn. Adds difficulty
+            // if it is an AI game.
+            if (!IsAIGame) { BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text); }
+            else
+            {
+                Difficulty difficulty = rbtnDifficultyEasy.Checked ? Difficulty.Easy : Difficulty.Hard;
+                BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text, difficulty);
+            }
+
+            
 
             // Instantiate and style a new board area
             SetupBoardArea();
@@ -184,7 +192,7 @@ namespace Assignment1
         private void GetAITurn()
         {
             // Get easy mode move using the bound game state
-            int[] moveCoordinates = BoundGameState.GetEasyModeMove();
+            int[] moveCoordinates = BoundGameState.GetAITurn();
             pnlGameBoard.ClickGridPosition(moveCoordinates);
         }
 

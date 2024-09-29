@@ -421,8 +421,9 @@ namespace Assignment1
         /// <param name="e"></param>
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            // If player two name input has not been instantiate, it is an AI game. Instantiate it with ai name.
+            // If player two name input has not been instantiated, it is an AI game. Instantiate it with ai name.
             if (txtPlayerTwoNameInput == null) { txtPlayerTwoNameInput = new TextBox() { Text = "AI Bot" }; }
+
 
             // Attempt to validate user names.
             try

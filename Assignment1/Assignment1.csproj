@@ -56,7 +56,7 @@
     <Compile Include="GameLogic\BoardPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameLogic\BoardState.cs" />
+    <Compile Include="GameLogic\GameStateEnums.cs" />
     <Compile Include="GameLogic\GameInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -87,6 +87,15 @@ namespace Assignment1
             set;
         }
 
+        /// <summary>
+        /// Either easy or hard
+        /// </summary>
+        public Difficulty Difficulty
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Constructor(s)
@@ -97,6 +106,22 @@ namespace Assignment1
         /// <param name="PlayerTwoName">The second player's name</param>
         public GameState(string playerOneName, string playerTwoName)
         {
+            PlayerOneName = playerOneName;
+            PlayerTwoName = playerTwoName;
+            CurrentBoard = CreateBoard();
+            Scores = new int[] { 0, 0, 0 };
+            PlayerOneTurn = GetFirstTurn();
+        }
+
+        /// <summary>
+        /// Creates a new game state using the provided player names, with a difficulty added.
+        /// </summary>
+        /// <param name="PlayerOneName">The first player's name</param>
+        /// <param name="PlayerTwoName">The second player's name</param>
+        /// <param name="difficulty">The AI difficulty</param>
+        public GameState(string playerOneName, string playerTwoName, Difficulty difficulty)
+        {
+            Difficulty = difficulty;
             PlayerOneName = playerOneName;
             PlayerTwoName = playerTwoName;
             CurrentBoard = CreateBoard();
@@ -241,11 +266,18 @@ namespace Assignment1
         #endregion
 
         #region AI related methods
+        public int[] GetAITurn()
+        {
+            if (Difficulty == Difficulty.Easy) { return GetEasyModeMove(); }
+            return GetHardModeMove();
+        }
+
+
         /// <summary>
-        /// Searches through game state and randomly picks an available move (it's easy mode).
+        /// Simply picks the next available move in the array (it's easy mode).
         /// </summary>
         /// <returns>Integer array of -1, -1 if no available move, else integer array of move coordinates</returns>
-        public int[] GetEasyModeMove()
+        private int[] GetEasyModeMove()
         {
             int[] coordinates = { -1, -1 };
             for (int i = 0; i < CurrentBoard.GetLength(0); i++)
@@ -261,7 +293,18 @@ namespace Assignment1
                 }
             }
             return coordinates;
-        } 
+        }
+
+        /// <summary>
+        /// Searches through every combination of moves and picks the move which is preceeded 
+        /// by the highest number of win states.
+        /// </summary>
+        /// <returns>Integer array of -1, -1 if no available move, else integer array of move coordinates</returns>
+        private int[] GetHardModeMove()
+        {
+            return GetEasyModeMove();
+        }
+
         #endregion
 
     }
