@@ -65,8 +65,6 @@ namespace Assignment1
                 BoundGameState = new GameState(txtPlayerOneNameInput.Text, txtPlayerTwoNameInput.Text, difficulty);
             }
 
-            
-
             // Instantiate and style a new board area
             SetupBoardArea();
         }
@@ -191,7 +189,7 @@ namespace Assignment1
         /// </summary>
         private void GetAITurn()
         {
-            // Get easy mode move using the bound game state
+            // Get AI move based on difficulty
             int[] moveCoordinates = BoundGameState.GetAITurn();
             pnlGameBoard.ClickGridPosition(moveCoordinates);
         }

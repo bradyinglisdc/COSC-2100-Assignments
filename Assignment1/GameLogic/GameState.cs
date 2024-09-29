@@ -174,6 +174,100 @@ namespace Assignment1
             // Grab random number between 0 and 1, return the result
             return (Tools.GetRandomNumber(0, 2) == 0) ? true : false;
         }
+
+        /// <summary>
+        /// Returns a 2d char array representation of a board based on some existing board
+        /// and some coordinates.
+        /// </summary>
+        /// <param name="boardToUpdate">The board where the move should be made.</param>
+        /// <param name="coordinates">The coordinates of the move.</param>
+        /// <param name="moveMark">The mark to place on the move (preferrably either x or o)</param>
+        /// <returns></returns>
+        public static char[,] UpdateBoard(char[,] boardToUpdate, int[] coordinates, char moveMark)
+        {
+            char[,] updatedBoard = new char[3, 3];
+            for (int i = 0; i < boardToUpdate.GetLength(0); i++)
+            {
+                for (int j = 0; j < boardToUpdate.GetLength(1); j++)
+                {
+                    // Place the marker if the coordinates match
+                    if (i == coordinates[0] && j == coordinates[1])
+                    {
+                        updatedBoard[i, j] = moveMark;
+                    }
+
+                    // Otherwise, simply copy the old 2d array
+                    else
+                    {
+                        updatedBoard[i, j] = boardToUpdate[i, j];
+                    }
+
+                }
+            }
+            return updatedBoard;
+        }
+
+        /// <summary>
+        /// Searches through a board and returns it's state (win/draw/none).
+        /// </summary>
+        /// <param name="boardToCheck">The board to search through.</param>
+        /// <returns></returns>
+        public static BoardState GetBoardState(char[,] boardToCheck)
+        {
+            // Check for horizontal and vertical wins
+            for (int i = 0; i < boardToCheck.GetLength(0); i++)
+            {
+                // Player One (X)
+                if ((boardToCheck[i, 0] == 'X' && boardToCheck[i, 1] == 'X' && boardToCheck[i, 2] == 'X') ||
+                    (boardToCheck[0, i] == 'X' && boardToCheck[1, i] == 'X' && boardToCheck[2, i] == 'X'))
+                {
+                    return BoardState.Win;
+                }
+
+                // Player Two (O)
+                else if ((boardToCheck[i, 0] == 'O' && boardToCheck[i, 1] == 'O' && boardToCheck[i, 2] == 'O') ||
+                    (boardToCheck[0, i] == 'O' && boardToCheck[1, i] == 'O' && boardToCheck[2, i] == 'O'))
+                {
+                    return BoardState.Win;
+                }
+            }
+
+            // Check for diagnol wins (Player X)
+            if ((boardToCheck[0, 0] == 'X' && boardToCheck[1, 1] == 'X' && boardToCheck[2, 2] == 'X') ||
+                (boardToCheck[0, 2] == 'X' && boardToCheck[1, 1] == 'X' && boardToCheck[2, 0] == 'X'))
+            {
+                return BoardState.Win;
+            }
+
+            // Check for diagnol wins (Player O)
+            else if ((boardToCheck[0, 0] == 'O' && boardToCheck[1, 1] == 'O' && boardToCheck[2, 2] == 'O') ||
+                (boardToCheck[0, 2] == 'O' && boardToCheck[1, 1] == 'O' && boardToCheck[2, 0] == 'O'))
+            {
+                return BoardState.Win;
+            }
+
+            // Check for draw
+            if (CheckDraw(boardToCheck))
+            {
+                return BoardState.Draw;
+            }
+            return BoardState.None;
+        }
+
+        /// <summary>
+        /// Checks for a draw by iterating through board array.
+        /// </summary>
+        /// <param name="boardToCheck">The board to search through</param>
+        /// <returns></returns>
+        private static bool CheckDraw(char[,] boardToCheck)
+        {
+            foreach (char character in boardToCheck)
+            {
+                if (character == '#') { return false; }
+            }
+            return true;
+        }
+
         #endregion
 
         #region Game State Info Methods
@@ -224,7 +318,7 @@ namespace Assignment1
             }
 
             // Check for draw
-            if (CheckDraw())
+            if (CheckDraw(CurrentBoard))
             {
                 GameOver = true;
                 Scores[2]++;
@@ -232,19 +326,6 @@ namespace Assignment1
             }
 
             return BoardState.None;
-        }
-
-        /// <summary>
-        /// Checks for a draw by iterating through board array
-        /// </summary>
-        /// <returns></returns>
-        private bool CheckDraw()
-        {
-            foreach (char character in CurrentBoard)
-            {
-                if (character == '#') { return false; }
-            }
-            return true;
         }
         #endregion
 
@@ -271,7 +352,6 @@ namespace Assignment1
             if (Difficulty == Difficulty.Easy) { return GetEasyModeMove(); }
             return GetHardModeMove();
         }
-
 
         /// <summary>
         /// Simply picks the next available move in the array (it's easy mode).
@@ -302,9 +382,8 @@ namespace Assignment1
         /// <returns>Integer array of -1, -1 if no available move, else integer array of move coordinates</returns>
         private int[] GetHardModeMove()
         {
-            return GetEasyModeMove();
+            return TicTacToeAI.FindBestMove(CurrentBoard, !PlayerOneTurn);
         }
-
         #endregion
 
     }

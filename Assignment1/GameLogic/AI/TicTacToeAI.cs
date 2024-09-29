@@ -31,17 +31,18 @@ namespace Assignment1
         /// </summary>
         /// <param name="boardState">The boardstate to search.</param>
         /// <returns>Coordinates of the AI calculated best move.</returns>
-        public static int[] FindBestMove(char[,] boardState)
+        public static int[] FindBestMove(char[,] boardState, bool IsAITurn)
         {
-            // Simply instantiate a node and return the best move in the decision branch
-            Node startingNode = new Node(boardState);
+            // Simply instantiate a node and return the best move in the decision branch.
+            // Since this is the starting node, it's move coordinates and previous node will be null.
+            Node startingNode = new Node(boardState, null, null, IsAITurn);
 
-            Node bestNextMove = startingNode; // Starting node would have a score of 0
+            Node bestNextMove = null;
             foreach (Node node in startingNode.Branches)
             {
-                if (node.Score > bestNextMove.Score) { bestNextMove = node; }
+                if (bestNextMove == null || node.Score > bestNextMove.Score) { bestNextMove = node; }
             }
-            return bestNextMove.Coordinates;
+            return bestNextMove.MoveCoordinates;
         }
     }
     #endregion
