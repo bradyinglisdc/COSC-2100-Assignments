@@ -21,7 +21,7 @@ namespace Assignment1
     {
         #region Backing Data Members
         private MainMenuPanel _pnlMainMenu;
-        private HumanVsHumanPanel _pnlHumanVsHuman;
+        private GamePanel _pnlGameArea;
         #endregion
 
         #region Properties
@@ -44,19 +44,19 @@ namespace Assignment1
         }
 
         /// <summary>
-        /// Gets and sets human vs human panel for the application.
+        /// Gets and sets the game panel for the application.
         /// When the setter is called, controls will be cleared and
-        /// the human vs human value will replace any other controls.
+        /// the game area value will replace any other controls.
         /// </summary>
-        public HumanVsHumanPanel pnlHumanVsHuman
+        public GamePanel pnlGameArea
         {
-            get { return _pnlHumanVsHuman; }
+            get { return _pnlGameArea; }
             set
             {
-                this._pnlHumanVsHuman = value;
+                this._pnlGameArea = value;
                 this.Controls.Clear();
                 this.Controls.Add(value);
-                this.pnlHumanVsHuman.StyleControls();
+                this.pnlGameArea.StyleControls();
                 StyleControls();
             }
         }
@@ -90,19 +90,18 @@ namespace Assignment1
         /// </summary>
         private void SubscribeEventListeners()
         {
-            this.Resize += RestyleControls;
+            this.SizeChanged += RestyleControls;
         }
 
         /// <summary>
         /// Styles any main controls if they are currently children (pnlMainMenu, 
-        /// pnlHumanVsHuman and/or pnlHumanVsAI)
+        /// pnlGameArea)
         /// </summary>
         private void StyleControls()
         {
             if (pnlMainMenu != null) { pnlMainMenu.StyleControls(); }
-            if (pnlHumanVsHuman != null) { pnlHumanVsHuman.StyleControls(); }
+            if (pnlGameArea != null) { pnlGameArea.StyleControls(); }
         }
-
         #endregion
 
         #region Event Handler Methods

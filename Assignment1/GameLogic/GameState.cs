@@ -31,7 +31,7 @@ namespace Assignment1
             set
             {
                 ValidateName(value);
-                _playerOneName = value.Replace(" ", "");
+                _playerOneName = value.Trim();
             }
         }
 
@@ -44,7 +44,7 @@ namespace Assignment1
             set
             {
                 ValidateName(value);
-                _playerTwoName = value.Replace(" ", "");
+                _playerTwoName = value.Trim();
             }
         }
 
@@ -236,8 +236,34 @@ namespace Assignment1
                     if (CurrentBoard[i,j] != '#') { CurrentBoard[i, j] = '#'; }
                 }
             }
+            GameOver = false;
         }
         #endregion
+
+        #region AI related methods
+        /// <summary>
+        /// Searches through game state and randomly picks an available move (it's easy mode).
+        /// </summary>
+        /// <returns>Integer array of -1, -1 if no available move, else integer array of move coordinates</returns>
+        public int[] GetEasyModeMove()
+        {
+            int[] coordinates = { -1, -1 };
+            for (int i = 0; i < CurrentBoard.GetLength(0); i++)
+            {
+                for (int j = 0; j < CurrentBoard.GetLength(1); j++)
+                {
+                    if (CurrentBoard[i,j] == '#')
+                    {
+                        coordinates[0] = i;
+                        coordinates[1] = j;
+                        return coordinates;
+                    }
+                }
+            }
+            return coordinates;
+        } 
+        #endregion
+
     }
     #endregion
 }

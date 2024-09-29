@@ -244,9 +244,9 @@ namespace Assignment1
             if (Parent == null) { return; }
 
             // If parent is HumanVsHuman or HumanVsAI panel, reset
-            if (Parent is HumanVsHumanPanel)
+            if (Parent is GamePanel)
             {
-                ((HumanVsHumanPanel)Parent).ResetGame();
+                ((GamePanel)Parent).ResetGame();
             }
         }
 

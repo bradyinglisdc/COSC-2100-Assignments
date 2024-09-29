@@ -154,8 +154,8 @@ namespace Assignment1
             // Ensure parent exists and is frmMain
             if (Parent == null || !(Parent is frmMain)) { return; }
 
-            // Set parent control to a new instance of the HumanVsHuman panel
-            ((frmMain)Parent).pnlHumanVsHuman = new HumanVsHumanPanel();
+            // Set parent control to a new instance of the game panel, passing in false to indicate a human vs human game
+            ((frmMain)Parent).pnlGameArea = new GamePanel(false);
         }
 
         /// <summary>
@@ -168,12 +168,8 @@ namespace Assignment1
             // Ensure parent isn't null
             if (Parent == null) { return; }
 
-            // Clear parent controls, instantiate and add HumanVsAI panel
-            Control parent = Parent;
-            parent.Controls.Clear();
-
-            GenericGamePanel pnlHumanVsAI = new GenericGamePanel();
-            parent.Controls.Add(pnlHumanVsAI);
+            // Set parent control to a new instance of the game panel, passing in true to indicate AI game
+            ((frmMain)Parent).pnlGameArea = new GamePanel(true);
         }
 
         /// <summary>

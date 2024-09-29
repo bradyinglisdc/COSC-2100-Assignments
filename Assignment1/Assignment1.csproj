@@ -53,21 +53,21 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameModes\BoardPanel.cs">
+    <Compile Include="GameLogic\BoardPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameModes\BoardState.cs" />
-    <Compile Include="GameModes\GameInfoPanel.cs">
+    <Compile Include="GameLogic\BoardState.cs" />
+    <Compile Include="GameLogic\GameInfoPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameModes\GameState.cs" />
-    <Compile Include="GameModes\HumanVsHuman\HumanVsHumanPanel.Backend.cs">
+    <Compile Include="GameLogic\GameState.cs" />
+    <Compile Include="GameLogic\GamePanel.Backend.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameModes\HumanVsHuman\HumanVsHumanPanel.cs">
+    <Compile Include="GameLogic\GamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="GameModes\Settings.cs" />
+    <Compile Include="GameLogic\Settings.cs" />
     <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControls\GenericGamePanel.cs">
       <SubType>Component</SubType>

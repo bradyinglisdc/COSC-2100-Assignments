@@ -122,8 +122,8 @@ namespace Assignment1
             this.Height += margin * 4 - 2;
 
             // Update location, keep centre
-            this.Location = new Point(Parent.Width / 2 - this.Width / 2 - 5, ((HumanVsHumanPanel)Parent).btnPlayAgain.Location.Y +
-                ((HumanVsHumanPanel)Parent).btnPlayAgain.Height + margin);
+            this.Location = new Point(Parent.Width / 2 - this.Width / 2 - 5, ((GamePanel)Parent).btnPlayAgain.Location.Y +
+                ((GamePanel)Parent).btnPlayAgain.Height + margin);
             #endregion
         }
 
@@ -154,14 +154,23 @@ namespace Assignment1
             // Just return if the parent does not exist or the label already contains a marker
             if (Parent == null || gridPosition.Text != "") { return; }
 
-            // If the parent is a HumanVsHumanPanel/HumanVsAIPanel, cast it and grab the game state then change turns
-            if (this.Parent is HumanVsHumanPanel) 
+            // If the parent is a GamePanel, cast it and grab the game state then change turns
+            if (this.Parent is GamePanel) 
             {
-                HumanVsHumanPanel parentPanel = (HumanVsHumanPanel)Parent;
+                GamePanel parentPanel = (GamePanel)Parent;
                 parentPanel.UpdateCurrentState(gridPosition);
             }
-            /*else if (this.Parent is HumanVsAIPanel) { gameState = ((HumanVsAIPanel)this.Parent).BoundGameState; }*/
         }
+
+        /// <summary>
+        /// Manually performs the equivilent of a click on a label within the grid.
+        /// </summary>
+        /// <param name="gridPosition">Coordinates of grid position to click.</param>
+        public void ClickGridPosition(int[] gridPosition)
+        {
+            AddPlayerMark(GameGrid[gridPosition[0], gridPosition[1]]);
+        }
+
         #endregion
 
         #region Cleanup Methods
