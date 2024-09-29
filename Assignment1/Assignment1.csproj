@@ -53,6 +53,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameLogic\AI\Node.cs" />
     <Compile Include="GameLogic\BoardPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -68,6 +69,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GameLogic\Settings.cs" />
+    <Compile Include="GameLogic\AI\TicTacToeAI.cs" />
     <Compile Include="HelperClasses\Tools.cs" />
     <Compile Include="MainControls\GenericGamePanel.cs">
       <SubType>Component</SubType>
@@ -102,5 +104,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

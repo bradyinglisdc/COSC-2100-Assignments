@@ -1,7 +1,7 @@
 ﻿/*
  * Title: GameStateEnums.cs
  * Name: Brady Inglis (100926284)
- * Date: 2024-09-25
+ * Date: 2024-09-29
  * Purpose: This enum contains enums regarding the state of the game
 */
 
