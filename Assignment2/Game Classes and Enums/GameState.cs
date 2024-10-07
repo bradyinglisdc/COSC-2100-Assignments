@@ -48,10 +48,10 @@ namespace Assignment2
         private void SetBoatHealth()
         {
             CarrierHealth = BS.GetBoatSize(BS.Boats.Carrier);
-            CarrierHealth = BS.GetBoatSize(BS.Boats.Battleship);
-            CarrierHealth = BS.GetBoatSize(BS.Boats.Submarine);
-            CarrierHealth = BS.GetBoatSize(BS.Boats.Cruiser);
-            CarrierHealth = BS.GetBoatSize(BS.Boats.Destroyer);
+            BattleshipHealth = BS.GetBoatSize(BS.Boats.Battleship);
+            SubmarineHealth = BS.GetBoatSize(BS.Boats.Submarine);
+            CruiserHealth = BS.GetBoatSize(BS.Boats.Cruiser);
+            DestroyerHealth = BS.GetBoatSize(BS.Boats.Destroyer);
         }
 
         /// <summary>

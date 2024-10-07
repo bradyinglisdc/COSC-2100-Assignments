@@ -114,7 +114,6 @@ namespace Assignment2
                     board[i, j] = BoardStatus.Empty;
                     boatPositions[i, j] = Boats.NoBoat;
                 }
-
             }
         }
 

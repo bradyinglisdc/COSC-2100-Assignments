@@ -103,28 +103,6 @@ namespace Assignment2
             #endregion
         }
 
-        /// <summary>
-        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.\
-        /// Also subscribes each label to the same event handler.
-        /// </summary>
-        private void SetupGameBoard()
-        {
-            // Much faster to clear and add labels off screen
-            Controls.Remove(pnlGameArea);
-            pnlGameArea.Controls.Clear();
-      
-            // Grabs the board array and adds it to controls
-            foreach (Label boardPosition in CurrentGameState.BoardArray)
-            {
-                ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
-                boardPosition.Click += new EventHandler(boardPosition_Click);
-                pnlGameArea.Controls.Add(boardPosition);
-            }
-
-            // Style labels
-            StyleActiveGamePositioning();
-        }
-
         private void SubscribeEventHandlers()
         {
             Resize += new EventHandler(frmMain_Resize);
@@ -197,32 +175,34 @@ namespace Assignment2
             SetupGameBoard();
         }
 
+        /// <summary>
+        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.\
+        /// Also subscribes each label to the same event handler.
+        /// </summary>
+        private void SetupGameBoard()
+        {
+            // Much faster to clear and add labels off screen
+            Controls.Remove(pnlGameArea);
+            pnlGameArea.Controls.Clear();
+
+            // Style labels, set default board up
+            SetDefaultBoardPositions();
+            StyleActiveGamePositioning();
+
+        }
 
         /// <summary>
         /// Updates status of each label.
         /// </summary>
-        private void UpdateBoard()
+        private void SetDefaultBoardPositions()
         {
-
-            // Iterates through board array, updating status to match the board status found in BS class.
-            for (int i = 1; i < CurrentGameState.BoardArray.GetLength(0) + 1; i++)
+            // Iterates through board array, updating status to default
+            foreach (Label boardPosition in CurrentGameState.BoardArray) 
             {
-                for (int  j = 1; j < CurrentGameState.BoardArray.GetLength(1) + 1; j++)
-                {
-                    if (BS.board[i, j] == BS.BoardStatus.Hit) 
-                    { 
-                        CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.Red;
-                        ToolTips.SetToolTip(CurrentGameState.BoardArray[i - 1, j - 1], $"You struck a ship here!");
-                    }
-
-                    else if (BS.board[i, j] == BS.BoardStatus.Miss) 
-                    { 
-                        CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.White;
-                        ToolTips.SetToolTip(CurrentGameState.BoardArray[i - 1, j - 1], $"You missed here!");
-                    }
-
-                    else { CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.FromArgb(125, 10, 10, 10); }
-                }
+                ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
+                boardPosition.Click += new EventHandler(boardPosition_Click);
+                boardPosition.BackColor = Color.FromArgb(125, 10, 10, 10);
+                pnlGameArea.Controls.Add(boardPosition);
             }
         }
 
@@ -232,9 +212,27 @@ namespace Assignment2
         /// </summary>
         private void FireMissle(Label boardPosition)
         {
+            boardPosition.Click -= boardPosition_Click;
             int[] positionCoordinates = GetLabelCoordinates(boardPosition);
             BS.CheckForHit(positionCoordinates, CurrentGameState);
-            UpdateBoard();
+            UpdateBoardPosition(positionCoordinates);
+        }
+
+        /// <summary>
+        /// Visually updates a board position based on the given coordinates.
+        /// </summary>
+        /// <param name="coordinates">Label to update.</param>
+        private void UpdateBoardPosition(int[] coordinates)
+        {
+            if (BS.board[coordinates[0] + 1, coordinates[1] + 1] == BS.BoardStatus.Hit)
+            {
+                CurrentGameState.BoardArray[coordinates[0], coordinates[1]].BackColor = Color.Red;
+                ToolTips.SetToolTip(CurrentGameState.BoardArray[coordinates[0], coordinates[1]], $"You struck a ship here!");
+                return;
+            }
+
+            CurrentGameState.BoardArray[coordinates[0], coordinates[1]].BackColor = Color.White;
+            ToolTips.SetToolTip(CurrentGameState.BoardArray[coordinates[0], coordinates[1]], $"You missed here!");
         }
 
         /// <summary>

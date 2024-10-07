@@ -239,12 +239,8 @@ namespace Assignment2
                 }
             }
 
-            // Update each label's status
-            UpdateBoard();
-
             // Add board back to screen
             Controls.Add(pnlGameArea);
-
         }
 
         /// <summary>
