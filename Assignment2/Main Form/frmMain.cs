@@ -36,7 +36,7 @@ namespace Assignment2
 
             #endregion
 
-            #region Instantiation
+            #region Control and Game State Instantiation
             CurrentGameState = new GameState();
 
             lblHeader = new Label();
@@ -104,7 +104,8 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.
+        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.\
+        /// Also subscribes each label to the same event handler.
         /// </summary>
         private void SetupGameBoard()
         {
@@ -112,9 +113,11 @@ namespace Assignment2
             Controls.Remove(pnlGameArea);
             pnlGameArea.Controls.Clear();
       
-            // Grabs the board array and adds it to th
+            // Grabs the board array and adds it to controls
             foreach (Label boardPosition in CurrentGameState.BoardArray)
             {
+                ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
+                boardPosition.Click += new EventHandler(boardPosition_Click);
                 pnlGameArea.Controls.Add(boardPosition);
             }
 
@@ -129,7 +132,6 @@ namespace Assignment2
             btnExitApplication.Click += new EventHandler(btnExitApplication_Click);
         }
 
-    
         #endregion
 
         #region Event Handlers
@@ -147,8 +149,8 @@ namespace Assignment2
         /// <summary>
         /// Starts a nw game after prompting the user.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">New game button.</param>
+        /// <param name="e">Any arguments added.</param>
         private void btnNewGame_Click(object? sender, EventArgs e)
         {
             StartGame();
@@ -157,11 +159,23 @@ namespace Assignment2
         /// <summary>
         /// Calls method to close the application after prompting user.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Exit application button.</param>
+        /// <param name="e">Any arguments added.</param>
         private void btnExitApplication_Click(object? sender, EventArgs e)
         {
             ExitApplication();
+        }
+
+        /// <summary>
+        /// Calls method to fire a missle at boardPosition's coordinates.
+        /// </summary>
+        /// <param name="sender">The boardPosition label.</param>
+        /// <param name="e">Any arguments added.</param>
+        private void boardPosition_Click(object? sender, EventArgs e)
+        {
+            // Ensure sender is label before explicit cast
+            if (!(sender is Label)) { return; }
+            FireMissle((Label)sender);
         }
 
         #endregion
@@ -189,29 +203,64 @@ namespace Assignment2
         /// </summary>
         private void UpdateBoard()
         {
+
             // Iterates through board array, updating status to match the board status found in BS class.
-            for (int i = 0; i < CurrentGameState.BoardArray.GetLength(0); i++)
+            for (int i = 1; i < CurrentGameState.BoardArray.GetLength(0) + 1; i++)
             {
-                for (int  j = 0; j < CurrentGameState.BoardArray.GetLength(1); j++)
+                for (int  j = 1; j < CurrentGameState.BoardArray.GetLength(1) + 1; j++)
                 {
                     if (BS.board[i, j] == BS.BoardStatus.Hit) 
                     { 
-                        CurrentGameState.BoardArray[i, j].BackColor = Color.Red;
-                        break;
+                        CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.Red;
+                        ToolTips.SetToolTip(CurrentGameState.BoardArray[i - 1, j - 1], $"You struck a ship here!");
                     }
 
-                    if (BS.board[i, j] == BS.BoardStatus.Miss)
-                    {
-                        CurrentGameState.BoardArray[i, j].BackColor = Color.White;
-                        break;
+                    else if (BS.board[i, j] == BS.BoardStatus.Miss) 
+                    { 
+                        CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.White;
+                        ToolTips.SetToolTip(CurrentGameState.BoardArray[i - 1, j - 1], $"You missed here!");
                     }
 
-                    else
+                    else { CurrentGameState.BoardArray[i - 1, j - 1].BackColor = Color.FromArgb(125, 10, 10, 10); }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the coordinates of the label to fire on, then proceeds to attempt to fire.
+        /// Updates board in case of hit or miss.
+        /// </summary>
+        private void FireMissle(Label boardPosition)
+        {
+            int[] positionCoordinates = GetLabelCoordinates(boardPosition);
+            BS.CheckForHit(positionCoordinates, CurrentGameState);
+            UpdateBoard();
+        }
+
+        /// <summary>
+        /// Searches through board array, grabs the x and y (or rather y and x) coordinates of 
+        /// the board position, returns as integer array.
+        /// </summary>
+        /// <param name="boardPosition">The label which needs coordinates.</param>
+        /// <returns></returns>
+        private int[] GetLabelCoordinates(Label boardPosition)
+        {
+            int[] coordinates = { 0, 0 };
+
+            for (int i = 0; i < CurrentGameState.BoardArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < CurrentGameState.BoardArray.GetLength(1); j++)
+                {
+                    if (CurrentGameState.BoardArray[i, j] == boardPosition)
                     {
-                        CurrentGameState.BoardArray[i, j].BackColor = Color.FromArgb(125, 10, 10, 10);
+                        coordinates[0] = i;
+                        coordinates[1] = j;
+                        return coordinates;
                     }
                 }
             }
+
+            return coordinates;
         }
         
         #endregion

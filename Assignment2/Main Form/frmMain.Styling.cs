@@ -93,19 +93,21 @@ namespace Assignment2
 
             // The panel itself
             pnlGameSetup.MaximumSize = MAXIMUM_SETUP_PANEL_SIZE;
-            pnlGameSetup.BackColor = Color.FromArgb(50, 50, 50);
+            pnlGameSetup.BackColor = Color.FromArgb(222, 222, 222);
 
             // btnNewGame
             ToolTips.SetToolTip(btnNewGame, "Click here, or press 'Alt + N' to reset all progress and start a new game.");
             btnNewGame.TabIndex = 0;
             btnNewGame.Text = "&NEW GAME";
-            btnNewGame.BackColor = Color.White;
+            btnNewGame.BackColor = Color.Black;
+            btnNewGame.ForeColor = Color.White;
 
             // btnExitApplication
             ToolTips.SetToolTip(btnExitApplication, "Click here, or press 'Alt + X' to exit application.");
             btnExitApplication.TabIndex = 1;
-            btnExitApplication.Text = "E&XIT";
-            btnExitApplication.BackColor = Color.White;
+            btnExitApplication.Text = "&X";
+            btnExitApplication.BackColor = Color.Black;
+            btnExitApplication.ForeColor = Color.Red;
 
             #endregion
 
@@ -150,17 +152,16 @@ namespace Assignment2
             pnlGameSetup.Location = new Point(0, lblHeader.Location.Y + lblHeader.Height);
 
             // btnNewGame
-            btnNewGame.Size = new Size(ClientSize.Width / 9, pnlGameSetup.Height);
+            btnNewGame.Size = new Size(ClientSize.Width / 2, pnlGameSetup.Height);
             btnNewGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
 
             // btnExitApplication
-            btnExitApplication.Size = new Size(ClientSize.Width / 11, pnlGameSetup.Height);
+            btnExitApplication.Size = new Size(ClientSize.Width / 20, pnlGameSetup.Height);
             btnExitApplication.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
 
             // Button locations
-            int controlCentre = pnlGameSetup.Width / 2 - (btnNewGame.Width + btnExitApplication.Width) / 2;
-            btnNewGame.Location = new Point(controlCentre, 0);
-            btnExitApplication.Location = new Point(btnNewGame.Location.X + btnNewGame.Width, 0);
+            btnNewGame.Location = new Point(pnlGameSetup.Width / 2 - btnNewGame.Width / 2, 0);
+            btnExitApplication.Location = new Point(MARGIN, 0);
 
             // Ensure button fonts do not suprass limit
             if (btnNewGame.Font.Size > MAXIMUM_BUTTON_FONT_SIZE)
@@ -208,18 +209,15 @@ namespace Assignment2
             int boardSize = (int)CurrentGameState.Difficulty;
 
             // The width and height of each label. If a label is off screen, ensure it is made smaller and visible
-            int size = (pnlGameArea.Width + pnlGameArea.Height) / 45;
-            if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Width)
+            int size = (pnlGameArea.Width + pnlGameArea.Height) / 40;
+            if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Width ||
+                size * boardSize + MARGIN * boardSize >= pnlGameArea.Height)
             {
                 size = 15;
             }
-            else if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Height)
-            {
-                size = pnlGameArea.Height / boardSize - MARGIN * 2;
-            }
 
             // For horizontal/vertical spacing
-            int defaultHorizontalSpacing = MARGIN + pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2;
+            int defaultHorizontalSpacing = pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2;
             int horizontalSpacing = defaultHorizontalSpacing;
             int verticalSpacing = MARGIN;
 

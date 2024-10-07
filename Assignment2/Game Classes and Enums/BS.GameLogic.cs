@@ -60,55 +60,46 @@ namespace Assignment2
         /// <param name="gameState">The gameState to update.</param>
         public static void CheckForHit(int[] coordinates, GameState gameState)
         {
-            // Ensure coordiantes are in valid range. Just return if not
-            if (coordinates[0] > MAX_BOARD_SIZE || coordinates[0] < 0 ||
-                coordinates[1] > MAX_BOARD_SIZE || coordinates[1] < 0)
-            {
-                return;
-            }
-
             // Check if there was already a hit or a miss there
-            if (board[coordinates[0], coordinates[1]] == BoardStatus.Hit ||
-                board[coordinates[0], coordinates[1]] == BoardStatus.Miss)
+            if (board[coordinates[0] + 1, coordinates[1] + 1] == BoardStatus.Hit ||
+                board[coordinates[0] + 1, coordinates[1] + 1] == BoardStatus.Miss)
             {
                 return;
             }
 
             // Now check if any boat was hit and update game state and boardstatus
-            if (boatPositions[coordinates[0], coordinates[1]] == Boats.Destroyer)
+            if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Destroyer)
             {
                 gameState.DestroyerHealth -= 1;
-                board[coordinates[0], coordinates[1]] = BoardStatus.Hit;
+                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            if (boatPositions[coordinates[0], coordinates[1]] == Boats.Submarine)
+            if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Submarine)
             {
                 gameState.SubmarineHealth -= 1;
-                board[coordinates[0], coordinates[1]] = BoardStatus.Hit;
+                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            if (boatPositions[coordinates[0], coordinates[1]] == Boats.Cruiser)
+            if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Cruiser)
             {
                 gameState.CruiserHealth -= 1;
-                board[coordinates[0], coordinates[1]] = BoardStatus.Hit;
+                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            if (boatPositions[coordinates[0], coordinates[1]] == Boats.Battleship)
+            if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Battleship)
             {
                 gameState.BattleshipHealth -= 1;
-                board[coordinates[0], coordinates[1]] = BoardStatus.Hit;
+                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            if (boatPositions[coordinates[0], coordinates[1]] == Boats.Carrier)
+            if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Carrier)
             {
                 gameState.CarrierHealth -= 1;
-                board[coordinates[0], coordinates[1]] = BoardStatus.Hit;
+                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            else
-            {
-                board[coordinates[0], coordinates[1]] = BoardStatus.Miss;
-            }
+            
+            board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Miss;
         }
 
         /// <summary>
