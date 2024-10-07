@@ -35,7 +35,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(18, 18, 18);
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 611);
+            MaximumSize = new Size(1920, 2000);
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Battleship";

@@ -25,7 +25,7 @@ namespace Assignment2
     {
         #region Constants and Static Styling Variables
 
-        private static Size FORM_MINIMUM_SIZE = new Size(720, 400);
+        private static Size FORM_MINIMUM_SIZE = new Size(720, 450);
         private static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
 
         private static int MAXIMUM_BUTTON_FONT_SIZE = 25;
@@ -48,12 +48,12 @@ namespace Assignment2
         private Label lblStartGamePrompt { get; set; }
 
         // Missles fired
-        private Panel pnlMisslesFired { get; set; }
+/*        private Panel pnlMisslesFired { get; set; }
         private Label lblMisslesFired { get; set; }
 
         // Progress panel
         private Panel pnlProgress { get; set; }
-        private Button btnViewProgress { get; set; }
+        private Button btnViewProgress { get; set; }*/
 
         // Tool tips
         private ToolTip ToolTips { get; set; }
@@ -182,19 +182,14 @@ namespace Assignment2
             pnlGameArea.Size = new Size(ClientSize.Width - MARGIN * 2, ClientSize.Height - pnlGameSetup.Height - lblHeader.Height - MARGIN * 2);
             pnlGameArea.Location = new Point(MARGIN, pnlGameSetup.Location.Y + pnlGameSetup.Height + MARGIN);
 
-            // Start game prompt
-            lblStartGamePrompt.Size = new Size(ClientSize.Width, relativePosition / 25);
-            lblStartGamePrompt.Font = new Font("Segoe UI", lblHeader.Height / 5, FontStyle.Regular);
-            lblStartGamePrompt.Location = new Point(0, pnlGameArea.Height / 2 - lblStartGamePrompt.Height / 2);
-
             // Style game area based on game happening status
             if (CurrentGameState.GameHappening)
             {
-                StyleActiveGame();
+                StyleActiveGamePositioning();
             }
             else
             {
-                StyleNoActiveGame();
+                StyleNoActiveGamePositioning(relativePosition);
             }
 
             #endregion
@@ -202,19 +197,68 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Hides start game prompt and styles each label in array of labels for this game.
+        /// Styles each label in array of labels for this game.
         /// </summary>
-        private void StyleActiveGame()
+        private void StyleActiveGamePositioning()
         {
+            // Ensure game area panel is not on screen to prevent lag
+            Controls.Remove(pnlGameArea);
+
+            // The current difficulty as it's integer value
+            int boardSize = (int)CurrentGameState.Difficulty;
+
+            // The width and height of each label. If a label is off screen, ensure it is made smaller and visible
+            int size = (pnlGameArea.Width + pnlGameArea.Height) / 45;
+            if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Width)
+            {
+                size = 15;
+            }
+            else if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Height)
+            {
+                size = pnlGameArea.Height / boardSize - MARGIN * 2;
+            }
+
+            // For horizontal/vertical spacing
+            int defaultHorizontalSpacing = MARGIN + pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2;
+            int horizontalSpacing = defaultHorizontalSpacing;
+            int verticalSpacing = MARGIN;
+
+            // Iterate through each game position (label) within game area, updating position apropriately for each
+            int columnCount = 0;
+            foreach (Control boardPosition in pnlGameArea.Controls)
+            {
+                boardPosition.Width = size;
+                boardPosition.Height = size;
+                boardPosition.Location = new Point(horizontalSpacing, verticalSpacing);
+                horizontalSpacing += boardPosition.Width + MARGIN;
+
+                
+                if (++columnCount == boardSize)
+                {
+                    columnCount = 0;
+                    horizontalSpacing = defaultHorizontalSpacing;
+                    verticalSpacing += boardPosition.Width + MARGIN;
+                }
+            }
+
+            // Update each label's status
+            UpdateBoard();
+
+            // Add board back to screen
+            Controls.Add(pnlGameArea);
 
         }
 
         /// <summary>
         /// Displays prompt informing user there is no active game.
         /// </summary>
-        private void StyleNoActiveGame()
+        /// <param name="relativePosition">For relative styling based on parent form.</param>
+        private void StyleNoActiveGamePositioning(int relativePosition)
         {
-            lblStartGamePrompt.Visible = true;
+            // Start game prompt
+            lblStartGamePrompt.Size = new Size(ClientSize.Width, relativePosition / 25);
+            lblStartGamePrompt.Font = new Font("Segoe UI", lblHeader.Height / 5, FontStyle.Regular);
+            lblStartGamePrompt.Location = new Point(0, pnlGameArea.Height / 2 - lblStartGamePrompt.Height / 2);
         }
 
 

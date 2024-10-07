@@ -36,7 +36,8 @@ namespace Assignment2
 
             #endregion
 
-            #region Control Instantiation
+            #region Instantiation
+            CurrentGameState = new GameState();
 
             lblHeader = new Label();
             pnlGameSetup = new Panel();
@@ -46,12 +47,12 @@ namespace Assignment2
             pnlGameArea = new Panel();
             lblStartGamePrompt = new Label();
 
-            pnlMisslesFired = new Panel();
+/*            pnlMisslesFired = new Panel();
             lblMisslesFired = new Label();
 
             pnlProgress = new Panel();
             btnViewProgress = new Button();
-
+*/
             ToolTips = new ToolTip();
 
             #endregion
@@ -59,7 +60,7 @@ namespace Assignment2
             #region Game Setup
 
             SetupControls();
-            CurrentGameState = new GameState();
+
             #endregion
         }
 
@@ -85,13 +86,13 @@ namespace Assignment2
             pnlGameArea.Controls.Add(lblStartGamePrompt);
 
             // Missles Fired
-            Controls.Add(pnlMisslesFired);
+/*            Controls.Add(pnlMisslesFired);
             pnlMisslesFired.Controls.Add(lblMisslesFired);
 
             // Progress Panel
             Controls.Add(pnlProgress);
             pnlProgress.Controls.Add(btnViewProgress);
-
+*/
             #endregion
 
             #region Styling and Subscribing Event Handlers
@@ -102,11 +103,29 @@ namespace Assignment2
             #endregion
         }
 
+        /// <summary>
+        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.
+        /// </summary>
+        private void SetupGameBoard()
+        {
+            // Much faster to clear and add labels off screen
+            Controls.Remove(pnlGameArea);
+            pnlGameArea.Controls.Clear();
+      
+            // Grabs the board array and adds it to th
+            foreach (Label boardPosition in CurrentGameState.BoardArray)
+            {
+                pnlGameArea.Controls.Add(boardPosition);
+            }
 
+            // Style labels
+            StyleActiveGamePositioning();
+        }
 
         private void SubscribeEventHandlers()
         {
             Resize += new EventHandler(frmMain_Resize);
+            btnNewGame.Click += new EventHandler(btnNewGame_Click);
             btnExitApplication.Click += new EventHandler(btnExitApplication_Click);
         }
 
@@ -126,6 +145,16 @@ namespace Assignment2
         }
 
         /// <summary>
+        /// Starts a nw game after prompting the user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNewGame_Click(object? sender, EventArgs e)
+        {
+            StartGame();
+        }
+
+        /// <summary>
         /// Calls method to close the application after prompting user.
         /// </summary>
         /// <param name="sender"></param>
@@ -137,6 +166,55 @@ namespace Assignment2
 
         #endregion
 
+        #region Game Logic
+
+        /// <summary>
+        /// Prompts user to select difficulty before starting game.
+        /// </summary>
+        private void StartGame()
+        {
+            // Removes start game prompt - it should never need to appear again.
+            pnlGameArea.Controls.Remove(lblStartGamePrompt); 
+
+            // Resets game state and board state
+            CurrentGameState.Reset();
+
+            // Sets up game area
+            SetupGameBoard();
+        }
+
+
+        /// <summary>
+        /// Updates status of each label.
+        /// </summary>
+        private void UpdateBoard()
+        {
+            // Iterates through board array, updating status to match the board status found in BS class.
+            for (int i = 0; i < CurrentGameState.BoardArray.GetLength(0); i++)
+            {
+                for (int  j = 0; j < CurrentGameState.BoardArray.GetLength(1); j++)
+                {
+                    if (BS.board[i, j] == BS.BoardStatus.Hit) 
+                    { 
+                        CurrentGameState.BoardArray[i, j].BackColor = Color.Red;
+                        break;
+                    }
+
+                    if (BS.board[i, j] == BS.BoardStatus.Miss)
+                    {
+                        CurrentGameState.BoardArray[i, j].BackColor = Color.White;
+                        break;
+                    }
+
+                    else
+                    {
+                        CurrentGameState.BoardArray[i, j].BackColor = Color.FromArgb(125, 10, 10, 10);
+                    }
+                }
+            }
+        }
+        
+        #endregion
 
         #region Cleanup Methods
 

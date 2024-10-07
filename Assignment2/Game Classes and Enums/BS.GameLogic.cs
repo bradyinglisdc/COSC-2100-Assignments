@@ -28,6 +28,8 @@ namespace Assignment2
     public static partial class BS
     {
 
+        #region Main Logic Methods
+
         /// <summary>
         /// Creates a 2d label array based on the provided difficulty.
         /// </summary>
@@ -59,14 +61,14 @@ namespace Assignment2
         public static void CheckForHit(int[] coordinates, GameState gameState)
         {
             // Ensure coordiantes are in valid range. Just return if not
-            if (coordinates[0] > MAX_BOARD_SIZE || coordinates[0] < 0 || 
+            if (coordinates[0] > MAX_BOARD_SIZE || coordinates[0] < 0 ||
                 coordinates[1] > MAX_BOARD_SIZE || coordinates[1] < 0)
             {
                 return;
             }
 
             // Check if there was already a hit or a miss there
-            if (board[coordinates[0], coordinates[1]] == BoardStatus.Hit || 
+            if (board[coordinates[0], coordinates[1]] == BoardStatus.Hit ||
                 board[coordinates[0], coordinates[1]] == BoardStatus.Miss)
             {
                 return;
@@ -108,6 +110,24 @@ namespace Assignment2
                 board[coordinates[0], coordinates[1]] = BoardStatus.Miss;
             }
         }
+
+        /// <summary>
+        /// Resets board status, so that every index is empty.
+        /// </summary>
+        public static void ResetBoard()
+        {
+            for (int i = 0; i < board.GetLength(0); i++)
+            {
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    board[i, j] = BoardStatus.Empty;
+                    boatPositions[i, j] = Boats.NoBoat;
+                }
+
+            }
+        }
+
+        #endregion
 
 
     }
