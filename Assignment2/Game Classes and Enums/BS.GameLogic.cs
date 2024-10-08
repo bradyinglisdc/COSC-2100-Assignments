@@ -27,7 +27,6 @@ namespace Assignment2
     /// </summary>
     public static partial class BS
     {
-
         #region Main Logic Methods
 
         /// <summary>
@@ -70,32 +69,32 @@ namespace Assignment2
             // Now check if any boat was hit and update game state and boardstatus
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Destroyer)
             {
-                TrackHit(coordinates, gameState);
                 gameState.DestroyerHealth--;
+                TrackHit(coordinates, gameState);
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Submarine)
             {
-                TrackHit(coordinates, gameState);
                 gameState.SubmarineHealth--;
+                TrackHit(coordinates, gameState);
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Cruiser)
             {
+                gameState.CruiserHealth--;
                 TrackHit(coordinates, gameState);
-                gameState.CruiserHealth -= 1;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Battleship)
             {
+                gameState.BattleshipHealth--;
                 TrackHit(coordinates, gameState);
-                gameState.BattleshipHealth -= 1;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Carrier)
             {
+                gameState.CarrierHealth--;
                 TrackHit(coordinates, gameState);
-                gameState.CarrierHealth -= 1;
                 return;
             }
 

@@ -57,6 +57,46 @@ namespace Assignment2
         }
 
         /// <summary>
+        /// Tallys up sunken boats based on health.
+        /// </summary>
+        /// <returns>Integer representing number of sunken boats.</returns>
+        public int GetBoatsSunk()
+        {
+            int sunkenBoats = 0;
+            sunkenBoats += CheckBoatStatus(CarrierHealth);
+            sunkenBoats += CheckBoatStatus(BattleshipHealth);
+            sunkenBoats += CheckBoatStatus(SubmarineHealth);
+            sunkenBoats += CheckBoatStatus(CruiserHealth);
+            sunkenBoats += CheckBoatStatus(DestroyerHealth);
+
+            return sunkenBoats;
+        }
+
+        /// <summary>
+        /// Returns Checks if a given boat is sunk based off health.
+        /// </summary>
+        /// <param name="boatHealth">The boat to check.</param>
+        /// <returns>1 if boat is sunk, 0 if boat is alive.</returns>
+        private int CheckBoatStatus(int boatHealth)
+        {
+            if (boatHealth == 0) { return 1; }
+            return 0;
+        }
+
+        /// <summary>
+        /// If number of boats sunken is equal to number of boats, we have a winner.
+        /// </summary>
+        /// <returns>True if win was found.</returns>
+        private bool CheckForWin()
+        {
+            if (CarrierHealth != 0 || BattleshipHealth != 0 ||
+                SubmarineHealth != 0 || CruiserHealth != 0 ||
+                DestroyerHealth != 0) { return false; }
+            return true;
+        }
+
+
+        /// <summary>
         /// Resets health and board state, sets game happening to true, and randomizes board.
         /// </summary>
         public void Reset()

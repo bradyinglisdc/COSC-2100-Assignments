@@ -25,14 +25,27 @@ namespace Assignment2
     {
         #region Constants and Static Styling Variables
 
-        private static Size FORM_MINIMUM_SIZE = new Size(720, 450);
+        // Form and Setup panel
+        private static Size FORM_MINIMUM_SIZE = new Size(720, 600);
         private static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
 
+        // Board sizing
+        private const int MAXIMUM_BOARD_POSITION_SIZE = 55;
+        private const int MINIMUM_BOARD_POSITION_SIZE = 30;
+
+        // Button sizing
         private const int MAXIMUM_BUTTON_FONT_SIZE = 25;
         private const int MINIMUM_BUTTON_FONT_SIZE = 8;
 
+        // Missles Fired control sizing
         private const int MAXIMUM_MISSLES_FIRED_HEIGHT = 75;
+        private const int MINIMUM_MISSLES_FIRED_HEIGHT = 30;
 
+        // Resizeable Panel Sizing
+        private const int MIMIMIZED_PANEL_HEIGHT = 30;
+        private const int PROGRESS_HEADERS_FONT_SIZE = 12;
+
+        // General styling
         private const int MARGIN = 10;
 
         #endregion
@@ -65,7 +78,7 @@ namespace Assignment2
         private Label lblBattleshipHealthHeader { get; set; }
         private ProgressBar pbrBattleshipHealthIndicator{ get; set; }
 
-        private Label lblCruiserHealtHeader { get; set; }
+        private Label lblCruiserHealthHeader { get; set; }
         private ProgressBar pbrCruiserHealthIndicator{ get; set; }
 
         private Label lblSubmarineHealthHeader { get; set; }
@@ -162,6 +175,7 @@ namespace Assignment2
             ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
             pbxMisslesFired.Image = Image.FromStream(new MemoryStream(Properties.Resources.MisslesFiredPanel));
             pbxMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
+            pbxMisslesFired.MinimumSize = new Size(0, MINIMUM_MISSLES_FIRED_HEIGHT);
 
             // The Tracking Label
             lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
@@ -171,14 +185,19 @@ namespace Assignment2
 
             #region pnlProgress
 
-
+            // Access Styling
+            ChangeProgressPanelSize(); // Minimize at first
+            pnlProgress.BackColor = Color.FromArgb(30, 30, 30);
+            btnViewProgress.BackColor = Color.Black;
+            btnViewProgress.ForeColor = Color.White;
+            btnViewProgress.TextAlign = ContentAlignment.MiddleCenter;
 
             #endregion
 
             // Update sizing/positioning based on form width and height
             StylePositioning();
         }
-
+        
         #endregion
 
         #region Dynamic Styles
@@ -195,8 +214,12 @@ namespace Assignment2
             #region lblHeader
 
             lblHeader.Size = new Size(ClientSize.Width, relativePosition / 25);
-            lblHeader.Font = new Font("Impact", lblHeader.Height / 2, FontStyle.Regular);
-
+            
+            if (lblHeader.Height / 2 > 0)
+            {
+                lblHeader.Font = new Font("Impact", lblHeader.Height / 2, FontStyle.Regular);
+            }
+            
             #endregion
 
             #region pnlGameSetup
@@ -261,19 +284,12 @@ namespace Assignment2
         /// </summary>
         private void StyleActiveGamePositioning()
         {
-            // Ensure game area panel is not on screen to prevent lag
-            Controls.Remove(pnlGameArea);
-
             // The current difficulty as it's integer value
             int boardSize = (int)CurrentGameState.Difficulty;
 
-            // The width and height of each label. If a label is off screen, ensure it is made smaller and visible
+            // The width and height of each label. Ensure size doesn't suprass max position size for proper centering.
             int size = (pnlGameArea.Width + pnlGameArea.Height) / 40;
-            if (size * boardSize + MARGIN * boardSize >= pnlGameArea.Width ||
-                size * boardSize + MARGIN * boardSize >= pnlGameArea.Height)
-            {
-                size = 15;
-            }
+            if (size > MAXIMUM_BOARD_POSITION_SIZE) { size = MAXIMUM_BOARD_POSITION_SIZE; }
 
             // For horizontal/vertical spacing
             int defaultHorizontalSpacing = pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2;
@@ -285,7 +301,6 @@ namespace Assignment2
             {
                 for (int j = 0; j < CurrentGameState.BoardArray.GetLength(1); j++)
                 {
-                    CurrentGameState.BoardArray[i, j].BringToFront();
                     CurrentGameState.BoardArray[i, j].Width = size;
                     CurrentGameState.BoardArray[i, j].Height = size;
                     CurrentGameState.BoardArray[i, j].Location = new Point(horizontalSpacing, verticalSpacing);
@@ -295,11 +310,12 @@ namespace Assignment2
                 verticalSpacing += CurrentGameState.BoardArray[i, i].Width + MARGIN;
             }
 
-            // Add game area back, ensure background stays behind all
-            Controls.Add(pnlGameArea);
-
-            // Style missles fired panel
+            // Style missles fired panel positioning
             StyleMisslesFiredPositioning();
+
+            // Style progress panel positioning
+            StyleProgressPanelPositioning();
+
         }
 
         /// <summary>
@@ -309,27 +325,103 @@ namespace Assignment2
         /// </summary>
         private void StyleMisslesFiredPositioning()
         {
-            // Get the last board position row
-            int lastRow = CurrentGameState.BoardArray.GetLength(0);
-            Label lastRowBoardPosition = CurrentGameState.BoardArray[lastRow - 1, 0];
+            // Get length of the board and a board position for size reference
+            int boardSize = CurrentGameState.BoardArray.GetLength(0);
+            Label boardPosition = CurrentGameState.BoardArray[boardSize - 1, 0];
 
             #region pbxMisslesFired Styling
 
-            pbxMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y +
-                lastRowBoardPosition.Height + MARGIN);
-            pbxMisslesFired.Width = (lastRowBoardPosition.Width * lastRow) + (MARGIN * (lastRow - 1));
-            pbxMisslesFired.Height = pnlGameArea.Height - ((lastRowBoardPosition.Height * lastRow) + (MARGIN * (lastRow - 1)));
+            pbxMisslesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMisslesFired.Height);
+            pbxMisslesFired.Width = (boardPosition.Width * boardSize) + (MARGIN * (boardSize - 1));
+            pbxMisslesFired.Height = pnlGameArea.Height - ((boardPosition.Height * boardSize) + (MARGIN * (boardSize - 1)));
+            pbxMisslesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMisslesFired.Height);
 
             #endregion
 
             #region lblMisslesFired Styling
 
             lblMisslesFired.Size = new Size(pbxMisslesFired.Width, pbxMisslesFired.Height);
-            lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
 
+            if (lblMisslesFired.Height / 4 > 0)
+            {
+                lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
+            }
+            
             #endregion
         }
 
+        /// <summary>
+        /// To be called after game panel is styled. 
+        /// Styles pnlProgress and its controls so that it appears
+        /// on the right most side of the game area.
+        /// </summary>
+        private void StyleProgressPanelPositioning()
+        {
+            // Width of panel should me remaining space between board and the end of game area
+            pnlProgress.Width = pnlGameArea.Width - (CurrentGameState.BoardArray[0, CurrentGameState.BoardArray.GetLength(1) - 1].Location.X + MARGIN * 6);
+            pnlProgress.Height = pnlGameArea.Height;
+            pnlProgress.Location = new Point(pnlGameArea.Width - pnlProgress.Width, GetResizeablePanelYPosition(ProgressPanelMinimized));
+
+            // Width of view button should match
+            btnViewProgress.Width = pnlProgress.Width;
+            btnViewProgress.Location = new Point(0, 0);
+
+            // Style all progress controls
+            SetProgress(btnViewProgress, lblCarrierHealthHeader, pbrCarrierHealthIndicator);
+            SetProgress(pbrCarrierHealthIndicator, lblBattleshipHealthHeader, pbrBattleshipHealthIndicator);
+            SetProgress(pbrBattleshipHealthIndicator, lblCruiserHealthHeader, pbrCruiserHealthIndicator);
+            SetProgress(pbrCruiserHealthIndicator, lblSubmarineHealthHeader, pbrSubmarineHealthIndicator);
+            SetProgress(pbrSubmarineHealthIndicator, lblDestroyerHealthHeader, pbrDestroyerHealthIndicator);;
+
+
+        }
+
+        /// <summary>
+        /// Sets the styling of a label/progress bar based on the previous one.
+        /// </summary>
+        /// <param name="previousControl">The progress bar/button which should prepend the new one.</param>
+        /// <param name="newProgressLabel">The label for the new progress bar.</param>
+        /// <param name="newProgressBar">The new progress bar.</param>
+        private void SetProgress(Control previousControl, Label newProgressLabel, ProgressBar newProgressBar)
+        {
+            // Styling the label
+            newProgressLabel.Location = new Point(0, previousControl.Location.Y + previousControl.Height + MARGIN);
+            newProgressLabel.Width = pnlProgress.Width;
+            newProgressLabel.Font = new("Segoe UI", PROGRESS_HEADERS_FONT_SIZE, FontStyle.Regular);
+            newProgressLabel.ForeColor = Color.White;
+
+            // Styling the progress bar
+            newProgressBar.Location = new Point(0, newProgressLabel.Location.Y + newProgressLabel.Height);
+            newProgressBar.Width = pnlProgress.Width;
+        }
+
+        /// <summary>
+        /// Returns an integer value for resizeable panels based on a minimized paramater.
+        /// </summary>
+        /// <param name="IsMinimized"></param>
+        /// <returns>Maximized panel Y position if false, else minimized</returns>
+        private int GetResizeablePanelYPosition(bool IsMinimized)
+        {
+            // If it should be minimized, the panel should be at the bottom of the game area.
+            if (IsMinimized) { return pnlGameArea.Height - MIMIMIZED_PANEL_HEIGHT; }
+
+            // Otherwise, it should fill half the game area with some added margin
+            else { return pnlGameArea.Height / 2 - MARGIN * 8; }
+        }
+
+        /// <summary>
+        /// Minimizes/Maximizes progress panel
+        /// </summary>
+        private void ChangeProgressPanelSize()
+        {
+            // Change status and update location
+            ProgressPanelMinimized = !ProgressPanelMinimized;
+            pnlProgress.Location = new Point(pnlProgress.Location.X, GetResizeablePanelYPosition(ProgressPanelMinimized));
+
+            // Update button
+            if (ProgressPanelMinimized) { btnViewProgress.Text = "VIEW GAME PROGRESS"; }
+            else { btnViewProgress.Text = "HIDE GAME PROGRESS"; }
+        }
 
         /// <summary>
         /// Displays prompt informing user there is no active game.
@@ -345,8 +437,6 @@ namespace Assignment2
         }
 
         #endregion
-
-
     }
 }
 #endregion

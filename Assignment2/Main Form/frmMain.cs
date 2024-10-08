@@ -40,24 +40,47 @@ namespace Assignment2
             #endregion
 
             #region Control and Game State Instantiation
-            
+
             // Game State
             CurrentGameState = new GameState();
 
-            // Min-Maximize Panel Statuses
-            ProgressPanelMinimized = true;
+            // Min/Maximize Panel Statuses
+            ProgressPanelMinimized = false;
 
+            // Header/game setup
             lblHeader = new Label();
             pnlGameSetup = new Panel();
             btnNewGame = new Button();
             btnExitApplication = new Button();
             btnRestartGame = new Button();
 
+            // Game area
+            pnlGameArea = new Panel();
+            pbxBattleshipBackground = new PictureBox();
+
+            #region Progress Panel Instantiation
+
+            // The Panel
             pnlProgress = new Panel();
             btnViewProgress = new Button();
 
-            pbxBattleshipBackground = new PictureBox();
-            pnlGameArea = new Panel();
+            // Panel Controls
+            lblCarrierHealthHeader = new Label();
+            pbrCarrierHealthIndicator = new ProgressBar();
+
+            lblBattleshipHealthHeader = new Label();
+            pbrBattleshipHealthIndicator = new ProgressBar();
+
+            lblCruiserHealthHeader = new Label();
+            pbrCruiserHealthIndicator = new ProgressBar();
+
+            lblSubmarineHealthHeader = new Label();
+            pbrSubmarineHealthIndicator = new ProgressBar();
+
+            lblDestroyerHealthHeader = new Label();
+            pbrDestroyerHealthIndicator = new ProgressBar();
+
+            #endregion
 
             pbxMisslesFired = new PictureBox();
             lblMisslesFired = new Label();
@@ -106,6 +129,21 @@ namespace Assignment2
             pnlGameArea.Controls.Add(pnlProgress);
             pnlProgress.Controls.Add(btnViewProgress);
 
+            pnlProgress.Controls.Add(lblCarrierHealthHeader);
+            pnlProgress.Controls.Add(pbrCarrierHealthIndicator);
+
+            pnlProgress.Controls.Add(lblBattleshipHealthHeader);
+            pnlProgress.Controls.Add(pbrBattleshipHealthIndicator);
+
+            pnlProgress.Controls.Add(lblCruiserHealthHeader);
+            pnlProgress.Controls.Add(pbrCruiserHealthIndicator);
+
+            pnlProgress.Controls.Add(lblSubmarineHealthHeader);
+            pnlProgress.Controls.Add(pbrSubmarineHealthIndicator);
+
+            pnlProgress.Controls.Add(lblDestroyerHealthHeader);
+            pnlProgress.Controls.Add(pbrDestroyerHealthIndicator);
+
             #endregion
 
             #region Styling and Subscribing Event Handlers
@@ -121,6 +159,7 @@ namespace Assignment2
             Resize += new EventHandler(frmMain_Resize);
             btnNewGame.Click += new EventHandler(btnNewGame_Click);
             btnExitApplication.Click += new EventHandler(btnExitApplication_Click);
+            btnViewProgress.Click += new EventHandler(btnViewProgress_Click);
         }
 
         #endregion
@@ -169,6 +208,16 @@ namespace Assignment2
             FireMissle((Label)sender);
         }
 
+        /// <summary>
+        /// Minimizes/Maximizes progress panel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnViewProgress_Click(object? sender, EventArgs e)
+        {
+            ChangeProgressPanelSize();
+        }
+
         #endregion
 
         #region Game Logic
@@ -192,11 +241,7 @@ namespace Assignment2
         /// Clears current board, then completely re styles/adds new one.
         /// </summary>
         private void SetupGameBoard()
-        {
-            // Much faster to clear labels off screen. Remove pnlGameArea and all it's labels.
-            // before styling.
-            Controls.Remove(pnlGameArea);
-          
+        {          
             // Remove labels
             foreach (Label boardPosition in CurrentGameState.BoardArray) { pnlGameArea.Controls.Remove(boardPosition); }
             
@@ -219,7 +264,10 @@ namespace Assignment2
                 ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
                 boardPosition.Click += new EventHandler(boardPosition_Click);
                 boardPosition.BackColor = Color.FromArgb(255, 10, 10, 10);
+                boardPosition.MaximumSize = new Size(MAXIMUM_BOARD_POSITION_SIZE, MAXIMUM_BOARD_POSITION_SIZE);
+
                 pnlGameArea.Controls.Add(boardPosition);
+                boardPosition.BringToFront();
             }
         }
 
@@ -240,8 +288,38 @@ namespace Assignment2
         private void SetGameProgress()
         {
             pnlProgress.BringToFront();
-/*            UpdateGameProgress();
-*/        }
+            UpdateGameProgress();
+        }
+
+        /// <summary>
+        /// Updates front end to reflect boat hits.
+        /// </summary>
+        private void UpdateGameProgress()
+        {
+            UpdateProgressControlGroup(lblCarrierHealthHeader, pbrCarrierHealthIndicator, CurrentGameState.CarrierHealth, BS.Boats.Carrier);
+            UpdateProgressControlGroup(lblBattleshipHealthHeader, pbrBattleshipHealthIndicator, CurrentGameState.BattleshipHealth, BS.Boats.Battleship);
+            UpdateProgressControlGroup(lblCruiserHealthHeader, pbrCruiserHealthIndicator, CurrentGameState.CruiserHealth, BS.Boats.Cruiser);
+            UpdateProgressControlGroup(lblSubmarineHealthHeader, pbrSubmarineHealthIndicator, CurrentGameState.SubmarineHealth, BS.Boats.Submarine);
+            UpdateProgressControlGroup(lblDestroyerHealthHeader, pbrDestroyerHealthIndicator, CurrentGameState.DestroyerHealth, BS.Boats.Destroyer);
+        }
+
+        /// <summary>
+        /// Updates a label and progress based on the health of a given ship.
+        /// </summary>
+        /// <param name="boatHeader">The boat type and hit progress.</param>
+        /// <param name="boatProgress">The destruction progress bar.</param>
+        /// <param name="boatHealth">The boat's remainining health.</param>
+        /// <param name="boatType">The boat type.</param>
+        private void UpdateProgressControlGroup(Label boatHeader, ProgressBar boatProgress, int boatHealth, BS.Boats boatType)
+        {
+            double boatSize = BS.GetBoatSize(boatType);
+            double health = boatHealth;
+            boatHeader.Text = $"{boatType.ToString()} ({boatSize - boatHealth}/{boatSize} Hits)";
+
+            // Avoid dividing by 0
+            if (boatSize - boatHealth == 0 ) { boatProgress.Value = 0; }
+            else { boatProgress.Value = (int)( ((boatSize - health) / boatSize) * 100.0); }
+        }
 
         /// <summary>
         /// Gets the coordinates of the label to fire on, then proceeds to attempt to fire.
@@ -255,6 +333,7 @@ namespace Assignment2
             BS.CheckForHit(positionCoordinates, CurrentGameState);
             UpdateBoardPosition(positionCoordinates);
             UpdateMisslesFiredLabel();
+            UpdateGameProgress();
         }
 
         /// <summary>
@@ -305,7 +384,7 @@ namespace Assignment2
         /// </summary>
         private void UpdateMisslesFiredLabel()
         {
-            lblMisslesFired.Text = "MISSLES FIRED: " + CurrentGameState.MisslesFired;
+            lblMisslesFired.Text = $"MISSLES FIRED: {CurrentGameState.MisslesFired}\nBOATS SUNK: {CurrentGameState.GetBoatsSunk()}";
         }
         
         #endregion

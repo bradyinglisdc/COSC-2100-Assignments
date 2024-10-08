@@ -12,14 +12,12 @@ namespace Assignment2
     /// <summary>
     /// Each enum integer represents a board size.
     /// Easy = 10,
-    /// Medium = 15,
-    /// Hard = 20.
+    /// Hard = 12
     /// </summary>
     public enum Difficulty
     {
         Easy = 10,
-        Medium = 15,
-        Hard = 20
+        Hard = 12
     }
 }
 
