@@ -84,8 +84,8 @@ namespace Assignment2
             pnlGameArea.Controls.Add(lblStartGamePrompt);
 
             // Missles Fired
-/*            Controls.Add(pnlMisslesFired);
-            pnlMisslesFired.Controls.Add(lblMisslesFired);
+/*            Controls.Add(pbxMisslesFired);
+            pbxMisslesFired.Controls.Add(lblMisslesFired);
 
             // Progress Panel
             Controls.Add(pnlProgress);
@@ -206,16 +206,16 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Instantiates and add pnlMisslesFired and lblMisslesFired for game tracking, as well as some
+        /// Instantiates and add pbxMisslesFired and lblMisslesFired for game tracking, as well as some
         /// default properties that should only be set once.
         /// </summary>
         private void SetMissleTracker()
         {
-            pnlMisslesFired = new Panel();
+            pbxMisslesFired = new PictureBox();
             lblMisslesFired = new Label();
 
-            pnlGameArea.Controls.Add(pnlMisslesFired);
-            pnlMisslesFired.Controls.Add(lblMisslesFired);
+            pnlGameArea.Controls.Add(pbxMisslesFired);
+            pbxMisslesFired.Controls.Add(lblMisslesFired);
             StyleMissleTracker();
             UpdateMisslesFiredLabel();
         }

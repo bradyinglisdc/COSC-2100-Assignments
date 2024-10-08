@@ -69,5 +69,15 @@ namespace Assignment2.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] MisslesFiredPanel {
+            get {
+                object obj = ResourceManager.GetObject("MisslesFiredPanel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace Assignment2
         private Label lblStartGamePrompt { get; set; }
 
         // Missles fired - nullable because they will not be instantiated in constructor
-        private Panel? pnlMisslesFired { get; set; }
+        private PictureBox? pbxMisslesFired { get; set; }
         private Label? lblMisslesFired { get; set; }
 
         // Progress panel
@@ -219,25 +219,26 @@ namespace Assignment2
 
         /// <summary>
         /// To be called only after a game starts. Sets unchangeing properties
-        /// for pnlMisslesFired
+        /// for pbxMisslesFired
         /// </summary>
         private void StyleMissleTracker()
         {
             // If the controls are somehow null (SetMissleTracker was never called), just return
-            if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
+            if (pbxMisslesFired == null || lblMisslesFired == null) { return; }
 
-            #region pnlMisslesFired Styling
+            #region pbxMisslesFired Styling
             
             ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
-            pnlMisslesFired.BackColor = Color.FromArgb(120, 255, 0, 0);
-            pnlMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
-            pnlMisslesFired.BringToFront();
+            pbxMisslesFired.Image = Image.FromStream( new MemoryStream(Properties.Resources.MisslesFiredPanel));
+            pbxMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
+            pbxMisslesFired.BringToFront();
 
             #endregion
 
             #region lblMissles Fired Styling
 
             lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
+            lblMisslesFired.ForeColor = Color.FromArgb(50, 255, 255, 255);
             lblMisslesFired.BringToFront();
             UpdateMisslesFiredLabel();
             
@@ -292,31 +293,31 @@ namespace Assignment2
 
         /// <summary>
         /// To be called after game panel is styled. 
-        /// Styles pnlMisslesFired and its label so that it appears
+        /// Styles pbxMisslesFired and its label so that it appears
         /// directly below the last boardposition row.
         /// </summary>
         private void StyleMisslesFiredPositioning()
         {
          
             // If the controls are somehow null (SetMissleTracker was never called), just return
-            if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
+            if (pbxMisslesFired == null || lblMisslesFired == null) { return; }
 
             // Get the last board position row
             int lastRow = CurrentGameState.BoardArray.GetLength(0);
             Label lastRowBoardPosition = CurrentGameState.BoardArray[lastRow - 1, 0];
 
-            #region pnlMisslesFired Styling
+            #region pbxMisslesFired Styling
             
-            pnlMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y + 
+            pbxMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y + 
                 lastRowBoardPosition.Height + MARGIN);
-            pnlMisslesFired.Width = (lastRowBoardPosition.Width * lastRow) + (MARGIN * (lastRow - 1));
-            pnlMisslesFired.Height = pnlGameArea.Height - ((lastRowBoardPosition.Height * lastRow) + (MARGIN * (lastRow - 1)));
+            pbxMisslesFired.Width = (lastRowBoardPosition.Width * lastRow) + (MARGIN * (lastRow - 1));
+            pbxMisslesFired.Height = pnlGameArea.Height - ((lastRowBoardPosition.Height * lastRow) + (MARGIN * (lastRow - 1)));
 
             #endregion
 
             #region lblMisslesFired Styling
 
-            lblMisslesFired.Size = new Size(pnlMisslesFired.Width, pnlMisslesFired.Height);
+            lblMisslesFired.Size = new Size(pbxMisslesFired.Width, pbxMisslesFired.Height);
             lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
 
             #endregion
