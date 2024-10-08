@@ -70,36 +70,48 @@ namespace Assignment2
             // Now check if any boat was hit and update game state and boardstatus
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Destroyer)
             {
-                gameState.DestroyerHealth -= 1;
-                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
+                TrackHit(coordinates, gameState);
+                gameState.DestroyerHealth--;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Submarine)
             {
-                gameState.SubmarineHealth -= 1;
-                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
+                TrackHit(coordinates, gameState);
+                gameState.SubmarineHealth--;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Cruiser)
             {
+                TrackHit(coordinates, gameState);
                 gameState.CruiserHealth -= 1;
-                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Battleship)
             {
+                TrackHit(coordinates, gameState);
                 gameState.BattleshipHealth -= 1;
-                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
             if (boatPositions[coordinates[0] + 1, coordinates[1] + 1] == Boats.Carrier)
             {
+                TrackHit(coordinates, gameState);
                 gameState.CarrierHealth -= 1;
-                board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
                 return;
             }
-            
+
+            gameState.MisslesFired++;
             board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Miss;
+        }
+
+        /// <summary>
+        /// Simply updates a game state and the static BS boardstatus array to indicate a hit.
+        /// </summary>
+        /// <param name="coordinates">Coordinates of the hit.</param>
+        /// <param name="gameState">Gamestate to update.</param>
+        private static void TrackHit(int[] coordinates, GameState gameState)
+        {
+            gameState.MisslesFired++;
+            board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
         }
 
         /// <summary>

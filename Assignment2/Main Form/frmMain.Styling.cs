@@ -28,8 +28,10 @@ namespace Assignment2
         private static Size FORM_MINIMUM_SIZE = new Size(720, 450);
         private static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
 
-        private static int MAXIMUM_BUTTON_FONT_SIZE = 25;
-        private static int MINIMUM_BUTTON_FONT_SIZE = 8;
+        private const int MAXIMUM_BUTTON_FONT_SIZE = 25;
+        private const int MINIMUM_BUTTON_FONT_SIZE = 8;
+
+        private const int MAXIMUM_MISSLES_FIRED_HEIGHT = 75;
 
         private const int MARGIN = 10;
 
@@ -42,17 +44,18 @@ namespace Assignment2
         private Panel pnlGameSetup { get; set; }
         private Button btnNewGame { get; set; }
         private Button btnExitApplication { get; set; }
+        private Button btnRestartGame { get; set; }
 
         // Game area
         private Panel pnlGameArea { get; set; }
         private Label lblStartGamePrompt { get; set; }
 
-        // Missles fired
-/*        private Panel pnlMisslesFired { get; set; }
-        private Label lblMisslesFired { get; set; }
+        // Missles fired - nullable because they will not be instantiated in constructor
+        private Panel? pnlMisslesFired { get; set; }
+        private Label? lblMisslesFired { get; set; }
 
         // Progress panel
-        private Panel pnlProgress { get; set; }
+/*        private Panel pnlProgress { get; set; }
         private Button btnViewProgress { get; set; }*/
 
         // Tool tips
@@ -102,9 +105,16 @@ namespace Assignment2
             btnNewGame.BackColor = Color.Black;
             btnNewGame.ForeColor = Color.White;
 
+            // btnRestartGame
+            ToolTips.SetToolTip(btnRestartGame, "Click here, or press 'Alt + R' to reset all progress and game board.");
+            btnRestartGame.TabIndex = 1;
+            btnRestartGame.Text = "&RESET";
+            btnRestartGame.BackColor = Color.Black;
+            btnRestartGame.ForeColor = Color.White;
+
             // btnExitApplication
             ToolTips.SetToolTip(btnExitApplication, "Click here, or press 'Alt + X' to exit application.");
-            btnExitApplication.TabIndex = 1;
+            btnExitApplication.TabIndex = 2;
             btnExitApplication.Text = "&X";
             btnExitApplication.BackColor = Color.Black;
             btnExitApplication.ForeColor = Color.Red;
@@ -155,6 +165,10 @@ namespace Assignment2
             btnNewGame.Size = new Size(ClientSize.Width / 2, pnlGameSetup.Height);
             btnNewGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
 
+            // btnRestartGame
+            btnRestartGame.Size = new Size(ClientSize.Width / 15, pnlGameSetup.Height);
+            btnRestartGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
+
             // btnExitApplication
             btnExitApplication.Size = new Size(ClientSize.Width / 20, pnlGameSetup.Height);
             btnExitApplication.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
@@ -162,6 +176,7 @@ namespace Assignment2
             // Button locations
             btnNewGame.Location = new Point(pnlGameSetup.Width / 2 - btnNewGame.Width / 2, 0);
             btnExitApplication.Location = new Point(MARGIN, 0);
+            btnRestartGame.Location = new Point(btnExitApplication.Location.X + btnExitApplication.Width);
 
             // Ensure button fonts do not suprass limit
             if (btnNewGame.Font.Size > MAXIMUM_BUTTON_FONT_SIZE)
@@ -194,7 +209,30 @@ namespace Assignment2
             }
 
             #endregion
+        }
 
+        /// <summary>
+        /// To be called only after a game starts. Sets unchangeing properties
+        /// for pnlMisslesFired
+        /// </summary>
+        private void StyleMissleTracker()
+        {
+            // If the controls are somehow null (SetMissleTracker was never called), just return
+            if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
+
+            #region pnlMisslesFired Styling
+
+            pnlMisslesFired.BackColor = Color.Red;
+            pnlMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
+
+            #endregion
+
+            #region lblMissles Fired Styling
+
+            lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
+            UpdateMisslesFiredLabel();
+
+            #endregion
         }
 
         /// <summary>
@@ -204,7 +242,7 @@ namespace Assignment2
         {
             // Ensure game area panel is not on screen to prevent lag
             Controls.Remove(pnlGameArea);
-
+            
             // The current difficulty as it's integer value
             int boardSize = (int)CurrentGameState.Difficulty;
 
@@ -241,6 +279,48 @@ namespace Assignment2
 
             // Add board back to screen
             Controls.Add(pnlGameArea);
+
+            // Style missles fired panel
+            StyleMisslesFiredPositioning();
+        }
+
+        /// <summary>
+        /// To be called after game panel is styled. 
+        /// Styles pnlMisslesFired and its label so that it appears
+        /// directly below the last boardposition row.
+        /// </summary>
+        private void StyleMisslesFiredPositioning()
+        {
+            // If the controls are somehow null (SetMissleTracker was never called), just return
+            if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
+
+            // Ensure the panel is removed before stylong
+            pnlGameArea.Controls.Remove(pnlMisslesFired);
+
+            // Grab integer value of difficulty to get the last board position row
+            int lastRow = ((int)CurrentGameState.Difficulty);
+            Label lastRowBoardPosition = CurrentGameState.BoardArray[lastRow - 1, 0];
+
+            #region pnlMisslesFired Styling
+            
+            pnlMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y + 
+                lastRowBoardPosition.Height + MARGIN);
+            pnlMisslesFired.Width = (lastRowBoardPosition.Width * lastRow) + (MARGIN * (lastRow - 1));
+            pnlMisslesFired.Height = pnlGameArea.Height - ((lastRowBoardPosition.Height * lastRow) + (MARGIN * (lastRow - 1)));
+
+            #endregion
+
+            #region lblMisslesFired Styling
+
+            lblMisslesFired.Size = new Size(pnlMisslesFired.Width, pnlMisslesFired.Height);
+            lblMisslesFired.Font = new Font("Segoe UI", lblMisslesFired.Height / 3, FontStyle.Regular);
+            
+            #endregion
+
+            // Add the panel
+            pnlMisslesFired.Controls.Add(lblMisslesFired);
+            pnlGameArea.Controls.Add(pnlMisslesFired);
+
         }
 
         /// <summary>
@@ -254,9 +334,6 @@ namespace Assignment2
             lblStartGamePrompt.Font = new Font("Segoe UI", lblHeader.Height / 5, FontStyle.Regular);
             lblStartGamePrompt.Location = new Point(0, pnlGameArea.Height / 2 - lblStartGamePrompt.Height / 2);
         }
-
-
-
 
         #endregion
 

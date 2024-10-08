@@ -43,16 +43,11 @@ namespace Assignment2
             pnlGameSetup = new Panel();
             btnNewGame = new Button();
             btnExitApplication = new Button();
+            btnRestartGame = new Button();
 
             pnlGameArea = new Panel();
             lblStartGamePrompt = new Label();
 
-/*            pnlMisslesFired = new Panel();
-            lblMisslesFired = new Label();
-
-            pnlProgress = new Panel();
-            btnViewProgress = new Button();
-*/
             ToolTips = new ToolTip();
 
             #endregion
@@ -80,6 +75,7 @@ namespace Assignment2
             Controls.Add(pnlGameSetup);
             pnlGameSetup.Controls.Add(btnNewGame);
             pnlGameSetup.Controls.Add(btnExitApplication);
+            pnlGameSetup.Controls.Add(btnRestartGame);
 
             // Game Area
             Controls.Add(pnlGameArea);
@@ -186,15 +182,16 @@ namespace Assignment2
             pnlGameArea.Controls.Clear();
 
             // Style labels, set default board up
-            SetDefaultBoardPositions();
+            SetDefaultBoard();
+            SetMissleTracker();
             StyleActiveGamePositioning();
-
         }
 
         /// <summary>
-        /// Updates status of each label.
+        /// Adds each label (BoardPositions) to pnlGameArea, as well as some default properties
+        /// that should only be set once, when the game is started.
         /// </summary>
-        private void SetDefaultBoardPositions()
+        private void SetDefaultBoard()
         {
             // Iterates through board array, updating status to default
             foreach (Label boardPosition in CurrentGameState.BoardArray) 
@@ -207,6 +204,18 @@ namespace Assignment2
         }
 
         /// <summary>
+        /// Instantiates and add pnlMisslesFired and lblMisslesFired for game tracking, as well as some
+        /// default properties that should only be set once.
+        /// </summary>
+        private void SetMissleTracker()
+        {
+            pnlMisslesFired = new Panel();
+            lblMisslesFired = new Label();
+            StyleMissleTracker();
+            UpdateMisslesFiredLabel();
+        }
+
+        /// <summary>
         /// Gets the coordinates of the label to fire on, then proceeds to attempt to fire.
         /// Updates board in case of hit or miss.
         /// </summary>
@@ -216,6 +225,8 @@ namespace Assignment2
             int[] positionCoordinates = GetLabelCoordinates(boardPosition);
             BS.CheckForHit(positionCoordinates, CurrentGameState);
             UpdateBoardPosition(positionCoordinates);
+
+            UpdateMisslesFiredLabel();
         }
 
         /// <summary>
@@ -259,6 +270,16 @@ namespace Assignment2
             }
 
             return coordinates;
+        }
+
+        /// <summary>
+        /// Updates missles fired labale to accurately reflect user's turns.
+        /// </summary>
+        private void UpdateMisslesFiredLabel()
+        {
+            // Ensure not null then reset the label
+            if (lblMisslesFired == null) { return; }
+            lblMisslesFired.Text = "MISSLES FIRED: " + CurrentGameState.MisslesFired;
         }
         
         #endregion

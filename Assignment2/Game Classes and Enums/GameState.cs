@@ -30,6 +30,7 @@ namespace Assignment2
         public int DestroyerHealth { get; set; }
         public bool GameHappening { get; set; }
         public Difficulty Difficulty { get; set; }
+        public int MisslesFired { get; set; }
         #endregion
 
         /// <summary>
@@ -39,7 +40,8 @@ namespace Assignment2
         {
             SetBoatHealth();
             BoardArray = BS.GetBoardAsLabelArray(Difficulty.Easy);
-            Difficulty = Difficulty.Easy; 
+            Difficulty = Difficulty.Easy;
+            MisslesFired = 0;
         }
 
         /// <summary>
@@ -60,6 +62,7 @@ namespace Assignment2
         public void Reset()
         {
             if (!GameHappening) { GameHappening = true; }
+            MisslesFired = 0;
             SetBoatHealth();
             BS.ResetBoard();
             BS.RandomizeBoats();
