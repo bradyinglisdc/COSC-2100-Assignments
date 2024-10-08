@@ -179,9 +179,10 @@ namespace Assignment2
         /// </summary>
         private void SetupGameBoard()
         {
-            // Much faster to clear and add labels off screen. Clear all game positions from screen/
+            // Much faster to clear and add labels off screen. Clear all game positions from screen
             Controls.Remove(pnlGameArea);
             foreach (Label boardPosition in CurrentGameState.BoardArray) { pnlGameArea.Controls.Remove(boardPosition); }
+            pnlGameArea.Controls.Remove(pbxMisslesFired);
 
             // Style labels, set default board up
             SetDefaultBoard();
