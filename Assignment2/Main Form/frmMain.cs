@@ -20,8 +20,11 @@ namespace Assignment2
 
         #region Properties
 
-        // Game variables
+        // Game State
         private GameState CurrentGameState { get; set; }
+
+        // Window Control
+        private bool ProgressPanelMinimized { get; set; }
 
         #endregion
 
@@ -37,7 +40,12 @@ namespace Assignment2
             #endregion
 
             #region Control and Game State Instantiation
+            
+            // Game State
             CurrentGameState = new GameState();
+
+            // Min-Maximize Panel Statuses
+            ProgressPanelMinimized = true;
 
             lblHeader = new Label();
             pnlGameSetup = new Panel();
@@ -45,8 +53,15 @@ namespace Assignment2
             btnExitApplication = new Button();
             btnRestartGame = new Button();
 
+            pnlProgress = new Panel();
+            btnViewProgress = new Button();
+
             pbxBattleshipBackground = new PictureBox();
             pnlGameArea = new Panel();
+
+            pbxMisslesFired = new PictureBox();
+            lblMisslesFired = new Label();
+
             lblStartGamePrompt = new Label();
 
             ToolTips = new ToolTip();
@@ -83,14 +98,14 @@ namespace Assignment2
             pnlGameArea.Controls.Add(pbxBattleshipBackground);
             pnlGameArea.Controls.Add(lblStartGamePrompt);
 
-            // Missles Fired
-/*            Controls.Add(pbxMisslesFired);
+            // Missle Tracking
+            pnlGameArea.Controls.Add(pbxMisslesFired);
             pbxMisslesFired.Controls.Add(lblMisslesFired);
 
-            // Progress Panel
-            Controls.Add(pnlProgress);
+            // Game Progress
+            pnlGameArea.Controls.Add(pnlProgress);
             pnlProgress.Controls.Add(btnViewProgress);
-*/
+
             #endregion
 
             #region Styling and Subscribing Event Handlers
@@ -174,25 +189,27 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Clears current board, then creates 2d array of labels representing game board, adds to Controls, styles.\
-        /// Also subscribes each label to the same event handler.
+        /// Clears current board, then completely re styles/adds new one.
         /// </summary>
         private void SetupGameBoard()
         {
-            // Much faster to clear and add labels off screen. Clear all game positions from screen
+            // Much faster to clear labels off screen. Remove pnlGameArea and all it's labels.
+            // before styling.
             Controls.Remove(pnlGameArea);
+          
+            // Remove labels
             foreach (Label boardPosition in CurrentGameState.BoardArray) { pnlGameArea.Controls.Remove(boardPosition); }
-            pnlGameArea.Controls.Remove(pbxMisslesFired);
-
-            // Style labels, set default board up
+            
+            // Add and re-style labels, set default board up
             SetDefaultBoard();
             SetMissleTracker();
+            SetGameProgress();
             StyleActiveGamePositioning();
         }
 
         /// <summary>
         /// Adds each label (BoardPositions) to pnlGameArea, as well as some default properties
-        /// that should only be set once, when the game is started.
+        /// that should only be set once when the game is started, as well as event handlers.
         /// </summary>
         private void SetDefaultBoard()
         {
@@ -207,19 +224,24 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Instantiates and add pbxMisslesFired and lblMisslesFired for game tracking, as well as some
-        /// default properties that should only be set once.
+        /// Ensures missle tracker is in front of all controls,
+        /// then updates it's label to display missles fired.
         /// </summary>
         private void SetMissleTracker()
         {
-            pbxMisslesFired = new PictureBox();
-            lblMisslesFired = new Label();
-
-            pnlGameArea.Controls.Add(pbxMisslesFired);
-            pbxMisslesFired.Controls.Add(lblMisslesFired);
-            StyleMissleTracker();
+            pbxMisslesFired.BringToFront();
             UpdateMisslesFiredLabel();
         }
+
+        /// <summary>
+        /// Ensures game progress is in front of all controls,
+        /// then updates it's children to display game progress.
+        /// </summary>
+        private void SetGameProgress()
+        {
+            pnlProgress.BringToFront();
+/*            UpdateGameProgress();
+*/        }
 
         /// <summary>
         /// Gets the coordinates of the label to fire on, then proceeds to attempt to fire.
@@ -283,8 +305,6 @@ namespace Assignment2
         /// </summary>
         private void UpdateMisslesFiredLabel()
         {
-            // Ensure not null then reset the label
-            if (lblMisslesFired == null) { return; }
             lblMisslesFired.Text = "MISSLES FIRED: " + CurrentGameState.MisslesFired;
         }
         

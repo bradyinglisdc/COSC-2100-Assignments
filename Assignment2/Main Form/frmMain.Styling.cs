@@ -51,20 +51,36 @@ namespace Assignment2
         private Panel pnlGameArea { get; set; }
         private Label lblStartGamePrompt { get; set; }
 
-        // Missles fired - nullable because they will not be instantiated in constructor
-        private PictureBox? pbxMisslesFired { get; set; }
-        private Label? lblMisslesFired { get; set; }
+        // Missles fired
+        private PictureBox pbxMisslesFired { get; set; }
+        private Label lblMisslesFired { get; set; }
 
         // Progress panel
-/*        private Panel pnlProgress { get; set; }
-        private Button btnViewProgress { get; set; }*/
+        private Panel pnlProgress { get; set; }
+        private Button btnViewProgress { get; set; }
+        
+        private Label lblCarrierHealthHeader { get; set; }
+        private ProgressBar pbrCarrierHealthIndicator { get; set; }
+
+        private Label lblBattleshipHealthHeader { get; set; }
+        private ProgressBar pbrBattleshipHealthIndicator{ get; set; }
+
+        private Label lblCruiserHealtHeader { get; set; }
+        private ProgressBar pbrCruiserHealthIndicator{ get; set; }
+
+        private Label lblSubmarineHealthHeader { get; set; }
+        private ProgressBar pbrSubmarineHealthIndicator { get; set; }
+
+        private Label lblDestroyerHealthHeader { get; set; }
+        private ProgressBar pbrDestroyerHealthIndicator { get; set; }
+
 
         // Tool tips
         private ToolTip ToolTips { get; set; }
 
         #endregion
 
-        #region Styling Methods
+        #region Unchanging Styles
 
         /// <summary>
         /// Styles all controls for initial screen.
@@ -138,12 +154,35 @@ namespace Assignment2
             lblStartGamePrompt.BackColor = Color.Black;
             lblStartGamePrompt.ForeColor = Color.White;
 
-            // Update sizing/positioning based on form width and height
-            StylePositioning();
+            #endregion
+
+            #region pbxMissleTracker
+
+            // The Picturebox
+            ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
+            pbxMisslesFired.Image = Image.FromStream(new MemoryStream(Properties.Resources.MisslesFiredPanel));
+            pbxMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
+
+            // The Tracking Label
+            lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
+            lblMisslesFired.ForeColor = Color.FromArgb(50, 255, 255, 255);
 
             #endregion
+
+            #region pnlProgress
+
+
+
+            #endregion
+
+            // Update sizing/positioning based on form width and height
+            StylePositioning();
         }
 
+        #endregion
+
+        #region Dynamic Styles
+ 
         /// <summary>
         /// Styles/Restyles controls when screen resizes. Just updates sizes and positions.
         /// </summary>
@@ -204,7 +243,9 @@ namespace Assignment2
             pnlGameArea.Location = new Point(MARGIN, pnlGameSetup.Location.Y + pnlGameSetup.Height + MARGIN);
             pbxBattleshipBackground.Location = new Point(pnlGameArea.Width / 2 - pbxBattleshipBackground.Width / 2, pnlGameArea.Height / 2 - pbxBattleshipBackground.Height / 2);
 
-            // Style game area based on game happening status
+            #endregion
+
+            // Style remaining game area based on game happening status
             if (CurrentGameState.GameHappening)
             {
                 StyleActiveGamePositioning();
@@ -213,36 +254,6 @@ namespace Assignment2
             {
                 StyleNoActiveGamePositioning(relativePosition);
             }
-
-            #endregion
-        }
-
-        /// <summary>
-        /// To be called only after a game starts. Sets unchangeing properties
-        /// for pbxMisslesFired
-        /// </summary>
-        private void StyleMissleTracker()
-        {
-            // If the controls are somehow null (SetMissleTracker was never called), just return
-            if (pbxMisslesFired == null || lblMisslesFired == null) { return; }
-
-            #region pbxMisslesFired Styling
-            
-            ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
-            pbxMisslesFired.Image = Image.FromStream( new MemoryStream(Properties.Resources.MisslesFiredPanel));
-            pbxMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
-            pbxMisslesFired.BringToFront();
-
-            #endregion
-
-            #region lblMissles Fired Styling
-
-            lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
-            lblMisslesFired.ForeColor = Color.FromArgb(50, 255, 255, 255);
-            lblMisslesFired.BringToFront();
-            UpdateMisslesFiredLabel();
-            
-            #endregion
         }
 
         /// <summary>
@@ -252,7 +263,7 @@ namespace Assignment2
         {
             // Ensure game area panel is not on screen to prevent lag
             Controls.Remove(pnlGameArea);
-            
+
             // The current difficulty as it's integer value
             int boardSize = (int)CurrentGameState.Difficulty;
 
@@ -298,17 +309,13 @@ namespace Assignment2
         /// </summary>
         private void StyleMisslesFiredPositioning()
         {
-         
-            // If the controls are somehow null (SetMissleTracker was never called), just return
-            if (pbxMisslesFired == null || lblMisslesFired == null) { return; }
-
             // Get the last board position row
             int lastRow = CurrentGameState.BoardArray.GetLength(0);
             Label lastRowBoardPosition = CurrentGameState.BoardArray[lastRow - 1, 0];
 
             #region pbxMisslesFired Styling
-            
-            pbxMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y + 
+
+            pbxMisslesFired.Location = new Point(lastRowBoardPosition.Location.X, lastRowBoardPosition.Location.Y +
                 lastRowBoardPosition.Height + MARGIN);
             pbxMisslesFired.Width = (lastRowBoardPosition.Width * lastRow) + (MARGIN * (lastRow - 1));
             pbxMisslesFired.Height = pnlGameArea.Height - ((lastRowBoardPosition.Height * lastRow) + (MARGIN * (lastRow - 1)));
@@ -322,6 +329,7 @@ namespace Assignment2
 
             #endregion
         }
+
 
         /// <summary>
         /// Displays prompt informing user there is no active game.
@@ -337,6 +345,7 @@ namespace Assignment2
         }
 
         #endregion
+
 
     }
 }
