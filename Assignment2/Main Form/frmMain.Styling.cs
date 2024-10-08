@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 #region Namespace Definition
 namespace Assignment2
-{ 
+{
     /// <summary>
     /// Provides all styling/restyling methods for the form
     /// </summary>
@@ -47,6 +47,7 @@ namespace Assignment2
         private Button btnRestartGame { get; set; }
 
         // Game area
+        private PictureBox pbxBattleshipBackground { get; set; }
         private Panel pnlGameArea { get; set; }
         private Label lblStartGamePrompt { get; set; }
 
@@ -124,7 +125,11 @@ namespace Assignment2
             #region pnlGameArea
 
             // Game area
-            pnlGameArea.BackColor = Color.FromArgb(128, 255, 255, 255);
+            pnlGameArea.BackColor = Color.FromArgb(0, 255, 255, 255);
+
+            // Background Picture
+            pbxBattleshipBackground.Image = Image.FromStream(new MemoryStream(Properties.Resources.BattleshipBackground));
+            pbxBattleshipBackground.Size = new Size(1920, 1080);
 
             // Start game prompt
             lblStartGamePrompt.Text = "There is no game active right now...Click 'New Game', or press ALT + 'N' to start one!";
@@ -197,6 +202,7 @@ namespace Assignment2
             // Game area
             pnlGameArea.Size = new Size(ClientSize.Width - MARGIN * 2, ClientSize.Height - pnlGameSetup.Height - lblHeader.Height - MARGIN * 2);
             pnlGameArea.Location = new Point(MARGIN, pnlGameSetup.Location.Y + pnlGameSetup.Height + MARGIN);
+            pbxBattleshipBackground.Location = new Point(pnlGameArea.Width / 2 - pbxBattleshipBackground.Width / 2, pnlGameArea.Height / 2 - pbxBattleshipBackground.Height / 2);
 
             // Style game area based on game happening status
             if (CurrentGameState.GameHappening)
@@ -221,17 +227,20 @@ namespace Assignment2
             if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
 
             #region pnlMisslesFired Styling
-
-            pnlMisslesFired.BackColor = Color.Red;
+            
+            ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
+            pnlMisslesFired.BackColor = Color.FromArgb(120, 255, 0, 0);
             pnlMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
+            pnlMisslesFired.BringToFront();
 
             #endregion
 
             #region lblMissles Fired Styling
 
             lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
+            lblMisslesFired.BringToFront();
             UpdateMisslesFiredLabel();
-
+            
             #endregion
         }
 
@@ -260,24 +269,21 @@ namespace Assignment2
             int verticalSpacing = MARGIN;
 
             // Iterate through each game position (label) within game area, updating position apropriately for each
-            int columnCount = 0;
-            foreach (Control boardPosition in pnlGameArea.Controls)
+            for (int i = 0; i < CurrentGameState.BoardArray.GetLength(0); i++)
             {
-                boardPosition.Width = size;
-                boardPosition.Height = size;
-                boardPosition.Location = new Point(horizontalSpacing, verticalSpacing);
-                horizontalSpacing += boardPosition.Width + MARGIN;
-
-                
-                if (++columnCount == boardSize)
+                for (int j = 0; j < CurrentGameState.BoardArray.GetLength(1); j++)
                 {
-                    columnCount = 0;
-                    horizontalSpacing = defaultHorizontalSpacing;
-                    verticalSpacing += boardPosition.Width + MARGIN;
+                    CurrentGameState.BoardArray[i, j].BringToFront();
+                    CurrentGameState.BoardArray[i, j].Width = size;
+                    CurrentGameState.BoardArray[i, j].Height = size;
+                    CurrentGameState.BoardArray[i, j].Location = new Point(horizontalSpacing, verticalSpacing);
+                    horizontalSpacing += CurrentGameState.BoardArray[i, j].Width + MARGIN;
                 }
+                horizontalSpacing = defaultHorizontalSpacing;
+                verticalSpacing += CurrentGameState.BoardArray[i, i].Width + MARGIN;
             }
 
-            // Add board back to screen
+            // Add game area back, ensure background stays behind all
             Controls.Add(pnlGameArea);
 
             // Style missles fired panel
@@ -291,14 +297,12 @@ namespace Assignment2
         /// </summary>
         private void StyleMisslesFiredPositioning()
         {
+         
             // If the controls are somehow null (SetMissleTracker was never called), just return
             if (pnlMisslesFired == null || lblMisslesFired == null) { return; }
 
-            // Ensure the panel is removed before stylong
-            pnlGameArea.Controls.Remove(pnlMisslesFired);
-
-            // Grab integer value of difficulty to get the last board position row
-            int lastRow = ((int)CurrentGameState.Difficulty);
+            // Get the last board position row
+            int lastRow = CurrentGameState.BoardArray.GetLength(0);
             Label lastRowBoardPosition = CurrentGameState.BoardArray[lastRow - 1, 0];
 
             #region pnlMisslesFired Styling
@@ -313,14 +317,9 @@ namespace Assignment2
             #region lblMisslesFired Styling
 
             lblMisslesFired.Size = new Size(pnlMisslesFired.Width, pnlMisslesFired.Height);
-            lblMisslesFired.Font = new Font("Segoe UI", lblMisslesFired.Height / 3, FontStyle.Regular);
-            
+            lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
+
             #endregion
-
-            // Add the panel
-            pnlMisslesFired.Controls.Add(lblMisslesFired);
-            pnlGameArea.Controls.Add(pnlMisslesFired);
-
         }
 
         /// <summary>
@@ -333,6 +332,7 @@ namespace Assignment2
             lblStartGamePrompt.Size = new Size(ClientSize.Width, relativePosition / 25);
             lblStartGamePrompt.Font = new Font("Segoe UI", lblHeader.Height / 5, FontStyle.Regular);
             lblStartGamePrompt.Location = new Point(0, pnlGameArea.Height / 2 - lblStartGamePrompt.Height / 2);
+            lblStartGamePrompt.BringToFront();
         }
 
         #endregion

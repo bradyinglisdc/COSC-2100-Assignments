@@ -45,6 +45,7 @@ namespace Assignment2
             btnExitApplication = new Button();
             btnRestartGame = new Button();
 
+            pbxBattleshipBackground = new PictureBox();
             pnlGameArea = new Panel();
             lblStartGamePrompt = new Label();
 
@@ -79,6 +80,7 @@ namespace Assignment2
 
             // Game Area
             Controls.Add(pnlGameArea);
+            pnlGameArea.Controls.Add(pbxBattleshipBackground);
             pnlGameArea.Controls.Add(lblStartGamePrompt);
 
             // Missles Fired
@@ -177,9 +179,9 @@ namespace Assignment2
         /// </summary>
         private void SetupGameBoard()
         {
-            // Much faster to clear and add labels off screen
+            // Much faster to clear and add labels off screen. Clear all game positions from screen/
             Controls.Remove(pnlGameArea);
-            pnlGameArea.Controls.Clear();
+            foreach (Label boardPosition in CurrentGameState.BoardArray) { pnlGameArea.Controls.Remove(boardPosition); }
 
             // Style labels, set default board up
             SetDefaultBoard();
@@ -198,7 +200,7 @@ namespace Assignment2
             {
                 ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
                 boardPosition.Click += new EventHandler(boardPosition_Click);
-                boardPosition.BackColor = Color.FromArgb(125, 10, 10, 10);
+                boardPosition.BackColor = Color.FromArgb(255, 10, 10, 10);
                 pnlGameArea.Controls.Add(boardPosition);
             }
         }
@@ -211,6 +213,9 @@ namespace Assignment2
         {
             pnlMisslesFired = new Panel();
             lblMisslesFired = new Label();
+
+            pnlGameArea.Controls.Add(pnlMisslesFired);
+            pnlMisslesFired.Controls.Add(lblMisslesFired);
             StyleMissleTracker();
             UpdateMisslesFiredLabel();
         }
@@ -223,9 +228,9 @@ namespace Assignment2
         {
             boardPosition.Click -= boardPosition_Click;
             int[] positionCoordinates = GetLabelCoordinates(boardPosition);
+
             BS.CheckForHit(positionCoordinates, CurrentGameState);
             UpdateBoardPosition(positionCoordinates);
-
             UpdateMisslesFiredLabel();
         }
 
