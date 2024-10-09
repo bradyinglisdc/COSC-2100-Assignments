@@ -187,6 +187,7 @@ namespace Assignment2
             btnExitApplication.Click += new EventHandler(btnExitApplication_Click);
             btnViewProgress.Click += new EventHandler(btnViewProgress_Click);
             btnViewManualControls.Click += new EventHandler(btnViewManualControls_Click);
+            btnManualFire.Click += new EventHandler(btnManualFire_Click);
         }
 
         #endregion
@@ -242,6 +243,9 @@ namespace Assignment2
         /// <param name="e">Any arguments added.</param>
         private void btnViewProgress_Click(object? sender, EventArgs e)
         {
+            // Just return if senderis not a Control
+            if (!(sender is Control)) { return; }
+            ((Control)sender).Focus();
             ChangeProgressPanelSize();
         }
 
@@ -252,7 +256,22 @@ namespace Assignment2
         /// <param name="e">Any arguments added.</param>
         private void btnViewManualControls_Click(object? sender, EventArgs e)
         {
+            // Just return if senderis not a Control
+            if (!(sender is Control)) { return; }
+            ((Control)sender).Focus();
             ChangeManualControlsPanelSize();
+        }
+
+        /// <summary>
+        /// Fires at the specified manual coordinates.
+        /// </summary>
+        /// <param name="sender">The manual firing button.</param>
+        /// <param name="e">Any arguments added.</param>
+        private void btnManualFire_Click(object? sender, EventArgs e)
+        {
+            // Simply fire on the entered coordinates. Coordinates are swapped to allign with 2d array.
+            int[] coordinates = { (int)nudManualYCoordinates.Value - 1, (int)nudManualXCoordinates.Value - 1};
+            FireOnCoordinates(coordinates);
         }
 
         #endregion
@@ -372,7 +391,16 @@ namespace Assignment2
         {
             boardPosition.Click -= boardPosition_Click;
             int[] positionCoordinates = GetLabelCoordinates(boardPosition);
+            FireOnCoordinates(positionCoordinates);
 
+        }
+
+        /// <summary>
+        /// Proceeds to fire missle on the given coordinates,
+        /// updating game state and board accordingly for hit/miss
+        /// </summary>
+        private void FireOnCoordinates(int[] positionCoordinates)
+        {
             BS.CheckForHit(positionCoordinates, CurrentGameState);
             UpdateBoardPosition(positionCoordinates);
             UpdateMisslesFiredLabel();

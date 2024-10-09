@@ -197,13 +197,29 @@ namespace Assignment2
             // Access Styling
             ChangeManualControlsPanelSize(); // Minimize at first
             SetResizablePanelProperties(pnlManualControls, btnViewManualControls);
-            btnViewProgress.TabIndex = 0;
+            btnViewManualControls.TabIndex = 0;
 
             // Set label texts
-            lblManualXCoordinatesHeader.Text = "X Coordinates:";
+            lblManualXCoordinatesHeader.Text = "X COORDINATES:";
             lblManualXCoordinatesHeader.ForeColor = Color.White;
-            lblManualYCoordinatesHeader.Text = "Y Coordinates:";
+            lblManualXCoordinatesHeader.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Underline);
+
+            lblManualYCoordinatesHeader.Text = "Y COORDINATES:";
             lblManualYCoordinatesHeader.ForeColor = Color.White;
+            lblManualYCoordinatesHeader.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Underline);
+
+            // Set numeric up downs
+            ToolTips.SetToolTip(nudManualXCoordinates, "Enter the X Coordinates you want to fire on here!");
+            nudManualXCoordinates.TabIndex = 1;
+            ToolTips.SetToolTip(nudManualYCoordinates, "Enter the Y Coordinates you want to fire on here!");
+            nudManualYCoordinates.TabIndex = 2;
+
+            // btnManualFire
+            ToolTips.SetToolTip(btnManualFire, "Click here, or press 'ALT + F' to fire at the above coordiantes!");
+            btnManualFire.TabIndex = 3;
+            btnManualFire.Text = "&FIRE!";
+            btnManualFire.BackColor = Color.Black;
+            btnManualFire.ForeColor = Color.Green;
 
             #endregion
 
@@ -467,9 +483,18 @@ namespace Assignment2
             pnlManualControls.Location = new Point(0, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
 
             // X Coordinates Entering
-            lblManualXCoordinatesHeader.Location = new Point(0, btnViewManualControls.Location.Y + btnViewManualControls.Height + MARGIN);
-            nudManualXCoordinates.Location = new Point(pnlManualControls.Width / 2 - nudManualXCoordinates.Width / 2,
-                lblManualXCoordinatesHeader.Location.Y + lblManualXCoordinatesHeader.Height + MARGIN);
+            int xPlacement = pnlManualControls.Width / 2 - nudManualXCoordinates.Width / 2;
+            lblManualXCoordinatesHeader.Location = new Point(xPlacement, btnViewManualControls.Location.Y + btnViewManualControls.Height + MARGIN);
+            nudManualXCoordinates.Location = new Point(xPlacement, lblManualXCoordinatesHeader.Location.Y + lblManualXCoordinatesHeader.Height );
+
+            // Y Coordinates Entering
+            lblManualYCoordinatesHeader.Location = new Point(xPlacement, nudManualXCoordinates.Location.Y + nudManualXCoordinates.Height + MARGIN * 2);
+            nudManualYCoordinates.Location = new Point(xPlacement, lblManualYCoordinatesHeader.Location.Y + lblManualYCoordinatesHeader.Height);
+
+            // Firing button
+            btnManualFire.Location = new Point(pnlManualControls.Width / 2 - btnManualFire.Width / 2, 
+                nudManualYCoordinates.Location.Y + nudManualYCoordinates.Height + MARGIN * 2);
+
         }
 
         /// <summary>
