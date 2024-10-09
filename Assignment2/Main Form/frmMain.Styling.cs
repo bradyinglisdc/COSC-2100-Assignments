@@ -38,11 +38,12 @@ namespace Assignment2
         private const int MINIMUM_BUTTON_FONT_SIZE = 8;
 
         // Missles Fired control sizing
+        private const int VIEW_PROGRESS_BUTTON_HEIGHT = 50;
         private const int MAXIMUM_MISSLES_FIRED_HEIGHT = 75;
-        private const int MINIMUM_MISSLES_FIRED_HEIGHT = 30;
+        private const int MINIMUM_MISSLES_FIRED_HEIGHT = 25;
 
         // Resizeable Panel Sizing
-        private const int MIMIMIZED_PANEL_HEIGHT = 30;
+        private const int MIMIMIZED_PANEL_HEIGHT = 50;
         private const int PROGRESS_HEADERS_FONT_SIZE = 12;
 
         // General styling
@@ -87,6 +88,12 @@ namespace Assignment2
         private Label lblDestroyerHealthHeader { get; set; }
         private ProgressBar pbrDestroyerHealthIndicator { get; set; }
 
+        // Manual Controls Panel
+        private Panel pnlManualControls { get; set; }
+        private Button btnViewManualControls { get; set; }
+        private NumericUpDown nudManualXCoordinates { get; set; } 
+        private NumericUpDown nudManualYCoordinates { get; set; }
+        private Button btnManualFire { get; set; }
 
         // Tool tips
         private ToolTip ToolTips { get; set; }
@@ -187,15 +194,34 @@ namespace Assignment2
 
             // Access Styling
             ChangeProgressPanelSize(); // Minimize at first
-            pnlProgress.BackColor = Color.FromArgb(30, 30, 30);
-            btnViewProgress.BackColor = Color.Black;
-            btnViewProgress.ForeColor = Color.White;
-            btnViewProgress.TextAlign = ContentAlignment.MiddleCenter;
+            SetResizeablePanelProperties(pnlProgress, btnViewProgress);
+
+            #endregion
+
+            #region pnlManualControls
+
+            ChangeManualControlsPanelSize(); // Minimize at first
+            SetResizeablePanelProperties(pnlManualControls, btnViewManualControls);
 
             #endregion
 
             // Update sizing/positioning based on form width and height
             StylePositioning();
+        }
+
+
+        /// <summary>
+        /// Styles both resizeable panel's unchanging propeties
+        /// </summary>
+        /// <param name="panelToStyle">The resizeable panel to style.</param>
+        /// <param name="buttonToStyle">The corresponding buttons.</param>
+        private void SetResizeablePanelProperties(Panel panelToStyle, Button buttonToStyle)
+        {
+            panelToStyle.BackColor = Color.FromArgb(30, 30, 30);
+            buttonToStyle.BackColor = Color.Black;
+            buttonToStyle.ForeColor = Color.White;
+            buttonToStyle.TextAlign = ContentAlignment.MiddleCenter;
+            buttonToStyle.Height = VIEW_PROGRESS_BUTTON_HEIGHT;
         }
         
         #endregion
@@ -316,6 +342,8 @@ namespace Assignment2
             // Style progress panel positioning
             StyleProgressPanelPositioning();
 
+            // Style manual firing panel positioning
+
         }
 
         /// <summary>
@@ -371,9 +399,7 @@ namespace Assignment2
             SetProgress(pbrCarrierHealthIndicator, lblBattleshipHealthHeader, pbrBattleshipHealthIndicator);
             SetProgress(pbrBattleshipHealthIndicator, lblCruiserHealthHeader, pbrCruiserHealthIndicator);
             SetProgress(pbrCruiserHealthIndicator, lblSubmarineHealthHeader, pbrSubmarineHealthIndicator);
-            SetProgress(pbrSubmarineHealthIndicator, lblDestroyerHealthHeader, pbrDestroyerHealthIndicator);;
-
-
+            SetProgress(pbrSubmarineHealthIndicator, lblDestroyerHealthHeader, pbrDestroyerHealthIndicator);
         }
 
         /// <summary>
@@ -391,7 +417,7 @@ namespace Assignment2
             newProgressLabel.ForeColor = Color.White;
 
             // Styling the progress bar
-            newProgressBar.Location = new Point(0, newProgressLabel.Location.Y + newProgressLabel.Height);
+            newProgressBar.Location = new Point(0, newProgressLabel.Location.Y + newProgressLabel.Height + MARGIN);
             newProgressBar.Width = pnlProgress.Width;
         }
 
@@ -400,10 +426,10 @@ namespace Assignment2
         /// </summary>
         /// <param name="IsMinimized"></param>
         /// <returns>Maximized panel Y position if false, else minimized</returns>
-        private int GetResizeablePanelYPosition(bool IsMinimized)
+        private int GetResizeablePanelYPosition(bool isMinimized)
         {
             // If it should be minimized, the panel should be at the bottom of the game area.
-            if (IsMinimized) { return pnlGameArea.Height - MIMIMIZED_PANEL_HEIGHT; }
+            if (isMinimized) { return pnlGameArea.Height - MIMIMIZED_PANEL_HEIGHT; }
 
             // Otherwise, it should fill half the game area with some added margin
             else { return pnlGameArea.Height / 2 - MARGIN * 8; }
@@ -421,6 +447,20 @@ namespace Assignment2
             // Update button
             if (ProgressPanelMinimized) { btnViewProgress.Text = "VIEW GAME PROGRESS"; }
             else { btnViewProgress.Text = "HIDE GAME PROGRESS"; }
+        }
+
+        /// <summary>
+        /// Minimizes/Maximizes manual controls panel
+        /// </summary>
+        private void ChangeManualControlsPanelSize()
+        {
+            // Change status and update location
+            ManualControlsPanelMinimized = !ManualControlsPanelMinimized;
+            pnlManualControls.Location = new Point(pnlManualControls.Location.X, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
+
+            // Update button
+            if (ManualControlsPanelMinimized) { btnViewManualControls.Text = "VIEW MANUAL CONTROLS"; }
+            else { btnViewManualControls.Text = "HIDE GAME PROGRESS"; }
         }
 
         /// <summary>

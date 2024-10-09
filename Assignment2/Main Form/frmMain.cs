@@ -25,6 +25,7 @@ namespace Assignment2
 
         // Window Control
         private bool ProgressPanelMinimized { get; set; }
+        private bool ManualControlsPanelMinimized { get; set; }
 
         #endregion
 
@@ -46,6 +47,7 @@ namespace Assignment2
 
             // Min/Maximize Panel Statuses
             ProgressPanelMinimized = false;
+            ManualControlsPanelMinimized = false;
 
             // Header/game setup
             lblHeader = new Label();
@@ -79,6 +81,16 @@ namespace Assignment2
 
             lblDestroyerHealthHeader = new Label();
             pbrDestroyerHealthIndicator = new ProgressBar();
+
+            #endregion
+
+            #region Manual Firing Instantiation
+            
+            pnlManualControls = new Panel();
+            btnViewManualControls = new Button();
+            nudManualXCoordinates = new NumericUpDown();
+            nudManualYCoordinates = new NumericUpDown();
+            btnManualFire = new Button();
 
             #endregion
 
@@ -143,6 +155,13 @@ namespace Assignment2
 
             pnlProgress.Controls.Add(lblDestroyerHealthHeader);
             pnlProgress.Controls.Add(pbrDestroyerHealthIndicator);
+
+            // Manual Firing
+            pnlGameArea.Controls.Add(pnlManualControls);
+            pnlManualControls.Controls.Add(btnViewManualControls);
+            pnlManualControls.Controls.Add(nudManualXCoordinates);
+            pnlManualControls.Controls.Add(nudManualYCoordinates);
+            pnlManualControls.Controls.Add(btnManualFire);
 
             #endregion
 
@@ -248,6 +267,7 @@ namespace Assignment2
             // Add and re-style labels, set default board up
             SetDefaultBoard();
             SetMissleTracker();
+            SetManualFiring();
             SetGameProgress();
             StyleActiveGamePositioning();
         }
@@ -279,6 +299,11 @@ namespace Assignment2
         {
             pbxMisslesFired.BringToFront();
             UpdateMisslesFiredLabel();
+        }
+
+        private void SetManualFiring()
+        {
+            pnlManualControls.BringToFront();
         }
 
         /// <summary>
