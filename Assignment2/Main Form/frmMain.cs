@@ -88,7 +88,9 @@ namespace Assignment2
             
             pnlManualControls = new Panel();
             btnViewManualControls = new Button();
+            lblManualXCoordinatesHeader = new Label();
             nudManualXCoordinates = new NumericUpDown();
+            lblManualYCoordinatesHeader = new Label();
             nudManualYCoordinates = new NumericUpDown();
             btnManualFire = new Button();
 
@@ -159,8 +161,13 @@ namespace Assignment2
             // Manual Firing
             pnlGameArea.Controls.Add(pnlManualControls);
             pnlManualControls.Controls.Add(btnViewManualControls);
+
+            pnlManualControls.Controls.Add(lblManualXCoordinatesHeader);
             pnlManualControls.Controls.Add(nudManualXCoordinates);
+
+            pnlManualControls.Controls.Add(lblManualYCoordinatesHeader);
             pnlManualControls.Controls.Add(nudManualYCoordinates);
+
             pnlManualControls.Controls.Add(btnManualFire);
 
             #endregion
@@ -179,6 +186,7 @@ namespace Assignment2
             btnNewGame.Click += new EventHandler(btnNewGame_Click);
             btnExitApplication.Click += new EventHandler(btnExitApplication_Click);
             btnViewProgress.Click += new EventHandler(btnViewProgress_Click);
+            btnViewManualControls.Click += new EventHandler(btnViewManualControls_Click);
         }
 
         #endregion
@@ -230,11 +238,21 @@ namespace Assignment2
         /// <summary>
         /// Minimizes/Maximizes progress panel.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">Any arguments added.</param>
         private void btnViewProgress_Click(object? sender, EventArgs e)
         {
             ChangeProgressPanelSize();
+        }
+
+        /// <summary>
+        /// Minimimzes/Maximizes manual controls panel.
+        /// </summary>
+        /// <param name="sender">The button clicked.</param>
+        /// <param name="e">Any arguments added.</param>
+        private void btnViewManualControls_Click(object? sender, EventArgs e)
+        {
+            ChangeManualControlsPanelSize();
         }
 
         #endregion

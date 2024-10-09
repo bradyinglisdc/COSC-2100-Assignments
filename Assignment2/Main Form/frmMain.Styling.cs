@@ -72,15 +72,15 @@ namespace Assignment2
         // Progress panel
         private Panel pnlProgress { get; set; }
         private Button btnViewProgress { get; set; }
-        
+
         private Label lblCarrierHealthHeader { get; set; }
         private ProgressBar pbrCarrierHealthIndicator { get; set; }
 
         private Label lblBattleshipHealthHeader { get; set; }
-        private ProgressBar pbrBattleshipHealthIndicator{ get; set; }
+        private ProgressBar pbrBattleshipHealthIndicator { get; set; }
 
         private Label lblCruiserHealthHeader { get; set; }
-        private ProgressBar pbrCruiserHealthIndicator{ get; set; }
+        private ProgressBar pbrCruiserHealthIndicator { get; set; }
 
         private Label lblSubmarineHealthHeader { get; set; }
         private ProgressBar pbrSubmarineHealthIndicator { get; set; }
@@ -91,7 +91,9 @@ namespace Assignment2
         // Manual Controls Panel
         private Panel pnlManualControls { get; set; }
         private Button btnViewManualControls { get; set; }
-        private NumericUpDown nudManualXCoordinates { get; set; } 
+        private Label lblManualXCoordinatesHeader { get; set; }
+        private NumericUpDown nudManualXCoordinates { get; set; }
+        private Label lblManualYCoordinatesHeader { get; set; }
         private NumericUpDown nudManualYCoordinates { get; set; }
         private Button btnManualFire { get; set; }
 
@@ -190,18 +192,27 @@ namespace Assignment2
 
             #endregion
 
+            #region pnlManualControls
+
+            // Access Styling
+            ChangeManualControlsPanelSize(); // Minimize at first
+            SetResizablePanelProperties(pnlManualControls, btnViewManualControls);
+            btnViewProgress.TabIndex = 0;
+
+            // Set label texts
+            lblManualXCoordinatesHeader.Text = "X Coordinates:";
+            lblManualXCoordinatesHeader.ForeColor = Color.White;
+            lblManualYCoordinatesHeader.Text = "Y Coordinates:";
+            lblManualYCoordinatesHeader.ForeColor = Color.White;
+
+            #endregion
+
             #region pnlProgress
 
             // Access Styling
             ChangeProgressPanelSize(); // Minimize at first
-            SetResizeablePanelProperties(pnlProgress, btnViewProgress);
-
-            #endregion
-
-            #region pnlManualControls
-
-            ChangeManualControlsPanelSize(); // Minimize at first
-            SetResizeablePanelProperties(pnlManualControls, btnViewManualControls);
+            SetResizablePanelProperties(pnlProgress, btnViewProgress);
+            btnViewProgress.TabIndex = 0;
 
             #endregion
 
@@ -215,24 +226,26 @@ namespace Assignment2
         /// </summary>
         /// <param name="panelToStyle">The resizeable panel to style.</param>
         /// <param name="buttonToStyle">The corresponding buttons.</param>
-        private void SetResizeablePanelProperties(Panel panelToStyle, Button buttonToStyle)
+        private void SetResizablePanelProperties(Panel pnlToStyle, Button btnToStyle)
         {
-            panelToStyle.BackColor = Color.FromArgb(30, 30, 30);
-            buttonToStyle.BackColor = Color.Black;
-            buttonToStyle.ForeColor = Color.White;
-            buttonToStyle.TextAlign = ContentAlignment.MiddleCenter;
-            buttonToStyle.Height = VIEW_PROGRESS_BUTTON_HEIGHT;
+            pnlToStyle.BackColor = Color.FromArgb(30, 30, 30);
+            btnToStyle.BackColor = Color.Black;
+            btnToStyle.ForeColor = Color.White;
+            btnToStyle.TextAlign = ContentAlignment.MiddleCenter;
+            btnToStyle.Height = VIEW_PROGRESS_BUTTON_HEIGHT;
         }
-        
+
         #endregion
 
         #region Dynamic Styles
- 
+
         /// <summary>
         /// Styles/Restyles controls when screen resizes. Just updates sizes and positions.
         /// </summary>
         private void StylePositioning()
         {
+            // If minimized, do not style or exceptions will be thrown when styling
+            if (WindowState == FormWindowState.Minimized) { return; }
 
             // This integer helps to provide relative positioning for each control
             int relativePosition = ClientSize.Width + ClientSize.Height;
@@ -240,12 +253,12 @@ namespace Assignment2
             #region lblHeader
 
             lblHeader.Size = new Size(ClientSize.Width, relativePosition / 25);
-            
+
             if (lblHeader.Height / 2 > 0)
             {
                 lblHeader.Font = new Font("Impact", lblHeader.Height / 2, FontStyle.Regular);
             }
-            
+
             #endregion
 
             #region pnlGameSetup
@@ -318,7 +331,7 @@ namespace Assignment2
             if (size > MAXIMUM_BOARD_POSITION_SIZE) { size = MAXIMUM_BOARD_POSITION_SIZE; }
 
             // For horizontal/vertical spacing
-            int defaultHorizontalSpacing = pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2;
+            int defaultHorizontalSpacing = (pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2) + MARGIN / 2;
             int horizontalSpacing = defaultHorizontalSpacing;
             int verticalSpacing = MARGIN;
 
@@ -343,6 +356,7 @@ namespace Assignment2
             StyleProgressPanelPositioning();
 
             // Style manual firing panel positioning
+            StyleManualControlsPositioning();
 
         }
 
@@ -374,10 +388,11 @@ namespace Assignment2
             {
                 lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
             }
-            
+
             #endregion
         }
 
+        #region Progress Panel Dynamic Styling
         /// <summary>
         /// To be called after game panel is styled. 
         /// Styles pnlProgress and its controls so that it appears
@@ -385,14 +400,11 @@ namespace Assignment2
         /// </summary>
         private void StyleProgressPanelPositioning()
         {
-            // Width of panel should me remaining space between board and the end of game area
-            pnlProgress.Width = pnlGameArea.Width - (CurrentGameState.BoardArray[0, CurrentGameState.BoardArray.GetLength(1) - 1].Location.X + MARGIN * 6);
-            pnlProgress.Height = pnlGameArea.Height;
-            pnlProgress.Location = new Point(pnlGameArea.Width - pnlProgress.Width, GetResizeablePanelYPosition(ProgressPanelMinimized));
+            // Generic styling
+            StyleResizeablePanel(pnlProgress, btnViewProgress);
 
-            // Width of view button should match
-            btnViewProgress.Width = pnlProgress.Width;
-            btnViewProgress.Location = new Point(0, 0);
+            // X position is on right side of the game area. Y position varies based on minimized status
+            pnlProgress.Location = new Point(pnlGameArea.Width - pnlProgress.Width, GetResizeablePanelYPosition(ProgressPanelMinimized));
 
             // Style all progress controls
             SetProgress(btnViewProgress, lblCarrierHealthHeader, pbrCarrierHealthIndicator);
@@ -417,8 +429,89 @@ namespace Assignment2
             newProgressLabel.ForeColor = Color.White;
 
             // Styling the progress bar
-            newProgressBar.Location = new Point(0, newProgressLabel.Location.Y + newProgressLabel.Height + MARGIN);
+            newProgressBar.Location = new Point(0, newProgressLabel.Location.Y + newProgressLabel.Height);
             newProgressBar.Width = pnlProgress.Width;
+        }
+
+        /// <summary>
+        /// Minimizes/Maximizes progress panel
+        /// </summary>
+        private void ChangeProgressPanelSize()
+        {
+            // Change status and update location
+            ProgressPanelMinimized = !ProgressPanelMinimized;
+            pnlProgress.Location = new Point(pnlProgress.Location.X, GetResizeablePanelYPosition(ProgressPanelMinimized));
+
+            // Update button
+            if (ProgressPanelMinimized) 
+            {
+                ToolTips.SetToolTip(btnViewProgress, "Click here, or press 'ALT + G' to view game progress (boat health).");
+                btnViewProgress.Text = "VIEW &GAME PROGRESS";   
+            }
+            else 
+            {
+                ToolTips.SetToolTip(btnViewProgress, "Click here, or press 'ALT + G' to hide game progress.");
+                btnViewProgress.Text = "HIDE &GAME PROGRESS"; 
+            }
+        }
+
+        #endregion
+
+        #region Manual Controls Panel Dynamic Styling
+        private void StyleManualControlsPositioning()
+        {
+            // Generic styling
+            StyleResizeablePanel(pnlManualControls, btnViewManualControls);
+
+            // X position is simply locked to th left side (0). Y position varies based on minimized value
+            pnlManualControls.Location = new Point(0, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
+
+            // X Coordinates Entering
+            lblManualXCoordinatesHeader.Location = new Point(0, btnViewManualControls.Location.Y + btnViewManualControls.Height + MARGIN);
+            nudManualXCoordinates.Location = new Point(pnlManualControls.Width / 2 - nudManualXCoordinates.Width / 2,
+                lblManualXCoordinatesHeader.Location.Y + lblManualXCoordinatesHeader.Height + MARGIN);
+        }
+
+        /// <summary>
+        /// Minimizes/Maximizes manual controls panel
+        /// </summary>
+        private void ChangeManualControlsPanelSize()
+        {
+            // Change status and update location
+            ManualControlsPanelMinimized = !ManualControlsPanelMinimized;
+            pnlManualControls.Location = new Point(pnlManualControls.Location.X, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
+
+            // Update button
+            if (ManualControlsPanelMinimized) 
+            {
+                ToolTips.SetToolTip(btnViewManualControls, "For keyboard controls, click here or press 'ALT + K'.");
+                btnViewManualControls.Text = "VIEW &KEYBOARD CONTROLS"; 
+            }
+            else 
+            {
+                ToolTips.SetToolTip(btnViewManualControls, "To hide keyboard controls, click here or press 'ALT + K'.");
+                btnViewManualControls.Text = "HIDE &KEYBOARD CONTROLS"; 
+            }
+        }
+
+        #endregion
+
+        #region Resizable Panel Generic Styling
+
+        /// <summary>
+        /// Sets properties which both progress panel and manual controls panel should get
+        /// </summary>
+        /// <param name="pnlToStyle">The panel to style.</param>
+        /// <param name="btnToStyle">The corresponding button.</param>
+        private void StyleResizeablePanel(Panel pnlToStyle, Button btnToStyle)
+        {
+            // Set width so it fills space between game area and start/end of board array
+            pnlToStyle.Width = pnlGameArea.Width - (CurrentGameState.BoardArray[0, CurrentGameState.BoardArray.GetLength(1) - 1].Location.X + MARGIN * 6);
+            pnlToStyle.Height = pnlGameArea.Height;
+
+            // Width of view button should match
+            btnToStyle.Width = pnlToStyle.Width;
+            btnToStyle.Location = new Point(0, 0);
         }
 
         /// <summary>
@@ -432,36 +525,10 @@ namespace Assignment2
             if (isMinimized) { return pnlGameArea.Height - MIMIMIZED_PANEL_HEIGHT; }
 
             // Otherwise, it should fill half the game area with some added margin
-            else { return pnlGameArea.Height / 2 - MARGIN * 8; }
+            else { return (pnlGameArea.Height / 2) - (MARGIN * 10); }
         }
 
-        /// <summary>
-        /// Minimizes/Maximizes progress panel
-        /// </summary>
-        private void ChangeProgressPanelSize()
-        {
-            // Change status and update location
-            ProgressPanelMinimized = !ProgressPanelMinimized;
-            pnlProgress.Location = new Point(pnlProgress.Location.X, GetResizeablePanelYPosition(ProgressPanelMinimized));
-
-            // Update button
-            if (ProgressPanelMinimized) { btnViewProgress.Text = "VIEW GAME PROGRESS"; }
-            else { btnViewProgress.Text = "HIDE GAME PROGRESS"; }
-        }
-
-        /// <summary>
-        /// Minimizes/Maximizes manual controls panel
-        /// </summary>
-        private void ChangeManualControlsPanelSize()
-        {
-            // Change status and update location
-            ManualControlsPanelMinimized = !ManualControlsPanelMinimized;
-            pnlManualControls.Location = new Point(pnlManualControls.Location.X, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
-
-            // Update button
-            if (ManualControlsPanelMinimized) { btnViewManualControls.Text = "VIEW MANUAL CONTROLS"; }
-            else { btnViewManualControls.Text = "HIDE GAME PROGRESS"; }
-        }
+        #endregion
 
         /// <summary>
         /// Displays prompt informing user there is no active game.
