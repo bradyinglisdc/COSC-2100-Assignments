@@ -21,7 +21,7 @@ namespace Assignment2
         #region Properties
 
         // Game State
-        private GameState CurrentGameState { get; set; }
+        public GameState CurrentGameState { get; set; }
 
         // Window Control
         private bool ProgressPanelMinimized { get; set; }
@@ -54,7 +54,7 @@ namespace Assignment2
             pnlGameSetup = new Panel();
             btnNewGame = new Button();
             btnExitApplication = new Button();
-            btnRestartGame = new Button();
+            /*btnRestartGame = new Button();*/
 
             // Game area
             pnlGameArea = new Panel();
@@ -96,13 +96,13 @@ namespace Assignment2
 
             #endregion
 
-            pbxMisslesFired = new PictureBox();
-            lblMisslesFired = new Label();
+            pbxMissilesFired = new PictureBox();
+            lblMissilesFired = new Label();
 
             lblStartGamePrompt = new Label();
 
             ToolTips = new ToolTip();
-
+ 
             #endregion
 
             #region Game Setup
@@ -128,7 +128,7 @@ namespace Assignment2
             Controls.Add(pnlGameSetup);
             pnlGameSetup.Controls.Add(btnNewGame);
             pnlGameSetup.Controls.Add(btnExitApplication);
-            pnlGameSetup.Controls.Add(btnRestartGame);
+            /*pnlGameSetup.Controls.Add(btnRestartGame);*/
 
             // Game Area
             Controls.Add(pnlGameArea);
@@ -136,8 +136,8 @@ namespace Assignment2
             pnlGameArea.Controls.Add(lblStartGamePrompt);
 
             // Missle Tracking
-            pnlGameArea.Controls.Add(pbxMisslesFired);
-            pbxMisslesFired.Controls.Add(lblMisslesFired);
+            pnlGameArea.Controls.Add(pbxMissilesFired);
+            pbxMissilesFired.Controls.Add(lblMissilesFired);
 
             // Game Progress
             pnlGameArea.Controls.Add(pnlProgress);
@@ -205,12 +205,17 @@ namespace Assignment2
         }
 
         /// <summary>
-        /// Starts a nw game after prompting the user.
+        /// Starts a new game after prompting the user.
         /// </summary>
         /// <param name="sender">New game button.</param>
         /// <param name="e">Any arguments added.</param>
         private void btnNewGame_Click(object? sender, EventArgs e)
         {
+            if (CurrentGameState.GameHappening && MessageBox.Show("Are you sure you want to start a new game? All of your progress" +
+                "will be lost.", "Start New Game?", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                return;
+            }
             StartGame();
         }
 
@@ -281,7 +286,7 @@ namespace Assignment2
         /// <summary>
         /// Prompts user to select difficulty before starting game.
         /// </summary>
-        private void StartGame()
+        public void StartGame()
         {
             // Removes start game prompt - it should never need to appear again.
             pnlGameArea.Controls.Remove(lblStartGamePrompt); 
@@ -334,8 +339,8 @@ namespace Assignment2
         /// </summary>
         private void SetMissleTracker()
         {
-            pbxMisslesFired.BringToFront();
-            UpdateMisslesFiredLabel();
+            pbxMissilesFired.BringToFront();
+            UpdateMissilesFiredLabel();
         }
 
         private void SetManualFiring()
@@ -403,8 +408,9 @@ namespace Assignment2
         {
             BS.CheckForHit(positionCoordinates, CurrentGameState);
             UpdateBoardPosition(positionCoordinates);
-            UpdateMisslesFiredLabel();
+            UpdateMissilesFiredLabel();
             UpdateGameProgress();
+            DisplayWin();
         }
 
         /// <summary>
@@ -453,19 +459,27 @@ namespace Assignment2
         /// <summary>
         /// Updates missles fired labale to accurately reflect user's turns.
         /// </summary>
-        private void UpdateMisslesFiredLabel()
+        private void UpdateMissilesFiredLabel()
         {
-            lblMisslesFired.Text = $"MISSLES FIRED: {CurrentGameState.MisslesFired}\nBOATS SUNK: {CurrentGameState.GetBoatsSunk()}";
+            lblMissilesFired.Text = $"MISSILES FIRED: {CurrentGameState.MissilesFired}\nBOATS SUNK: {CurrentGameState.GetBoatsSunk()}";
         }
         
         #endregion
 
-        #region Cleanup Methods
+        #region Cleanup/Ending Methods
+
+        /// <summary>
+        /// Prompt the user to start a new game/exit if they win.
+        /// </summary>
+        private void DisplayWin()
+        {
+            if (CurrentGameState.CheckForWin()) { new frmWinningScreen(this).ShowDialog(); }
+        }
 
         /// <summary>
         /// Closes the form if the user agrees to the prompt.
         /// </summary>
-        private void ExitApplication()
+        public void ExitApplication()
         {
             if (MessageBox.Show("Are you sure you want to exit the application? None of your game data will save.", "Exit Battleship?", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {

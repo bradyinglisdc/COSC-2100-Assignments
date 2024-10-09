@@ -98,7 +98,7 @@ namespace Assignment2
                 return;
             }
 
-            gameState.MisslesFired++;
+            gameState.MissilesFired++;
             board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Miss;
         }
 
@@ -109,7 +109,7 @@ namespace Assignment2
         /// <param name="gameState">Gamestate to update.</param>
         private static void TrackHit(int[] coordinates, GameState gameState)
         {
-            gameState.MisslesFired++;
+            gameState.MissilesFired++;
             board[coordinates[0] + 1, coordinates[1] + 1] = BoardStatus.Hit;
         }
 

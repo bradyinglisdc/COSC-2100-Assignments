@@ -37,10 +37,10 @@ namespace Assignment2
         private const int MAXIMUM_BUTTON_FONT_SIZE = 25;
         private const int MINIMUM_BUTTON_FONT_SIZE = 8;
 
-        // Missles Fired control sizing
+        // Missiles Fired control sizing
         private const int VIEW_PROGRESS_BUTTON_HEIGHT = 50;
-        private const int MAXIMUM_MISSLES_FIRED_HEIGHT = 75;
-        private const int MINIMUM_MISSLES_FIRED_HEIGHT = 25;
+        private const int MAXIMUM_MISSILES_FIRED_HEIGHT = 75;
+        private const int MINIMUM_MISSILES_FIRED_HEIGHT = 25;
 
         // Resizeable Panel Sizing
         private const int MIMIMIZED_PANEL_HEIGHT = 50;
@@ -58,16 +58,16 @@ namespace Assignment2
         private Panel pnlGameSetup { get; set; }
         private Button btnNewGame { get; set; }
         private Button btnExitApplication { get; set; }
-        private Button btnRestartGame { get; set; }
+        /*private Button btnRestartGame { get; set; }*/
 
         // Game area
         private PictureBox pbxBattleshipBackground { get; set; }
         private Panel pnlGameArea { get; set; }
         private Label lblStartGamePrompt { get; set; }
 
-        // Missles fired
-        private PictureBox pbxMisslesFired { get; set; }
-        private Label lblMisslesFired { get; set; }
+        // Missiles fired
+        private PictureBox pbxMissilesFired { get; set; }
+        private Label lblMissilesFired { get; set; }
 
         // Progress panel
         private Panel pnlProgress { get; set; }
@@ -145,11 +145,11 @@ namespace Assignment2
             btnNewGame.ForeColor = Color.White;
 
             // btnRestartGame
-            ToolTips.SetToolTip(btnRestartGame, "Click here, or press 'Alt + R' to reset all progress and game board.");
+/*            ToolTips.SetToolTip(btnRestartGame, "Click here, or press 'Alt + R' to reset all progress and game board.");
             btnRestartGame.TabIndex = 1;
             btnRestartGame.Text = "&RESET";
             btnRestartGame.BackColor = Color.Black;
-            btnRestartGame.ForeColor = Color.White;
+            btnRestartGame.ForeColor = Color.White;*/
 
             // btnExitApplication
             ToolTips.SetToolTip(btnExitApplication, "Click here, or press 'Alt + X' to exit application.");
@@ -181,14 +181,14 @@ namespace Assignment2
             #region pbxMissleTracker
 
             // The Picturebox
-            ToolTips.SetToolTip(lblMisslesFired, "Click any non red/white square above to fire a missle!");
-            pbxMisslesFired.Image = Image.FromStream(new MemoryStream(Properties.Resources.MisslesFiredPanel));
-            pbxMisslesFired.MaximumSize = new Size(0, MAXIMUM_MISSLES_FIRED_HEIGHT);
-            pbxMisslesFired.MinimumSize = new Size(0, MINIMUM_MISSLES_FIRED_HEIGHT);
+            ToolTips.SetToolTip(lblMissilesFired, "Click any non red/white square above to fire a missle!");
+            pbxMissilesFired.Image = Image.FromStream(new MemoryStream(Properties.Resources.MissilesFiredPanel));
+            pbxMissilesFired.MaximumSize = new Size(0, MAXIMUM_MISSILES_FIRED_HEIGHT);
+            pbxMissilesFired.MinimumSize = new Size(0, MINIMUM_MISSILES_FIRED_HEIGHT);
 
             // The Tracking Label
-            lblMisslesFired.TextAlign = ContentAlignment.MiddleCenter;
-            lblMisslesFired.ForeColor = Color.FromArgb(50, 255, 255, 255);
+            lblMissilesFired.TextAlign = ContentAlignment.MiddleCenter;
+            lblMissilesFired.ForeColor = Color.FromArgb(50, 255, 255, 255);
 
             #endregion
 
@@ -211,8 +211,13 @@ namespace Assignment2
             // Set numeric up downs
             ToolTips.SetToolTip(nudManualXCoordinates, "Enter the X Coordinates you want to fire on here!");
             nudManualXCoordinates.TabIndex = 1;
+            nudManualXCoordinates.Maximum = BS.MAX_BOARD_SIZE;
+            nudManualXCoordinates.Minimum = 1;
+
             ToolTips.SetToolTip(nudManualYCoordinates, "Enter the Y Coordinates you want to fire on here!");
             nudManualYCoordinates.TabIndex = 2;
+            nudManualYCoordinates.Maximum = BS.MAX_BOARD_SIZE;
+            nudManualYCoordinates.Minimum = 1;
 
             // btnManualFire
             ToolTips.SetToolTip(btnManualFire, "Click here, or press 'ALT + F' to fire at the above coordiantes!");
@@ -288,8 +293,8 @@ namespace Assignment2
             btnNewGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
 
             // btnRestartGame
-            btnRestartGame.Size = new Size(ClientSize.Width / 15, pnlGameSetup.Height);
-            btnRestartGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
+/*            btnRestartGame.Size = new Size(ClientSize.Width / 15, pnlGameSetup.Height);
+            btnRestartGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);*/
 
             // btnExitApplication
             btnExitApplication.Size = new Size(ClientSize.Width / 20, pnlGameSetup.Height);
@@ -298,7 +303,7 @@ namespace Assignment2
             // Button locations
             btnNewGame.Location = new Point(pnlGameSetup.Width / 2 - btnNewGame.Width / 2, 0);
             btnExitApplication.Location = new Point(MARGIN, 0);
-            btnRestartGame.Location = new Point(btnExitApplication.Location.X + btnExitApplication.Width);
+/*            btnRestartGame.Location = new Point(btnExitApplication.Location.X + btnExitApplication.Width);*/
 
             // Ensure button fonts do not suprass limit
             if (btnNewGame.Font.Size > MAXIMUM_BUTTON_FONT_SIZE)
@@ -323,7 +328,7 @@ namespace Assignment2
 
             #endregion
 
-            // Style remaining game area based on game happening status
+            // Style remaining game area if game state exists
             if (CurrentGameState.GameHappening)
             {
                 StyleActiveGamePositioning();
@@ -366,7 +371,7 @@ namespace Assignment2
             }
 
             // Style missles fired panel positioning
-            StyleMisslesFiredPositioning();
+            StyleMissilesFiredPositioning();
 
             // Style progress panel positioning
             StyleProgressPanelPositioning();
@@ -378,31 +383,31 @@ namespace Assignment2
 
         /// <summary>
         /// To be called after game panel is styled. 
-        /// Styles pbxMisslesFired and its label so that it appears
+        /// Styles pbxMissilesFired and its label so that it appears
         /// directly below the last boardposition row.
         /// </summary>
-        private void StyleMisslesFiredPositioning()
+        private void StyleMissilesFiredPositioning()
         {
             // Get length of the board and a board position for size reference
             int boardSize = CurrentGameState.BoardArray.GetLength(0);
             Label boardPosition = CurrentGameState.BoardArray[boardSize - 1, 0];
 
-            #region pbxMisslesFired Styling
+            #region pbxMissilesFired Styling
 
-            pbxMisslesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMisslesFired.Height);
-            pbxMisslesFired.Width = (boardPosition.Width * boardSize) + (MARGIN * (boardSize - 1));
-            pbxMisslesFired.Height = pnlGameArea.Height - ((boardPosition.Height * boardSize) + (MARGIN * (boardSize - 1)));
-            pbxMisslesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMisslesFired.Height);
+            pbxMissilesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMissilesFired.Height);
+            pbxMissilesFired.Width = (boardPosition.Width * boardSize) + (MARGIN * (boardSize - 1));
+            pbxMissilesFired.Height = pnlGameArea.Height - ((boardPosition.Height * boardSize) + (MARGIN * (boardSize - 1)));
+            pbxMissilesFired.Location = new Point(boardPosition.Location.X, pnlGameArea.Height - pbxMissilesFired.Height);
 
             #endregion
 
-            #region lblMisslesFired Styling
+            #region lblMissilesFired Styling
 
-            lblMisslesFired.Size = new Size(pbxMisslesFired.Width, pbxMisslesFired.Height);
+            lblMissilesFired.Size = new Size(pbxMissilesFired.Width, pbxMissilesFired.Height);
 
-            if (lblMisslesFired.Height / 4 > 0)
+            if (lblMissilesFired.Height / 4 > 0)
             {
-                lblMisslesFired.Font = new Font("Impact", lblMisslesFired.Height / 4, FontStyle.Regular);
+                lblMissilesFired.Font = new Font("Impact", lblMissilesFired.Height / 4, FontStyle.Regular);
             }
 
             #endregion

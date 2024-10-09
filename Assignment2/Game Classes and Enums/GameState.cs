@@ -30,7 +30,7 @@ namespace Assignment2
         public int DestroyerHealth { get; set; }
         public bool GameHappening { get; set; }
         public Difficulty Difficulty { get; set; }
-        public int MisslesFired { get; set; }
+        public int MissilesFired { get; set; }
         #endregion
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Assignment2
             SetBoatHealth();
             BoardArray = BS.GetBoardAsLabelArray(Difficulty.Easy);
             Difficulty = Difficulty.Easy;
-            MisslesFired = 0;
+            MissilesFired = 0;
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Assignment2
         /// If number of boats sunken is equal to number of boats, we have a winner.
         /// </summary>
         /// <returns>True if win was found.</returns>
-        private bool CheckForWin()
+        public bool CheckForWin()
         {
             if (CarrierHealth != 0 || BattleshipHealth != 0 ||
                 SubmarineHealth != 0 || CruiserHealth != 0 ||
@@ -102,7 +102,7 @@ namespace Assignment2
         public void Reset()
         {
             if (!GameHappening) { GameHappening = true; }
-            MisslesFired = 0;
+            MissilesFired = 0;
             SetBoatHealth();
             BS.ResetBoard();
             BS.RandomizeBoats();
