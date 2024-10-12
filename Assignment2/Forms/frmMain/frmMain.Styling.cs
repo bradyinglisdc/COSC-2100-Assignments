@@ -26,25 +26,25 @@ namespace Assignment2
         #region Constants and Static Styling Variables
 
         // Form and Setup panel
-        private static Size FORM_MINIMUM_SIZE = new Size(720, 600);
-        private static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
+        public static Size FORM_MINIMUM_SIZE = new Size(720, 600);
+        public static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
 
         // Board sizing
-        private const int MAXIMUM_BOARD_POSITION_SIZE = 55;
-        private const int MINIMUM_BOARD_POSITION_SIZE = 30;
+        public const int MAXIMUM_BOARD_POSITION_SIZE = 55;
+        public const int MINIMUM_BOARD_POSITION_SIZE = 30;
 
         // Button sizing
-        private const int MAXIMUM_BUTTON_FONT_SIZE = 25;
+        public const int MAXIMUM_BUTTON_FONT_SIZE = 25;
         private const int MINIMUM_BUTTON_FONT_SIZE = 8;
 
         // Missiles Fired control sizing
-        private const int VIEW_PROGRESS_BUTTON_HEIGHT = 50;
-        private const int MAXIMUM_MISSILES_FIRED_HEIGHT = 75;
-        private const int MINIMUM_MISSILES_FIRED_HEIGHT = 25;
+        public const int VIEW_PROGRESS_BUTTON_HEIGHT = 50;
+        public const int MAXIMUM_MISSILES_FIRED_HEIGHT = 75;
+        public const int MINIMUM_MISSILES_FIRED_HEIGHT = 25;
 
         // Resizeable Panel Sizing
-        private const int MIMIMIZED_PANEL_HEIGHT = 50;
-        private const int PROGRESS_HEADERS_FONT_SIZE = 12;
+        public const int MIMIMIZED_PANEL_HEIGHT = 50;
+        public const int PROGRESS_HEADERS_FONT_SIZE = 12;
 
         // General styling
         private const int MARGIN = 10;

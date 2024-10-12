@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             pnlGameOverview = new Panel();
+            lblGamesWon = new Label();
             btnExit = new Button();
             btnPlayAgain = new Button();
             lblScore = new Label();
@@ -37,6 +38,7 @@
             lblWinner = new Label();
             pnlOptionArea = new Panel();
             ToolTips = new ToolTip(components);
+            lblAvgScore = new Label();
             pnlGameOverview.SuspendLayout();
             pnlOptionArea.SuspendLayout();
             SuspendLayout();
@@ -45,6 +47,8 @@
             // 
             pnlGameOverview.BackColor = SystemColors.ActiveBorder;
             pnlGameOverview.BorderStyle = BorderStyle.Fixed3D;
+            pnlGameOverview.Controls.Add(lblAvgScore);
+            pnlGameOverview.Controls.Add(lblGamesWon);
             pnlGameOverview.Controls.Add(btnExit);
             pnlGameOverview.Controls.Add(btnPlayAgain);
             pnlGameOverview.Controls.Add(lblScore);
@@ -53,6 +57,16 @@
             pnlGameOverview.Name = "pnlGameOverview";
             pnlGameOverview.Size = new Size(267, 171);
             pnlGameOverview.TabIndex = 1;
+            // 
+            // lblGamesWon
+            // 
+            lblGamesWon.AutoSize = true;
+            lblGamesWon.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblGamesWon.Location = new Point(16, 23);
+            lblGamesWon.Name = "lblGamesWon";
+            lblGamesWon.Size = new Size(109, 23);
+            lblGamesWon.TabIndex = 4;
+            lblGamesWon.Text = "Games Won: ";
             // 
             // btnExit
             // 
@@ -84,7 +98,7 @@
             // 
             lblScore.AutoSize = true;
             lblScore.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScore.Location = new Point(16, 67);
+            lblScore.Location = new Point(16, 69);
             lblScore.Name = "lblScore";
             lblScore.Size = new Size(63, 23);
             lblScore.TabIndex = 1;
@@ -94,9 +108,9 @@
             // 
             lblMissilesFired.AutoSize = true;
             lblMissilesFired.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMissilesFired.Location = new Point(16, 29);
+            lblMissilesFired.Location = new Point(16, 92);
             lblMissilesFired.Name = "lblMissilesFired";
-            lblMissilesFired.Size = new Size(121, 23);
+            lblMissilesFired.Size = new Size(126, 23);
             lblMissilesFired.TabIndex = 0;
             lblMissilesFired.Text = "Missiles Fired: ";
             // 
@@ -122,6 +136,16 @@
             pnlOptionArea.Name = "pnlOptionArea";
             pnlOptionArea.Size = new Size(440, 238);
             pnlOptionArea.TabIndex = 0;
+            // 
+            // lblAvgScore
+            // 
+            lblAvgScore.AutoSize = true;
+            lblAvgScore.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAvgScore.Location = new Point(16, 46);
+            lblAvgScore.Name = "lblAvgScore";
+            lblAvgScore.Size = new Size(126, 23);
+            lblAvgScore.TabIndex = 5;
+            lblAvgScore.Text = "Average Score:";
             // 
             // frmWinningScreen
             // 
@@ -158,5 +182,7 @@
         private Label lblScore;
         private Button btnExit;
         private ToolTip ToolTips;
+        private Label lblGamesWon;
+        private Label lblAvgScore;
     }
 }

@@ -49,9 +49,11 @@ namespace Assignment2
         /// </summary>
         private void SetStats()
         {
-            int missilesFired = frmLinkedForm.CurrentGameState.MissilesFired;
-            lblMissilesFired.Text = $"Missiles Fired: {missilesFired}";
-            lblScore.Text = $"Score: {(int)frmLinkedForm.CurrentGameState.Difficulty * 1000 / missilesFired}";
+            GameState gameState = frmLinkedForm.CurrentGameState;
+            lblGamesWon.Text = $"Games Won: {gameState.GameScores.Count}";
+            lblAvgScore.Text = $"Average Score: {gameState.AverageScore}";
+            lblScore.Text = $"Score: {gameState.GameScores[gameState.GameScores.Count - 1]}";
+            lblMissilesFired.Text = $"Missiles Fired: {gameState.MissilesFired}";
         }
 
         #endregion
