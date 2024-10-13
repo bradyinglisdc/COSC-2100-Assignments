@@ -32,9 +32,8 @@ namespace Assignment2
         /// <summary>
         /// Creates a 2d label array based on the provided difficulty.
         /// </summary>
-        /// <param name="difficulty">The difficulty which determines the board size.</param>
         /// <returns>The 2d label representation of the board.</returns>
-        public static Label[,] GetBoardAsLabelArray(Difficulty difficulty)
+        public static Label[,] GetBoardAsLabelArray()
         {
             // Iterate through board size and add to the array
             Label[,] boardArray = new Label[MAX_BOARD_SIZE, MAX_BOARD_SIZE];
@@ -116,8 +115,12 @@ namespace Assignment2
         /// <summary>
         /// Resets board status, so that every index is empty.
         /// </summary>
-        public static void ResetBoard()
+        /// <param name="difficulty">The difficulty to set the board to.</param>
+        public static void ResetBoard(Difficulty difficulty)
         {
+            // Set the size of the board based on the difficulty
+            SetBoardSize(difficulty);
+
             for (int i = 0; i < board.GetLength(0); i++)
             {
                 for (int j = 0; j < board.GetLength(1); j++)
@@ -126,6 +129,17 @@ namespace Assignment2
                     boatPositions[i, j] = Boats.NoBoat;
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets board size based on a difficulty's int value.
+        /// </summary>
+        /// <param name="difficulty">The difficulty to set the board to.</param>
+        private static void SetBoardSize(Difficulty difficulty)
+        {
+            MAX_BOARD_SIZE = (int)difficulty;
+            board = new BoardStatus[(int)difficulty + 1, (int)difficulty + 1];
+            boatPositions = new Boats[(int)difficulty + 1, (int)difficulty + 1];
         }
 
         #endregion

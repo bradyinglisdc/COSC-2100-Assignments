@@ -31,6 +31,9 @@ namespace Assignment2
         /// </summary>
         public void StartGame()
         {
+            // Sets the difficulty. If the dialog result was not OK, do nothing (just return)
+            if (new frmChangeDifficulty(CurrentGameState).ShowDialog() != DialogResult.OK) { return; }
+
             // Removes start game prompt - it should never need to appear again.
             if (!CurrentGameState.GameHappening) { pnlGameArea.Controls.Remove(lblStartGamePrompt); }
             
@@ -46,6 +49,9 @@ namespace Assignment2
         /// </summary>
         private void SetupGameBoard()
         {
+            // Set styling based on difficulty
+            SetDifficultySizing();
+
             // Add and styles/re-style labels, set default board up
             CurrentGameState.SetDefaultBoard(pnlGameArea);
             SetupGameControls();

@@ -51,7 +51,6 @@ namespace Assignment2
             pnlGameSetup = new Panel();
             btnNewGame = new Button();
             btnExitApplication = new Button();
-            /*btnRestartGame = new Button();*/
 
             // Game area
             pnlGameArea = new Panel();
@@ -128,7 +127,6 @@ namespace Assignment2
             Controls.Add(pnlGameSetup);
             pnlGameSetup.Controls.Add(btnNewGame);
             pnlGameSetup.Controls.Add(btnExitApplication);
-            /*pnlGameSetup.Controls.Add(btnRestartGame);*/
 
             // Game Area
             Controls.Add(pnlGameArea);
@@ -261,7 +259,7 @@ namespace Assignment2
         /// <param name="e">Any arguments added.</param>
         private void btnViewProgress_Click(object? sender, EventArgs e)
         {
-            // Just return if senderis not a Control
+            // Just return if sender not a Control
             if (!(sender is Control)) { return; }
             ((Control)sender).Focus();
             ChangeProgressPanelSize();

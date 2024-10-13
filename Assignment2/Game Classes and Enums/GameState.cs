@@ -55,8 +55,8 @@ namespace Assignment2
 
             // Tracking related propeties
             SetBoatHealth();
-            BoardArray = BS.GetBoardAsLabelArray(Difficulty.Easy);
-            Difficulty = Difficulty.Easy;
+            Difficulty = Difficulty.Easy; // Default difficulty is easy
+            BoardArray = BS.GetBoardAsLabelArray();
             MissilesFired = 0;
             GameScores = new List<int>();
             AverageScore = 0;
@@ -130,20 +130,37 @@ namespace Assignment2
         /// that should only be set once when the game is started, as well as event handlers.
         /// </summary>
         /// <param name="pnlGameArea">The game area to populate with labels.</param>
-        /// <param name="frontEndBoardPosition_Click">The front end method to subscribe to a board position click.</param>
         public void SetDefaultBoard(Panel pnlGameArea)
         {
+            // Clears and updates board array so it's size is reflective of the difficulty
+            ClearBoardPositions(pnlGameArea);
+            BoardArray = BS.GetBoardAsLabelArray();
+
+            // Get the sizing based on difficulty
+            frmMain.MaximumBoardPositionSize = Difficulty == Difficulty.Easy ? frmMain.MAXIMUM_BOARD_POSITION_SIZE_EASY : frmMain.MAXIMUM_BOARD_POSITION_SIZE_HARD;
+
             // Iterates through board array, updating status to default
             foreach (Label boardPosition in BoardArray)
             {
-                pnlGameArea.Controls.Remove(boardPosition); // Removing label before styling 
                 ToolTips.SetToolTip(boardPosition, $"Click here to fire a missle!");
                 boardPosition.Click += new EventHandler(BoardPosition_Click);
                 boardPosition.Click += BoardPositionFrontend_Click;
                 boardPosition.BackColor = Color.FromArgb(255, 10, 10, 10);
-                boardPosition.MaximumSize = new Size(frmMain.MAXIMUM_BOARD_POSITION_SIZE, frmMain.MAXIMUM_BOARD_POSITION_SIZE);
+                boardPosition.MaximumSize = new Size(frmMain.MaximumBoardPositionSize, frmMain.MaximumBoardPositionSize);
                 pnlGameArea.Controls.Add(boardPosition); 
                 boardPosition.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// Searches through board array and clears all labels.
+        /// </summary>
+        /// <param name="pnlGameArea">The game area to wipe.</param>
+        private void ClearBoardPositions(Panel pnlGameArea)
+        {
+            foreach (Label boardPosition in BoardArray)
+            {
+                pnlGameArea.Controls.Remove(boardPosition);
             }
         }
 
@@ -246,7 +263,7 @@ namespace Assignment2
             if (!GameHappening) { GameHappening = true; }
             MissilesFired = 0;
             SetBoatHealth();
-            BS.ResetBoard();
+            BS.ResetBoard(Difficulty);
             BS.RandomizeBoats();
         }
 

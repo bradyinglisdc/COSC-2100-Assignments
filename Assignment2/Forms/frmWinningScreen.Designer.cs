@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             pnlGameOverview = new Panel();
+            lblAvgScore = new Label();
             lblGamesWon = new Label();
             btnExit = new Button();
             btnPlayAgain = new Button();
@@ -38,7 +39,6 @@
             lblWinner = new Label();
             pnlOptionArea = new Panel();
             ToolTips = new ToolTip(components);
-            lblAvgScore = new Label();
             pnlGameOverview.SuspendLayout();
             pnlOptionArea.SuspendLayout();
             SuspendLayout();
@@ -57,6 +57,16 @@
             pnlGameOverview.Name = "pnlGameOverview";
             pnlGameOverview.Size = new Size(267, 171);
             pnlGameOverview.TabIndex = 1;
+            // 
+            // lblAvgScore
+            // 
+            lblAvgScore.AutoSize = true;
+            lblAvgScore.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblAvgScore.Location = new Point(16, 46);
+            lblAvgScore.Name = "lblAvgScore";
+            lblAvgScore.Size = new Size(126, 23);
+            lblAvgScore.TabIndex = 5;
+            lblAvgScore.Text = "Average Score:";
             // 
             // lblGamesWon
             // 
@@ -136,16 +146,6 @@
             pnlOptionArea.Name = "pnlOptionArea";
             pnlOptionArea.Size = new Size(440, 238);
             pnlOptionArea.TabIndex = 0;
-            // 
-            // lblAvgScore
-            // 
-            lblAvgScore.AutoSize = true;
-            lblAvgScore.Font = new Font("Impact", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAvgScore.Location = new Point(16, 46);
-            lblAvgScore.Name = "lblAvgScore";
-            lblAvgScore.Size = new Size(126, 23);
-            lblAvgScore.TabIndex = 5;
-            lblAvgScore.Text = "Average Score:";
             // 
             // frmWinningScreen
             // 

@@ -27,11 +27,18 @@ namespace Assignment2
 
         // Form and Setup panel
         public static Size FORM_MINIMUM_SIZE = new Size(720, 600);
+        public static Size FORM_MINIMUM_SIZE_HARD = new Size(900, 850);
+        public static Size DEFAULT_FORM_SIZE = new Size(820, 700);
+        public static Size DEFAULT_FORM_SIZE_HARD = new Size(980, 760);
+
         public static Size MAXIMUM_SETUP_PANEL_SIZE = new Size(0, 29);
 
         // Board sizing
-        public const int MAXIMUM_BOARD_POSITION_SIZE = 55;
-        public const int MINIMUM_BOARD_POSITION_SIZE = 30;
+        public const int MAXIMUM_BOARD_POSITION_SIZE_EASY = 55;
+        public const int MAXIMUM_BOARD_POSITION_SIZE_HARD = 45;
+
+        public static int MaximumBoardPositionSize = 55;
+        public static int MinimumBoardPositionSize = 30;
 
         // Button sizing
         public const int MAXIMUM_BUTTON_FONT_SIZE = 25;
@@ -58,7 +65,6 @@ namespace Assignment2
         private Panel pnlGameSetup { get; set; }
         private Button btnNewGame { get; set; }
         private Button btnExitApplication { get; set; }
-        /*private Button btnRestartGame { get; set; }*/
 
         // Game area
         private PictureBox pbxBattleshipBackground { get; set; }
@@ -144,13 +150,6 @@ namespace Assignment2
             btnNewGame.BackColor = Color.Black;
             btnNewGame.ForeColor = Color.White;
 
-            // btnRestartGame
-/*            ToolTips.SetToolTip(btnRestartGame, "Click here, or press 'Alt + R' to reset all progress and game board.");
-            btnRestartGame.TabIndex = 1;
-            btnRestartGame.Text = "&RESET";
-            btnRestartGame.BackColor = Color.Black;
-            btnRestartGame.ForeColor = Color.White;*/
-
             // btnExitApplication
             ToolTips.SetToolTip(btnExitApplication, "Click here, or press 'Alt + X' to exit application.");
             btnExitApplication.TabIndex = 2;
@@ -211,12 +210,10 @@ namespace Assignment2
             // Set numeric up downs
             ToolTips.SetToolTip(nudManualXCoordinates, "Enter the X Coordinates you want to fire on here!");
             nudManualXCoordinates.TabIndex = 1;
-            nudManualXCoordinates.Maximum = BS.MAX_BOARD_SIZE;
             nudManualXCoordinates.Minimum = 1;
 
             ToolTips.SetToolTip(nudManualYCoordinates, "Enter the Y Coordinates you want to fire on here!");
             nudManualYCoordinates.TabIndex = 2;
-            nudManualYCoordinates.Maximum = BS.MAX_BOARD_SIZE;
             nudManualYCoordinates.Minimum = 1;
 
             // btnManualFire
@@ -292,9 +289,6 @@ namespace Assignment2
             btnNewGame.Size = new Size(ClientSize.Width / 2, pnlGameSetup.Height);
             btnNewGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);
 
-            // btnRestartGame
-/*            btnRestartGame.Size = new Size(ClientSize.Width / 15, pnlGameSetup.Height);
-            btnRestartGame.Font = new Font("Segoe UI", pnlGameSetup.Height / 3, FontStyle.Regular);*/
 
             // btnExitApplication
             btnExitApplication.Size = new Size(ClientSize.Width / 20, pnlGameSetup.Height);
@@ -303,9 +297,6 @@ namespace Assignment2
             // Button locations
             btnNewGame.Location = new Point(pnlGameSetup.Width / 2 - btnNewGame.Width / 2, 0);
             btnExitApplication.Location = new Point(MARGIN, 0);
-/*            btnRestartGame.Location = new Point(btnExitApplication.Location.X + btnExitApplication.Width);*/
-
-            // Ensure button fonts do not suprass limit
             if (btnNewGame.Font.Size > MAXIMUM_BUTTON_FONT_SIZE)
             {
                 btnNewGame.Font = new Font("Segoe UI", MAXIMUM_BUTTON_FONT_SIZE, FontStyle.Regular);
@@ -349,7 +340,7 @@ namespace Assignment2
 
             // The width and height of each label. Ensure size doesn't suprass max position size for proper centering.
             int size = (pnlGameArea.Width + pnlGameArea.Height) / 40;
-            if (size > MAXIMUM_BOARD_POSITION_SIZE) { size = MAXIMUM_BOARD_POSITION_SIZE; }
+            if (size > MaximumBoardPositionSize) { size = MaximumBoardPositionSize; }
 
             // For horizontal/vertical spacing
             int defaultHorizontalSpacing = (pnlGameArea.Width / 2 - (boardSize * MARGIN + boardSize * size) / 2) + MARGIN / 2;
@@ -464,15 +455,15 @@ namespace Assignment2
             pnlProgress.Location = new Point(pnlProgress.Location.X, GetResizeablePanelYPosition(ProgressPanelMinimized));
 
             // Update button
-            if (ProgressPanelMinimized) 
+            if (ProgressPanelMinimized)
             {
                 ToolTips.SetToolTip(btnViewProgress, "Click here, or press 'ALT + G' to view game progress (boat health).");
-                btnViewProgress.Text = "VIEW &GAME PROGRESS";   
+                btnViewProgress.Text = "VIEW &GAME PROGRESS";
             }
-            else 
+            else
             {
                 ToolTips.SetToolTip(btnViewProgress, "Click here, or press 'ALT + G' to hide game progress.");
-                btnViewProgress.Text = "HIDE &GAME PROGRESS"; 
+                btnViewProgress.Text = "HIDE &GAME PROGRESS";
             }
         }
 
@@ -490,14 +481,14 @@ namespace Assignment2
             // X Coordinates Entering
             int xPlacement = pnlManualControls.Width / 2 - nudManualXCoordinates.Width / 2;
             lblManualXCoordinatesHeader.Location = new Point(xPlacement, btnViewManualControls.Location.Y + btnViewManualControls.Height + MARGIN);
-            nudManualXCoordinates.Location = new Point(xPlacement, lblManualXCoordinatesHeader.Location.Y + lblManualXCoordinatesHeader.Height );
+            nudManualXCoordinates.Location = new Point(xPlacement, lblManualXCoordinatesHeader.Location.Y + lblManualXCoordinatesHeader.Height);
 
             // Y Coordinates Entering
             lblManualYCoordinatesHeader.Location = new Point(xPlacement, nudManualXCoordinates.Location.Y + nudManualXCoordinates.Height + MARGIN * 2);
             nudManualYCoordinates.Location = new Point(xPlacement, lblManualYCoordinatesHeader.Location.Y + lblManualYCoordinatesHeader.Height);
 
             // Firing button
-            btnManualFire.Location = new Point(pnlManualControls.Width / 2 - btnManualFire.Width / 2, 
+            btnManualFire.Location = new Point(pnlManualControls.Width / 2 - btnManualFire.Width / 2,
                 nudManualYCoordinates.Location.Y + nudManualYCoordinates.Height + MARGIN * 2);
 
         }
@@ -512,15 +503,15 @@ namespace Assignment2
             pnlManualControls.Location = new Point(pnlManualControls.Location.X, GetResizeablePanelYPosition(ManualControlsPanelMinimized));
 
             // Update button
-            if (ManualControlsPanelMinimized) 
+            if (ManualControlsPanelMinimized)
             {
                 ToolTips.SetToolTip(btnViewManualControls, "For keyboard controls, click here or press 'ALT + K'.");
-                btnViewManualControls.Text = "VIEW &KEYBOARD CONTROLS"; 
+                btnViewManualControls.Text = "VIEW &KEYBOARD CONTROLS";
             }
-            else 
+            else
             {
                 ToolTips.SetToolTip(btnViewManualControls, "To hide keyboard controls, click here or press 'ALT + K'.");
-                btnViewManualControls.Text = "HIDE &KEYBOARD CONTROLS"; 
+                btnViewManualControls.Text = "HIDE &KEYBOARD CONTROLS";
             }
         }
 
@@ -571,6 +562,33 @@ namespace Assignment2
             lblStartGamePrompt.Font = new Font("Segoe UI", lblHeader.Height / 5, FontStyle.Regular);
             lblStartGamePrompt.Location = new Point(0, pnlGameArea.Height / 2 - lblStartGamePrompt.Height / 2);
             lblStartGamePrompt.BringToFront();
+        }
+
+        #endregion
+
+        #region Difficulty Styles
+
+        /// <summary>
+        /// Simply sets general sizing and some defaults based on difficulty
+        /// </summary>
+        private void SetDifficultySizing()
+        {
+            if (CurrentGameState.Difficulty == Difficulty.Easy)
+            {
+                MinimumSize = FORM_MINIMUM_SIZE;
+                MaximumBoardPositionSize = MAXIMUM_BOARD_POSITION_SIZE_EASY;
+                Size = DEFAULT_FORM_SIZE;
+            }
+            else
+            {
+                MinimumSize = FORM_MINIMUM_SIZE_HARD;
+                MaximumBoardPositionSize = MAXIMUM_BOARD_POSITION_SIZE_HARD;
+                Size = DEFAULT_FORM_SIZE_HARD;
+            }
+
+            nudManualXCoordinates.Maximum = (int)CurrentGameState.Difficulty;
+            nudManualYCoordinates.Maximum = (int)CurrentGameState.Difficulty;
+            CenterToScreen();
         }
 
         #endregion
