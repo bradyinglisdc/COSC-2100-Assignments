@@ -200,7 +200,7 @@ namespace Assignment2
         private void btnNewGame_Click(object? sender, EventArgs e)
         {
             if (CurrentGameState.GameHappening && MessageBox.Show("Are you sure you want to start a new game? All of your progress" +
-                "will be lost.", "Start New Game?", MessageBoxButtons.YesNo) == DialogResult.No)
+                " will be lost.", "Start New Game?", MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 return;
             }
