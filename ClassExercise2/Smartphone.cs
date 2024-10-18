@@ -63,9 +63,19 @@ namespace ClassExercise2
         #region Properties
 
         #region Identification
-
+        /// <summary>
+        /// Gets and sets this phones manufacturer (e.g. Apple)
+        /// </summary>
         public string? Manufacturer { get; set; }
+
+        /// <summary>
+        /// Gets and sets this phones name (e.g. IPhone)
+        /// </summary>
         public string? PhoneName { get; set; }
+
+        /// <summary>
+        /// Gets and sets this phones model number
+        /// </summary>
         public int ModelNumber { get; set; }
 
         /// <summary>
@@ -108,7 +118,7 @@ namespace ClassExercise2
         /// <summary>
         /// Gets and sets the Contacts Dictionary for this phone.
         /// </summary>
-        public Dictionary<string, int>? Contacts { get; set; }
+        public Dictionary<string, string>? Contacts { get; set; }
 
         /// <summary>
         /// Gets the battery life of the phone. Sets the battery life if the value passed in is 
@@ -136,6 +146,7 @@ namespace ClassExercise2
         public Smartphone()
         {
             SetDefaults();
+            Smartphones.Add(this);
         }
 
         /// <summary>
@@ -150,23 +161,34 @@ namespace ClassExercise2
         /// <param name="apps">Dictionary for each app to add (appName: appSizeInGB)</param>
         /// <param name="contacts">Dictionary for each contact to add (contactName: contactNumber)</param>
         public Smartphone(string manufacturer, string phoneName, int modelNumber, string phoneNumber, 
-            int storage, int batteryLife, Dictionary<string, int> apps, Dictionary<string, int> contacts)
+            int storage, int batteryLife, Dictionary<string, int> apps, Dictionary<string, string> contacts)
         {
+            Apps = new Dictionary<string, int>();
+            Contacts = new Dictionary<string, string>();
+
             Manufacturer = manufacturer;
             PhoneName = phoneName;
             ModelNumber = modelNumber;
             PhoneNumber = phoneNumber;
             Storage = storage;
+            BatteryLife = batteryLife;
+            Apps = apps;
+            Contacts = contacts;
+            SetStorage();
+
+            Smartphones.Add(this);
         }
 
         #endregion
 
         #region Instance Methods
 
+        #region Setup 
+
         /// <summary>
         /// Simply sets this smartphone's properties to defaults.
         /// </summary>
-        private void SetDefaults()
+        public void SetDefaults()
         {
             Manufacturer = DEFAULT_MANUFACTURER;
             PhoneName = DEFAULT_PHONE_NAME;
@@ -175,10 +197,171 @@ namespace ClassExercise2
             SerialCode = NextSerialCode();
             PhoneNumber = DEFAULT_PHONE_NUMBER;
             Apps = new Dictionary<string, int>();
-            Contacts = new Dictionary<string, int>();
+            Contacts = new Dictionary<string, string>();
             Storage = DEFAULT_STORAGE;
             BatteryLife = DEFAULT_BATTERY_LIFE;
+
+            SetStorage();
         }
+
+
+        /// <summary>
+        /// Sets the storage of this phone based on the sum of the storage of it's apps.
+        /// </summary>
+        private void SetStorage()
+        {
+            // Just return if the dictionary is null
+            if (Apps == null) { return; }
+
+            // Iterate through all apps and subtract their size from storage
+            foreach (KeyValuePair<string, int> app in Apps)
+            {
+                Storage -= app.Value;
+            }
+        }
+
+        #endregion
+
+        #region App related
+
+        /// <summary>
+        /// Searches through this phone's Apps dictionary for a matching appName.
+        /// </summary>
+        /// <param name="appName">The app to find.</param>
+        /// <returns>A key value pair representing the app name and it's size in GB if the app is found, else an empty key value pair.</returns>
+        public KeyValuePair<string, int> FindAppByName(string appName)
+        {
+            // Just return if the dictionary is null
+            if (Apps == null) { return new KeyValuePair<string, int>(); }
+
+            // Search through apps and return an app if it matches the provided name.
+            foreach (KeyValuePair<string, int> app in Apps)
+            { 
+                if (app.Key == appName) { return app; }
+            }
+
+            // Just return a default app if no match.
+            return new KeyValuePair<string, int>();
+        }
+
+        /// <summary>
+        /// Adds an app to this phone's app dictionary.
+        /// </summary>
+        /// <param name="app">The app to add in format appName: appSize in GB</param>
+        public void AddApp(KeyValuePair<string, int> app)
+        {
+            // Just return if the dictionary is null
+            if (Apps == null) { return; }
+
+            Apps.Add(app.Key, app.Value);
+        }
+
+        /// <summary>
+        /// Searches through this phone's Apps dictionary for a matching appName, removing it if a match is found.
+        /// </summary>
+        /// <param name="appName">The name of the app to delete</param>
+        public void DeleteApp(string appName)
+        {
+            // Just return if the dictionary is null
+            if (Apps == null) { return; }
+
+            // Find the corresponding app. Remove it from apps dictionary and add it's storage back.
+            // Note that this works when an app doesn't exist because FindAppByName() will return an empty
+            // dictionary with an int for value initialized to 0, and Dictionary.Remove() does nothing if no element is found.
+            KeyValuePair<string, int> appToDelete = FindAppByName(appName);
+            Apps.Remove(appName);
+            Storage += appToDelete.Value;
+        }
+
+        #endregion
+
+        #region Contact Related
+
+        /// <summary>
+        /// Searches through this phone's Contacts dictionary for a matching phone number.
+        /// </summary>
+        /// <param name="contactName">The contact's name.</param>
+        /// <returns>A key value pair representing the contact number and their name if the contact is found, else an empty key value pair.</returns>
+        public KeyValuePair<string, string> FindContactByName(string contactName)
+        {
+            // Just return if the dictionary is null
+            if (Contacts == null) { return new KeyValuePair<string, string>(); }
+
+            // Search through Contacts and return a contact if it matches the provided name.
+            foreach (KeyValuePair<string, string> contact in Contacts)
+            {
+                if (contact.Value == contactName) { return contact; }
+            }
+
+            // Just return a default contact if no match.
+            return new KeyValuePair<string, string>();
+        }
+
+        /// <summary>
+        /// Adds a contact to this phone's contact dictionary.
+        /// </summary>
+        /// <param name="contact">The number and name of the contact to add (phoneNumber: contactName)>
+        public void AddContact(KeyValuePair<string, string> contact)
+        {
+            // Just return if the dictionary is null
+            if (Contacts == null) { return; }
+
+            Contacts.Add(contact.Key, contact.Value);
+        }
+
+        /// <summary>
+        /// Searches through this phone's Contact dictionary for a matching phone number, removing it if a match is found.
+        /// </summary>
+        /// <param name="contactNumber">The name of the app to delete</param>
+        public void DeleteContact(string contactNumber)
+        {
+            // Just return if the dictionary is null
+            if (Contacts == null) { return; }
+
+            // Find the corresponding contact. Remove it from contacts dictionary.
+            Contacts.Remove(contactNumber);
+        }
+
+        #endregion
+
+        #region Display Related
+
+        /// <summary>
+        /// Returns a string representation of the phone.
+        /// </summary>
+        /// <returns>The Smartphone as a string.</returns>
+        public override string ToString()
+        {
+            return $"""
+                Manufacturer: {Manufacturer}
+                Phone Name: {PhoneName}
+                Model Number: {ModelNumber}
+                Serial Code: {SerialCode}
+
+                Phone Number {PhoneNumber}
+                Storage: {Storage}
+                Battery Life {BatteryLife}
+                """;
+        }
+
+        /// <summary>
+        /// Returns a string representation of each app
+        /// </summary>
+        /// <returns>The Apps dictionary as a string.</returns>
+        public string AppsToString()
+        {
+            // Just return if the dictionary is null
+            if (Apps == null) { return ""; }
+
+            string apps = "";
+            foreach (KeyValuePair<string, int> app in Apps)
+            {
+                apps += ($"App Name: {app.Key}\nSize in GB: {app.Value}\n\n");
+            }
+            return apps;
+        }
+
+        #endregion
 
         #endregion
 
@@ -270,11 +453,38 @@ namespace ClassExercise2
         /// <param name="serialCode">Serial code of Smartphone to be found.</param>
         public static Smartphone FindBySerialCode(string serialCode)
         {
-            foreach(Smartphone phone in Smartphones)
+            // Search through static Smartphones and return a Smartphone if it matches the provided serialCode.
+            foreach (Smartphone phone in Smartphones)
             {
                 if (phone.SerialCode == serialCode) { return phone; }
             }
+
+            // Just return a default smartphone if no match.
             return new Smartphone();
+        }
+
+        #endregion
+
+        #region Alteration
+
+        /// <summary>
+        /// Sets every instance of Smartphone to default values.
+        /// </summary>
+        public static void SetAllToDefault()
+        {
+            // Iterate through each smartphone, setting defaults for each
+            foreach (Smartphone phone in  Smartphones)
+            {
+                phone.SetDefaults();
+            }
+        }
+
+        /// <summary>
+        /// Clears all instances of Smartphone from memory (or at least the instances stored in this class)
+        /// </summary>
+        public static void ClearAll()
+        {
+            Smartphones.Clear();
         }
 
         #endregion

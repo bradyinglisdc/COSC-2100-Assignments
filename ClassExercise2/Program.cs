@@ -17,7 +17,28 @@ namespace ClassExercise2
     {
         static void Main(string[] args)
         {
+            RunTest();
+        }
 
+        private static void RunTest()
+        {
+            // Test some serial codes
+            for (int i = 0; i < 10000000; i++)
+            {
+                Smartphone somePhone = new Smartphone();
+                if (i % 10000 == 0) { Console.WriteLine(somePhone.SerialCode); }
+            }
+
+            // Test some apps
+            Smartphone phone = new Smartphone();
+            Console.WriteLine(phone.ToString());
+            Console.WriteLine(phone.AppsToString());
+
+            phone.AddApp(new KeyValuePair<string, int>("Angry Birds", 2));
+            phone.AddApp(new KeyValuePair<string, int>("Instagram", 1));
+            phone.AddApp(new KeyValuePair<string, int>("YouTube", 3));
+            phone.AddApp(new KeyValuePair<string, int>("Google", 1));
+            Console.WriteLine(phone.AppsToString());
         }
     }
 }
