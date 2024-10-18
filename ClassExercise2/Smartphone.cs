@@ -254,6 +254,7 @@ namespace ClassExercise2
             if (Apps == null) { return; }
 
             Apps.Add(app.Key, app.Value);
+            Storage -= app.Value;
         }
 
         /// <summary>
