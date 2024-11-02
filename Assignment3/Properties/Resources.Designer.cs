@@ -63,9 +63,19 @@ namespace Assignment3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap SplashScreen {
+        internal static System.Drawing.Bitmap CharacterCreatorButton {
             get {
-                object obj = ResourceManager.GetObject("SplashScreen", resourceCulture);
+                object obj = ResourceManager.GetObject("CharacterCreatorButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SplashBackgroundFinal_v1 {
+            get {
+                object obj = ResourceManager.GetObject("SplashBackgroundFinal_v1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
