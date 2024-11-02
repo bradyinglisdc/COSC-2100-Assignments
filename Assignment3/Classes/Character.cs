@@ -98,11 +98,11 @@ namespace Assignment3
         /// <summary>
         /// Param
         /// </summary>
-        public Character(string name, Race race, Constants.Alignment alignment, Constants.Gender gender,  
+        public Character(string name, Class chosenClass, Race race, Constants.Alignment alignment, Constants.Gender gender,  
             List<int> attributes, int armourClass, int initiative)
         {
             Name = name;
-            Class = Class.Classes[0];
+            Class = chosenClass;
             Race = race;
             Alignment = alignment;
             Gender = gender;
@@ -160,7 +160,7 @@ namespace Assignment3
             // Return right away if attempting to index out of bounds
             if (lastIndex >= Characters.Count) { return characterPage; }
 
-            for (int i = firstIndex; i <= lastIndex; i++)
+            for (int i = firstIndex; i < lastIndex; i++)
             {
                 characterPage.Add(Characters[i]);
             }

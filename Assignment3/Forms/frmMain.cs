@@ -111,7 +111,68 @@ namespace Assignment3
 
         }
 
-        private void CreateCharacterPanels(int characterPage)
+        /// <summary>
+        /// Instantiates and styles new Panels for each character to display
+        /// </summary>
+        /// <param name="characterPage">List of characters to display</param>
+        private void CreateCharacterPanels(List<Character> characterPage)
+        {
+            // The height and width where the first panel should start, and other sizing variables
+            int margin = 20;
+            int startingX = 147;
+            int startingY = lblCharacterStatsHeader.Location.Y + margin;
+
+            foreach (Character character in characterPage)
+            {
+
+                // Instantiating each control
+                Panel pnlCurrent = new Panel();
+                PictureBox pbxClassIconLeft = new PictureBox();
+                Label lblCharacterName = new Label();
+                PictureBox pbxClassIconRight = new PictureBox();
+
+                // Styling the panel
+                pnlCurrent.Width = Width / 2 - (margin * 5);
+                pnlCurrent.Height = 60;
+                pnlCurrent.BackColor = Color.White;
+                pnlCurrent.Location = new Point(startingX, startingY);
+                pnlCurrent.BorderStyle = BorderStyle.FixedSingle;
+
+                // Styling the name label
+                lblCharacterName.Text = character.Name;
+                lblCharacterName.Font = new Font("Algerian", 12, FontStyle.Regular);
+                lblCharacterName.Size = new Size(pnlCurrent.Width / 2, pnlCurrent.Height);
+                lblCharacterName.Location = new Point(pnlCurrent.Width / 2 - lblCharacterName.Width / 2);
+                lblCharacterName.TextAlign = ContentAlignment.MiddleCenter;
+
+                // If a class cannot be found, do not attempt to create picture boxes for this character.
+                if (character.Class == null) { continue; }
+
+                // Styling the left class icon
+                pbxClassIconLeft.Load(character.Class.ClassSymbolURI);
+                pbxClassIconLeft.Size = new Size(50, 50);
+                pbxClassIconLeft.Location = new Point(lblCharacterName.Location.X - pbxClassIconLeft.Width, 5);
+                pbxClassIconLeft.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                // Styling the right class icon
+                pbxClassIconRight.Load(character.Class.ClassSymbolURI);
+                pbxClassIconRight.Size = new Size(50, 50);
+                pbxClassIconRight.Location = new Point(lblCharacterName.Location.X + lblCharacterName.Width, 5);
+                pbxClassIconRight.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                // Adding controls
+                pnlCurrent.Controls.Add(lblCharacterName);
+                pnlCurrent.Controls.Add(pbxClassIconLeft);
+                pnlCurrent.Controls.Add(pbxClassIconRight);
+                Controls.Add(pnlCurrent);
+
+                pnlCurrent.BringToFront();
+                pbxClassIconLeft.BringToFront();
+                pbxClassIconRight.BringToFront();
+
+                startingY += 78;
+            }
+        }
 
         #endregion
 
