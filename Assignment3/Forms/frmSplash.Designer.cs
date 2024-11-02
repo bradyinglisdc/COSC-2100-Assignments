@@ -83,6 +83,7 @@
             btnExitApplication.Text = "Exit";
             SplashScreenToolTips.SetToolTip(btnExitApplication, "Click here, or press 'ALT + X' to exit the application.");
             btnExitApplication.UseVisualStyleBackColor = true;
+            btnExitApplication.Click += btnExitApplication_Click;
             btnExitApplication.MouseEnter += btnGeneric_MouseEnter;
             btnExitApplication.MouseLeave += btnGeneric_MouseLeave;
             // 

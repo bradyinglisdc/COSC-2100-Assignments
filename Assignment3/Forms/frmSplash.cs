@@ -31,13 +31,24 @@ namespace Assignment3
         #region Event Handlers
 
         /// <summary>
-        /// To be called when character creator button is clicked. Just opens main form.
+        /// To be called when character creator button is clicked. Just hides this form and opens main form.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAccessCharacterCreator_Click(object sender, EventArgs e)
         {
             (new frmMain()).Show();
+            Hide();
+        }
+
+        /// <summary>
+        /// To be called when exit button is clicked. Just exits application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExitApplication_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         #region Visual Interaction
@@ -97,6 +108,7 @@ namespace Assignment3
         }
 
         #endregion
+
     }
 }
 
