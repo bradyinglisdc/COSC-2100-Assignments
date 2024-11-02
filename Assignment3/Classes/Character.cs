@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 #region Namspace Definition
 
-namespace Assignment3.Classes
+namespace Assignment3
 {
 
     /// <summary>
@@ -42,6 +42,8 @@ namespace Assignment3.Classes
         #endregion
 
         #region Instance Properties
+
+        public string Name { get; set; }
 
         /// <summary>
         /// This character's class.
@@ -77,7 +79,7 @@ namespace Assignment3.Classes
 
         public Dictionary<Constants.Attribute, int>? Attributes { get; set; }
 
-        public string? ArmourClass { get; set; }
+        public int ArmourClass { get; set; }
 
         public int Initiatve { get; set; }
 
@@ -94,25 +96,20 @@ namespace Assignment3.Classes
         #region Constructors
 
         /// <summary>
-        /// Def
-        /// </summary>
-        public Character()
-        {
-
-        }
-
-        /// <summary>
         /// Param
         /// </summary>
-        public Character(Race race, Constants.Alignment alignment, Constants.Gender gender,  
-            List<int> attributes, string armourClass, int initiative)
+        public Character(string name, Race race, Constants.Alignment alignment, Constants.Gender gender,  
+            List<int> attributes, int armourClass, int initiative)
         {
+            Name = name;
+            Class = Class.Classes[0];
             Race = race;
             Alignment = alignment;
             Gender = gender;
             SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
             ArmourClass = armourClass;
             Initiatve = initiative;
+            Characters.Add(this);
         }
 
         #endregion
@@ -138,6 +135,37 @@ namespace Assignment3.Classes
             Attributes.Add(Constants.Attribute.Intelligence, intelligence);
             Attributes.Add(Constants.Attribute.Wisdom, wisdom);
             Attributes.Add(Constants.Attribute.Charisma, charisma);
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// Gets a List of 5 characters based on a page number.
+        /// The page number determines which index to start pulling characters from by:
+        /// multiplying pageNumber by 5, subtracting by 5, and then indexing up to the 
+        /// 5 * pageNumber product 
+        /// 
+        /// (e.g. if pageNumber is 2, 2 * 5 = 10, so start indexing from 5 until 10 is reached.)
+        /// </summary>
+        /// <param name="pageNumber">The page number to get.</param>
+        /// <returns>A list of up to 5 character.</returns>
+        public static List<Character> GetPage(int pageNumber)
+        {
+            List<Character> characterPage = new List<Character>();
+            int lastIndex = pageNumber * 5;
+            int firstIndex = lastIndex - 5;
+
+            // Return right away if attempting to index out of bounds
+            if (lastIndex >= Characters.Count) { return characterPage; }
+
+            for (int i = firstIndex; i <= lastIndex; i++)
+            {
+                characterPage.Add(Characters[i]);
+            }
+
+            return characterPage;
         }
 
         #endregion

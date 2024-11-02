@@ -127,6 +127,11 @@ namespace Assignment3
             Nothing is currently known about this characters class.
             """;
 
+        /// <summary>
+        /// Default class HP dice is a moderate 8.
+        /// </summary>
+        public const int DefaultHPDice = 8;
+
         #endregion
 
         #region Race

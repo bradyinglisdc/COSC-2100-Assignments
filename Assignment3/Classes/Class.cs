@@ -51,6 +51,16 @@ namespace Assignment3
         /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// The HPDice for this class.
+        /// </summary>
+        public int HPDice { get; set; }
+
+        /// <summary>
+        /// The URI to this classes symbol image file.
+        /// </summary>
+        public string? ClassSymbolURI { get; set; }
+
         #endregion
 
         #region Constructors
@@ -62,15 +72,24 @@ namespace Assignment3
         {
             Name = Constants.DefaultClass;
             Description = Constants.DefaultClassDescription;
+            HPDice = Constants.DefaultHPDice;
+            Classes.Add(this);
         }
 
         /// <summary>
-        /// Parameterized constructor - Sets Name and Description based on parameters.
+        /// Parameterized constructor - Sets Name, Description and HP Dice based on parameters.
         /// </summary>
-        public Class(string name, string description)
+        /// <param name="name">The name of this class.</param>
+        /// <param name="description">The description of this class.</param>
+        /// <param name="hpDice">The HP dice of this class.</param>
+        /// <param name="classSymbolURI">The URI to the symbol of this class</param>
+        public Class(string name, string description, int hpDice, string classSymbolURI)
         {
             Name = name;
             Description = description;
+            HPDice = hpDice;
+            ClassSymbolURI = classSymbolURI;
+            Classes.Add(this);
         }
 
         #endregion

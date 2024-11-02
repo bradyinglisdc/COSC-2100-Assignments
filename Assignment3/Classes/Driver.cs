@@ -158,6 +158,62 @@ namespace Assignment3
         }
 
         #endregion
+
+        #region Character Methods
+
+        /// <summary>
+        /// This method exists only to instantiate example character classes.
+        /// </summary>
+        public static void InstantiateExampleCharacters()
+        {
+            new Character("A guy 1", Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
+                new List<int>() { 16, 16, 12, 12, 12, 12}, 12, 12);
+            
+            new Character("A guy 2", Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+
+            new Character("A guy 3", Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+
+            new Character("A guy 4", Race.Races[3], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+
+            new Character("A guy 5", Race.Races[4], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+
+            new Character("A guy 6", Race.Races[5], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+        }
+
+        #endregion
+
+        #region Class Methods
+
+        /// <summary>
+        /// Instantiates the 6 default classes.
+        /// </summary>
+        public static void InstantiateDefaultClasses()
+        {
+            new Class("", "", 12, "LocalResources\\ClassIcons\\BarbarianIcon.PNG");
+        }
+
+        #endregion
+
+        #region General Methods
+
+        /// <summary>
+        /// Instantiates default Classes, Races, and example Characters
+        /// </summary>
+        public static void InstantiateDefaultGameObjects()
+        {
+            InstantiateDefaultRaces();
+            InstantiateDefaultClasses();
+            InstantiateExampleCharacters();
+        }
+
+        #endregion
+
+
     }
 }
 

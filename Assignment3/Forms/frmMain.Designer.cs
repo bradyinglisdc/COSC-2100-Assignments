@@ -62,6 +62,7 @@
             // 
             // lblCharacterStatsHeader
             // 
+            lblCharacterStatsHeader.Anchor = AnchorStyles.None;
             lblCharacterStatsHeader.BackColor = Color.FromArgb(13, 13, 13);
             lblCharacterStatsHeader.Font = new Font("Algerian", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblCharacterStatsHeader.ForeColor = Color.White;
@@ -74,6 +75,7 @@
             // 
             // lblLevel
             // 
+            lblLevel.Anchor = AnchorStyles.None;
             lblLevel.BackColor = Color.FromArgb(13, 13, 13);
             lblLevel.ForeColor = Color.White;
             lblLevel.Location = new Point(601, 285);
@@ -85,6 +87,7 @@
             // 
             // pbrLevelProgress
             // 
+            pbrLevelProgress.Anchor = AnchorStyles.None;
             pbrLevelProgress.BackColor = SystemColors.ControlLight;
             pbrLevelProgress.Location = new Point(601, 305);
             pbrLevelProgress.Name = "pbrLevelProgress";
@@ -93,6 +96,7 @@
             // 
             // btnExitApplication
             // 
+            btnExitApplication.Anchor = AnchorStyles.None;
             btnExitApplication.BackgroundImage = Properties.Resources.CharacterCreatorButton;
             btnExitApplication.FlatAppearance.BorderColor = Color.Black;
             btnExitApplication.FlatAppearance.BorderSize = 2;
@@ -107,6 +111,7 @@
             // 
             // btnNewCharacter
             // 
+            btnNewCharacter.Anchor = AnchorStyles.None;
             btnNewCharacter.BackgroundImage = Properties.Resources.CharacterCreatorButton;
             btnNewCharacter.FlatAppearance.BorderColor = Color.Black;
             btnNewCharacter.FlatAppearance.BorderSize = 2;
@@ -121,6 +126,7 @@
             // 
             // lblClass
             // 
+            lblClass.Anchor = AnchorStyles.None;
             lblClass.BackColor = Color.FromArgb(13, 13, 13);
             lblClass.ForeColor = Color.White;
             lblClass.Location = new Point(601, 344);
@@ -132,6 +138,7 @@
             // 
             // lblRace
             // 
+            lblRace.Anchor = AnchorStyles.None;
             lblRace.BackColor = Color.FromArgb(13, 13, 13);
             lblRace.ForeColor = Color.White;
             lblRace.Location = new Point(601, 397);
@@ -143,6 +150,7 @@
             // 
             // lblClassHPDice
             // 
+            lblClassHPDice.Anchor = AnchorStyles.None;
             lblClassHPDice.Location = new Point(601, 361);
             lblClassHPDice.Name = "lblClassHPDice";
             lblClassHPDice.Size = new Size(292, 20);
@@ -152,6 +160,7 @@
             // 
             // lblRaceBonusAttributes
             // 
+            lblRaceBonusAttributes.Anchor = AnchorStyles.None;
             lblRaceBonusAttributes.Location = new Point(601, 414);
             lblRaceBonusAttributes.Name = "lblRaceBonusAttributes";
             lblRaceBonusAttributes.Size = new Size(292, 20);
@@ -161,6 +170,7 @@
             // 
             // lblAlignment
             // 
+            lblAlignment.Anchor = AnchorStyles.None;
             lblAlignment.BackColor = Color.FromArgb(13, 13, 13);
             lblAlignment.ForeColor = Color.White;
             lblAlignment.Location = new Point(601, 183);
@@ -172,6 +182,7 @@
             // 
             // lblGender
             // 
+            lblGender.Anchor = AnchorStyles.None;
             lblGender.BackColor = Color.FromArgb(13, 13, 13);
             lblGender.ForeColor = Color.White;
             lblGender.Location = new Point(601, 166);
@@ -183,6 +194,7 @@
             // 
             // lblArmourClass
             // 
+            lblArmourClass.Anchor = AnchorStyles.None;
             lblArmourClass.BackColor = Color.FromArgb(13, 13, 13);
             lblArmourClass.ForeColor = Color.White;
             lblArmourClass.Location = new Point(601, 217);
@@ -194,6 +206,7 @@
             // 
             // lblInitiative
             // 
+            lblInitiative.Anchor = AnchorStyles.None;
             lblInitiative.BackColor = Color.FromArgb(13, 13, 13);
             lblInitiative.ForeColor = Color.White;
             lblInitiative.Location = new Point(601, 200);
@@ -205,6 +218,7 @@
             // 
             // lblHitPoints
             // 
+            lblHitPoints.Anchor = AnchorStyles.None;
             lblHitPoints.BackColor = Color.FromArgb(13, 13, 13);
             lblHitPoints.ForeColor = Color.White;
             lblHitPoints.Location = new Point(601, 234);
@@ -216,6 +230,7 @@
             // 
             // lblSpeed
             // 
+            lblSpeed.Anchor = AnchorStyles.None;
             lblSpeed.BackColor = Color.FromArgb(13, 13, 13);
             lblSpeed.ForeColor = Color.White;
             lblSpeed.Location = new Point(601, 251);
@@ -227,6 +242,7 @@
             // 
             // btnViewAttributes
             // 
+            btnViewAttributes.Anchor = AnchorStyles.None;
             btnViewAttributes.BackgroundImage = Properties.Resources.CharacterCreatorButton;
             btnViewAttributes.FlatAppearance.BorderColor = SystemColors.WindowFrame;
             btnViewAttributes.FlatAppearance.BorderSize = 2;
@@ -241,6 +257,7 @@
             // 
             // btnEditCharacter
             // 
+            btnEditCharacter.Anchor = AnchorStyles.None;
             btnEditCharacter.BackgroundImage = Properties.Resources.CharacterCreatorButton;
             btnEditCharacter.FlatAppearance.BorderColor = SystemColors.WindowFrame;
             btnEditCharacter.FlatAppearance.BorderSize = 2;
@@ -276,9 +293,12 @@
             Controls.Add(pbrLevelProgress);
             Controls.Add(lblCharacterStatsHeader);
             Controls.Add(pbxMainBackground);
+            MaximumSize = new Size(1053, 674);
+            MinimumSize = new Size(1053, 674);
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "D&D: Character View";
+            Load += frmMain_Load;
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).EndInit();
             ResumeLayout(false);
         }
