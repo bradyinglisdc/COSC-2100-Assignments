@@ -63,6 +63,7 @@
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.None;
             button1.BackgroundImage = Properties.Resources.CharacterCreatorButton;
             button1.FlatAppearance.BorderColor = Color.Black;
             button1.FlatAppearance.BorderSize = 2;
@@ -87,7 +88,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmSplash";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Character Creator";
+            Text = "D&D: Character Creator";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

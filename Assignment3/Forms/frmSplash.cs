@@ -28,9 +28,6 @@ namespace Assignment3
 
         #endregion
 
-
-
-
     }
 }
 #endregion
