@@ -32,6 +32,9 @@ namespace Assignment3
 
         #region Static Variables
 
+        /// <summary>
+        /// Static list of all Class instances.
+        /// </summary>
         public static List<Class> Classes = new List<Class>();
 
         #endregion
@@ -39,12 +42,12 @@ namespace Assignment3
         #region Instance Propeties
 
         /// <summary>
-        /// 
+        /// The name of this class.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// The description of this class.
         /// </summary>
         public string Description { get; set; }
 
@@ -57,8 +60,8 @@ namespace Assignment3
         /// </summary>
         public Class()
         {
-            Name = "";
-            Description = "";
+            Name = Constants.DefaultClass;
+            Description = Constants.DefaultClassDescription;
         }
 
         /// <summary>

@@ -58,6 +58,9 @@ namespace Assignment3
             ChaoticEvil
         }
 
+        /// <summary>
+        /// Character alignment names and descriptions.
+        /// </summary>
         public static Dictionary<Alignment, string> AlignmentDescriptions = new Dictionary<Alignment, string>
         {
             {Alignment.LawfulGood, """
@@ -112,6 +115,18 @@ namespace Assignment3
 
         #region Class
 
+        /// <summary>
+        /// Default class is unknown - nothing is known about the characters class origin.
+        /// </summary>
+        public const string DefaultClass = "Unknown";
+
+        /// <summary>
+        /// Default class is described as being unknown.
+        /// </summary>
+        public const string DefaultClassDescription = """
+            Nothing is currently known about this characters class.
+            """;
+
         #endregion
 
         #region Race
@@ -132,6 +147,26 @@ namespace Assignment3
         #endregion
 
         #region Character
+
+        /// <summary>
+        /// Character must be at least this level.
+        /// </summary>
+        public const int MinimumCharacterLevel = 1;
+
+        /// <summary>
+        /// Character must be at most this level.
+        /// </summary>
+        public const int MaximumCharacterLevel = 20;
+
+        /// <summary>
+        /// Gender associated with a character.
+        /// </summary>
+        public enum Gender
+        {
+            Male,
+            Female,
+            Other
+        }
 
         #endregion
 

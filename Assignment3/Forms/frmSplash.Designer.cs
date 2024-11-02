@@ -28,22 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
+            components = new System.ComponentModel.Container();
+            pbxSplashBackground = new PictureBox();
             btnAccessCharacterCreator = new Button();
-            button1 = new Button();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            btnExitApplication = new Button();
+            SplashScreenToolTips = new ToolTip(components);
+            ((System.ComponentModel.ISupportInitialize)pbxSplashBackground).BeginInit();
             SuspendLayout();
             // 
-            // pictureBox1
+            // pbxSplashBackground
             // 
-            pictureBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            pictureBox1.Image = Properties.Resources.SplashBackgroundFinal_v1;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(1038, 638);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            pbxSplashBackground.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pbxSplashBackground.Image = Properties.Resources.SplashBackgroundFinal_v1;
+            pbxSplashBackground.Location = new Point(0, 0);
+            pbxSplashBackground.Name = "pbxSplashBackground";
+            pbxSplashBackground.Size = new Size(1038, 638);
+            pbxSplashBackground.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbxSplashBackground.TabIndex = 0;
+            pbxSplashBackground.TabStop = false;
             // 
             // btnAccessCharacterCreator
             // 
@@ -57,46 +59,56 @@
             btnAccessCharacterCreator.Location = new Point(409, 274);
             btnAccessCharacterCreator.Name = "btnAccessCharacterCreator";
             btnAccessCharacterCreator.Size = new Size(241, 49);
-            btnAccessCharacterCreator.TabIndex = 1;
-            btnAccessCharacterCreator.Text = "Enter Character Creator";
+            btnAccessCharacterCreator.TabIndex = 0;
+            btnAccessCharacterCreator.Text = "Enter &Character Creator";
+            SplashScreenToolTips.SetToolTip(btnAccessCharacterCreator, "Click here, or press 'ALT + C' to enter Character Creator.");
             btnAccessCharacterCreator.UseVisualStyleBackColor = true;
+            btnAccessCharacterCreator.Click += btnAccessCharacterCreator_Click;
+            btnAccessCharacterCreator.MouseEnter += btnGeneric_MouseEnter;
+            btnAccessCharacterCreator.MouseLeave += btnGeneric_MouseLeave;
             // 
-            // button1
+            // btnExitApplication
             // 
-            button1.Anchor = AnchorStyles.None;
-            button1.BackgroundImage = Properties.Resources.CharacterCreatorButton;
-            button1.FlatAppearance.BorderColor = Color.Black;
-            button1.FlatAppearance.BorderSize = 2;
-            button1.FlatAppearance.MouseOverBackColor = Color.Black;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Algerian", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(475, 329);
-            button1.Name = "button1";
-            button1.Size = new Size(109, 39);
-            button1.TabIndex = 2;
-            button1.Text = "Exit";
-            button1.UseVisualStyleBackColor = true;
+            btnExitApplication.Anchor = AnchorStyles.None;
+            btnExitApplication.BackgroundImage = Properties.Resources.CharacterCreatorButton;
+            btnExitApplication.FlatAppearance.BorderColor = Color.Black;
+            btnExitApplication.FlatAppearance.BorderSize = 2;
+            btnExitApplication.FlatAppearance.MouseOverBackColor = Color.Black;
+            btnExitApplication.FlatStyle = FlatStyle.Flat;
+            btnExitApplication.Font = new Font("Algerian", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExitApplication.Location = new Point(475, 329);
+            btnExitApplication.Name = "btnExitApplication";
+            btnExitApplication.Size = new Size(109, 39);
+            btnExitApplication.TabIndex = 1;
+            btnExitApplication.Text = "Exit";
+            SplashScreenToolTips.SetToolTip(btnExitApplication, "Click here, or press 'ALT + X' to exit the application.");
+            btnExitApplication.UseVisualStyleBackColor = true;
+            btnExitApplication.MouseEnter += btnGeneric_MouseEnter;
+            btnExitApplication.MouseLeave += btnGeneric_MouseLeave;
             // 
             // frmSplash
             // 
+            AcceptButton = btnAccessCharacterCreator;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnExitApplication;
             ClientSize = new Size(1037, 635);
-            Controls.Add(button1);
+            Controls.Add(btnExitApplication);
             Controls.Add(btnAccessCharacterCreator);
-            Controls.Add(pictureBox1);
+            Controls.Add(pbxSplashBackground);
             Margin = new Padding(3, 2, 3, 2);
             Name = "frmSplash";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "D&D: Character Creator";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxSplashBackground).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
+        private PictureBox pbxSplashBackground;
         private Button btnAccessCharacterCreator;
-        private Button button1;
+        private Button btnExitApplication;
+        private ToolTip SplashScreenToolTips;
     }
 }

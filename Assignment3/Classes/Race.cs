@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 #endregion
 
@@ -72,6 +73,19 @@ namespace Assignment3
             SetDefaults();
         }
 
+        /// <summary>
+        /// Parameterized constructor - Sets a  Name, Description, and bonus points attributes for this race
+        /// based on parameters.
+        /// </summary>
+        /// <param name="name">The name of this race.</param>
+        /// <param name="description">The description of this race.</param>
+        /// <param name="attributes">The attributes as integers of this race.</param>
+        public Race(string name, string description, List<int> attributes)
+        {
+            SetGenericProperties(name, description);
+            SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
+        }
+
         #endregion
 
         #region Default Setup
@@ -81,9 +95,20 @@ namespace Assignment3
         /// </summary>
         private void SetDefaults()
         {
-            Name = Constants.DefaultRace;
-            Description = Constants.DefaultRaceDescription;
+            SetGenericProperties(Constants.DefaultRace, Constants.DefaultRaceDescription);
             RandomizeAttributes();
+        }
+
+        /// <summary>
+        /// Sets the name and description of this race before adding it to the static list of races.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        private void SetGenericProperties(string name, string description)
+        {
+            Name = name;
+            Description = description;
+            Races.Add(this);
         }
 
         /// <summary>
@@ -123,8 +148,6 @@ namespace Assignment3
         #endregion
 
         #region Static Methods
-
-       
 
         #endregion
 
