@@ -82,6 +82,11 @@ namespace Assignment3
         }
 
         /// <summary>
+        /// Becomes true when all characters of a page are loaded.
+        /// </summary>
+        bool PageLoaded = false;
+
+        /// <summary>
         /// A list of characters corresponding with the current page.
         /// </summary>
         private List<Panel> CharacterPanels = new List<Panel>();
@@ -139,7 +144,7 @@ namespace Assignment3
         {
             CharacterPanelStartingYPosition = lblCharacterStatsHeader.Location.Y + margin;
             Driver.InstantiateDefaultGameObjects();
-            LoadCharacterPanelsByPage();
+            LoadCharacterPanelsByPage(sender, e);
         }
 
         /// <summary>
@@ -161,7 +166,48 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnNewCharacter_Click(object sender, EventArgs e)
         {
+            PageLoaded = false;
             (new frmCharacterEditor()).ShowDialog();
+        }
+
+        /// <summary>
+        /// Instantiates and opens a new frmCharacterEditor. 
+        /// Since a character is requied, the parameterized constructor is used.
+        /// The form is opened as a dialog in order to take priority over the current form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditCharacter_Click(object sender, EventArgs e)
+        {
+            if (SelectedCharacter == null) { return; }
+            PageLoaded = false;
+            frmCharacterEditor characterEditor = new frmCharacterEditor(Character.FindByName(SelectedCharacter));
+            characterEditor.ShowDialog();
+        }
+
+        /// <summary>
+        /// Adds one to the current page, then re loads
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            _currentPage += 1;
+            LoadPage();
+        }
+
+        /// <summary>
+        /// Subtracts one from current page, then re loads
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPreviousPage_Click(object sender, EventArgs e)
+        {
+            if (_currentPage - 1 != 0)
+            {
+                _currentPage -= 1;
+                LoadPage();
+            }
         }
 
         #endregion
@@ -174,17 +220,38 @@ namespace Assignment3
         /// Initializes 5 character labels based on the current page number, selecting
         /// the first character in that page automatically.
         /// </summary>
-        private void LoadCharacterPanelsByPage()
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadCharacterPanelsByPage(object sender, EventArgs e)
+        {
+            if (!PageLoaded)
+            {
+                SelectedCharacter = string.Empty;
+                LoadPage();
+            }
+        }
+
+        /// <summary>
+        /// Load the current page of characters
+        /// </summary>
+        private void LoadPage()
         {
             // Grab character page and clear current panel list.
             List<Character> characterPage = Character.GetPage(_currentPage);
-            CharacterPanels.Clear();
+            if (characterPage.Count <= 0)
+            {
+                _currentPage -= 1;
+                return;
+            }
+
+            ClearCharacterPanels();
 
             // Load and style the panels
             CreateCharacterPanels(characterPage);
 
-            // Set the selected character to the first character of the page to begin with
+            // Set the selected character to the first character of the page to begin with, and indicate that page is now loaded.
             if (characterPage.Count > 0) { SelectedCharacter = characterPage[0].Name; }
+            PageLoaded = true;
         }
 
         /// <summary>
@@ -375,6 +442,16 @@ namespace Assignment3
 
             // Update font colour to black
             btnToStyle.ForeColor = Color.Black;
+        }
+
+        #endregion
+
+        #region Cleanup
+
+        private void ClearCharacterPanels()
+        {
+            foreach (Panel panel in CharacterPanels) { Controls.Remove(panel); }
+            CharacterPanels.Clear();
         }
 
         #endregion

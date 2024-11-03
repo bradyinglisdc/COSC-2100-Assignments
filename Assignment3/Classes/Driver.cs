@@ -167,22 +167,14 @@ namespace Assignment3
         public static void InstantiateExampleCharacters()
         {
             new Character("Thalrin Ironbrow", Class.Classes[0], Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
-                new List<int>() { 16, 16, 12, 12, 12, 12}, 12, 12);
+                new List<int>() { 16, 16, 12, 12, 12, 12}, 2, 12);
             
-            new Character("Elara Moonshadow", Class.Classes[1], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+            new Character("Elara Moonshadow", Class.Classes[0], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12);
 
             new Character("Kairos Emberflame", Class.Classes[2], Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12);
 
-            new Character("Mira Greenthistle", Class.Classes[3], Race.Races[3], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
-
-            new Character("Drogan Blackscale", Class.Classes[4], Race.Races[4], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
-
-            new Character("Nyx Voss", Class.Classes[5], Race.Races[5], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
         }
 
         #endregion

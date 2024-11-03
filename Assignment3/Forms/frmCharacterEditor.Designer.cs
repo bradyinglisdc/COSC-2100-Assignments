@@ -51,9 +51,9 @@
             lblCharismaDigitOne = new Label();
             lblCharisma = new Label();
             lblCharismaDigitTwo = new Label();
-            lblWisdonDigitOne = new Label();
+            lblWisdomDigitOne = new Label();
             lblWisdom = new Label();
-            lblWisdonDigitTwo = new Label();
+            lblWisdomDigitTwo = new Label();
             lblIntelligenceDigitOne = new Label();
             lblIntelligence = new Label();
             lblIntelligenceDigitTwo = new Label();
@@ -101,7 +101,7 @@
             lblRemainingPoints.Name = "lblRemainingPoints";
             lblRemainingPoints.Size = new Size(179, 25);
             lblRemainingPoints.TabIndex = 1;
-            lblRemainingPoints.Text = "Points Remaining: 13";
+            lblRemainingPoints.Text = "Points Remaining: 27";
             lblRemainingPoints.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblNameTag
@@ -123,6 +123,7 @@
             tbxName.Name = "tbxName";
             tbxName.Size = new Size(105, 23);
             tbxName.TabIndex = 3;
+            tbxName.TextChanged += DetailControl_Change;
             // 
             // lblGenderTag
             // 
@@ -138,14 +139,13 @@
             // 
             // cbxGender
             // 
-            cbxGender.DisplayMember = "Male";
             cbxGender.Font = new Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbxGender.FormattingEnabled = true;
-            cbxGender.Items.AddRange(new object[] { "Male", "Female", "Other" });
             cbxGender.Location = new Point(163, 160);
             cbxGender.Name = "cbxGender";
             cbxGender.Size = new Size(108, 22);
             cbxGender.TabIndex = 5;
+            cbxGender.TextChanged += DetailControl_Change;
             // 
             // nudArmourClass
             // 
@@ -155,6 +155,7 @@
             nudArmourClass.Name = "nudArmourClass";
             nudArmourClass.Size = new Size(105, 23);
             nudArmourClass.TabIndex = 6;
+            nudArmourClass.ValueChanged += DetailControl_Change;
             // 
             // lblArmourClassTag
             // 
@@ -184,10 +185,11 @@
             // 
             nudXP.Font = new Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nudXP.Location = new Point(163, 221);
-            nudXP.Maximum = new decimal(new int[] { 36, 0, 0, 0 });
+            nudXP.Maximum = new decimal(new int[] { 360000, 0, 0, 0 });
             nudXP.Name = "nudXP";
             nudXP.Size = new Size(105, 23);
             nudXP.TabIndex = 9;
+            nudXP.ValueChanged += DetailControl_Change;
             // 
             // lblClassTag
             // 
@@ -209,6 +211,7 @@
             cbxClass.Name = "cbxClass";
             cbxClass.Size = new Size(105, 22);
             cbxClass.TabIndex = 11;
+            cbxClass.TextChanged += DetailControl_Change;
             // 
             // cbxRace
             // 
@@ -218,6 +221,7 @@
             cbxRace.Name = "cbxRace";
             cbxRace.Size = new Size(105, 22);
             cbxRace.TabIndex = 13;
+            cbxRace.TextChanged += DetailControl_Change;
             // 
             // lblRaceTag
             // 
@@ -251,6 +255,7 @@
             cbxAlignment.Name = "cbxAlignment";
             cbxAlignment.Size = new Size(105, 22);
             cbxAlignment.TabIndex = 15;
+            cbxAlignment.TextChanged += DetailControl_Change;
             // 
             // lblStrengthDigitTwo
             // 
@@ -281,7 +286,7 @@
             lblStrengthDigitOne.Name = "lblStrengthDigitOne";
             lblStrengthDigitOne.Size = new Size(28, 22);
             lblStrengthDigitOne.TabIndex = 19;
-            lblStrengthDigitOne.Text = "0";
+            lblStrengthDigitOne.Text = "8";
             lblStrengthDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblCharismaDigitOne
@@ -291,7 +296,7 @@
             lblCharismaDigitOne.Name = "lblCharismaDigitOne";
             lblCharismaDigitOne.Size = new Size(28, 22);
             lblCharismaDigitOne.TabIndex = 22;
-            lblCharismaDigitOne.Text = "0";
+            lblCharismaDigitOne.Text = "8";
             lblCharismaDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblCharisma
@@ -316,15 +321,15 @@
             lblCharismaDigitTwo.Text = "0";
             lblCharismaDigitTwo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblWisdonDigitOne
+            // lblWisdomDigitOne
             // 
-            lblWisdonDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblWisdonDigitOne.Location = new Point(658, 245);
-            lblWisdonDigitOne.Name = "lblWisdonDigitOne";
-            lblWisdonDigitOne.Size = new Size(28, 22);
-            lblWisdonDigitOne.TabIndex = 25;
-            lblWisdonDigitOne.Text = "0";
-            lblWisdonDigitOne.TextAlign = ContentAlignment.MiddleCenter;
+            lblWisdomDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblWisdomDigitOne.Location = new Point(658, 245);
+            lblWisdomDigitOne.Name = "lblWisdomDigitOne";
+            lblWisdomDigitOne.Size = new Size(28, 22);
+            lblWisdomDigitOne.TabIndex = 25;
+            lblWisdomDigitOne.Text = "8";
+            lblWisdomDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblWisdom
             // 
@@ -338,15 +343,15 @@
             lblWisdom.Text = "WIS";
             lblWisdom.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // lblWisdonDigitTwo
+            // lblWisdomDigitTwo
             // 
-            lblWisdonDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblWisdonDigitTwo.Location = new Point(629, 245);
-            lblWisdonDigitTwo.Name = "lblWisdonDigitTwo";
-            lblWisdonDigitTwo.Size = new Size(28, 22);
-            lblWisdonDigitTwo.TabIndex = 23;
-            lblWisdonDigitTwo.Text = "0";
-            lblWisdonDigitTwo.TextAlign = ContentAlignment.MiddleCenter;
+            lblWisdomDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblWisdomDigitTwo.Location = new Point(629, 245);
+            lblWisdomDigitTwo.Name = "lblWisdomDigitTwo";
+            lblWisdomDigitTwo.Size = new Size(28, 22);
+            lblWisdomDigitTwo.TabIndex = 23;
+            lblWisdomDigitTwo.Text = "0";
+            lblWisdomDigitTwo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblIntelligenceDigitOne
             // 
@@ -355,7 +360,7 @@
             lblIntelligenceDigitOne.Name = "lblIntelligenceDigitOne";
             lblIntelligenceDigitOne.Size = new Size(28, 22);
             lblIntelligenceDigitOne.TabIndex = 28;
-            lblIntelligenceDigitOne.Text = "0";
+            lblIntelligenceDigitOne.Text = "8";
             lblIntelligenceDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblIntelligence
@@ -387,7 +392,7 @@
             lblConstitutionDigitOne.Name = "lblConstitutionDigitOne";
             lblConstitutionDigitOne.Size = new Size(28, 22);
             lblConstitutionDigitOne.TabIndex = 31;
-            lblConstitutionDigitOne.Text = "0";
+            lblConstitutionDigitOne.Text = "8";
             lblConstitutionDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblConstitution
@@ -419,7 +424,7 @@
             lblDexterityDigitOne.Name = "lblDexterityDigitOne";
             lblDexterityDigitOne.Size = new Size(28, 22);
             lblDexterityDigitOne.TabIndex = 34;
-            lblDexterityDigitOne.Text = "0";
+            lblDexterityDigitOne.Text = "8";
             lblDexterityDigitOne.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblDexterity
@@ -453,6 +458,7 @@
             btnIncreaseStrength.TabIndex = 35;
             btnIncreaseStrength.Text = "+";
             btnIncreaseStrength.UseVisualStyleBackColor = true;
+            btnIncreaseStrength.Click += AttributeControl_Change;
             // 
             // btnDecreaseStrength
             // 
@@ -463,6 +469,7 @@
             btnDecreaseStrength.TabIndex = 36;
             btnDecreaseStrength.Text = "-";
             btnDecreaseStrength.UseVisualStyleBackColor = true;
+            btnDecreaseStrength.Click += AttributeControl_Change;
             // 
             // btnDecreaseCharisma
             // 
@@ -473,6 +480,7 @@
             btnDecreaseCharisma.TabIndex = 38;
             btnDecreaseCharisma.Text = "-";
             btnDecreaseCharisma.UseVisualStyleBackColor = true;
+            btnDecreaseCharisma.Click += AttributeControl_Change;
             // 
             // btnIncreaseCharisma
             // 
@@ -483,6 +491,7 @@
             btnIncreaseCharisma.TabIndex = 37;
             btnIncreaseCharisma.Text = "+";
             btnIncreaseCharisma.UseVisualStyleBackColor = true;
+            btnIncreaseCharisma.Click += AttributeControl_Change;
             // 
             // btnDecreaseWisdom
             // 
@@ -493,6 +502,7 @@
             btnDecreaseWisdom.TabIndex = 40;
             btnDecreaseWisdom.Text = "-";
             btnDecreaseWisdom.UseVisualStyleBackColor = true;
+            btnDecreaseWisdom.Click += AttributeControl_Change;
             // 
             // btnIncreaseWisdom
             // 
@@ -503,6 +513,7 @@
             btnIncreaseWisdom.TabIndex = 39;
             btnIncreaseWisdom.Text = "+";
             btnIncreaseWisdom.UseVisualStyleBackColor = true;
+            btnIncreaseWisdom.Click += AttributeControl_Change;
             // 
             // btnDecreaseIntelligence
             // 
@@ -513,6 +524,7 @@
             btnDecreaseIntelligence.TabIndex = 42;
             btnDecreaseIntelligence.Text = "-";
             btnDecreaseIntelligence.UseVisualStyleBackColor = true;
+            btnDecreaseIntelligence.Click += AttributeControl_Change;
             // 
             // btnIncreaseIntelligence
             // 
@@ -523,6 +535,7 @@
             btnIncreaseIntelligence.TabIndex = 41;
             btnIncreaseIntelligence.Text = "+";
             btnIncreaseIntelligence.UseVisualStyleBackColor = true;
+            btnIncreaseIntelligence.Click += AttributeControl_Change;
             // 
             // btnDecreaseConstitution
             // 
@@ -533,6 +546,7 @@
             btnDecreaseConstitution.TabIndex = 44;
             btnDecreaseConstitution.Text = "-";
             btnDecreaseConstitution.UseVisualStyleBackColor = true;
+            btnDecreaseConstitution.Click += AttributeControl_Change;
             // 
             // btnIncreaseConstitution
             // 
@@ -543,6 +557,7 @@
             btnIncreaseConstitution.TabIndex = 43;
             btnIncreaseConstitution.Text = "+";
             btnIncreaseConstitution.UseVisualStyleBackColor = true;
+            btnIncreaseConstitution.Click += AttributeControl_Change;
             // 
             // btnDecreaseDexterity
             // 
@@ -553,6 +568,7 @@
             btnDecreaseDexterity.TabIndex = 46;
             btnDecreaseDexterity.Text = "-";
             btnDecreaseDexterity.UseVisualStyleBackColor = true;
+            btnDecreaseDexterity.Click += AttributeControl_Change;
             // 
             // btnIncreaseDexterity
             // 
@@ -563,6 +579,7 @@
             btnIncreaseDexterity.TabIndex = 45;
             btnIncreaseDexterity.Text = "+";
             btnIncreaseDexterity.UseVisualStyleBackColor = true;
+            btnIncreaseDexterity.Click += AttributeControl_Change;
             // 
             // lblCharacterSummary
             // 
@@ -605,6 +622,7 @@
             btnSaveCharacter.TabIndex = 50;
             btnSaveCharacter.Text = "&Save Character";
             btnSaveCharacter.UseVisualStyleBackColor = true;
+            btnSaveCharacter.Click += btnSaveCharacter_Click;
             // 
             // btnRandomize
             // 
@@ -650,9 +668,9 @@
             Controls.Add(lblIntelligenceDigitOne);
             Controls.Add(lblIntelligence);
             Controls.Add(lblIntelligenceDigitTwo);
-            Controls.Add(lblWisdonDigitOne);
+            Controls.Add(lblWisdomDigitOne);
             Controls.Add(lblWisdom);
-            Controls.Add(lblWisdonDigitTwo);
+            Controls.Add(lblWisdomDigitTwo);
             Controls.Add(lblCharismaDigitOne);
             Controls.Add(lblCharisma);
             Controls.Add(lblCharismaDigitTwo);
@@ -680,6 +698,7 @@
             Name = "frmCharacterEditor";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "D&D: Edit Character";
+            Load += frmCharacterEditor_Load;
             ((System.ComponentModel.ISupportInitialize)pbxCharacterEditorBackground).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudArmourClass).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudXP).EndInit();
@@ -711,9 +730,9 @@
         private Label lblCharismaDigitOne;
         private Label lblCharisma;
         private Label lblCharismaDigitTwo;
-        private Label lblWisdonDigitOne;
+        private Label lblWisdomDigitOne;
         private Label lblWisdom;
-        private Label lblWisdonDigitTwo;
+        private Label lblWisdomDigitTwo;
         private Label lblIntelligenceDigitOne;
         private Label lblIntelligence;
         private Label lblIntelligenceDigitTwo;

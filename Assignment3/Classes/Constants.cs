@@ -59,6 +59,11 @@ namespace Assignment3
         }
 
         /// <summary>
+        /// A standard applicable alignment.
+        /// </summary>
+        public const Alignment DefaultAlignment = Alignment.LawfulGood;
+
+        /// <summary>
         /// Character alignment names and descriptions.
         /// </summary>
         public static Dictionary<Alignment, string> AlignmentDescriptions = new Dictionary<Alignment, string>
@@ -172,6 +177,78 @@ namespace Assignment3
             Female,
             Other
         }
+
+        /// <summary>
+        /// Un-named characters get this name.
+        /// </summary>
+        public const string DefaultCharacterName = "Unknown";
+
+        /// <summary>
+        /// The default gender is assigned as male.
+        /// </summary>
+        public const Gender DefaultGender = Gender.Male;
+
+        /// <summary>
+        /// Default armour class is 4.
+        /// </summary>
+        public const int DefaultArmourClass = 4;
+
+        /// <summary>
+        /// The default score to be applied to a generic character's attrbutes to start.
+        /// </summary>
+        public const int DefaultAttributeScore = 8;
+
+        /// <summary>
+        /// The number of points the player has to assign to attributes to start.
+        /// </summary>
+        public const int StartingAttributePoints = 27;
+
+        /// <summary>
+        /// The maximum characters a character can be.
+        /// </summary>
+        public const int MaximumNameSize = 20;
+
+        #endregion
+
+        #region Levels/Costs
+
+        /// <summary>
+        /// Each key represents a level, and each value the experience points required to reach it
+        /// </summary>
+        public static Dictionary<int, int> LevelsToXpRequirements = new Dictionary<int, int>()
+        {
+            { 1, 0 },
+            { 2, 300 },
+            { 3, 900 },
+            { 4, 2700 },
+            { 5, 6500 },
+            { 6, 14000 },
+            { 7, 23000 },
+            { 8, 34000 },
+            { 9, 48000 },
+            { 10, 64000 },
+            { 11, 85000 },
+            { 12, 100000 },
+            { 13, 120000 },
+            { 14, 140000 },
+            { 15, 165000 },
+            { 16, 195000 },
+            { 17, 225000 },
+            { 18, 265000 },
+            { 19, 305000 },
+            { 20, 355000 }
+        };
+
+        /// <summary>
+        /// Each key represents an attribute value, and each value the cost within that range.
+        /// </summary>
+        public static Dictionary<int, int> AttributeCosts = new Dictionary<int, int>()
+        {
+            { 13, 1 },
+            { 18, 2 },
+            { 20, 3 }
+        };
+
 
         #endregion
 

@@ -66,7 +66,7 @@ namespace Assignment3
         /// <summary>
         /// The total experience points this character has.
         /// </summary>
-        public int ExperiencePoints { get; set; } 
+        public int ExperiencePoints { get; set; }
 
         /// <summary>
         /// The race of this character.
@@ -81,13 +81,24 @@ namespace Assignment3
 
         public int ArmourClass { get; set; }
 
+        /// <summary>
+        /// The characters initiative. Initiative = Dexterity modifier.
+        /// Dexterity modifier = (totalDexterity - 10) / 2
+        /// </summary>
         public int Initiatve { get; set; }
+
+        /// <summary>
+        /// The points available to assign to attributes. 
+        /// If this is a fresh character, this should be set to 27.
+        /// If this is an existing character, the user who is intantiating can determine this number.
+        /// </summary>
+        public int AttributePoints { get; set; }
 
         public int Speed { get; set; }
 
         /// <summary>
-        /// The characters health. This value is determined by:
-        /// startingHP + classHP + (constitutionPoints * level - 1)
+        /// The characters health. HitPoints = classHPDice + Constitution modifier.
+        /// Constitution modifier = (totalConstitution - 10) / 2
         /// </summary>
         public int HitPoints { get; private set; }
 
@@ -96,25 +107,65 @@ namespace Assignment3
         #region Constructors
 
         /// <summary>
-        /// Param
+        /// Paramaterized constructor - to be called when all character data is known prior to insntantiation.
         /// </summary>
-        public Character(string name, Class chosenClass, Race race, Constants.Alignment alignment, Constants.Gender gender,  
-            List<int> attributes, int armourClass, int initiative)
+        public Character(string name, Class chosenClass, Race race, Constants.Alignment alignment, Constants.Gender gender,
+            List<int> attributes, int attributePoints, int armourClass)
         {
             Name = name;
             Class = chosenClass;
             Race = race;
             Alignment = alignment;
             Gender = gender;
-            SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
             ArmourClass = armourClass;
-            Initiatve = initiative;
+            AttributePoints = attributePoints;
+
+            SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
+            SetInitiative();
             Characters.Add(this);
+        }
+
+        /// <summary>
+        /// Default constructor - to be called when all character data is not known prior to insntantiation.
+        /// </summary>
+        public Character()
+        {
+            Name = Constants.DefaultCharacterName;
+            Race = Race.FindByName(Constants.DefaultRace);
+            Alignment = Constants.DefaultAlignment;
+            Gender = Constants.DefaultGender;
+            ArmourClass = Constants.DefaultArmourClass;
+            AttributePoints = Constants.StartingAttributePoints;
+
+            SetDefaultAttributes();
+            SetInitiative();
         }
 
         #endregion
 
         #region Default Setup
+
+        /// <summary>
+        /// Sets all attributes to the default int specified in Constants.cs.
+        /// </summary>
+        private void SetDefaultAttributes()
+        {
+            int attributeScore = Constants.DefaultAttributeScore;
+            SetAttributes(attributeScore, attributeScore, attributeScore, attributeScore, attributeScore, attributeScore);
+        }
+
+        /// <summary>
+        /// Initiative is set to dexterity modifier.
+        /// </summary>
+        private void SetInitiative()
+        {
+            if (Attributes == null) { return; }
+            Initiatve = CalculateInitiative(Attributes[Constants.Attribute.Dexterity]);
+        }
+
+        #endregion
+
+        #region Manual Setup
 
         /// <summary>
         /// Sets the bonus attributes of this race based on the provided integers.
@@ -139,6 +190,7 @@ namespace Assignment3
 
         #endregion
 
+
         #region Static Methods
 
         /// <summary>
@@ -158,10 +210,11 @@ namespace Assignment3
             int firstIndex = lastIndex - 5;
 
             // Return right away if attempting to index out of bounds
-            if (lastIndex >= Characters.Count) { return characterPage; }
+            if (firstIndex >= Characters.Count) { return characterPage; }
 
             for (int i = firstIndex; i < lastIndex; i++)
             {
+                if (i >= Characters.Count) { break; }
                 characterPage.Add(Characters[i]);
             }
 
@@ -181,6 +234,60 @@ namespace Assignment3
             }
             return Characters[0];
         }
+
+        #region Calculations
+
+        /// <summary>
+        /// Calculates a given character's level based off an xp param.
+        /// </summary>
+        /// <param name="xp">The amount of xp a character has.</param>
+        /// <returns>The level of the character, or -1 if invalid xp amount.</returns>
+        public static int CalculateLevel(int xp)
+        {
+            // Iterates backwards through dictionary of levels to easily check character level. If xp is greater than any level iteration, character is that level.
+            for (int i = Constants.LevelsToXpRequirements.Count - 1; i >= 0; i--)
+            {
+                if (xp >= Constants.LevelsToXpRequirements.ElementAt(i).Value) { return Constants.LevelsToXpRequirements.ElementAt(i).Key; }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Calculates a given character's hit points based off a class and constitution level.
+        /// </summary>
+        /// <param name="className">The name of the class to pull an HPDice from.</param>
+        /// <param name="constitution">Total constitution of a given character.</param>
+        /// <returns>The hit points of the character, or the hit points of the character's constiution with a default class if no matching class.</returns>
+        public static int CalculateHitPoints(string className, int constitution)
+        {
+            return Class.FindByName(className).HPDice + (constitution - 10) / 2;
+        }
+
+        /// <summary>
+        /// Calculates a given character's initiative based off a dexterity level.
+        /// </summary>
+        /// <param name="dexterity">The dexterity of the character.</param>
+        /// <returns></returns>
+        public static int CalculateInitiative(int dexterity)
+        {
+            return (dexterity - 10) / 2;
+        }
+
+        /// <summary>
+        /// Calculates the cost of a given attribute based off it's current level/value
+        /// </summary>
+        /// <param name="attributeValue">The current level of the attribute</param>
+        /// <returns>The cost to upgrade to next level, or -1 if attributeValue is not in correct range.</returns>
+        public static int CalculateAttributeCost(int attributeValue)
+        {
+            foreach (KeyValuePair<int, int> cost in Constants.AttributeCosts)
+            {
+                if (attributeValue <= cost.Key) { return cost.Value; }
+            }
+            return -1;
+        }
+
+        #endregion
 
         #endregion
 

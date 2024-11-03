@@ -73,7 +73,6 @@ namespace Assignment3
             Name = Constants.DefaultClass;
             Description = Constants.DefaultClassDescription;
             HPDice = Constants.DefaultHPDice;
-            Classes.Add(this);
         }
 
         /// <summary>
@@ -98,7 +97,7 @@ namespace Assignment3
 
         /// <summary>
         /// Searches through static list of instantiated classes for a class with a matching name.
-        /// If a match cannot be found, a new Class will be returned.
+        /// If a match cannot be found, the first class.
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
@@ -109,6 +108,21 @@ namespace Assignment3
                 if (storedClass.Name == name) { return storedClass; }
             }
             return new Class();
+        }
+
+        /// <summary>
+        /// Returns a list of the names of all instantiated classes.
+        /// </summary>
+        /// <returns>List of the name of all instantiated classes.</returns>
+        public static List<string> GetClassNames()
+        {
+            List<string> classNames = new List<string>();
+            foreach (Class currentClass in Classes)
+            {
+                if (currentClass.Name != null) { classNames.Add(currentClass.Name); }
+    
+            }
+            return classNames;
         }
 
         #endregion

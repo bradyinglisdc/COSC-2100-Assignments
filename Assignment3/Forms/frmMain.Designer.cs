@@ -46,6 +46,8 @@
             lblSpeed = new Label();
             btnViewAttributes = new Button();
             btnEditCharacter = new Button();
+            btnNextPage = new Button();
+            btnPreviousPage = new Button();
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).BeginInit();
             SuspendLayout();
             // 
@@ -276,14 +278,49 @@
             btnEditCharacter.TabIndex = 16;
             btnEditCharacter.Text = "Edit\r\nCharacter";
             btnEditCharacter.UseVisualStyleBackColor = true;
+            btnEditCharacter.Click += btnEditCharacter_Click;
             btnEditCharacter.MouseEnter += btnGeneric_MouseEnter;
             btnEditCharacter.MouseLeave += btnGeneric_MouseLeave;
+            // 
+            // btnNextPage
+            // 
+            btnNextPage.Anchor = AnchorStyles.None;
+            btnNextPage.BackgroundImage = Properties.Resources.GenericRuggedPaper;
+            btnNextPage.FlatAppearance.BorderColor = Color.Black;
+            btnNextPage.FlatAppearance.BorderSize = 2;
+            btnNextPage.FlatStyle = FlatStyle.Flat;
+            btnNextPage.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNextPage.Location = new Point(375, 493);
+            btnNextPage.Name = "btnNextPage";
+            btnNextPage.Size = new Size(154, 26);
+            btnNextPage.TabIndex = 17;
+            btnNextPage.Text = "Next Page";
+            btnNextPage.UseVisualStyleBackColor = true;
+            btnNextPage.Click += btnNextPage_Click;
+            // 
+            // btnPreviousPage
+            // 
+            btnPreviousPage.Anchor = AnchorStyles.None;
+            btnPreviousPage.BackgroundImage = Properties.Resources.GenericRuggedPaper;
+            btnPreviousPage.FlatAppearance.BorderColor = Color.Black;
+            btnPreviousPage.FlatAppearance.BorderSize = 2;
+            btnPreviousPage.FlatStyle = FlatStyle.Flat;
+            btnPreviousPage.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPreviousPage.Location = new Point(199, 493);
+            btnPreviousPage.Name = "btnPreviousPage";
+            btnPreviousPage.Size = new Size(154, 26);
+            btnPreviousPage.TabIndex = 18;
+            btnPreviousPage.Text = "Previous Page";
+            btnPreviousPage.UseVisualStyleBackColor = true;
+            btnPreviousPage.Click += btnPreviousPage_Click;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1037, 635);
+            Controls.Add(btnPreviousPage);
+            Controls.Add(btnNextPage);
             Controls.Add(btnEditCharacter);
             Controls.Add(btnViewAttributes);
             Controls.Add(lblSpeed);
@@ -307,6 +344,7 @@
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "D&D: Character View";
+            Activated += LoadCharacterPanelsByPage;
             Load += frmMain_Load;
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).EndInit();
             ResumeLayout(false);
@@ -332,5 +370,7 @@
         private Label lblSpeed;
         private Button btnViewAttributes;
         private Button btnEditCharacter;
+        private Button btnNextPage;
+        private Button btnPreviousPage;
     }
 }

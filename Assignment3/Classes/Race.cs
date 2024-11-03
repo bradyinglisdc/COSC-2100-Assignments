@@ -149,6 +149,34 @@ namespace Assignment3
 
         #region Static Methods
 
+        /// <summary>
+        /// Searches through static list for matching race, returning it if match.
+        /// </summary>
+        /// <param name="raceToFind">The race to finc by name.</param>
+        /// <returns>First race in array if no match, the matching race if there is match.</returns>
+        public static Race FindByName(string raceToFind)
+        {
+            foreach (Race race in Races)
+            {
+                if (race.Name == raceToFind) { return race; }
+            }
+            return Races[0];
+        }
+
+        /// <summary>
+        /// Returns a list of the names of all instantiated races.
+        /// </summary>
+        /// <returns>List of the name of all instantiated races.</returns>
+        public static List<string> GetRaceNames()
+        {
+            List<string> raceNames = new List<string>();
+            foreach (Race race in Races)
+            {
+                if (race.Name != null) { raceNames.Add(race.Name); }
+            }
+            return raceNames;
+        }
+
         #endregion
 
     }
