@@ -70,10 +70,14 @@ namespace Assignment3
         private string? SelectedCharacter
         {
             get { return _selectedCharacter; }
-            set 
-            { 
-                if (value != null) { ChangeSelectedCharacter(value); }
-                _selectedCharacter = value;
+            set
+            {
+                if (value != null)
+                {
+                    ChangeSelectedCharacter(value);
+                    _selectedCharacter = value;
+                    DisplaySelectedCharacterStats();
+                }
             }
         }
 
@@ -99,6 +103,32 @@ namespace Assignment3
 
         #region Event Handlers
 
+        #region Visual Interaction
+
+        /// <summary>
+        /// To be called when mouse hover begins on character creator access button or exit button. Visually indicates hover.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGeneric_MouseEnter(object sender, EventArgs e)
+        {
+            IndicateHoverOnButton((Button)sender);
+        }
+
+        /// <summary>
+        /// To be called when mouse hover ends on character creator access button or exit. Visually indicates end of hover.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGeneric_MouseLeave(object sender, EventArgs e)
+        {
+            IndicateHoverEndOnButton((Button)sender);
+        }
+
+        #endregion
+
+        #region Character Interaction
+
         /// <summary>
         /// To be called when the form first loads - Sets styling variables then communicates with back-end to load default 
         /// game objects and pull the first page of characters. 
@@ -121,6 +151,20 @@ namespace Assignment3
         {
             if (sender is Panel) { SelectedCharacter = ((Panel)sender).Name; }
         }
+
+        /// <summary>
+        /// Instantiates and opens a new frmCharacterEditor. 
+        /// Since no character is requied, the default constructor is used.
+        /// The form is opened as a dialog in order to take priority over the current form.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNewCharacter_Click(object sender, EventArgs e)
+        {
+            (new frmCharacterEditor()).ShowDialog();
+        }
+
+        #endregion
 
         #endregion
 
@@ -178,7 +222,7 @@ namespace Assignment3
             // Styling the name label
             lblCharacterName.Text = character.Name;
             lblCharacterName.Font = DefaultCharacterPanelFont;
-            lblCharacterName.Size = new Size(pnlCurrent.Width / 2, pnlCurrent.Height);
+            lblCharacterName.Size = new Size(pnlCurrent.Width - 110, pnlCurrent.Height);
             lblCharacterName.Location = new Point(pnlCurrent.Width / 2 - lblCharacterName.Width / 2);
             lblCharacterName.TextAlign = ContentAlignment.MiddleCenter;
 
@@ -242,7 +286,7 @@ namespace Assignment3
         {
             foreach (Control control in characterToDeselect.Controls)
             {
-                if (control is Label) 
+                if (control is Label)
                 {
                     Label characterLabel = (Label)control;
                     characterLabel.Font = DefaultCharacterPanelFont;
@@ -262,7 +306,7 @@ namespace Assignment3
         {
             foreach (Control control in characterToDeselect.Controls)
             {
-                if (control is Label) 
+                if (control is Label)
                 {
                     Label characterLabel = (Label)control;
                     characterLabel.Font = SelectedCharacterPanelFont;
@@ -272,7 +316,69 @@ namespace Assignment3
             }
         }
 
+        /// <summary>
+        /// Updates the front-end to reflect character data.
+        /// </summary>
+        private void DisplaySelectedCharacterStats()
+        {
+            // Find the corresponding character if the selected character exists
+            if (SelectedCharacter == null) { return; }
+            Character characterToDisplay = Character.FindByName(SelectedCharacter);
+
+            // Return if this character has no race/class
+            if (characterToDisplay.Class == null || characterToDisplay.Race == null) { return; }
+
+            // Update all character info
+            lblGender.Text = $"Gender: {characterToDisplay.Gender}";
+            lblAlignment.Text = $"Alignment: {characterToDisplay.Alignment.ToString()}";
+            lblInitiative.Text = $"Initiative: {characterToDisplay.Initiatve}";
+            lblArmourClass.Text = $"Armour Class: {characterToDisplay.ArmourClass}";
+            lblHitPoints.Text = $"Hit Points: {characterToDisplay.HitPoints}";
+            lblSpeed.Text = $"Speed: {characterToDisplay.Speed}";
+
+            lblLevel.Text = $"Level: {characterToDisplay.Level} (1000/2000 to next level)";
+
+            lblClass.Text = $"Class: {characterToDisplay.Class.Name}";
+            lblClassHPDice.Text = $"HP Dice: {characterToDisplay.Class.HPDice}";
+
+            lblRace.Text = $"Race: {characterToDisplay.Race.Name}";
+            lblRaceBonusAttributes.Text = $"Bonus Attributes: ";
+        }
+
         #endregion
+
+        #region Dynamic Styling
+
+        /// <summary>
+        /// Expands and changes a button's font to red to indicate a mouse hover.
+        /// </summary>
+        /// <param name="btnToStyle">The button to style.</param>
+        private void IndicateHoverOnButton(Button btnToStyle)
+        {
+            // Simply update the button size to indicate a hover and re adjust positioning
+            btnToStyle.Size = new Size(btnToStyle.Width + 8, btnToStyle.Height + 8);
+            btnToStyle.Location = new Point(btnToStyle.Location.X - 4, btnToStyle.Location.Y - 4);
+
+            // Update font colour to red
+            btnToStyle.ForeColor = Color.Red;
+        }
+
+        /// <summary>
+        /// Shrinks and changes a button's font to black to indicate a mouse hover end.
+        /// </summary>
+        /// <param name="btnToStyle">The button to style.</param>
+        private void IndicateHoverEndOnButton(Button btnToStyle)
+        {
+            // Simply update the button size to indicate a hover and re adjust positioning
+            btnToStyle.Size = new Size(btnToStyle.Width - 8, btnToStyle.Height - 8);
+            btnToStyle.Location = new Point(btnToStyle.Location.X + 4, btnToStyle.Location.Y + 4);
+
+            // Update font colour to black
+            btnToStyle.ForeColor = Color.Black;
+        }
+
+        #endregion
+
     }
 }
 

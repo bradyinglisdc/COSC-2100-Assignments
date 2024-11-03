@@ -108,6 +108,8 @@
             btnExitApplication.TabIndex = 3;
             btnExitApplication.Text = "Exit";
             btnExitApplication.UseVisualStyleBackColor = true;
+            btnExitApplication.MouseEnter += btnGeneric_MouseEnter;
+            btnExitApplication.MouseLeave += btnGeneric_MouseLeave;
             // 
             // btnNewCharacter
             // 
@@ -123,6 +125,9 @@
             btnNewCharacter.TabIndex = 4;
             btnNewCharacter.Text = "New Character";
             btnNewCharacter.UseVisualStyleBackColor = true;
+            btnNewCharacter.Click += btnNewCharacter_Click;
+            btnNewCharacter.MouseEnter += btnGeneric_MouseEnter;
+            btnNewCharacter.MouseLeave += btnGeneric_MouseLeave;
             // 
             // lblClass
             // 
@@ -254,6 +259,8 @@
             btnViewAttributes.TabIndex = 15;
             btnViewAttributes.Text = "View\r\nAttributes";
             btnViewAttributes.UseVisualStyleBackColor = true;
+            btnViewAttributes.MouseEnter += btnGeneric_MouseEnter;
+            btnViewAttributes.MouseLeave += btnGeneric_MouseLeave;
             // 
             // btnEditCharacter
             // 
@@ -269,6 +276,8 @@
             btnEditCharacter.TabIndex = 16;
             btnEditCharacter.Text = "Edit\r\nCharacter";
             btnEditCharacter.UseVisualStyleBackColor = true;
+            btnEditCharacter.MouseEnter += btnGeneric_MouseEnter;
+            btnEditCharacter.MouseLeave += btnGeneric_MouseLeave;
             // 
             // frmMain
             // 

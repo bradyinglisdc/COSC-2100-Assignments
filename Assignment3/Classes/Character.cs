@@ -168,6 +168,20 @@ namespace Assignment3
             return characterPage;
         }
 
+        /// <summary>
+        /// Searches through static Character array, returning a character with the matching name.
+        /// </summary>
+        /// <param name="name">The name of the character to find.</param>
+        /// <returns>First character in array if no character found, a Character if a matching name is found.</returns>
+        public static Character FindByName(string name)
+        {
+            foreach (Character character in Characters)
+            {
+                if (character.Name == name) { return character; }
+            }
+            return Characters[0];
+        }
+
         #endregion
 
     }

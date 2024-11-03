@@ -166,22 +166,22 @@ namespace Assignment3
         /// </summary>
         public static void InstantiateExampleCharacters()
         {
-            new Character("A guy 1", Class.Classes[0], Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
+            new Character("Thalrin Ironbrow", Class.Classes[0], Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
                 new List<int>() { 16, 16, 12, 12, 12, 12}, 12, 12);
             
-            new Character("A guy 2", Class.Classes[1], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Elara Moonshadow", Class.Classes[1], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
 
-            new Character("A guy 3", Class.Classes[2], Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Kairos Emberflame", Class.Classes[2], Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
 
-            new Character("A guy 4", Class.Classes[3], Race.Races[3], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Mira Greenthistle", Class.Classes[3], Race.Races[3], Constants.Alignment.LawfulGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
 
-            new Character("A guy 5", Class.Classes[4], Race.Races[4], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Drogan Blackscale", Class.Classes[4], Race.Races[4], Constants.Alignment.LawfulGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
 
-            new Character("A guy 6", Class.Classes[5], Race.Races[5], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Nyx Voss", Class.Classes[5], Race.Races[5], Constants.Alignment.LawfulGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 12, 12);
         }
 
