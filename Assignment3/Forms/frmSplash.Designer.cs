@@ -33,6 +33,7 @@
             btnAccessCharacterCreator = new Button();
             btnExitApplication = new Button();
             SplashScreenToolTips = new ToolTip(components);
+            lblDeveloper = new Label();
             ((System.ComponentModel.ISupportInitialize)pbxSplashBackground).BeginInit();
             SuspendLayout();
             // 
@@ -87,6 +88,16 @@
             btnExitApplication.MouseEnter += btnGeneric_MouseEnter;
             btnExitApplication.MouseLeave += btnGeneric_MouseLeave;
             // 
+            // lblDeveloper
+            // 
+            lblDeveloper.Font = new Font("Baskerville Old Face", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDeveloper.Image = Properties.Resources.GenericRuggedPaper;
+            lblDeveloper.Location = new Point(903, 591);
+            lblDeveloper.Name = "lblDeveloper";
+            lblDeveloper.Size = new Size(135, 47);
+            lblDeveloper.TabIndex = 3;
+            lblDeveloper.Text = "COSC-2100 Asignment 3\r\nDeveloped by Brady Inglis\r\nOctober 3rd, 2024";
+            // 
             // frmSplash
             // 
             AcceptButton = btnAccessCharacterCreator;
@@ -94,6 +105,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnExitApplication;
             ClientSize = new Size(1037, 635);
+            Controls.Add(lblDeveloper);
             Controls.Add(btnExitApplication);
             Controls.Add(btnAccessCharacterCreator);
             Controls.Add(pbxSplashBackground);
@@ -111,5 +123,6 @@
         private Button btnAccessCharacterCreator;
         private Button btnExitApplication;
         private ToolTip SplashScreenToolTips;
+        private Label lblDeveloper;
     }
 }

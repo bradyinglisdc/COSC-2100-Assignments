@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Assignment3.Constants;
 
 #endregion
 
@@ -29,6 +30,9 @@ namespace Assignment3
         #region Backing Members
 
         private int _level;
+        private string _name;
+        private int _experiencePoints;
+        private Race? _race;
 
         #endregion
 
@@ -43,7 +47,22 @@ namespace Assignment3
 
         #region Instance Properties
 
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (FindByName(value) != null && FindByName(value) != this)
+                {
+                    throw new Exception($"Character name is already taken.");
+                }
+                else if (value.Length > Constants.MaximumNameSize || value.Length < Constants.MinimumNameSize)
+                {
+                    throw new Exception($"Character name must be between {Constants.MinimumNameSize} and {Constants.MaximumNameSize} in length.");
+                }
+                else { _name = value; }
+            }
+        }
 
         /// <summary>
         /// This character's class.
@@ -66,12 +85,27 @@ namespace Assignment3
         /// <summary>
         /// The total experience points this character has.
         /// </summary>
-        public int ExperiencePoints { get; set; }
+        public int ExperiencePoints
+        {
+            get { return _experiencePoints; }
+            set
+            {
+                Level = CalculateLevel(value);
+                _experiencePoints = value;
+            }
+        }
 
         /// <summary>
         /// The race of this character.
         /// </summary>
-        public Race? Race { get; set; }
+        public Race? Race
+        {
+            get { return _race; }
+            set
+            {
+                if (!RaceBonusRecieved) { _race = value; }
+            }
+        }
 
         public Constants.Alignment Alignment { get; set; }
 
@@ -102,6 +136,23 @@ namespace Assignment3
         /// </summary>
         public int HitPoints { get; private set; }
 
+        /// <summary>
+        /// If the user has ASG/has leveled up to the point where they can generate attributes,
+        /// this is true. True by default.
+        /// </summary>
+        public bool HasAbilityScoreGeneration { get; set; }
+
+        /// <summary>
+        /// Becomes true when the character locks in their initial race and attributes. Character can not change race if this is true.
+        /// </summary>
+        public bool RaceBonusRecieved { get; set; }
+
+        /// <summary>
+        /// Becomes true when the character makes a change to their gender.
+        /// If it is true, the previos gender bonus should be removed before the new one is added.
+        /// </summary>
+        public bool GenderBonusRecieved { get; set; }
+
         #endregion
 
         #region Constructors
@@ -110,7 +161,7 @@ namespace Assignment3
         /// Paramaterized constructor - to be called when all character data is known prior to insntantiation.
         /// </summary>
         public Character(string name, Class chosenClass, Race race, Constants.Alignment alignment, Constants.Gender gender,
-            List<int> attributes, int attributePoints, int armourClass)
+            List<int> attributes, int attributePoints, int armourClass, bool hasAbilityScoreGeneration)
         {
             Name = name;
             Class = chosenClass;
@@ -119,6 +170,10 @@ namespace Assignment3
             Gender = gender;
             ArmourClass = armourClass;
             AttributePoints = attributePoints;
+            HasAbilityScoreGeneration = hasAbilityScoreGeneration;
+            RaceBonusRecieved = false;
+            GenderBonusRecieved = false;
+
 
             SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
             SetInitiative();
@@ -130,12 +185,15 @@ namespace Assignment3
         /// </summary>
         public Character()
         {
-            Name = Constants.DefaultCharacterName;
+            Name = Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++;
             Race = Race.FindByName(Constants.DefaultRace);
             Alignment = Constants.DefaultAlignment;
             Gender = Constants.DefaultGender;
             ArmourClass = Constants.DefaultArmourClass;
             AttributePoints = Constants.StartingAttributePoints;
+            HasAbilityScoreGeneration = true;
+            RaceBonusRecieved = false;
+            GenderBonusRecieved = false;
 
             SetDefaultAttributes();
             SetInitiative();
@@ -190,6 +248,87 @@ namespace Assignment3
 
         #endregion
 
+        #region Bonus Points Addition
+
+        /// <summary>
+        /// Applies race bonus to attributes.
+        /// </summary>
+        public void ApplyBonusPoints()
+        {
+            if (Race == null || Race.Attributes == null || Attributes == null) { return; }
+            
+            // Race bonus
+            foreach (KeyValuePair<Constants.Attribute, int> attribute in Race.Attributes)
+            {
+                Attributes[attribute.Key] = Math.Min(Attributes[attribute.Key] + Race.Attributes[attribute.Key], Constants.MaxAttributeScore);
+            }
+
+            RaceBonusRecieved = true;
+        }
+        
+        /// <summary>
+        /// Removes current gender bonus if it exists, switches gender, and adds new gender bonus to attributes.
+        /// </summary>
+        /// <param name="gender"></param>
+        public void ApplyGenderBonus(Gender gender)
+        {
+            if (GenderBonusRecieved) { RemoveGenderBonus(); }
+            AddGenderBonus(gender);
+        }
+
+        /// <summary>
+        /// Removes  bonus attributes corresponding with the current gender
+        /// </summary>
+        private void RemoveGenderBonus()
+        {
+            // Ensure attributes exist before removing
+            if (Attributes == null) { return; }
+            if (Gender == Constants.Gender.Male)
+            {
+                Attributes[Constants.Attribute.Strength] = Math.Max(Attributes[Constants.Attribute.Strength] - 1, Constants.MinAttributeScore);
+                Attributes[Constants.Attribute.Wisdom] = Math.Max(Attributes[Constants.Attribute.Wisdom] - 1, Constants.MinAttributeScore);
+            }
+            else if (Gender == Constants.Gender.Female)
+            {
+                Attributes[Constants.Attribute.Dexterity] = Math.Max(Attributes[Constants.Attribute.Dexterity] - 1, Constants.MinAttributeScore);
+                Attributes[Constants.Attribute.Intelligence] = Math.Max(Attributes[Constants.Attribute.Intelligence] - 1, Constants.MinAttributeScore);
+            }
+            else
+            {
+                Attributes[Constants.Attribute.Constitution] = Math.Max(Attributes[Constants.Attribute.Constitution] - 1, Constants.MinAttributeScore);
+                Attributes[Constants.Attribute.Charisma] = Math.Max(Attributes[Constants.Attribute.Charisma] - 1, Constants.MinAttributeScore);
+            }
+        }
+
+        /// <summary>
+        /// Adds bonus attributes corresponding with the passed in gender, updates gender
+        /// </summary>
+        /// <param name="genderToSwitchTo">The gender to pull bonus points from and switch to.</param>
+        private void AddGenderBonus(Gender genderToSwitchTo)
+        {
+            // Ensure attributes exist before removing
+            if (Attributes == null) { return; }
+            if (genderToSwitchTo == Constants.Gender.Male)
+            {
+                Attributes[Constants.Attribute.Strength] = Math.Min(Attributes[Constants.Attribute.Strength] + 1, Constants.MaxAttributeScore);
+                Attributes[Constants.Attribute.Wisdom] = Math.Min(Attributes[Constants.Attribute.Wisdom] + 1, Constants.MaxAttributeScore);
+            }
+            else if (genderToSwitchTo == Constants.Gender.Female)
+            {
+                Attributes[Constants.Attribute.Dexterity] = Math.Min(Attributes[Constants.Attribute.Dexterity] + 1, Constants.MaxAttributeScore);
+                Attributes[Constants.Attribute.Intelligence] = Math.Min(Attributes[Constants.Attribute.Intelligence] + 1, Constants.MaxAttributeScore);
+            }
+            else
+            {
+                Attributes[Constants.Attribute.Constitution] = Math.Min(Attributes[Constants.Attribute.Constitution] + 1, Constants.MaxAttributeScore);
+                Attributes[Constants.Attribute.Charisma] = Math.Min(Attributes[Constants.Attribute.Charisma] + 1, Constants.MaxAttributeScore);
+            }
+
+            GenderBonusRecieved = true;
+            Gender = genderToSwitchTo;
+        }
+
+        #endregion
 
         #region Static Methods
 
@@ -225,14 +364,14 @@ namespace Assignment3
         /// Searches through static Character array, returning a character with the matching name.
         /// </summary>
         /// <param name="name">The name of the character to find.</param>
-        /// <returns>First character in array if no character found, a Character if a matching name is found.</returns>
-        public static Character FindByName(string name)
+        /// <returns>Null if no character was found, a Character if a matching name is found.</returns>
+        public static Character? FindByName(string name)
         {
             foreach (Character character in Characters)
             {
-                if (character.Name == name) { return character; }
+                if (character.Name.ToLower() == name.ToLower()) { return character; }
             }
-            return Characters[0];
+            return null;
         }
 
         #region Calculations
@@ -285,6 +424,20 @@ namespace Assignment3
                 if (attributeValue <= cost.Key) { return cost.Value; }
             }
             return -1;
+        }
+
+        /// <summary>
+        /// Deletes a character from the static list of character's by it's name.
+        /// </summary>
+        /// <param name="characterToDeleteByName">The character to be removed.</param>
+        public static void Delete(string characterToDeleteByName)
+        {
+            // Search for a matching character
+            Character? characterToDelete = FindByName(characterToDeleteByName);
+            if (characterToDelete == null) { return; }
+
+            // If there's a match, remove it from the static list
+            Characters.Remove(characterToDelete);
         }
 
         #endregion

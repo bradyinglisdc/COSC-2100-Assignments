@@ -44,6 +44,12 @@ namespace Assignment3
         /// </summary>
         private Character BoundCharacter { get; set; }
 
+        /// <summary>
+        /// A copy of the number of attribute points the character has.
+        /// The character's attribute points will be set to this value if the user chooses to save.
+        /// </summary>
+        private int AttributePoints { get; set; }
+
         #endregion
 
         #region Constructors
@@ -109,7 +115,66 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnSaveCharacter_Click(object sender, EventArgs e)
         {
-            SaveCharacter();
+            try
+            {
+                if (AttributePoints != 0) { SaveCharacter(); }
+                else
+                {
+                    btnSaveAttributes_Click(sender, e);
+                }
+                Close();
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Prompts user to confirm, then saves attributes/saves character and displays bonus points, closing form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSaveAttributes_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to save attributes? If your remaining attribute points are at 0, " +
+                "this will disallow you from decreasing attribute scores for now and changing races, but will apply your race and gender bonus.", "Save Attributes?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                HardSaveAttributes();
+                SaveCharacter();
+            }
+        }
+
+        /// <summary>
+        /// Just closes this form without saving.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        /// <summary>
+        /// Styles a button to indicate mouse entrance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGeneric_MouseEnter(object sender, EventArgs e)
+        {
+            MouseEnterButtonStyle((Button)sender);
+        }
+
+        /// <summary>
+        /// Styles a button to indicate mouse exit.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnGeneric_MouseExit(object sender, EventArgs e)
+        {
+            MouseExitButtonStyle((Button)sender);
         }
 
         #endregion
@@ -121,6 +186,7 @@ namespace Assignment3
         /// </summary>
         private void InitializeForm()
         {
+            AttributePoints = BoundCharacter.AttributePoints;
             FillControlData();
             FillCharacterData();
             FillSummary();
@@ -131,6 +197,9 @@ namespace Assignment3
         /// </summary>
         private void FillControlData()
         {
+            // If the character already recieved their bonus, race changing is disabled
+            if (BoundCharacter.RaceBonusRecieved) { cbxRace.Enabled = false; }
+
             cbxGender.DataSource = Enum.GetValues(typeof(Gender));
             cbxAlignment.DataSource = Enum.GetValues(typeof(Alignment));
 
@@ -199,7 +268,9 @@ namespace Assignment3
                 "_ac_", nudArmourClass.Value.ToString()).Replace(
                 "_initiative_", characterInitiative.ToString()).Replace(
                 "_speed_", BoundCharacter.Speed.ToString());
-            lblRemainingPoints.Text = $"Points Remaining: {BoundCharacter.AttributePoints}";
+            lblRemainingPoints.Text = $"Points Remaining: {AttributePoints}";
+
+            UpdateDynamicStatistics();
         }
 
         /// <summary>
@@ -207,33 +278,8 @@ namespace Assignment3
         /// </summary>
         private void FillAttributeLabels()
         {
-            // Split character attributes
-            if (BoundCharacter.Attributes == null) { return; }
-            char[] strengthArray = (BoundCharacter.Attributes[Constants.Attribute.Strength]).ToString().ToCharArray();
-            char[] dexterityArray = (BoundCharacter.Attributes[Constants.Attribute.Dexterity]).ToString().ToCharArray();
-            char[] constitutionArray = (BoundCharacter.Attributes[Constants.Attribute.Constitution]).ToString().ToCharArray();
-            char[] intelligenceArray = (BoundCharacter.Attributes[Constants.Attribute.Intelligence]).ToString().ToCharArray();
-            char[] wisdomArray = (BoundCharacter.Attributes[Constants.Attribute.Wisdom]).ToString().ToCharArray();
-            char[] charismaArray = (BoundCharacter.Attributes[Constants.Attribute.Charisma]).ToString().ToCharArray();
-
-            // Update labels
-            lblStrengthDigitTwo.Text = strengthArray.Length < 2 ? "0" : strengthArray[0].ToString();
-            lblStrengthDigitOne.Text = strengthArray.Length < 2 ? strengthArray[0].ToString() : strengthArray[1].ToString();
-
-            lblDexterityDigitTwo.Text = dexterityArray.Length < 2 ? "0" : dexterityArray[0].ToString();
-            lblDexterityDigitOne.Text = dexterityArray.Length < 2 ? dexterityArray[0].ToString() : dexterityArray[1].ToString();
-
-            lblConstitutionDigitTwo.Text = constitutionArray.Length < 2 ? "0" : constitutionArray[0].ToString();
-            lblConstitutionDigitOne.Text = constitutionArray.Length < 2 ? constitutionArray[0].ToString() : constitutionArray[1].ToString();
-
-            lblIntelligenceDigitTwo.Text = intelligenceArray.Length < 2 ? "0" : intelligenceArray[0].ToString();
-            lblIntelligenceDigitOne.Text = intelligenceArray.Length < 2 ? intelligenceArray[0].ToString() : intelligenceArray[1].ToString();
-
-            lblWisdomDigitTwo.Text = wisdomArray.Length < 2 ? "0" : wisdomArray[0].ToString();
-            lblWisdomDigitOne.Text = wisdomArray.Length < 2 ? wisdomArray[0].ToString() : wisdomArray[1].ToString();
-
-            lblCharismaDigitTwo.Text = charismaArray.Length < 2 ? "0" : charismaArray[0].ToString();
-            lblCharismaDigitOne.Text = charismaArray.Length < 2 ? charismaArray[0].ToString() : charismaArray[1].ToString();
+            // Update based off character attributes
+            if (BoundCharacter.Attributes != null) { UpdateAttributeLabels(BoundCharacter.Attributes); }
         }
 
         #endregion
@@ -246,6 +292,8 @@ namespace Assignment3
         /// <param name="attributeModificationInfo">The name of the pressed button (e.g. attributeModificationInfo = btnIncreaseStrength)</param>
         private void ChangeAttribute(string attributeModificationInfo)
         {
+            // If character is not having an ability score generation, just return
+            if (!BoundCharacter.HasAbilityScoreGeneration) { return; }
 
             if (attributeModificationInfo == btnDecreaseStrength.Name) { ChangeAttributeLabel(false, lblStrengthDigitTwo, lblStrengthDigitOne); }
             else if (attributeModificationInfo == btnIncreaseStrength.Name) { ChangeAttributeLabel(true, lblStrengthDigitTwo, lblStrengthDigitOne); }
@@ -268,6 +316,13 @@ namespace Assignment3
             UpdateSummary();
         }
 
+        /// <summary>
+        /// Updates a set of attribute labels.
+        /// Checks if attribute points are 0, and applies bonus points if true
+        /// </summary>
+        /// <param name="increaseAttributeLabel"></param>
+        /// <param name="digitTwo"></param>
+        /// <param name="digitOne"></param>
         private void ChangeAttributeLabel(bool increaseAttributeLabel, Label digitTwo, Label digitOne)
         {
             int leftDigit = int.Parse(digitTwo.Text);
@@ -276,6 +331,7 @@ namespace Assignment3
 
             if (increaseAttributeLabel) { IncreaseAttributeLabel(leftDigit, rightDigit, digitTwo, digitOne); }
             else { DecreaseAttributeLabel(attributeCost, leftDigit, rightDigit, digitTwo, digitOne); }
+
         }
 
         /// <summary>
@@ -301,7 +357,7 @@ namespace Assignment3
             }
             digitTwo.Text = leftDigit.ToString();
             digitOne.Text = rightDigit.ToString();
-            BoundCharacter.AttributePoints += attributeCost;
+            AttributePoints += attributeCost;
 
         }
 
@@ -320,7 +376,7 @@ namespace Assignment3
             int attributeCost = Character.CalculateAttributeCost(int.Parse(digitTwo.Text + digitOne.Text) + 1);
 
             // Simple checks to update labels accurately
-            if ((BoundCharacter.AttributePoints - attributeCost < 0) || (leftDigit == 2 && rightDigit == 0)) { return; }
+            if ((AttributePoints - attributeCost < 0) || (leftDigit == 2 && rightDigit == 0)) { return; }
 
             if (rightDigit == 9)
             {
@@ -334,16 +390,93 @@ namespace Assignment3
 
             digitTwo.Text = leftDigit.ToString();
             digitOne.Text = rightDigit.ToString();
-            BoundCharacter.AttributePoints -= attributeCost;
+            AttributePoints -= attributeCost;
+        }
+
+        /// <summary>
+        /// Updates attribute labels with specified data
+        /// </summary>
+        /// <param name="attributes">The attributes to add.</param>
+        private void UpdateAttributeLabels(Dictionary<Constants.Attribute, int> attributes)
+        {
+            // Split character attributes
+            if (BoundCharacter.Attributes == null) { return; }
+            char[] strengthArray = (attributes[Constants.Attribute.Strength]).ToString().ToCharArray();
+            char[] dexterityArray = (attributes[Constants.Attribute.Dexterity]).ToString().ToCharArray();
+            char[] constitutionArray = (attributes[Constants.Attribute.Constitution]).ToString().ToCharArray();
+            char[] intelligenceArray = (attributes[Constants.Attribute.Intelligence]).ToString().ToCharArray();
+            char[] wisdomArray = (attributes[Constants.Attribute.Wisdom]).ToString().ToCharArray();
+            char[] charismaArray = (attributes[Constants.Attribute.Charisma]).ToString().ToCharArray();
+
+            // Update labels
+            lblStrengthDigitTwo.Text = strengthArray.Length < 2 ? "0" : strengthArray[0].ToString();
+            lblStrengthDigitOne.Text = strengthArray.Length < 2 ? strengthArray[0].ToString() : strengthArray[1].ToString();
+
+            lblDexterityDigitTwo.Text = dexterityArray.Length < 2 ? "0" : dexterityArray[0].ToString();
+            lblDexterityDigitOne.Text = dexterityArray.Length < 2 ? dexterityArray[0].ToString() : dexterityArray[1].ToString();
+
+            lblConstitutionDigitTwo.Text = constitutionArray.Length < 2 ? "0" : constitutionArray[0].ToString();
+            lblConstitutionDigitOne.Text = constitutionArray.Length < 2 ? constitutionArray[0].ToString() : constitutionArray[1].ToString();
+
+            lblIntelligenceDigitTwo.Text = intelligenceArray.Length < 2 ? "0" : intelligenceArray[0].ToString();
+            lblIntelligenceDigitOne.Text = intelligenceArray.Length < 2 ? intelligenceArray[0].ToString() : intelligenceArray[1].ToString();
+
+            lblWisdomDigitTwo.Text = wisdomArray.Length < 2 ? "0" : wisdomArray[0].ToString();
+            lblWisdomDigitOne.Text = wisdomArray.Length < 2 ? wisdomArray[0].ToString() : wisdomArray[1].ToString();
+
+            lblCharismaDigitTwo.Text = charismaArray.Length < 2 ? "0" : charismaArray[0].ToString();
+            lblCharismaDigitOne.Text = charismaArray.Length < 2 ? charismaArray[0].ToString() : charismaArray[1].ToString();
+        }
+
+        /// <summary>
+        /// Updates character statistics which change based on attributes, xp, etc.
+        /// </summary>
+        private void UpdateDynamicStatistics()
+        {
+            lblLevel.Text = Character.CalculateLevel((int)nudXP.Value).ToString();
+            lblHP.Text = Character.CalculateHitPoints(cbxClass.Text, int.Parse((lblConstitutionDigitTwo.Text + lblConstitutionDigitOne.Text))).ToString();
+            lblInitiative.Text = Character.CalculateInitiative(int.Parse(lblDexterityDigitTwo.Text + lblDexterityDigitOne.Text)).ToString();
         }
 
 
         #endregion
 
+        #region Dynamic Styling
+
+        /// <summary>
+        /// Styles a button to indicate mouse entrance.
+        /// </summary>
+        /// <param name="buttonToStyle">The button to be styled</param>
+        private void MouseEnterButtonStyle(Button buttonToStyle)
+        {
+            // Simply update the button size to indicate a hover and re adjust positioning
+            buttonToStyle.Size = new Size(buttonToStyle.Width + 8, buttonToStyle.Height + 8);
+            buttonToStyle.Location = new Point(buttonToStyle.Location.X - 4, buttonToStyle.Location.Y - 4);
+
+            // Update font colour to red
+            buttonToStyle.ForeColor = Color.Red;
+        }
+
+        /// <summary>
+        /// Styles a button to indicate mouse exit.
+        /// </summary>
+        /// <param name="buttonToStyle">The button to be styled</param>
+        private void MouseExitButtonStyle(Button buttonToStyle)
+        {
+            buttonToStyle.Size = new Size(buttonToStyle.Width - 8, buttonToStyle.Height - 8);
+            buttonToStyle.Location = new Point(buttonToStyle.Location.X + 4, buttonToStyle.Location.Y + 4);
+
+            // Update font colour to black
+            buttonToStyle.ForeColor = Color.Black;
+        }
+
+        #endregion
+
+
         #region Cleanup
 
         /// <summary>
-        /// Saves character properties based on correspondinf controls, then adds
+        /// Saves character properties based on corresponding controls, then adds
         /// bound character to static list of character's if it's not already there.
         /// </summary>
         private void SaveCharacter()
@@ -362,9 +495,7 @@ namespace Assignment3
 
             // Save character to memory
             if (!Character.Characters.Contains(BoundCharacter)) { Character.Characters.Add(BoundCharacter); ; }
-           
-            // Close form
-            Close();
+
         }
 
         /// <summary>
@@ -379,12 +510,37 @@ namespace Assignment3
             BoundCharacter.Attributes[Constants.Attribute.Intelligence] = int.Parse(lblIntelligenceDigitTwo.Text + lblIntelligenceDigitOne.Text);
             BoundCharacter.Attributes[Constants.Attribute.Wisdom] = int.Parse(lblWisdomDigitTwo.Text + lblWisdomDigitOne.Text);
             BoundCharacter.Attributes[Constants.Attribute.Charisma] = int.Parse(lblCharismaDigitTwo.Text + lblCharismaDigitOne.Text);
+            BoundCharacter.AttributePoints = AttributePoints;
+        }
+
+        /// <summary>
+        /// Saves character attributes based on attribute labels, stops allowing attribute generation if points are at 0.
+        /// Applies bonus points.
+        /// </summary>
+        private void HardSaveAttributes()
+        {
+
+            if (BoundCharacter.Attributes == null) { return; }
+            SaveCharacterAttributes();
+
+            // Apply race bonus only if attribute points are at 0 and bound character has ability generation
+            if (AttributePoints == 0 && BoundCharacter.HasAbilityScoreGeneration)
+            {
+                BoundCharacter.HasAbilityScoreGeneration = false;
+                BoundCharacter.ApplyBonusPoints();
+                cbxRace.Enabled = false;
+            }
+
+            // Apply gender bonus only if attribute points are at 0. Pass in the gender to switch to.
+            if (AttributePoints == 0)
+            {
+                BoundCharacter.ApplyGenderBonus((Gender)Enum.Parse(typeof(Gender), cbxGender.Text));
+            }
+
+            UpdateAttributeLabels(BoundCharacter.Attributes);
         }
 
         #endregion
-
-
-
     }
 }
 

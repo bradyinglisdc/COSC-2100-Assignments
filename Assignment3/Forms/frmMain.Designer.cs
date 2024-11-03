@@ -48,6 +48,7 @@
             btnEditCharacter = new Button();
             btnNextPage = new Button();
             btnPreviousPage = new Button();
+            btnDeleteCharacter = new Button();
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).BeginInit();
             SuspendLayout();
             // 
@@ -255,9 +256,9 @@
             btnViewAttributes.FlatAppearance.BorderSize = 2;
             btnViewAttributes.FlatStyle = FlatStyle.Flat;
             btnViewAttributes.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnViewAttributes.Location = new Point(601, 459);
+            btnViewAttributes.Location = new Point(601, 447);
             btnViewAttributes.Name = "btnViewAttributes";
-            btnViewAttributes.Size = new Size(135, 45);
+            btnViewAttributes.Size = new Size(135, 42);
             btnViewAttributes.TabIndex = 15;
             btnViewAttributes.Text = "View\r\nAttributes";
             btnViewAttributes.UseVisualStyleBackColor = true;
@@ -272,9 +273,9 @@
             btnEditCharacter.FlatAppearance.BorderSize = 2;
             btnEditCharacter.FlatStyle = FlatStyle.Flat;
             btnEditCharacter.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEditCharacter.Location = new Point(758, 459);
+            btnEditCharacter.Location = new Point(758, 447);
             btnEditCharacter.Name = "btnEditCharacter";
-            btnEditCharacter.Size = new Size(135, 45);
+            btnEditCharacter.Size = new Size(135, 42);
             btnEditCharacter.TabIndex = 16;
             btnEditCharacter.Text = "Edit\r\nCharacter";
             btnEditCharacter.UseVisualStyleBackColor = true;
@@ -297,6 +298,8 @@
             btnNextPage.Text = "Next Page";
             btnNextPage.UseVisualStyleBackColor = true;
             btnNextPage.Click += btnNextPage_Click;
+            btnNextPage.MouseEnter += btnGeneric_MouseEnter;
+            btnNextPage.MouseLeave += btnGeneric_MouseLeave;
             // 
             // btnPreviousPage
             // 
@@ -313,12 +316,33 @@
             btnPreviousPage.Text = "Previous Page";
             btnPreviousPage.UseVisualStyleBackColor = true;
             btnPreviousPage.Click += btnPreviousPage_Click;
+            btnPreviousPage.MouseEnter += btnGeneric_MouseEnter;
+            btnPreviousPage.MouseLeave += btnGeneric_MouseLeave;
+            // 
+            // btnDeleteCharacter
+            // 
+            btnDeleteCharacter.Anchor = AnchorStyles.None;
+            btnDeleteCharacter.BackgroundImage = Properties.Resources.CharacterCreatorButton;
+            btnDeleteCharacter.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnDeleteCharacter.FlatAppearance.BorderSize = 2;
+            btnDeleteCharacter.FlatStyle = FlatStyle.Flat;
+            btnDeleteCharacter.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnDeleteCharacter.Location = new Point(677, 495);
+            btnDeleteCharacter.Name = "btnDeleteCharacter";
+            btnDeleteCharacter.Size = new Size(135, 24);
+            btnDeleteCharacter.TabIndex = 19;
+            btnDeleteCharacter.Text = "Delete";
+            btnDeleteCharacter.UseVisualStyleBackColor = true;
+            btnDeleteCharacter.Click += btnDeleteCharacter_Click;
+            btnDeleteCharacter.MouseEnter += btnGeneric_MouseEnter;
+            btnDeleteCharacter.MouseLeave += btnGeneric_MouseLeave;
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1037, 635);
+            Controls.Add(btnDeleteCharacter);
             Controls.Add(btnPreviousPage);
             Controls.Add(btnNextPage);
             Controls.Add(btnEditCharacter);
@@ -372,5 +396,6 @@
         private Button btnEditCharacter;
         private Button btnNextPage;
         private Button btnPreviousPage;
+        private Button btnDeleteCharacter;
     }
 }

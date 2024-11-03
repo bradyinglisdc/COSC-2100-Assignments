@@ -72,12 +72,10 @@ namespace Assignment3
             get { return _selectedCharacter; }
             set
             {
-                if (value != null)
-                {
-                    ChangeSelectedCharacter(value);
-                    _selectedCharacter = value;
-                    DisplaySelectedCharacterStats();
-                }
+                ChangeSelectedCharacter(value);
+                _selectedCharacter = value;
+                DisplaySelectedCharacterStats();
+                
             }
         }
 
@@ -181,8 +179,27 @@ namespace Assignment3
         {
             if (SelectedCharacter == null) { return; }
             PageLoaded = false;
-            frmCharacterEditor characterEditor = new frmCharacterEditor(Character.FindByName(SelectedCharacter));
-            characterEditor.ShowDialog();
+
+            Character? characterToEdit = Character.FindByName(SelectedCharacter);
+            if (characterToEdit != null)
+            {
+                frmCharacterEditor characterEditor = new frmCharacterEditor(characterToEdit);
+                characterEditor.ShowDialog();
+            }
+        }
+
+        /// <summary>
+        /// Deletes the currently selected character if user agrees to prompt
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteCharacter_Click(object sender, EventArgs e)
+        {
+            if (SelectedCharacter != null && MessageBox.Show($"Are you sure you want to delete {SelectedCharacter}? This cannot be undone.", $"Delete {SelectedCharacter}?", 
+                MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                DeleteCharacter();
+            }
         }
 
         /// <summary>
@@ -331,7 +348,7 @@ namespace Assignment3
         /// Deselects the current character and selects the new one.
         /// </summary>
         /// <param name="characterToSelect">The character which should be focused.</param>
-        private void ChangeSelectedCharacter(string characterToSelect)
+        private void ChangeSelectedCharacter(string? characterToSelect)
         {
             // If the character is already selected, just return
             if (characterToSelect == SelectedCharacter) { return; }
@@ -390,10 +407,10 @@ namespace Assignment3
         {
             // Find the corresponding character if the selected character exists
             if (SelectedCharacter == null) { return; }
-            Character characterToDisplay = Character.FindByName(SelectedCharacter);
+            Character? characterToDisplay = Character.FindByName(SelectedCharacter);
 
             // Return if this character has no race/class
-            if (characterToDisplay.Class == null || characterToDisplay.Race == null) { return; }
+            if (characterToDisplay == null || characterToDisplay.Class == null || characterToDisplay.Race == null) { return; }
 
             // Update all character info
             lblGender.Text = $"Gender: {characterToDisplay.Gender}";
@@ -410,6 +427,23 @@ namespace Assignment3
 
             lblRace.Text = $"Race: {characterToDisplay.Race.Name}";
             lblRaceBonusAttributes.Text = $"Bonus Attributes: ";
+        }
+
+        /// <summary>
+        /// Deletes the currently selected character from display and memory
+        /// </summary>
+        private void DeleteCharacter()
+        {
+            if (SelectedCharacter == null) { return; }
+            Control[] panelsToRemove = Controls.Find(SelectedCharacter, false);
+
+            // Remove from panel list and controls
+            if (panelsToRemove.Length > 0) { CharacterPanels.Remove((Panel)panelsToRemove[0]); } 
+            Controls.RemoveByKey(SelectedCharacter);
+            Character.Delete(SelectedCharacter);
+
+            // Reselect last character if it exists, else select none
+            SelectedCharacter = CharacterPanels.Count <= 0 ? null : CharacterPanels[CharacterPanels.Count - 1].Name;
         }
 
         #endregion

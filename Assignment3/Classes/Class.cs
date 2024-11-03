@@ -81,13 +81,13 @@ namespace Assignment3
         /// <param name="name">The name of this class.</param>
         /// <param name="description">The description of this class.</param>
         /// <param name="hpDice">The HP dice of this class.</param>
-        /// <param name="classSymbolURI">The URI to the symbol of this class</param>
-        public Class(string name, string description, int hpDice, string classSymbolURI)
+        /// <param name="classSymbolName">The name to the symbol of this class, should be stored in resources</param>
+        public Class(string name, string description, int hpDice, string classSymbolName)
         {
             Name = name;
             Description = description;
             HPDice = hpDice;
-            ClassSymbolURI = classSymbolURI;
+            ClassSymbolURI = Constants.ClassIconsDirectory + "\\" + classSymbolName;
             Classes.Add(this);
         }
 

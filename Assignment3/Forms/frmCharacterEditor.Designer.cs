@@ -79,6 +79,16 @@
             btnCancel = new Button();
             btnSaveCharacter = new Button();
             btnRandomize = new Button();
+            btnSaveAttributes = new Button();
+            lblBonusPointDisclaimer = new Label();
+            lblLevelTag = new Label();
+            lblHPTag = new Label();
+            lblInitiativeTag = new Label();
+            lblSpeedTag = new Label();
+            lblLevel = new Label();
+            lblHP = new Label();
+            lblSpeed = new Label();
+            lblInitiative = new Label();
             ((System.ComponentModel.ISupportInitialize)pbxCharacterEditorBackground).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudArmourClass).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudXP).BeginInit();
@@ -260,6 +270,7 @@
             // lblStrengthDigitTwo
             // 
             lblStrengthDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStrengthDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblStrengthDigitTwo.Location = new Point(629, 126);
             lblStrengthDigitTwo.Name = "lblStrengthDigitTwo";
             lblStrengthDigitTwo.Size = new Size(28, 22);
@@ -282,6 +293,7 @@
             // lblStrengthDigitOne
             // 
             lblStrengthDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStrengthDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblStrengthDigitOne.Location = new Point(658, 126);
             lblStrengthDigitOne.Name = "lblStrengthDigitOne";
             lblStrengthDigitOne.Size = new Size(28, 22);
@@ -292,6 +304,7 @@
             // lblCharismaDigitOne
             // 
             lblCharismaDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCharismaDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblCharismaDigitOne.Location = new Point(658, 275);
             lblCharismaDigitOne.Name = "lblCharismaDigitOne";
             lblCharismaDigitOne.Size = new Size(28, 22);
@@ -314,6 +327,7 @@
             // lblCharismaDigitTwo
             // 
             lblCharismaDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCharismaDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblCharismaDigitTwo.Location = new Point(629, 275);
             lblCharismaDigitTwo.Name = "lblCharismaDigitTwo";
             lblCharismaDigitTwo.Size = new Size(28, 22);
@@ -324,6 +338,7 @@
             // lblWisdomDigitOne
             // 
             lblWisdomDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblWisdomDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblWisdomDigitOne.Location = new Point(658, 245);
             lblWisdomDigitOne.Name = "lblWisdomDigitOne";
             lblWisdomDigitOne.Size = new Size(28, 22);
@@ -346,6 +361,7 @@
             // lblWisdomDigitTwo
             // 
             lblWisdomDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblWisdomDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblWisdomDigitTwo.Location = new Point(629, 245);
             lblWisdomDigitTwo.Name = "lblWisdomDigitTwo";
             lblWisdomDigitTwo.Size = new Size(28, 22);
@@ -356,6 +372,7 @@
             // lblIntelligenceDigitOne
             // 
             lblIntelligenceDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIntelligenceDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblIntelligenceDigitOne.Location = new Point(658, 215);
             lblIntelligenceDigitOne.Name = "lblIntelligenceDigitOne";
             lblIntelligenceDigitOne.Size = new Size(28, 22);
@@ -378,6 +395,7 @@
             // lblIntelligenceDigitTwo
             // 
             lblIntelligenceDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblIntelligenceDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblIntelligenceDigitTwo.Location = new Point(629, 215);
             lblIntelligenceDigitTwo.Name = "lblIntelligenceDigitTwo";
             lblIntelligenceDigitTwo.Size = new Size(28, 22);
@@ -388,6 +406,7 @@
             // lblConstitutionDigitOne
             // 
             lblConstitutionDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblConstitutionDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblConstitutionDigitOne.Location = new Point(658, 185);
             lblConstitutionDigitOne.Name = "lblConstitutionDigitOne";
             lblConstitutionDigitOne.Size = new Size(28, 22);
@@ -410,6 +429,7 @@
             // lblConstitutionDigitTwo
             // 
             lblConstitutionDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblConstitutionDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblConstitutionDigitTwo.Location = new Point(629, 185);
             lblConstitutionDigitTwo.Name = "lblConstitutionDigitTwo";
             lblConstitutionDigitTwo.Size = new Size(28, 22);
@@ -420,6 +440,7 @@
             // lblDexterityDigitOne
             // 
             lblDexterityDigitOne.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDexterityDigitOne.Image = Properties.Resources.CharacterCreatorButton;
             lblDexterityDigitOne.Location = new Point(658, 155);
             lblDexterityDigitOne.Name = "lblDexterityDigitOne";
             lblDexterityDigitOne.Size = new Size(28, 22);
@@ -442,6 +463,7 @@
             // lblDexterityDigitTwo
             // 
             lblDexterityDigitTwo.Font = new Font("Algerian", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDexterityDigitTwo.Image = Properties.Resources.CharacterCreatorButton;
             lblDexterityDigitTwo.Location = new Point(629, 155);
             lblDexterityDigitTwo.Name = "lblDexterityDigitTwo";
             lblDexterityDigitTwo.Size = new Size(28, 22);
@@ -608,9 +630,13 @@
             btnCancel.TabIndex = 48;
             btnCancel.Text = "&Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            btnCancel.MouseEnter += btnGeneric_MouseEnter;
+            btnCancel.MouseLeave += btnGeneric_MouseExit;
             // 
             // btnSaveCharacter
             // 
+            btnSaveCharacter.FlatAppearance.BorderColor = Color.Black;
             btnSaveCharacter.FlatAppearance.BorderSize = 3;
             btnSaveCharacter.FlatStyle = FlatStyle.Flat;
             btnSaveCharacter.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -620,12 +646,15 @@
             btnSaveCharacter.Name = "btnSaveCharacter";
             btnSaveCharacter.Size = new Size(147, 40);
             btnSaveCharacter.TabIndex = 50;
-            btnSaveCharacter.Text = "&Save Character";
+            btnSaveCharacter.Text = "&Save && Exit";
             btnSaveCharacter.UseVisualStyleBackColor = true;
             btnSaveCharacter.Click += btnSaveCharacter_Click;
+            btnSaveCharacter.MouseEnter += btnGeneric_MouseEnter;
+            btnSaveCharacter.MouseLeave += btnGeneric_MouseExit;
             // 
             // btnRandomize
             // 
+            btnRandomize.FlatAppearance.BorderColor = Color.Black;
             btnRandomize.FlatAppearance.BorderSize = 2;
             btnRandomize.FlatStyle = FlatStyle.Flat;
             btnRandomize.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -637,12 +666,152 @@
             btnRandomize.TabIndex = 51;
             btnRandomize.Text = "&Randomize";
             btnRandomize.UseVisualStyleBackColor = true;
+            btnRandomize.MouseEnter += btnGeneric_MouseEnter;
+            btnRandomize.MouseLeave += btnGeneric_MouseExit;
+            // 
+            // btnSaveAttributes
+            // 
+            btnSaveAttributes.FlatAppearance.BorderColor = Color.Black;
+            btnSaveAttributes.FlatAppearance.BorderSize = 2;
+            btnSaveAttributes.FlatStyle = FlatStyle.Flat;
+            btnSaveAttributes.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnSaveAttributes.ForeColor = Color.Black;
+            btnSaveAttributes.Image = Properties.Resources.GenericRuggedPaper;
+            btnSaveAttributes.Location = new Point(859, 92);
+            btnSaveAttributes.Name = "btnSaveAttributes";
+            btnSaveAttributes.Size = new Size(149, 40);
+            btnSaveAttributes.TabIndex = 52;
+            btnSaveAttributes.Text = "&Save Attributes";
+            btnSaveAttributes.UseVisualStyleBackColor = true;
+            btnSaveAttributes.Click += btnSaveAttributes_Click;
+            btnSaveAttributes.MouseEnter += btnGeneric_MouseEnter;
+            btnSaveAttributes.MouseLeave += btnGeneric_MouseExit;
+            // 
+            // lblBonusPointDisclaimer
+            // 
+            lblBonusPointDisclaimer.Font = new Font("Baskerville Old Face", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblBonusPointDisclaimer.Image = Properties.Resources.GenericRuggedPaper;
+            lblBonusPointDisclaimer.Location = new Point(741, 145);
+            lblBonusPointDisclaimer.Name = "lblBonusPointDisclaimer";
+            lblBonusPointDisclaimer.Size = new Size(267, 73);
+            lblBonusPointDisclaimer.TabIndex = 53;
+            lblBonusPointDisclaimer.Text = "To apply race and gender bonus points, all points must be spent and attributes must be saved.\r\nSaving attributes with all points spent will disable point decreasing.";
+            // 
+            // lblLevelTag
+            // 
+            lblLevelTag.BackColor = Color.FromArgb(13, 13, 13);
+            lblLevelTag.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLevelTag.ForeColor = Color.White;
+            lblLevelTag.Location = new Point(786, 228);
+            lblLevelTag.Name = "lblLevelTag";
+            lblLevelTag.Size = new Size(49, 23);
+            lblLevelTag.TabIndex = 54;
+            lblLevelTag.Text = "Level:";
+            lblLevelTag.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblHPTag
+            // 
+            lblHPTag.BackColor = Color.FromArgb(13, 13, 13);
+            lblHPTag.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHPTag.ForeColor = Color.White;
+            lblHPTag.Location = new Point(841, 228);
+            lblHPTag.Name = "lblHPTag";
+            lblHPTag.Size = new Size(26, 23);
+            lblHPTag.TabIndex = 55;
+            lblHPTag.Text = "HP:";
+            lblHPTag.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblInitiativeTag
+            // 
+            lblInitiativeTag.BackColor = Color.FromArgb(13, 13, 13);
+            lblInitiativeTag.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInitiativeTag.ForeColor = Color.White;
+            lblInitiativeTag.Location = new Point(927, 228);
+            lblInitiativeTag.Name = "lblInitiativeTag";
+            lblInitiativeTag.Size = new Size(82, 23);
+            lblInitiativeTag.TabIndex = 56;
+            lblInitiativeTag.Text = "Initiative:";
+            lblInitiativeTag.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblSpeedTag
+            // 
+            lblSpeedTag.BackColor = Color.FromArgb(13, 13, 13);
+            lblSpeedTag.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSpeedTag.ForeColor = Color.White;
+            lblSpeedTag.Location = new Point(873, 228);
+            lblSpeedTag.Name = "lblSpeedTag";
+            lblSpeedTag.Size = new Size(49, 23);
+            lblSpeedTag.TabIndex = 57;
+            lblSpeedTag.Text = "Speed:";
+            lblSpeedTag.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblLevel
+            // 
+            lblLevel.BackColor = Color.FromArgb(13, 13, 13);
+            lblLevel.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblLevel.ForeColor = Color.Black;
+            lblLevel.Image = Properties.Resources.CharacterCreatorButton;
+            lblLevel.Location = new Point(786, 251);
+            lblLevel.Name = "lblLevel";
+            lblLevel.Size = new Size(49, 23);
+            lblLevel.TabIndex = 58;
+            lblLevel.Text = "0";
+            lblLevel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblHP
+            // 
+            lblHP.BackColor = Color.FromArgb(13, 13, 13);
+            lblHP.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHP.ForeColor = Color.Black;
+            lblHP.Image = Properties.Resources.CharacterCreatorButton;
+            lblHP.Location = new Point(841, 251);
+            lblHP.Name = "lblHP";
+            lblHP.Size = new Size(26, 23);
+            lblHP.TabIndex = 59;
+            lblHP.Text = "0";
+            lblHP.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblSpeed
+            // 
+            lblSpeed.BackColor = Color.FromArgb(13, 13, 13);
+            lblSpeed.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSpeed.ForeColor = Color.Black;
+            lblSpeed.Image = Properties.Resources.CharacterCreatorButton;
+            lblSpeed.Location = new Point(873, 251);
+            lblSpeed.Name = "lblSpeed";
+            lblSpeed.Size = new Size(48, 23);
+            lblSpeed.TabIndex = 60;
+            lblSpeed.Text = "0";
+            lblSpeed.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lblInitiative
+            // 
+            lblInitiative.BackColor = Color.FromArgb(13, 13, 13);
+            lblInitiative.Font = new Font("Algerian", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblInitiative.ForeColor = Color.Black;
+            lblInitiative.Image = Properties.Resources.CharacterCreatorButton;
+            lblInitiative.Location = new Point(927, 251);
+            lblInitiative.Name = "lblInitiative";
+            lblInitiative.Size = new Size(82, 23);
+            lblInitiative.TabIndex = 61;
+            lblInitiative.Text = "0";
+            lblInitiative.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmCharacterEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1037, 635);
+            Controls.Add(lblInitiative);
+            Controls.Add(lblSpeed);
+            Controls.Add(lblHP);
+            Controls.Add(lblLevel);
+            Controls.Add(lblSpeedTag);
+            Controls.Add(lblInitiativeTag);
+            Controls.Add(lblHPTag);
+            Controls.Add(lblLevelTag);
+            Controls.Add(lblBonusPointDisclaimer);
+            Controls.Add(btnSaveAttributes);
             Controls.Add(btnRandomize);
             Controls.Add(btnSaveCharacter);
             Controls.Add(btnCancel);
@@ -758,5 +927,15 @@
         private Button btnCancel;
         private Button btnSaveCharacter;
         private Button btnRandomize;
+        private Button btnSaveAttributes;
+        private Label lblBonusPointDisclaimer;
+        private Label lblLevelTag;
+        private Label lblHPTag;
+        private Label lblInitiativeTag;
+        private Label lblSpeedTag;
+        private Label lblLevel;
+        private Label lblHP;
+        private Label lblSpeed;
+        private Label lblInitiative;
     }
 }

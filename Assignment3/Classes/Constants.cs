@@ -26,6 +26,14 @@ namespace Assignment3
     /// </summary>
     internal static class Constants
     {
+        #region File Locating
+
+        public static string ProjectDirectory = (Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent).FullName;
+        public static string RersourcesDirectory = ProjectDirectory + "\\Resources";
+        public static string ClassIconsDirectory = RersourcesDirectory + "\\ClassIcons";
+
+        #endregion
+
 
         #region Alignments and Attribute names
 
@@ -112,9 +120,17 @@ namespace Assignment3
                 Chaotic evil (CE) creatures act with arbitrary violence, spurred by their greed, hatred, or bloodlust. 
                 Demons, red dragons, and orcs are chaotic evil.
                 """},
-
         };
 
+        /// <summary>
+        /// The maximum level an attribute can obtain.
+        /// </summary>
+        public const int MaxAttributeScore = 20;
+
+        /// <summary>
+        /// The minimum level an attribute can obtain.
+        /// </summary>
+        public const int MinAttributeScore = 8;
 
         #endregion
 
@@ -181,7 +197,8 @@ namespace Assignment3
         /// <summary>
         /// Un-named characters get this name.
         /// </summary>
-        public const string DefaultCharacterName = "Unknown";
+        public const string DefaultCharacterName = "Unknown ";
+        public static int DefaultCharacterNameAutoNum = 1;
 
         /// <summary>
         /// The default gender is assigned as male.
@@ -207,6 +224,11 @@ namespace Assignment3
         /// The maximum characters a character can be.
         /// </summary>
         public const int MaximumNameSize = 20;
+
+        /// <summary>
+        /// The minimum characters a character can be.
+        /// </summary>
+        public const int MinimumNameSize = 5;
 
         #endregion
 

@@ -25,7 +25,6 @@ namespace Assignment3
     /// </summary>
     internal static class Driver
     {
-
         #region Race Methods
 
         /// <summary>
@@ -167,13 +166,13 @@ namespace Assignment3
         public static void InstantiateExampleCharacters()
         {
             new Character("Thalrin Ironbrow", Class.Classes[0], Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
-                new List<int>() { 16, 16, 12, 12, 12, 12}, 2, 12);
+                new List<int>() { 16, 16, 12, 12, 12, 12}, 2, 12, true);
             
             new Character("Elara Moonshadow", Class.Classes[0], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12);
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12, true);
 
             new Character("Kairos Emberflame", Class.Classes[2], Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
-                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12);
+                new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12, true);
 
         }
 
@@ -186,12 +185,12 @@ namespace Assignment3
         /// </summary>
         public static void InstantiateDefaultClasses()
         {
-            new Class("Barbarian", "", 12, "LocalResources\\ClassIcons\\BarbarianIcon.PNG");
-            new Class("Bard", "", 8, "LocalResources\\ClassIcons\\BardIcon.PNG");
-            new Class("Cleric", "", 8, "LocalResources\\ClassIcons\\ClericIcon.PNG");
-            new Class("Druid", "", 8, "LocalResources\\ClassIcons\\DruidIcon.PNG");
-            new Class("Fighter", "", 10, "LocalResources\\ClassIcons\\FighterIcon.PNG");
-            new Class("Monk", "", 8, "LocalResources\\ClassIcons\\MonkIcon.PNG");
+            new Class("Barbarian", "", 12, "BarbarianIcon.PNG");
+            new Class("Bard", "", 8, "BardIcon.PNG");
+            new Class("Cleric", "", 8, "ClericIcon.PNG");
+            new Class("Druid", "", 8, "DruidIcon.PNG");
+            new Class("Fighter", "", 10, "FighterIcon.PNG");
+            new Class("Monk", "", 8, "MonkIcon.PNG");
         }
 
         #endregion
