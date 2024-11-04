@@ -363,7 +363,7 @@ namespace Assignment3
         private void DecreaseAttributeLabel(int attributeCost, int leftDigit, int rightDigit, Label digitTwo, Label digitOne)
         {
             // Simple checks to update labels accurately
-            if (leftDigit == 0 && rightDigit == 0) { return; }
+            if (leftDigit == 0 && rightDigit == 8) { return; }
             if (rightDigit == 0)
             {
                 leftDigit -= 1;
