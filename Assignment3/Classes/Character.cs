@@ -9,9 +9,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Assignment3.Constants;
 
 #endregion
@@ -163,18 +165,7 @@ namespace Assignment3
         public Character(string name, Class chosenClass, Race race, Constants.Alignment alignment, Constants.Gender gender,
             List<int> attributes, int attributePoints, int armourClass, bool hasAbilityScoreGeneration)
         {
-            Name = name;
-            Class = chosenClass;
-            Race = race;
-            Alignment = alignment;
-            Gender = gender;
-            ArmourClass = armourClass;
-            AttributePoints = attributePoints;
-            HasAbilityScoreGeneration = hasAbilityScoreGeneration;
-            RaceBonusRecieved = false;
-            GenderBonusRecieved = false;
-
-
+            SetGenericProperties(name, chosenClass,  race, alignment, gender, armourClass, attributePoints, hasAbilityScoreGeneration);
             SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
             SetInitiative();
             Characters.Add(this);
@@ -185,16 +176,8 @@ namespace Assignment3
         /// </summary>
         public Character()
         {
-            Name = Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++;
-            Race = Race.FindByName(Constants.DefaultRace);
-            Alignment = Constants.DefaultAlignment;
-            Gender = Constants.DefaultGender;
-            ArmourClass = Constants.DefaultArmourClass;
-            AttributePoints = Constants.StartingAttributePoints;
-            HasAbilityScoreGeneration = true;
-            RaceBonusRecieved = false;
-            GenderBonusRecieved = false;
-
+            SetGenericProperties(Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++, null, Race.FindByName(Constants.DefaultRace),
+               Constants.DefaultAlignment, Constants.DefaultGender, Constants.DefaultArmourClass, Constants.StartingAttributePoints, true);
             SetDefaultAttributes();
             SetInitiative();
         }
@@ -202,6 +185,26 @@ namespace Assignment3
         #endregion
 
         #region Default Setup
+
+        /// <summary>
+        /// Properties generic to both constructors
+        /// </summary>
+        private void SetGenericProperties(string name, Class chosenClass, Race race, Constants.Alignment alignment, 
+            Constants.Gender gender, int armourClass, int attributePoints, bool hasAbilityScoreGeneration)
+        {
+            Name = name;
+            Class = chosenClass;
+            Race = race;
+            Alignment = alignment;
+            Gender = gender;
+            ArmourClass = armourClass;
+            AttributePoints = attributePoints;
+            HasAbilityScoreGeneration = hasAbilityScoreGeneration;
+            RaceBonusRecieved = false;
+            GenderBonusRecieved = false;
+            Speed = Race.Speed;
+            ExperiencePoints = 0;
+        }
 
         /// <summary>
         /// Sets all attributes to the default int specified in Constants.cs.
@@ -244,6 +247,7 @@ namespace Assignment3
             Attributes.Add(Constants.Attribute.Intelligence, intelligence);
             Attributes.Add(Constants.Attribute.Wisdom, wisdom);
             Attributes.Add(Constants.Attribute.Charisma, charisma);
+            HitPoints = CalculateHitPoints(Name, Attributes[Constants.Attribute.Constitution]);
         }
 
         #endregion
@@ -330,6 +334,29 @@ namespace Assignment3
 
         #endregion
 
+        #region General Instance Methods
+
+        /// <summary>
+        /// Returns this character's attributes as a string
+        /// </summary>
+        /// <returns></returns>
+        public string GetFormattedAttributes()
+        {
+            string returnString = "**ATTRIBUTES**\n";
+            if (Attributes == null) { return returnString; }
+
+            foreach (KeyValuePair<Constants.Attribute, int> attribute in Attributes)
+            {
+                returnString += $"""
+                    {attribute.Key}: {attribute.Value}
+
+                    """;
+            }
+            return returnString;
+        }
+
+        #endregion
+
         #region Static Methods
 
         /// <summary>
@@ -372,6 +399,54 @@ namespace Assignment3
                 if (character.Name.ToLower() == name.ToLower()) { return character; }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Deletes a character from the static list of character's by it's name.
+        /// </summary>
+        /// <param name="characterToDeleteByName">The character to be removed.</param>
+        public static void Delete(string characterToDeleteByName)
+        {
+            // Search for a matching character
+            Character? characterToDelete = FindByName(characterToDeleteByName);
+            if (characterToDelete == null) { return; }
+
+            // If there's a match, remove it from the static list
+            Characters.Remove(characterToDelete);
+        }
+
+        /// <summary>
+        /// Returns a random gender as a string
+        /// </summary>
+        /// <returns>A random gender</returns>
+        public static string GetRandomGender()
+        {
+            // Get genders as an array
+            Gender[] genders = (Gender[])Enum.GetValues(typeof(Gender));
+
+            // Randomly pick a gender
+            int genderIndex = Tools.GetRandomInt(0, genders.Length);
+
+            // Return the gender
+            return genders[genderIndex].ToString();
+
+        }
+
+        /// <summary>
+        /// Returns a random alignment as a string
+        /// </summary>
+        /// <returns>A random alignment</returns>
+        public static string GetRandomAlignment()
+        {
+            // Get alignments as an array
+            Alignment[] alignments = (Alignment[])Enum.GetValues(typeof(Alignment));
+
+            // Randomly pick an alignment
+            int alignmentIndex = Tools.GetRandomInt(0, alignments.Length);
+
+            // Return the alignment
+            return alignments[alignmentIndex].ToString();
+
         }
 
         #region Calculations
@@ -427,20 +502,45 @@ namespace Assignment3
         }
 
         /// <summary>
-        /// Deletes a character from the static list of character's by it's name.
+        /// Calculates speed based on a given race
         /// </summary>
-        /// <param name="characterToDeleteByName">The character to be removed.</param>
-        public static void Delete(string characterToDeleteByName)
+        /// <param name="race">The race to pull from.</param>
+        /// <returns></returns>
+        public static int CalculateSpeed(string raceName)
         {
-            // Search for a matching character
-            Character? characterToDelete = FindByName(characterToDeleteByName);
-            if (characterToDelete == null) { return; }
+            return Race.FindByName(raceName).Speed;
+        }
 
-            // If there's a match, remove it from the static list
-            Characters.Remove(characterToDelete);
+        /// <summary>
+        /// Takes a gender as a string, finds it's enum, formats bonus.
+        /// </summary>
+        /// <param name="gender"></param>
+        /// <returns></returns>
+        public static string FormatGenderBonus(string gender)
+        {
+            string returnString = "Gender Bonus: ";
+            Constants.Gender characterGender = (Gender)Enum.Parse(typeof(Gender), gender);
+
+            // Iterate through Gender dictionary, and then through each gender's attribute dictionary
+            foreach (KeyValuePair<Constants.Gender, Dictionary<Constants.Attribute, int>> genderBonus in Constants.GenderBonuses)
+            {
+                if (genderBonus.Key == characterGender)
+                {
+                    foreach (KeyValuePair<Constants.Attribute, int> genderAttributes in genderBonus.Value)
+                    {
+                        returnString += $"""
+                            +{genderAttributes.Value} {genderAttributes.Key} 
+                            """;
+                    }
+                }
+            }
+
+            return returnString;
         }
 
         #endregion
+
+
 
         #endregion
 

@@ -170,6 +170,11 @@ namespace Assignment3
             They may be inherently strong or weak, smart or dull; their attributes seem to be completely random.
             """;
 
+        /// <summary>
+        /// The default speed a race will get.
+        /// </summary>
+        public const int DefaultRaceSpeed = 10;
+
         #endregion
 
         #region Character
@@ -271,6 +276,35 @@ namespace Assignment3
             { 20, 3 }
         };
 
+        /// <summary>
+        /// Gender bonus attributes as a dictionary. Key represents a gender, value represents is dictionary of attributes.
+        /// </summary>
+        public static Dictionary<Gender, Dictionary<Attribute, int>> GenderBonuses = new Dictionary<Gender, Dictionary<Attribute, int>>()
+        {
+            {
+                Gender.Male, new Dictionary<Attribute, int>()
+                {
+                    { Attribute.Strength, 1 },
+                    { Attribute.Wisdom, 1 }
+                }
+            },
+
+            {
+                Gender.Female, new Dictionary<Attribute, int>()
+                {
+                    { Attribute.Dexterity, 1 },
+                    { Attribute.Intelligence, 1 }
+                }
+            },
+
+            {
+                Gender.Other, new Dictionary<Attribute, int>()
+                {
+                    { Attribute.Constitution, 1 },
+                    { Attribute.Charisma, 1 }
+                }
+            }
+        };
 
         #endregion
 

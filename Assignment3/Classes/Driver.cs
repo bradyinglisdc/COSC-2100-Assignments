@@ -42,7 +42,8 @@ namespace Assignment3
                Size: Dwarves stand between 4 and 5 feet tall and average about 150 pounds. Your size is Medium.
                Speed: Your base walking speed is 25 feet. Your speed is not reduced by wearing heavy armor.
                """,
-               new List<int> { 2, 0, 2, 0, 0, 0 }
+               new List<int> { 2, 0, 2, 0, 0, 0 },
+               25
            );
 
             new Race(
@@ -53,7 +54,8 @@ namespace Assignment3
                 Size: High Elves stand between 5 and 6 feet tall. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 0, 2, 0, 1, 0, 0 }
+                new List<int> { 0, 2, 0, 1, 0, 0 },
+                39
             );
 
             new Race(
@@ -64,7 +66,8 @@ namespace Assignment3
                 Size: Wood Elves are slightly shorter and slimmer than humans. Your size is Medium.
                 Speed: Your base walking speed is 35 feet.
                 """,
-                new List<int> { 0, 2, 0, 0, 1, 0 }
+                new List<int> { 0, 2, 0, 0, 1, 0 },
+                35
             );
 
             new Race(
@@ -75,7 +78,8 @@ namespace Assignment3
                 Size: Halflings average about 3 feet tall and weigh about 40 pounds. Your size is Small.
                 Speed: Your base walking speed is 25 feet.
                 """,
-                new List<int> { 0, 2, 0, 0, 0, 1 }
+                new List<int> { 0, 2, 0, 0, 0, 1 },
+                25
             );
 
             new Race(
@@ -86,7 +90,8 @@ namespace Assignment3
                 Size: Humans vary widely in height and build. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 1, 1, 1, 1, 1, 1 }
+                new List<int> { 1, 1, 1, 1, 1, 1 },
+                30
             );
 
             new Race(
@@ -97,7 +102,8 @@ namespace Assignment3
                 Size: Dragonborn stand well over 6 feet tall and average 250 pounds. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 2, 0, 2, 0, 0, 1 }
+                new List<int> { 2, 0, 2, 0, 0, 1 },
+                30
             );
 
             new Race(
@@ -108,7 +114,8 @@ namespace Assignment3
                 Size: Gnomes stand around 3 to 4 feet tall. Your size is Small.
                 Speed: Your base walking speed is 25 feet.
                 """,
-                new List<int> { 0, 1, 0, 2, 0, 0 }
+                new List<int> { 0, 1, 0, 2, 0, 0 },
+                25
             );
 
             new Race(
@@ -119,7 +126,8 @@ namespace Assignment3
                 Size: Half-Elves are about the same size as humans. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 0, 1, 0, 1, 0, 2 }
+                new List<int> { 0, 1, 0, 1, 0, 2 },
+                30
             );
 
             new Race(
@@ -130,7 +138,8 @@ namespace Assignment3
                 Size: Half-Orcs are between 5 and 6 feet tall, with a muscular build. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 2, 0, 1, 0, 0, 0 }
+                new List<int> { 2, 0, 1, 0, 0, 0 },
+                30
             );
 
             new Race(
@@ -141,7 +150,8 @@ namespace Assignment3
                 Size: Tieflings are about the same size and build as humans. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 0, 0, 0, 1, 0, 2 }
+                new List<int> { 0, 0, 0, 1, 0, 2 },
+                30
             );
 
             new Race(
@@ -152,7 +162,8 @@ namespace Assignment3
                 Size: Githyanki are similar in height and build to humans. Your size is Medium.
                 Speed: Your base walking speed is 30 feet.
                 """,
-                new List<int> { 1, 2, 0, 0, 0, 0 }
+                new List<int> { 1, 2, 0, 0, 0, 0 },
+                30
             );
         }
 
@@ -168,10 +179,10 @@ namespace Assignment3
             new Character("Thalrin Ironbrow", Class.Classes[0], Race.Races[0], Constants.Alignment.LawfulGood, Constants.Gender.Male, 
                 new List<int>() { 16, 16, 12, 12, 12, 12}, 2, 12, true);
             
-            new Character("Elara Moonshadow", Class.Classes[0], Race.Races[1], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Elara Moonshadow", Class.Classes[1], Race.Races[1], Constants.Alignment.NeutralGood, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12, true);
 
-            new Character("Kairos Emberflame", Class.Classes[2], Race.Races[2], Constants.Alignment.LawfulGood, Constants.Gender.Male,
+            new Character("Kairos Emberflame", Class.Classes[2], Race.Races[2], Constants.Alignment.Neutral, Constants.Gender.Male,
                 new List<int>() { 14, 14, 13, 13, 13, 13 }, 2, 12, true);
 
         }

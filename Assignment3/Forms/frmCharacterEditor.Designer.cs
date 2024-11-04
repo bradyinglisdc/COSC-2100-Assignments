@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCharacterEditor));
             pbxCharacterEditorBackground = new PictureBox();
             lblRemainingPoints = new Label();
@@ -89,6 +90,9 @@
             lblHP = new Label();
             lblSpeed = new Label();
             lblInitiative = new Label();
+            CharacterEditToolTIps = new ToolTip(components);
+            lblRaceBonus = new Label();
+            lblGenderBonus = new Label();
             ((System.ComponentModel.ISupportInitialize)pbxCharacterEditorBackground).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudArmourClass).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudXP).BeginInit();
@@ -132,7 +136,8 @@
             tbxName.Location = new Point(36, 160);
             tbxName.Name = "tbxName";
             tbxName.Size = new Size(105, 23);
-            tbxName.TabIndex = 3;
+            tbxName.TabIndex = 0;
+            CharacterEditToolTIps.SetToolTip(tbxName, "Click here, or navigate to tab index 0 to enter name");
             tbxName.TextChanged += DetailControl_Change;
             // 
             // lblGenderTag
@@ -154,7 +159,8 @@
             cbxGender.Location = new Point(163, 160);
             cbxGender.Name = "cbxGender";
             cbxGender.Size = new Size(108, 22);
-            cbxGender.TabIndex = 5;
+            cbxGender.TabIndex = 1;
+            CharacterEditToolTIps.SetToolTip(cbxGender, "Tap here, or navigate to tab index 1 to begin entering gender");
             cbxGender.TextChanged += DetailControl_Change;
             // 
             // nudArmourClass
@@ -164,7 +170,8 @@
             nudArmourClass.Maximum = new decimal(new int[] { 36, 0, 0, 0 });
             nudArmourClass.Name = "nudArmourClass";
             nudArmourClass.Size = new Size(105, 23);
-            nudArmourClass.TabIndex = 6;
+            nudArmourClass.TabIndex = 2;
+            CharacterEditToolTIps.SetToolTip(nudArmourClass, "Tap here, or navigate to tab index 2 to begin entering armour class");
             nudArmourClass.ValueChanged += DetailControl_Change;
             // 
             // lblArmourClassTag
@@ -198,7 +205,8 @@
             nudXP.Maximum = new decimal(new int[] { 360000, 0, 0, 0 });
             nudXP.Name = "nudXP";
             nudXP.Size = new Size(105, 23);
-            nudXP.TabIndex = 9;
+            nudXP.TabIndex = 3;
+            CharacterEditToolTIps.SetToolTip(nudXP, "Tap here, or navigate to tab index 3 to begin entering xp");
             nudXP.ValueChanged += DetailControl_Change;
             // 
             // lblClassTag
@@ -220,7 +228,8 @@
             cbxClass.Location = new Point(36, 284);
             cbxClass.Name = "cbxClass";
             cbxClass.Size = new Size(105, 22);
-            cbxClass.TabIndex = 11;
+            cbxClass.TabIndex = 4;
+            CharacterEditToolTIps.SetToolTip(cbxClass, "Tap here, or navigate to tab index 4 to begin entering class");
             cbxClass.TextChanged += DetailControl_Change;
             // 
             // cbxRace
@@ -230,7 +239,8 @@
             cbxRace.Location = new Point(163, 284);
             cbxRace.Name = "cbxRace";
             cbxRace.Size = new Size(105, 22);
-            cbxRace.TabIndex = 13;
+            cbxRace.TabIndex = 5;
+            CharacterEditToolTIps.SetToolTip(cbxRace, "Tap here, or navigate to tab index 5 to begin entering race");
             cbxRace.TextChanged += DetailControl_Change;
             // 
             // lblRaceTag
@@ -264,7 +274,8 @@
             cbxAlignment.Location = new Point(289, 284);
             cbxAlignment.Name = "cbxAlignment";
             cbxAlignment.Size = new Size(105, 22);
-            cbxAlignment.TabIndex = 15;
+            cbxAlignment.TabIndex = 6;
+            CharacterEditToolTIps.SetToolTip(cbxAlignment, "Tap here, or navigate to tab index 6 to begin entering alignment");
             cbxAlignment.TextChanged += DetailControl_Change;
             // 
             // lblStrengthDigitTwo
@@ -477,8 +488,9 @@
             btnIncreaseStrength.Location = new Point(711, 124);
             btnIncreaseStrength.Name = "btnIncreaseStrength";
             btnIncreaseStrength.Size = new Size(17, 24);
-            btnIncreaseStrength.TabIndex = 35;
+            btnIncreaseStrength.TabIndex = 9;
             btnIncreaseStrength.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseStrength, "Click here, or navigate to tab index 9 to increase strength.");
             btnIncreaseStrength.UseVisualStyleBackColor = true;
             btnIncreaseStrength.Click += AttributeControl_Change;
             // 
@@ -488,8 +500,9 @@
             btnDecreaseStrength.Location = new Point(692, 124);
             btnDecreaseStrength.Name = "btnDecreaseStrength";
             btnDecreaseStrength.Size = new Size(17, 24);
-            btnDecreaseStrength.TabIndex = 36;
+            btnDecreaseStrength.TabIndex = 8;
             btnDecreaseStrength.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseStrength, "Click here, or navigate to tab index 8 to decrease strength.");
             btnDecreaseStrength.UseVisualStyleBackColor = true;
             btnDecreaseStrength.Click += AttributeControl_Change;
             // 
@@ -499,8 +512,9 @@
             btnDecreaseCharisma.Location = new Point(692, 273);
             btnDecreaseCharisma.Name = "btnDecreaseCharisma";
             btnDecreaseCharisma.Size = new Size(17, 24);
-            btnDecreaseCharisma.TabIndex = 38;
+            btnDecreaseCharisma.TabIndex = 18;
             btnDecreaseCharisma.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseCharisma, "Click here, or navigate to tab index 18 to decrease charisma.");
             btnDecreaseCharisma.UseVisualStyleBackColor = true;
             btnDecreaseCharisma.Click += AttributeControl_Change;
             // 
@@ -510,8 +524,9 @@
             btnIncreaseCharisma.Location = new Point(711, 273);
             btnIncreaseCharisma.Name = "btnIncreaseCharisma";
             btnIncreaseCharisma.Size = new Size(17, 24);
-            btnIncreaseCharisma.TabIndex = 37;
+            btnIncreaseCharisma.TabIndex = 19;
             btnIncreaseCharisma.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseCharisma, "Click here, or navigate to tab index 19 to increase charisma.");
             btnIncreaseCharisma.UseVisualStyleBackColor = true;
             btnIncreaseCharisma.Click += AttributeControl_Change;
             // 
@@ -521,8 +536,9 @@
             btnDecreaseWisdom.Location = new Point(692, 243);
             btnDecreaseWisdom.Name = "btnDecreaseWisdom";
             btnDecreaseWisdom.Size = new Size(17, 24);
-            btnDecreaseWisdom.TabIndex = 40;
+            btnDecreaseWisdom.TabIndex = 16;
             btnDecreaseWisdom.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseWisdom, "Click here, or navigate to tab index 16 to decrease wisdom.");
             btnDecreaseWisdom.UseVisualStyleBackColor = true;
             btnDecreaseWisdom.Click += AttributeControl_Change;
             // 
@@ -532,8 +548,9 @@
             btnIncreaseWisdom.Location = new Point(711, 243);
             btnIncreaseWisdom.Name = "btnIncreaseWisdom";
             btnIncreaseWisdom.Size = new Size(17, 24);
-            btnIncreaseWisdom.TabIndex = 39;
+            btnIncreaseWisdom.TabIndex = 17;
             btnIncreaseWisdom.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseWisdom, "Click here, or navigate to tab index 17 to increase wisdom.");
             btnIncreaseWisdom.UseVisualStyleBackColor = true;
             btnIncreaseWisdom.Click += AttributeControl_Change;
             // 
@@ -543,8 +560,9 @@
             btnDecreaseIntelligence.Location = new Point(692, 213);
             btnDecreaseIntelligence.Name = "btnDecreaseIntelligence";
             btnDecreaseIntelligence.Size = new Size(17, 24);
-            btnDecreaseIntelligence.TabIndex = 42;
+            btnDecreaseIntelligence.TabIndex = 14;
             btnDecreaseIntelligence.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseIntelligence, "Click here, or navigate to tab index 14 to decrease intelligence");
             btnDecreaseIntelligence.UseVisualStyleBackColor = true;
             btnDecreaseIntelligence.Click += AttributeControl_Change;
             // 
@@ -554,8 +572,9 @@
             btnIncreaseIntelligence.Location = new Point(711, 213);
             btnIncreaseIntelligence.Name = "btnIncreaseIntelligence";
             btnIncreaseIntelligence.Size = new Size(17, 24);
-            btnIncreaseIntelligence.TabIndex = 41;
+            btnIncreaseIntelligence.TabIndex = 15;
             btnIncreaseIntelligence.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseIntelligence, "Click here, or navigate to tab index 15 to increase intelligence.");
             btnIncreaseIntelligence.UseVisualStyleBackColor = true;
             btnIncreaseIntelligence.Click += AttributeControl_Change;
             // 
@@ -565,8 +584,9 @@
             btnDecreaseConstitution.Location = new Point(692, 183);
             btnDecreaseConstitution.Name = "btnDecreaseConstitution";
             btnDecreaseConstitution.Size = new Size(17, 24);
-            btnDecreaseConstitution.TabIndex = 44;
+            btnDecreaseConstitution.TabIndex = 12;
             btnDecreaseConstitution.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseConstitution, "Click here, or navigate to tab index 12 to decrease constitution.");
             btnDecreaseConstitution.UseVisualStyleBackColor = true;
             btnDecreaseConstitution.Click += AttributeControl_Change;
             // 
@@ -576,8 +596,9 @@
             btnIncreaseConstitution.Location = new Point(711, 183);
             btnIncreaseConstitution.Name = "btnIncreaseConstitution";
             btnIncreaseConstitution.Size = new Size(17, 24);
-            btnIncreaseConstitution.TabIndex = 43;
+            btnIncreaseConstitution.TabIndex = 13;
             btnIncreaseConstitution.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseConstitution, "Click here, or navigate to tab index 13 to increase constitution.");
             btnIncreaseConstitution.UseVisualStyleBackColor = true;
             btnIncreaseConstitution.Click += AttributeControl_Change;
             // 
@@ -587,8 +608,9 @@
             btnDecreaseDexterity.Location = new Point(692, 153);
             btnDecreaseDexterity.Name = "btnDecreaseDexterity";
             btnDecreaseDexterity.Size = new Size(17, 24);
-            btnDecreaseDexterity.TabIndex = 46;
+            btnDecreaseDexterity.TabIndex = 10;
             btnDecreaseDexterity.Text = "-";
+            CharacterEditToolTIps.SetToolTip(btnDecreaseDexterity, "Click here, or navigate to tab index 10  to decrease dexterity");
             btnDecreaseDexterity.UseVisualStyleBackColor = true;
             btnDecreaseDexterity.Click += AttributeControl_Change;
             // 
@@ -598,8 +620,9 @@
             btnIncreaseDexterity.Location = new Point(711, 153);
             btnIncreaseDexterity.Name = "btnIncreaseDexterity";
             btnIncreaseDexterity.Size = new Size(17, 24);
-            btnIncreaseDexterity.TabIndex = 45;
+            btnIncreaseDexterity.TabIndex = 11;
             btnIncreaseDexterity.Text = "+";
+            CharacterEditToolTIps.SetToolTip(btnIncreaseDexterity, "Click here, or navigate to tab index 11 to increase dexterity.");
             btnIncreaseDexterity.UseVisualStyleBackColor = true;
             btnIncreaseDexterity.Click += AttributeControl_Change;
             // 
@@ -629,6 +652,7 @@
             btnCancel.Size = new Size(147, 40);
             btnCancel.TabIndex = 48;
             btnCancel.Text = "&Cancel";
+            CharacterEditToolTIps.SetToolTip(btnCancel, "Click here, or press 'ALT + C' to cancel");
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             btnCancel.MouseEnter += btnGeneric_MouseEnter;
@@ -647,6 +671,7 @@
             btnSaveCharacter.Size = new Size(147, 40);
             btnSaveCharacter.TabIndex = 50;
             btnSaveCharacter.Text = "&Save && Exit";
+            CharacterEditToolTIps.SetToolTip(btnSaveCharacter, "Click here, or press 'ALT + S' to save changes");
             btnSaveCharacter.UseVisualStyleBackColor = true;
             btnSaveCharacter.Click += btnSaveCharacter_Click;
             btnSaveCharacter.MouseEnter += btnGeneric_MouseEnter;
@@ -663,9 +688,11 @@
             btnRandomize.Location = new Point(369, 91);
             btnRandomize.Name = "btnRandomize";
             btnRandomize.Size = new Size(127, 40);
-            btnRandomize.TabIndex = 51;
+            btnRandomize.TabIndex = 7;
             btnRandomize.Text = "&Randomize";
+            CharacterEditToolTIps.SetToolTip(btnRandomize, "Click here, or press 'ALT + R' to randomize details");
             btnRandomize.UseVisualStyleBackColor = true;
+            btnRandomize.Click += btnRandomize_Click;
             btnRandomize.MouseEnter += btnGeneric_MouseEnter;
             btnRandomize.MouseLeave += btnGeneric_MouseExit;
             // 
@@ -681,7 +708,8 @@
             btnSaveAttributes.Name = "btnSaveAttributes";
             btnSaveAttributes.Size = new Size(149, 40);
             btnSaveAttributes.TabIndex = 52;
-            btnSaveAttributes.Text = "&Save Attributes";
+            btnSaveAttributes.Text = "Save &Attributes";
+            CharacterEditToolTIps.SetToolTip(btnSaveAttributes, "Click here, or press 'ALT + A' to save current attributes");
             btnSaveAttributes.UseVisualStyleBackColor = true;
             btnSaveAttributes.Click += btnSaveAttributes_Click;
             btnSaveAttributes.MouseEnter += btnGeneric_MouseEnter;
@@ -797,11 +825,35 @@
             lblInitiative.Text = "0";
             lblInitiative.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblRaceBonus
+            // 
+            lblRaceBonus.Font = new Font("Baskerville Old Face", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRaceBonus.Image = Properties.Resources.GenericRuggedPaper;
+            lblRaceBonus.Location = new Point(304, 139);
+            lblRaceBonus.Name = "lblRaceBonus";
+            lblRaceBonus.Size = new Size(191, 38);
+            lblRaceBonus.TabIndex = 62;
+            lblRaceBonus.Text = "Race Bonus: ";
+            // 
+            // lblGenderBonus
+            // 
+            lblGenderBonus.Font = new Font("Baskerville Old Face", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblGenderBonus.Image = Properties.Resources.GenericRuggedPaper;
+            lblGenderBonus.Location = new Point(304, 183);
+            lblGenderBonus.Name = "lblGenderBonus";
+            lblGenderBonus.Size = new Size(191, 38);
+            lblGenderBonus.TabIndex = 63;
+            lblGenderBonus.Text = "Gender Bonus:";
+            // 
             // frmCharacterEditor
             // 
+            AcceptButton = btnSaveCharacter;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
             ClientSize = new Size(1037, 635);
+            Controls.Add(lblGenderBonus);
+            Controls.Add(lblRaceBonus);
             Controls.Add(lblInitiative);
             Controls.Add(lblSpeed);
             Controls.Add(lblHP);
@@ -937,5 +989,8 @@
         private Label lblHP;
         private Label lblSpeed;
         private Label lblInitiative;
+        private ToolTip CharacterEditToolTIps;
+        private Label lblRaceBonus;
+        private Label lblGenderBonus;
     }
 }

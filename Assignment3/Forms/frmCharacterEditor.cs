@@ -78,6 +78,8 @@ namespace Assignment3
 
         #region Event Handlers
 
+        #region Control Updating
+
         /// <summary>
         /// To be called when the form first loads - instantiates
         /// </summary>
@@ -108,6 +110,10 @@ namespace Assignment3
             ChangeAttribute(((Control)sender).Name);
         }
 
+        #endregion
+
+        #region Button Clicks
+
         /// <summary>
         /// Updates Character's properties and saves it to static list, if it is not already in said list.
         /// </summary>
@@ -118,7 +124,7 @@ namespace Assignment3
             try
             {
                 if (AttributePoints != 0) { SaveCharacter(); }
-                else
+                else if (!BoundCharacter.GenderBonusRecieved)
                 {
                     btnSaveAttributes_Click(sender, e);
                 }
@@ -176,6 +182,18 @@ namespace Assignment3
         {
             MouseExitButtonStyle((Button)sender);
         }
+
+        /// <summary>
+        /// Randomizes class, race, gender, and alignment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRandomize_Click(object sender, EventArgs e)
+        {
+            RandomizeControls();
+        }
+
+        #endregion
 
         #endregion
 
@@ -435,9 +453,23 @@ namespace Assignment3
         {
             lblLevel.Text = Character.CalculateLevel((int)nudXP.Value).ToString();
             lblHP.Text = Character.CalculateHitPoints(cbxClass.Text, int.Parse((lblConstitutionDigitTwo.Text + lblConstitutionDigitOne.Text))).ToString();
+            lblSpeed.Text = Character.CalculateSpeed(cbxRace.Text).ToString();
             lblInitiative.Text = Character.CalculateInitiative(int.Parse(lblDexterityDigitTwo.Text + lblDexterityDigitOne.Text)).ToString();
-        }
 
+            lblRaceBonus.Text = Race.FindByName(cbxRace.Text).GetFormattedBonus();
+            lblGenderBonus.Text = Character.FormatGenderBonus(cbxGender.Text);
+        }
+        
+        /// <summary>
+        /// Randomizes gender, class, race, and alignment
+        /// </summary>
+        private void RandomizeControls()
+        {
+            cbxGender.Text = Character.GetRandomGender();
+            cbxClass.Text = Class.GetRandom();
+            if (!BoundCharacter.RaceBonusRecieved) { cbxRace.Text = Race.GetRandom(); } 
+            cbxAlignment.Text = Character.GetRandomAlignment();
+        }
 
         #endregion
 
@@ -541,6 +573,7 @@ namespace Assignment3
         }
 
         #endregion
+
     }
 }
 

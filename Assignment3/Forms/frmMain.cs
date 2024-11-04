@@ -7,6 +7,7 @@
 
 #region Namespaces Used
 
+using Assignment3.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,7 @@ namespace Assignment3
                 ChangeSelectedCharacter(value);
                 _selectedCharacter = value;
                 DisplaySelectedCharacterStats();
-                
+
             }
         }
 
@@ -195,7 +196,7 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnDeleteCharacter_Click(object sender, EventArgs e)
         {
-            if (SelectedCharacter != null && MessageBox.Show($"Are you sure you want to delete {SelectedCharacter}? This cannot be undone.", $"Delete {SelectedCharacter}?", 
+            if (SelectedCharacter != null && MessageBox.Show($"Are you sure you want to delete {SelectedCharacter}? This cannot be undone.", $"Delete {SelectedCharacter}?",
                 MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 DeleteCharacter();
@@ -225,6 +226,79 @@ namespace Assignment3
                 _currentPage -= 1;
                 LoadPage();
             }
+        }
+
+        #endregion
+
+        #region Descriptions
+
+        /// <summary>
+        /// Opens new form to display full class description
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClassDescription_Click(object sender, EventArgs e)
+        {
+            if (SelectedCharacter == null) { return; }
+            Character? currentCharacter = Character.FindByName(SelectedCharacter);
+
+            if (currentCharacter == null || currentCharacter.Class == null) { return; }
+            (new frmGenericDescriptor(currentCharacter.Class.Description)).Show();
+        }
+
+        /// <summary>
+        /// Opens new form to display full race description
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRaceDescription_Click(object sender, EventArgs e)
+        {
+            if (SelectedCharacter == null) { return; }
+            Character? currentCharacter = Character.FindByName(SelectedCharacter);
+
+            if (currentCharacter == null || currentCharacter.Race == null || currentCharacter.Race.Description == null) { return; }
+            (new frmGenericDescriptor(currentCharacter.Race.Description)).Show();
+        }
+
+        /// <summary>
+        /// Opens a new form to display full attribute description
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnViewAttributes_Click(object sender, EventArgs e)
+        {
+            if (SelectedCharacter == null) { return; }
+            Character? currentCharacter = Character.FindByName(SelectedCharacter);
+
+            if (currentCharacter == null){ return; }
+            (new frmGenericDescriptor(currentCharacter.GetFormattedAttributes())).Show();
+        }
+
+        #endregion
+
+        #region Cleanup
+
+        /// <summary>
+        /// Prompts user, closes form if they confirm.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnExitApplication_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit? None of your characters will save.", "Exit application?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                frmMain_FormClosed(sender, new FormClosedEventArgs(CloseReason.UserClosing));
+            }
+        }
+
+        /// <summary>
+        /// Exits application on form close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
         #endregion
@@ -420,13 +494,13 @@ namespace Assignment3
             lblHitPoints.Text = $"Hit Points: {characterToDisplay.HitPoints}";
             lblSpeed.Text = $"Speed: {characterToDisplay.Speed}";
 
-            lblLevel.Text = $"Level: {characterToDisplay.Level} (1000/2000 to next level)";
+            lblLevel.Text = $"Level: {characterToDisplay.Level}";
+            lblExperiencePoints.Text = $"Experience Points: {characterToDisplay.ExperiencePoints}";
 
             lblClass.Text = $"Class: {characterToDisplay.Class.Name}";
             lblClassHPDice.Text = $"HP Dice: {characterToDisplay.Class.HPDice}";
 
             lblRace.Text = $"Race: {characterToDisplay.Race.Name}";
-            lblRaceBonusAttributes.Text = $"Bonus Attributes: ";
         }
 
         /// <summary>
@@ -438,7 +512,7 @@ namespace Assignment3
             Control[] panelsToRemove = Controls.Find(SelectedCharacter, false);
 
             // Remove from panel list and controls
-            if (panelsToRemove.Length > 0) { CharacterPanels.Remove((Panel)panelsToRemove[0]); } 
+            if (panelsToRemove.Length > 0) { CharacterPanels.Remove((Panel)panelsToRemove[0]); }
             Controls.RemoveByKey(SelectedCharacter);
             Character.Delete(SelectedCharacter);
 
@@ -489,7 +563,6 @@ namespace Assignment3
         }
 
         #endregion
-
     }
 }
 

@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Assignment3.Constants;
 
 #endregion
 
@@ -123,6 +124,19 @@ namespace Assignment3
     
             }
             return classNames;
+        }
+
+        /// <summary>
+        /// Returns a random class name within static list of classes.
+        /// </summary>
+        /// <returns>The name of the randomly picked class.</returns>
+        public static string GetRandom()
+        {
+            // Randomly pick a number within size of class array
+            int classIndex = Tools.GetRandomInt(0, Classes.Count);
+
+            // Return the class name
+            return Classes[classIndex].Name;
         }
 
         #endregion

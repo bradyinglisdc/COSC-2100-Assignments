@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             pbxMainBackground = new PictureBox();
             lblCharacterStatsHeader = new Label();
             lblLevel = new Label();
-            pbrLevelProgress = new ProgressBar();
             btnExitApplication = new Button();
             btnNewCharacter = new Button();
             lblClass = new Label();
             lblRace = new Label();
             lblClassHPDice = new Label();
-            lblRaceBonusAttributes = new Label();
             lblAlignment = new Label();
             lblGender = new Label();
             lblArmourClass = new Label();
@@ -49,6 +48,11 @@
             btnNextPage = new Button();
             btnPreviousPage = new Button();
             btnDeleteCharacter = new Button();
+            lblExperiencePoints = new Label();
+            btnClassDescription = new Button();
+            btnRaceDescription = new Button();
+            lblRaceBonusAttributes = new Label();
+            CharacterViewToolTips = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).BeginInit();
             SuspendLayout();
             // 
@@ -85,17 +89,8 @@
             lblLevel.Name = "lblLevel";
             lblLevel.Size = new Size(292, 17);
             lblLevel.TabIndex = 1;
-            lblLevel.Text = "Level: 13 (10000/30000 XP to level 14)";
+            lblLevel.Text = "Level: 13";
             lblLevel.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // pbrLevelProgress
-            // 
-            pbrLevelProgress.Anchor = AnchorStyles.None;
-            pbrLevelProgress.BackColor = SystemColors.ControlLight;
-            pbrLevelProgress.Location = new Point(601, 305);
-            pbrLevelProgress.Name = "pbrLevelProgress";
-            pbrLevelProgress.Size = new Size(292, 24);
-            pbrLevelProgress.TabIndex = 2;
             // 
             // btnExitApplication
             // 
@@ -108,9 +103,11 @@
             btnExitApplication.Location = new Point(361, 553);
             btnExitApplication.Name = "btnExitApplication";
             btnExitApplication.Size = new Size(154, 37);
-            btnExitApplication.TabIndex = 3;
-            btnExitApplication.Text = "Exit";
+            btnExitApplication.TabIndex = 2;
+            btnExitApplication.Text = "E&xit";
+            CharacterViewToolTips.SetToolTip(btnExitApplication, "Click here, or press 'ALT + X' to exit");
             btnExitApplication.UseVisualStyleBackColor = true;
+            btnExitApplication.Click += btnExitApplication_Click;
             btnExitApplication.MouseEnter += btnGeneric_MouseEnter;
             btnExitApplication.MouseLeave += btnGeneric_MouseLeave;
             // 
@@ -125,8 +122,9 @@
             btnNewCharacter.Location = new Point(521, 553);
             btnNewCharacter.Name = "btnNewCharacter";
             btnNewCharacter.Size = new Size(154, 37);
-            btnNewCharacter.TabIndex = 4;
-            btnNewCharacter.Text = "New Character";
+            btnNewCharacter.TabIndex = 3;
+            btnNewCharacter.Text = "&New Character";
+            CharacterViewToolTips.SetToolTip(btnNewCharacter, "Click here, or press 'ALT + N' to create a new character");
             btnNewCharacter.UseVisualStyleBackColor = true;
             btnNewCharacter.Click += btnNewCharacter_Click;
             btnNewCharacter.MouseEnter += btnGeneric_MouseEnter;
@@ -165,16 +163,6 @@
             lblClassHPDice.TabIndex = 7;
             lblClassHPDice.Text = "HP Dice: 12";
             lblClassHPDice.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // lblRaceBonusAttributes
-            // 
-            lblRaceBonusAttributes.Anchor = AnchorStyles.None;
-            lblRaceBonusAttributes.Location = new Point(601, 414);
-            lblRaceBonusAttributes.Name = "lblRaceBonusAttributes";
-            lblRaceBonusAttributes.Size = new Size(292, 20);
-            lblRaceBonusAttributes.TabIndex = 8;
-            lblRaceBonusAttributes.Text = "Bonus Attributes: +2 Strength, +2 Constitution";
-            lblRaceBonusAttributes.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblAlignment
             // 
@@ -259,9 +247,11 @@
             btnViewAttributes.Location = new Point(601, 447);
             btnViewAttributes.Name = "btnViewAttributes";
             btnViewAttributes.Size = new Size(135, 42);
-            btnViewAttributes.TabIndex = 15;
-            btnViewAttributes.Text = "View\r\nAttributes";
+            btnViewAttributes.TabIndex = 4;
+            btnViewAttributes.Text = "&View\r\nAttributes";
+            CharacterViewToolTips.SetToolTip(btnViewAttributes, "Click here, or press 'ALT + V' to view attributes");
             btnViewAttributes.UseVisualStyleBackColor = true;
+            btnViewAttributes.Click += btnViewAttributes_Click;
             btnViewAttributes.MouseEnter += btnGeneric_MouseEnter;
             btnViewAttributes.MouseLeave += btnGeneric_MouseLeave;
             // 
@@ -276,8 +266,9 @@
             btnEditCharacter.Location = new Point(758, 447);
             btnEditCharacter.Name = "btnEditCharacter";
             btnEditCharacter.Size = new Size(135, 42);
-            btnEditCharacter.TabIndex = 16;
-            btnEditCharacter.Text = "Edit\r\nCharacter";
+            btnEditCharacter.TabIndex = 5;
+            btnEditCharacter.Text = "&Edit\r\nCharacter";
+            CharacterViewToolTips.SetToolTip(btnEditCharacter, "Click here, or press 'AlT + E' to edit the current character");
             btnEditCharacter.UseVisualStyleBackColor = true;
             btnEditCharacter.Click += btnEditCharacter_Click;
             btnEditCharacter.MouseEnter += btnGeneric_MouseEnter;
@@ -294,8 +285,9 @@
             btnNextPage.Location = new Point(375, 493);
             btnNextPage.Name = "btnNextPage";
             btnNextPage.Size = new Size(154, 26);
-            btnNextPage.TabIndex = 17;
-            btnNextPage.Text = "Next Page";
+            btnNextPage.TabIndex = 1;
+            btnNextPage.Text = "&Next Page";
+            CharacterViewToolTips.SetToolTip(btnNextPage, "Click here, or press 'ALT + N ' to navigate to next page");
             btnNextPage.UseVisualStyleBackColor = true;
             btnNextPage.Click += btnNextPage_Click;
             btnNextPage.MouseEnter += btnGeneric_MouseEnter;
@@ -312,8 +304,9 @@
             btnPreviousPage.Location = new Point(199, 493);
             btnPreviousPage.Name = "btnPreviousPage";
             btnPreviousPage.Size = new Size(154, 26);
-            btnPreviousPage.TabIndex = 18;
-            btnPreviousPage.Text = "Previous Page";
+            btnPreviousPage.TabIndex = 0;
+            btnPreviousPage.Text = "&Previous Page";
+            CharacterViewToolTips.SetToolTip(btnPreviousPage, "Click here, or press 'ALT + P' to navigate to previous page.");
             btnPreviousPage.UseVisualStyleBackColor = true;
             btnPreviousPage.Click += btnPreviousPage_Click;
             btnPreviousPage.MouseEnter += btnGeneric_MouseEnter;
@@ -330,18 +323,78 @@
             btnDeleteCharacter.Location = new Point(677, 495);
             btnDeleteCharacter.Name = "btnDeleteCharacter";
             btnDeleteCharacter.Size = new Size(135, 24);
-            btnDeleteCharacter.TabIndex = 19;
-            btnDeleteCharacter.Text = "Delete";
+            btnDeleteCharacter.TabIndex = 6;
+            btnDeleteCharacter.Text = "&Delete";
+            CharacterViewToolTips.SetToolTip(btnDeleteCharacter, "Click here, or press 'ALT +D' to delete the selected character");
             btnDeleteCharacter.UseVisualStyleBackColor = true;
             btnDeleteCharacter.Click += btnDeleteCharacter_Click;
             btnDeleteCharacter.MouseEnter += btnGeneric_MouseEnter;
             btnDeleteCharacter.MouseLeave += btnGeneric_MouseLeave;
             // 
+            // lblExperiencePoints
+            // 
+            lblExperiencePoints.Anchor = AnchorStyles.None;
+            lblExperiencePoints.Location = new Point(601, 302);
+            lblExperiencePoints.Name = "lblExperiencePoints";
+            lblExperiencePoints.Size = new Size(292, 20);
+            lblExperiencePoints.TabIndex = 20;
+            lblExperiencePoints.Text = "Experience Points: 0";
+            lblExperiencePoints.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // btnClassDescription
+            // 
+            btnClassDescription.Anchor = AnchorStyles.None;
+            btnClassDescription.BackgroundImage = Properties.Resources.GenericRuggedPaper;
+            btnClassDescription.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnClassDescription.FlatAppearance.BorderSize = 2;
+            btnClassDescription.FlatStyle = FlatStyle.Flat;
+            btnClassDescription.Font = new Font("Algerian", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClassDescription.Location = new Point(758, 339);
+            btnClassDescription.Name = "btnClassDescription";
+            btnClassDescription.Size = new Size(135, 22);
+            btnClassDescription.TabIndex = 8;
+            btnClassDescription.Text = "View Des&cription";
+            CharacterViewToolTips.SetToolTip(btnClassDescription, "Click here, or press 'ALT + C' to view the selected character's race description.");
+            btnClassDescription.UseVisualStyleBackColor = true;
+            btnClassDescription.Click += btnClassDescription_Click;
+            // 
+            // btnRaceDescription
+            // 
+            btnRaceDescription.Anchor = AnchorStyles.None;
+            btnRaceDescription.BackgroundImage = Properties.Resources.GenericRuggedPaper;
+            btnRaceDescription.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnRaceDescription.FlatAppearance.BorderSize = 2;
+            btnRaceDescription.FlatStyle = FlatStyle.Flat;
+            btnRaceDescription.Font = new Font("Algerian", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnRaceDescription.Location = new Point(758, 392);
+            btnRaceDescription.Name = "btnRaceDescription";
+            btnRaceDescription.Size = new Size(135, 22);
+            btnRaceDescription.TabIndex = 7;
+            btnRaceDescription.Text = "View Desc&ription";
+            CharacterViewToolTips.SetToolTip(btnRaceDescription, "Click here, or press 'ALT + R' to view the selected character's race description.");
+            btnRaceDescription.UseVisualStyleBackColor = true;
+            btnRaceDescription.Click += btnRaceDescription_Click;
+            // 
+            // lblRaceBonusAttributes
+            // 
+            lblRaceBonusAttributes.Anchor = AnchorStyles.None;
+            lblRaceBonusAttributes.Location = new Point(601, 414);
+            lblRaceBonusAttributes.Name = "lblRaceBonusAttributes";
+            lblRaceBonusAttributes.Size = new Size(292, 20);
+            lblRaceBonusAttributes.TabIndex = 8;
+            lblRaceBonusAttributes.Text = "Ability Score Increase: See Description";
+            lblRaceBonusAttributes.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // frmMain
             // 
+            AcceptButton = btnNewCharacter;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnExitApplication;
             ClientSize = new Size(1037, 635);
+            Controls.Add(btnRaceDescription);
+            Controls.Add(btnClassDescription);
+            Controls.Add(lblExperiencePoints);
             Controls.Add(btnDeleteCharacter);
             Controls.Add(btnPreviousPage);
             Controls.Add(btnNextPage);
@@ -360,7 +413,6 @@
             Controls.Add(btnNewCharacter);
             Controls.Add(btnExitApplication);
             Controls.Add(lblLevel);
-            Controls.Add(pbrLevelProgress);
             Controls.Add(lblCharacterStatsHeader);
             Controls.Add(pbxMainBackground);
             MaximumSize = new Size(1053, 674);
@@ -369,6 +421,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "D&D: Character View";
             Activated += LoadCharacterPanelsByPage;
+            FormClosed += frmMain_FormClosed;
             Load += frmMain_Load;
             ((System.ComponentModel.ISupportInitialize)pbxMainBackground).EndInit();
             ResumeLayout(false);
@@ -379,13 +432,11 @@
         private PictureBox pbxMainBackground;
         private Label lblCharacterStatsHeader;
         private Label lblLevel;
-        private ProgressBar pbrLevelProgress;
         private Button btnExitApplication;
         private Button btnNewCharacter;
         private Label lblClass;
         private Label lblRace;
         private Label lblClassHPDice;
-        private Label lblRaceBonusAttributes;
         private Label lblAlignment;
         private Label lblGender;
         private Label lblArmourClass;
@@ -397,5 +448,10 @@
         private Button btnNextPage;
         private Button btnPreviousPage;
         private Button btnDeleteCharacter;
+        private Label lblExperiencePoints;
+        private Button btnClassDescription;
+        private Button btnRaceDescription;
+        private Label lblRaceBonusAttributes;
+        private ToolTip CharacterViewToolTips;
     }
 }

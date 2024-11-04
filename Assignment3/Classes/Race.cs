@@ -60,6 +60,11 @@ namespace Assignment3
         /// </summary>
         public Dictionary<Constants.Attribute, int>? Attributes { get; set; }
 
+        /// <summary>
+        /// The speed which this race gets by default.
+        /// </summary>
+        public int Speed { get; set; }
+
         #endregion
 
         #region Constructors
@@ -80,9 +85,9 @@ namespace Assignment3
         /// <param name="name">The name of this race.</param>
         /// <param name="description">The description of this race.</param>
         /// <param name="attributes">The attributes as integers of this race.</param>
-        public Race(string name, string description, List<int> attributes)
+        public Race(string name, string description, List<int> attributes, int speed)
         {
-            SetGenericProperties(name, description);
+            SetGenericProperties(name, description, speed);
             SetAttributes(attributes[0], attributes[1], attributes[2], attributes[3], attributes[4], attributes[5]);
         }
 
@@ -95,19 +100,21 @@ namespace Assignment3
         /// </summary>
         private void SetDefaults()
         {
-            SetGenericProperties(Constants.DefaultRace, Constants.DefaultRaceDescription);
+            SetGenericProperties(Constants.DefaultRace, Constants.DefaultRaceDescription, Constants.DefaultRaceSpeed);
             RandomizeAttributes();
         }
 
         /// <summary>
         /// Sets the name and description of this race before adding it to the static list of races.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        private void SetGenericProperties(string name, string description)
+        /// <param name="name">Race name</param>
+        /// <param name="description">Race description</param>
+        /// <param name="speed">Race speed</param>
+        private void SetGenericProperties(string name, string description, int speed)
         {
             Name = name;
             Description = description;
+            Speed = speed;
             Races.Add(this);
         }
 
@@ -147,6 +154,40 @@ namespace Assignment3
 
         #endregion
 
+        #region General Instance Methods
+
+        /// <summary>
+        /// Formats the bonus so it is human readable (e.g. Strength + 1, Constitution + 1)
+        /// </summary>
+        /// <returns></returns>
+        public string GetFormattedBonus()
+        {
+            
+            string formattedBonus = "Race Bonus: ";
+            if (Attributes == null) { return formattedBonus; }
+
+            // If it's a human, apply special formatting and return
+            if (Name == "Human")
+            {
+                formattedBonus += "+1 To All";
+                return formattedBonus;
+            }
+
+            foreach (KeyValuePair<Constants.Attribute, int> attribute in Attributes)
+            {
+                if (attribute.Value > 0)
+                {
+                    formattedBonus += $"""
+                        +{attribute.Value.ToString()} {attribute.Key.ToString()} 
+                        """;
+                }
+            }
+
+            return formattedBonus;
+        }
+
+        #endregion
+
         #region Static Methods
 
         /// <summary>
@@ -176,6 +217,22 @@ namespace Assignment3
             }
             return raceNames;
         }
+
+        /// <summary>
+        /// Returns a random race name within static list of races.
+        /// </summary>
+        /// <returns>The name of the randomly picked race, or an empty string if a null race name was found</returns>
+        public static string GetRandom()
+        {
+            // Randomly pick a number within size of race array
+            int raceIndex = Tools.GetRandomInt(0, Races.Count);
+
+            // Return the race name if it isn't null
+            Race raceChoice = Races[raceIndex];
+            if (raceChoice.Name == null) { return string.Empty; }
+            return raceChoice.Name;
+        }
+
 
         #endregion
 

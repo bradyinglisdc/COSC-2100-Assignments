@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="CharacterEditToolTIps.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="lblCharacterSummary.Text" xml:space="preserve">
     <value>_character_ is a _gender_ of the _class_ class. _character_ is level _level_, with a total Experience Point count of _xp_. Their race is _race_, and their alignment is _alignment_. They have _hp_ HP, an Armour Class of _ac_, an Initiative of _initiative_, and a speed of _speed_.</value>
   </data>
