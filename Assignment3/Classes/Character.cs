@@ -474,7 +474,7 @@ namespace Assignment3
         /// <returns>The hit points of the character, or the hit points of the character's constiution with a default class if no matching class.</returns>
         public static int CalculateHitPoints(string className, int constitution)
         {
-            return Class.FindByName(className).HPDice + (constitution - 10) / 2;
+            return Math.Max(Class.FindByName(className).HPDice + (constitution - 10) / 2, 1);
         }
 
         /// <summary>
@@ -539,8 +539,6 @@ namespace Assignment3
         }
 
         #endregion
-
-
 
         #endregion
 

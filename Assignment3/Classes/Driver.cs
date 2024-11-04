@@ -196,12 +196,17 @@ namespace Assignment3
         /// </summary>
         public static void InstantiateDefaultClasses()
         {
-            new Class("Barbarian", "", 12, "BarbarianIcon.PNG");
-            new Class("Bard", "", 8, "BardIcon.PNG");
-            new Class("Cleric", "", 8, "ClericIcon.PNG");
-            new Class("Druid", "", 8, "DruidIcon.PNG");
-            new Class("Fighter", "", 10, "FighterIcon.PNG");
-            new Class("Monk", "", 8, "MonkIcon.PNG");
+            new Class("Barbarian", "A fierce warrior of primitive background who can enter a battle rage", 12, "BarbarianIcon.PNG");
+            new Class("Bard", "An inspiring magician whose power echoes the music of creation", 8, "BardIcon.PNG");
+            new Class("Cleric", "A priestly champion with divine magic granted by their deity", 8, "ClericIcon.PNG");
+            new Class("Druid", "A priest of the Old Faith wielding the powers of nature", 8, "DruidIcon.PNG");
+            new Class("Fighter", "A master of martial combat, skilled with a variety of weapons and armor", 10, "FighterIcon.PNG");
+            new Class("Monk", "A master of martial arts, harnessing the power of the body and mind", 8, "MonkIcon.PNG");
+            new Class("Paladin", "A holy warrior bound by a sacred oath to protect the innocent", 10, "PaladinIcon.PNG");
+            new Class("Ranger", "A warrior who uses martial prowess and nature magic to hunt foes", 10, "RangerIcon.PNG");
+            new Class("Sorcerer", "A spellcaster who draws on inherent magic from a gift or bloodline", 6, "SorcererIcon.PNG");
+            new Class("Warlock", "A wielder of magic bestowed by a pact with an otherworldly being", 8, "WarlockIcon.PNG");
+            new Class("Wizard", "A scholarly magic-user capable of manipulating the structures of reality", 6, "WizardIcon.PNG");
         }
 
         #endregion
