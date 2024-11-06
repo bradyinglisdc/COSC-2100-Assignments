@@ -46,7 +46,6 @@ namespace Assignment3
 
         #endregion
 
-
         #region Backing Instance Members/Variables
 
         /// <summary>
@@ -116,7 +115,7 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnGeneric_MouseEnter(object sender, EventArgs e)
         {
-            IndicateHoverOnButton((Button)sender);
+            GenericStyler.IndicateHoverOnButton((Button)sender);
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace Assignment3
         /// <param name="e"></param>
         private void btnGeneric_MouseLeave(object sender, EventArgs e)
         {
-            IndicateHoverEndOnButton((Button)sender);
+            GenericStyler.IndicateHoverEndOnButton((Button)sender);
         }
 
         #endregion
@@ -329,11 +328,6 @@ namespace Assignment3
         {
             // Grab character page and clear current panel list.
             List<Character> characterPage = Character.GetPage(_currentPage);
-            if (characterPage.Count <= 0)
-            {
-                _currentPage -= 1;
-                return;
-            }
 
             ClearCharacterPanels();
 
@@ -509,47 +503,8 @@ namespace Assignment3
         private void DeleteCharacter()
         {
             if (SelectedCharacter == null) { return; }
-            Control[] panelsToRemove = Controls.Find(SelectedCharacter, false);
-
-            // Remove from panel list and controls
-            if (panelsToRemove.Length > 0) { CharacterPanels.Remove((Panel)panelsToRemove[0]); }
-            Controls.RemoveByKey(SelectedCharacter);
             Character.Delete(SelectedCharacter);
-
-            // Reselect last character if it exists, else select none
-            SelectedCharacter = CharacterPanels.Count <= 0 ? null : CharacterPanels[CharacterPanels.Count - 1].Name;
-        }
-
-        #endregion
-
-        #region Dynamic Styling
-
-        /// <summary>
-        /// Expands and changes a button's font to red to indicate a mouse hover.
-        /// </summary>
-        /// <param name="btnToStyle">The button to style.</param>
-        private void IndicateHoverOnButton(Button btnToStyle)
-        {
-            // Simply update the button size to indicate a hover and re adjust positioning
-            btnToStyle.Size = new Size(btnToStyle.Width + 8, btnToStyle.Height + 8);
-            btnToStyle.Location = new Point(btnToStyle.Location.X - 4, btnToStyle.Location.Y - 4);
-
-            // Update font colour to red
-            btnToStyle.ForeColor = Color.Red;
-        }
-
-        /// <summary>
-        /// Shrinks and changes a button's font to black to indicate a mouse hover end.
-        /// </summary>
-        /// <param name="btnToStyle">The button to style.</param>
-        private void IndicateHoverEndOnButton(Button btnToStyle)
-        {
-            // Simply update the button size to indicate a hover and re adjust positioning
-            btnToStyle.Size = new Size(btnToStyle.Width - 8, btnToStyle.Height - 8);
-            btnToStyle.Location = new Point(btnToStyle.Location.X + 4, btnToStyle.Location.Y + 4);
-
-            // Update font colour to black
-            btnToStyle.ForeColor = Color.Black;
+            LoadPage();
         }
 
         #endregion

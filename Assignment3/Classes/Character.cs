@@ -176,7 +176,7 @@ namespace Assignment3
         /// </summary>
         public Character()
         {
-            SetGenericProperties(Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++, null, Race.FindByName(Constants.DefaultRace),
+            SetGenericProperties(GetUniqueName(), null, Race.FindByName(Constants.DefaultRace),
                Constants.DefaultAlignment, Constants.DefaultGender, Constants.DefaultArmourClass, Constants.StartingAttributePoints, true);
             SetDefaultAttributes();
             SetInitiative();
@@ -222,6 +222,22 @@ namespace Assignment3
         {
             if (Attributes == null) { return; }
             Initiatve = CalculateInitiative(Attributes[Constants.Attribute.Dexterity]);
+        }
+
+        /// <summary>
+        /// Attempts to auto number name. If the auto name exists (it was manually created by user), loop until unique
+        /// </summary>
+        /// <returns></returns>
+        private string GetUniqueName()
+        {
+            // Attempt to get a unique name
+            string nameAttempt = Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++;
+
+            // Loop until it is unique
+            while (FindByName(nameAttempt) != null) { nameAttempt = Constants.DefaultCharacterName + Constants.DefaultCharacterNameAutoNum++; }
+
+            // Return the unique name
+            return nameAttempt;
         }
 
         #endregion
@@ -376,7 +392,7 @@ namespace Assignment3
             int firstIndex = lastIndex - 5;
 
             // Return right away if attempting to index out of bounds
-            if (firstIndex >= Characters.Count) { return characterPage; }
+            if (firstIndex >= Characters.Count || firstIndex < 0) { return characterPage; }
 
             for (int i = firstIndex; i < lastIndex; i++)
             {

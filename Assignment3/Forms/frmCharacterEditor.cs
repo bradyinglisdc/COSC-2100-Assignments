@@ -146,11 +146,22 @@ namespace Assignment3
         private void btnSaveAttributes_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to save attributes? If your remaining attribute points are at 0, " +
-                "this will disallow you from decreasing attribute scores for now and changing races, but will apply your race and gender bonus.", "Save Attributes?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                "this will disallow you from decreasing attribute scores for now and changing races, but will apply your race and gender bonus.", "Save Attributes?", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            {
+                return;
+            }
+
+            try
             {
                 HardSaveAttributes();
                 SaveCharacter();
             }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         /// <summary>
@@ -503,7 +514,6 @@ namespace Assignment3
         }
 
         #endregion
-
 
         #region Cleanup
 
