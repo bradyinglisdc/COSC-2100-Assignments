@@ -202,7 +202,7 @@
             // 
             nudXP.Font = new Font("Algerian", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nudXP.Location = new Point(163, 221);
-            nudXP.Maximum = new decimal(new int[] { 360000, 0, 0, 0 });
+            nudXP.Maximum = new decimal(new int[] { 355000, 0, 0, 0 });
             nudXP.Name = "nudXP";
             nudXP.Size = new Size(105, 23);
             nudXP.TabIndex = 3;

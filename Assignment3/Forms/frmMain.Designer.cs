@@ -251,7 +251,7 @@
             btnViewAttributes.Text = "&View\r\nAttributes";
             CharacterViewToolTips.SetToolTip(btnViewAttributes, "Click here, or press 'ALT + V' to view attributes");
             btnViewAttributes.UseVisualStyleBackColor = true;
-            btnViewAttributes.Click += btnViewAttributes_Click;
+            btnViewAttributes.Click += btnViewDescription_Click;
             btnViewAttributes.MouseEnter += btnGeneric_MouseEnter;
             btnViewAttributes.MouseLeave += btnGeneric_MouseLeave;
             // 
@@ -356,7 +356,7 @@
             btnClassDescription.Text = "View Des&cription";
             CharacterViewToolTips.SetToolTip(btnClassDescription, "Click here, or press 'ALT + C' to view the selected character's race description.");
             btnClassDescription.UseVisualStyleBackColor = true;
-            btnClassDescription.Click += btnClassDescription_Click;
+            btnClassDescription.Click += btnViewDescription_Click;
             // 
             // btnRaceDescription
             // 
@@ -373,7 +373,7 @@
             btnRaceDescription.Text = "View Desc&ription";
             CharacterViewToolTips.SetToolTip(btnRaceDescription, "Click here, or press 'ALT + R' to view the selected character's race description.");
             btnRaceDescription.UseVisualStyleBackColor = true;
-            btnRaceDescription.Click += btnRaceDescription_Click;
+            btnRaceDescription.Click += btnViewDescription_Click;
             // 
             // lblRaceBonusAttributes
             // 

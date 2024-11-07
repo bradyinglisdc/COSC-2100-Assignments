@@ -306,6 +306,11 @@ namespace Assignment3
             }
         };
 
+        /// <summary>
+        /// The maximum experience points a character can obtain.
+        /// </summary>
+        public const int MaximumXP = 355000;
+
         #endregion
 
 

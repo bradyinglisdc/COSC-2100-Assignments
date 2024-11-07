@@ -106,6 +106,40 @@ namespace Assignment3
 
         #region Event Handlers
 
+        #region Page Setup Handlers
+
+        /// <summary>
+        /// To be called when the form first loads - Sets styling variables then communicates with back-end to load default 
+        /// game objects and pull the first page of characters. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            CharacterPanelStartingYPosition = lblCharacterStatsHeader.Location.Y + margin;
+            Driver.InstantiateDefaultGameObjects();
+            LoadCharacterPanelsByPage(sender, e);
+        }
+
+        /// <summary>
+        /// Initializes 5 character labels based on the current page number, selecting
+        /// the first character in that page automatically.
+        /// Since this method is called everytime focus is applied toe form, it must first check if
+        /// the page is loaded already to prevent duplicate loading.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadCharacterPanelsByPage(object sender, EventArgs e)
+        {
+            if (!PageLoaded)
+            {
+                SelectedCharacter = string.Empty;
+                LoadPage();
+            }
+        }
+
+        #endregion
+
         #region Visual Interaction
 
         /// <summary>
@@ -131,19 +165,6 @@ namespace Assignment3
         #endregion
 
         #region Character Interaction
-
-        /// <summary>
-        /// To be called when the form first loads - Sets styling variables then communicates with back-end to load default 
-        /// game objects and pull the first page of characters. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            CharacterPanelStartingYPosition = lblCharacterStatsHeader.Location.Y + margin;
-            Driver.InstantiateDefaultGameObjects();
-            LoadCharacterPanelsByPage(sender, e);
-        }
 
         /// <summary>
         /// To be called when a character panel is clicked. Selects that panel.
@@ -232,45 +253,13 @@ namespace Assignment3
         #region Descriptions
 
         /// <summary>
-        /// Opens new form to display full class description
+        /// Opens a new form to display a descripton/attribute list based on the control type of the sender.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnClassDescription_Click(object sender, EventArgs e)
+        private void btnViewDescription_Click(object sender, EventArgs e)
         {
-            if (SelectedCharacter == null) { return; }
-            Character? currentCharacter = Character.FindByName(SelectedCharacter);
-
-            if (currentCharacter == null || currentCharacter.Class == null) { return; }
-            (new frmGenericDescriptor(currentCharacter.Class.Description)).Show();
-        }
-
-        /// <summary>
-        /// Opens new form to display full race description
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRaceDescription_Click(object sender, EventArgs e)
-        {
-            if (SelectedCharacter == null) { return; }
-            Character? currentCharacter = Character.FindByName(SelectedCharacter);
-
-            if (currentCharacter == null || currentCharacter.Race == null || currentCharacter.Race.Description == null) { return; }
-            (new frmGenericDescriptor(currentCharacter.Race.Description)).Show();
-        }
-
-        /// <summary>
-        /// Opens a new form to display full attribute description
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnViewAttributes_Click(object sender, EventArgs e)
-        {
-            if (SelectedCharacter == null) { return; }
-            Character? currentCharacter = Character.FindByName(SelectedCharacter);
-
-            if (currentCharacter == null){ return; }
-            (new frmGenericDescriptor(currentCharacter.GetFormattedAttributes())).Show();
+            DisplayDescription((Button)sender);
         }
 
         #endregion
@@ -307,21 +296,6 @@ namespace Assignment3
         #region Setup Methods
 
         /// <summary>
-        /// Initializes 5 character labels based on the current page number, selecting
-        /// the first character in that page automatically.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LoadCharacterPanelsByPage(object sender, EventArgs e)
-        {
-            if (!PageLoaded)
-            {
-                SelectedCharacter = string.Empty;
-                LoadPage();
-            }
-        }
-
-        /// <summary>
         /// Load the current page of characters
         /// </summary>
         private void LoadPage()
@@ -336,6 +310,7 @@ namespace Assignment3
 
             // Set the selected character to the first character of the page to begin with, and indicate that page is now loaded.
             if (characterPage.Count > 0) { SelectedCharacter = characterPage[0].Name; }
+            else { SelectedCharacter = null; }
             PageLoaded = true;
         }
 
@@ -354,7 +329,6 @@ namespace Assignment3
                 yPosition += CharacterYPositionSpacing;
             }
         }
-
         private void CreateCharacterPanel(Character character, int yPosition)
         {
             // Instantiating each control
@@ -509,6 +483,31 @@ namespace Assignment3
 
         #endregion
 
+        #region Character Descriptions
+       
+        /// <summary>
+        /// Opens a new form, displaying the description of the corresponding button attribute
+        /// </summary>
+        /// <param name="btnClicked"></param>
+        private void DisplayDescription(Button btnClicked)
+        {
+            // Get the name of the button
+            string btnName = btnClicked.Name;
+
+            // Get the currently selected character; return if it does not exist.
+            if (SelectedCharacter == null) { return; }
+            Character? currentCharacter = Character.FindByName(SelectedCharacter);
+
+            if (currentCharacter == null || currentCharacter.Class == null || currentCharacter.Race == null || currentCharacter.Race.Description == null) { return; }
+
+            // Instantiate form accordingly 
+            if (btnName == btnClassDescription.Name) { (new frmGenericDescriptor(currentCharacter.Class.Description)).Show(); }
+            else if (btnName == btnRaceDescription.Name) { (new frmGenericDescriptor(currentCharacter.Race.Description)).Show(); }
+            else { (new frmGenericDescriptor(currentCharacter.GetFormattedAttributes())).Show(); }
+        }
+
+        #endregion
+
         #region Cleanup
 
         private void ClearCharacterPanels()
@@ -518,6 +517,7 @@ namespace Assignment3
         }
 
         #endregion
+
     }
 }
 

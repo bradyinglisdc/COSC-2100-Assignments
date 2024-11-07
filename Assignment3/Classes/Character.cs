@@ -93,7 +93,7 @@ namespace Assignment3
             set
             {
                 Level = CalculateLevel(value);
-                _experiencePoints = value;
+                _experiencePoints = Math.Min(value, Constants.MaximumXP);
             }
         }
 
