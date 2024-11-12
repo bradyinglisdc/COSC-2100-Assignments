@@ -54,7 +54,7 @@ namespace Assignment4
         // Video defaults
         public const int DefaultBrightness = 50;
         public const bool DefaultFancyGraphicsOn = true;
-        public const bool DefaulVSyncOn = true;
+        public const bool DefaultVSyncOn = true;
         public const bool DefaultFullscreenOn = false;
         public const int DefaultRenderDistance = 16;
         public const int DefaultFieldOfView = 64;

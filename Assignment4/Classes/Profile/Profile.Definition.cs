@@ -1,8 +1,9 @@
 ﻿/*
- * Title: Profile.cs
+ * Title: Profile.Definition.cs
  * Name: Brady Inglis (100926284)
- * Date: 2024-11-11
- * Purpose: To provide an instantiatable Profile class containing settings corresponding to minecraft.
+ * Date: 2024-11-12
+ * Purpose: To provide an instantiatable partial Profile class containing settings corresponding to minecraft. This portion contains all property/variable
+ * definitions, as well as constructors.
  */
 
 #region Namespaces Used
@@ -15,17 +16,13 @@ using System.Threading.Tasks;
 
 #endregion
 
+
 #region Namespace Definition
 
 namespace Assignment4
 {
-    /// <summary>
-    /// An instance of this class will contain basic minecraft settings loaded from a text file.
-    /// The class also contains various static and instance file IO methods for reading and writing settings.
-    /// </summary>
-    public class Profile
+    public partial class Profile
     {
-
         #region Static Properties/Variables
 
         /// <summary>
@@ -80,6 +77,16 @@ namespace Assignment4
                 _profileName = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the value of is startup profile for this profile.
+        /// </summary>
+        public bool IsStartupProfile { get; private set; } = GenericSettings.DefaultIsStartupProfile;
+
+        /// <summary>
+        /// Gets or sets the settings of this profile instance as a byte array for efficient storage.
+        /// </summary>
+        public byte[]? PackagedSettings { get; private set; }
 
         #region Movement
 
@@ -162,7 +169,7 @@ namespace Assignment4
         /// <summary>
         /// Gets or sets the v sync value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool VSyncOn { get; set; } = GenericSettings.DefaulVSyncOn;
+        public bool VSyncOn { get; set; } = GenericSettings.DefaultVSyncOn;
 
 
         /// <summary>
@@ -213,7 +220,7 @@ namespace Assignment4
         #endregion
 
         #region Audio
-        
+
         /// <summary>
         /// Gets or sets the music volume of this instance. If music volume is not within allowed range, exception is thrown.
         /// </summary>
@@ -284,38 +291,23 @@ namespace Assignment4
 
         #endregion
 
-        #region General Static Methods
+        #region Constructors 
 
         /// <summary>
-        /// Attempts to generate a unique name, checks if name is taken, and loops until unique name is found.
+        /// Default constructor - default values already set on object initialization
         /// </summary>
-        /// <returns></returns>
-        public static string GetUniqueName()
-        {
-            string uniqueName = $"GenericSettings.DefaultProfileName + {AutoNameNumber++}";
-
-            // Loop until name is unique, then return it.
-            while (FindProfileByName(uniqueName) != null) { uniqueName = $"GenericSettings.DefaultProfileName + {AutoNameNumber++}"; }
-            return uniqueName;
-        }
+        public Profile() { }
 
         /// <summary>
-        /// Takes in a name then searches static list of all profiles in memory by that name for a match.
+        /// Takes in a raw settings string to read from
         /// </summary>
-        /// <param name="name">The name to find a profile by.</param>
-        /// <returns>The matching profile if it's found, otherwise null.</returns>
-        public static Profile? FindProfileByName(string name)
+        /// <param name="rawSettings">The settings string formatted in dictionary format</param>
+        public Profile(string rawSettings)
         {
-            foreach (Profile profile in Profiles)
-            {
-                if (profile.ProfileName == name) { return profile; }
-            }
-            return null;
+            CreateProfileFromString(rawSettings);
         }
 
         #endregion
-
-
 
     }
 }
