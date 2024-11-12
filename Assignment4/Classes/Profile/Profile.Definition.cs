@@ -316,6 +316,80 @@ namespace Assignment4
             Profiles.Add(this);
         }
 
+        /// <summary>
+        /// Takes in all setable settings and sets them accordingly.
+        /// </summary>
+        /// <param name="profileName"></param>
+        /// <param name="isStartupProfile"></param>
+        /// <param name="packagedSettings"></param>
+        /// <param name="inputDevice"></param>
+        /// <param name="autoJumpOn"></param>
+        /// <param name="mouseSensitivity"></param>
+        /// <param name="controllerSensitivity"></param>
+        /// <param name="invertYAxisOn"></param>
+        /// <param name="brightness"></param>
+        /// <param name="fancyGraphicsOn"></param>
+        /// <param name="vSyncOn"></param>
+        /// <param name="renderDistance"></param>
+        /// <param name="fieldOfView"></param>
+        /// <param name="rayTracingOn"></param>
+        /// <param name="upscalingOn"></param>
+        /// <param name="musicVolume"></param>
+        /// <param name="soundVolume"></param>
+        /// <param name="hudTransparency"></param>
+        /// <param name="showCoordinatesOn"></param>
+        /// <param name="cameraPerspective"></param>
+        public Profile(
+            string profileName,
+            bool isStartupProfile,
+            byte[]? packagedSettings,
+            GenericSettings.InputDevice inputDevice,
+            bool autoJumpOn,
+            int mouseSensitivity,
+            int controllerSensitivity,
+            bool invertYAxisOn,
+            int brightness,
+            bool fancyGraphicsOn,
+            bool vSyncOn,
+            int renderDistance,
+            int fieldOfView,
+            bool rayTracingOn,
+            bool upscalingOn,
+            int musicVolume,
+            int soundVolume,
+            int hudTransparency,
+            bool showCoordinatesOn,
+            GenericSettings.CameraPerspective cameraPerspective)
+        {
+            
+            ProfileName = profileName;
+            IsStartupProfile = isStartupProfile;
+            PackagedSettings = packagedSettings;
+            InputDevice = inputDevice;
+            AutoJumpOn = autoJumpOn;
+
+            MouseSensitivity = mouseSensitivity; 
+            ControllerSensitivity = controllerSensitivity; 
+            InvertYAxisOn = invertYAxisOn;
+
+            Brightness = brightness;
+            FancyGraphicsOn = fancyGraphicsOn;
+            VSyncOn = vSyncOn;
+            RenderDistance = renderDistance; 
+            FieldOfView = fieldOfView; 
+            RayTracingOn = rayTracingOn;
+            UpscalingOn = upscalingOn;
+
+            MusicVolume = musicVolume; 
+            SoundVolume = soundVolume; 
+
+            HUDTransparency = hudTransparency; 
+            ShowCoordinatesOn = showCoordinatesOn;
+            CameraPerspective = cameraPerspective;
+
+            Profiles.Add(this);
+        }
+
         #endregion
 
     }
