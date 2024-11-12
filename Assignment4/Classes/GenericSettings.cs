@@ -102,6 +102,11 @@ namespace Assignment4
 
         #endregion
 
+        #region General
+
+        public const bool DefaultIsStartupProfile = false;
+
+        #endregion
 
     }
 }
