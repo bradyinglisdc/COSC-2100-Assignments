@@ -94,7 +94,7 @@ namespace Assignment4
             {
                 throw new Exception("Incorrect settings format recieved.");
             }
-            
+
         }
 
         /// <summary>
@@ -200,8 +200,37 @@ namespace Assignment4
             return null;
         }
 
-        #endregion
+        /// <summary>
+        /// Stores string cast of each Profile instance as an array of bytes for more secure storage.
+        /// After this method is called, all Profile settings are ready to be written to a file.
+        /// </summary>
+        public static void PackageAllSettings()
+        {
+            // Iterate through all profiles, building a combined string where each profile is separated by '|'.
+            string allSettings = string.Empty;
+            foreach (Profile profile in Profiles)
+            {
+                allSettings += profile.ToString() + '|';
+            }
+            PackagedProfiles = Encoding.UTF8.GetBytes(allSettings);
+        }
 
+        /// <summary>
+        /// Stores all procided profiles in static list within class.
+        /// </summary>
+        /// <param name="profilesByteArray">A byte array of all the profiles to store</param>
+        public static void SetAllProfiles(byte[] profilesByteArray)
+        {
+            // Encode byte array back to string, then instantiate a Profile for each Profile
+            string unpackagedProfiles = Encoding.UTF8.GetString(profilesByteArray);
+
+            foreach (string rawSetting in unpackagedProfiles.Split('|'))
+            {
+                Profile profile = new Profile(rawSetting);
+            }
+        }
+
+        #endregion
 
     }
 }

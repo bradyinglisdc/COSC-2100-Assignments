@@ -35,6 +35,11 @@ namespace Assignment4
         /// </summary>
         private static int AutoNameNumber = 0;
 
+        /// <summary>
+        /// Gets or sets the settings of all profile instances as a byte array for efficient storage.
+        /// </summary>
+        public static byte[]? PackagedProfiles { get; private set; }
+
         #endregion
 
         #region Private Backing Members
@@ -294,10 +299,13 @@ namespace Assignment4
         #region Constructors 
 
         /// <summary>
-        /// Default constructor - default values already set on object initialization
+        /// Default constructor - default values already set on object initialization, so this constructor just adds the instance to memory
         /// </summary>
-        public Profile() { }
-
+        public Profile()
+        {
+            Profiles.Add(this);
+        }
+          
         /// <summary>
         /// Takes in a raw settings string to read from
         /// </summary>
@@ -305,6 +313,7 @@ namespace Assignment4
         public Profile(string rawSettings)
         {
             CreateProfileFromString(rawSettings);
+            Profiles.Add(this);
         }
 
         #endregion
