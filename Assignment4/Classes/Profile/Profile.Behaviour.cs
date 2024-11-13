@@ -230,6 +230,30 @@ namespace Assignment4
             }
         }
 
+        /// <summary>
+        /// Sets any profile with IsStartupProfile true to false
+        /// </summary>
+        private static void ClearStartupProfile()
+        {
+            foreach (Profile profile in Profiles)
+            {
+                if (profile.IsStartupProfile == true) { profile._isStartupProfile = false; }
+            }
+        }
+
+        /// <summary>
+        /// Searches through static list of profiles for the first startup profile.
+        /// </summary>
+        /// <returns>A Profile with IsStartUpProfile set to true if one exists, null if there is none.</returns>
+        public static Profile? GetStartupProfile()
+        {
+            foreach (Profile profile in Profiles)
+            {
+                if (profile.IsStartupProfile == true) { return profile; }
+            }
+            return null;
+        }
+
         #endregion
 
     }

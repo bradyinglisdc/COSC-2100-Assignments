@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 #endregion
 
-
 #region Namespace Definition
 
 namespace Assignment4
@@ -46,6 +45,7 @@ namespace Assignment4
 
         // Defaults initialized directly on class instantiation to minimize redundancy
         private string _profileName = GetUniqueName();
+        private bool _isStartupProfile = GenericSettings.DefaultIsStartupProfile;
         private int _mouseSensitivity = GenericSettings.DefaultMouseSensitivity;
         private int _controllerSensitivity = GenericSettings.DefaultControllerSensitivity;
         private int _brightness = GenericSettings.DefaultBrightness;
@@ -84,9 +84,18 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Gets or sets the value of is startup profile for this profile.
+        /// Gets or sets the value of is startup profile for this profile. If another profile is currently the startup profile,
+        /// this one will take priority and the old one will be set to false.
         /// </summary>
-        public bool IsStartupProfile { get; private set; } = GenericSettings.DefaultIsStartupProfile;
+        public bool IsStartupProfile
+        {
+            get { return _isStartupProfile; }
+            set
+            {
+                ClearStartupProfile();
+                _isStartupProfile = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the settings of this profile instance as a byte array for efficient storage.
