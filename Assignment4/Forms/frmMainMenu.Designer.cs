@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             fileSystemWatcher1 = new FileSystemWatcher();
-            btnEditProfile = new Button();
+            btnEditDefaultProfile = new Button();
             btnViewProfiles = new Button();
             btnQuit = new Button();
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).BeginInit();
@@ -40,19 +40,19 @@
             fileSystemWatcher1.EnableRaisingEvents = true;
             fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // btnEditProfile
+            // btnEditDefaultProfile
             // 
-            btnEditProfile.BackColor = Color.FromArgb(130, 130, 130);
-            btnEditProfile.FlatAppearance.BorderSize = 2;
-            btnEditProfile.FlatStyle = FlatStyle.Popup;
-            btnEditProfile.Font = new Font("Minecraftia", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnEditProfile.ForeColor = SystemColors.Control;
-            btnEditProfile.Location = new Point(280, 154);
-            btnEditProfile.Name = "btnEditProfile";
-            btnEditProfile.Size = new Size(241, 49);
-            btnEditProfile.TabIndex = 0;
-            btnEditProfile.Text = "Edit Profile";
-            btnEditProfile.UseVisualStyleBackColor = false;
+            btnEditDefaultProfile.BackColor = Color.FromArgb(130, 130, 130);
+            btnEditDefaultProfile.FlatAppearance.BorderSize = 2;
+            btnEditDefaultProfile.FlatStyle = FlatStyle.Popup;
+            btnEditDefaultProfile.Font = new Font("Minecraftia", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnEditDefaultProfile.ForeColor = SystemColors.Control;
+            btnEditDefaultProfile.Location = new Point(280, 154);
+            btnEditDefaultProfile.Name = "btnEditDefaultProfile";
+            btnEditDefaultProfile.Size = new Size(241, 49);
+            btnEditDefaultProfile.TabIndex = 0;
+            btnEditDefaultProfile.Text = "Edit Default Profile";
+            btnEditDefaultProfile.UseVisualStyleBackColor = false;
             // 
             // btnViewProfiles
             // 
@@ -65,7 +65,7 @@
             btnViewProfiles.Name = "btnViewProfiles";
             btnViewProfiles.Size = new Size(241, 49);
             btnViewProfiles.TabIndex = 1;
-            btnViewProfiles.Text = "View Profiles";
+            btnViewProfiles.Text = "View/Create Profiles";
             btnViewProfiles.UseVisualStyleBackColor = false;
             // 
             // btnQuit
@@ -89,7 +89,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(btnQuit);
             Controls.Add(btnViewProfiles);
-            Controls.Add(btnEditProfile);
+            Controls.Add(btnEditDefaultProfile);
             Name = "frmMainMenu";
             Text = "Main Menu";
             ((System.ComponentModel.ISupportInitialize)fileSystemWatcher1).EndInit();
@@ -99,7 +99,7 @@
         #endregion
 
         private FileSystemWatcher fileSystemWatcher1;
-        private Button btnEditProfile;
+        private Button btnEditDefaultProfile;
         private Button btnViewProfiles;
         private Button btnQuit;
     }

@@ -38,10 +38,10 @@ namespace Assignment4
 
         // Player movement defaults
         public const InputDevice DefaultInputDevice = InputDevice.Keyboard;
-        public const bool DefaultAutoJump = true;
+        public const bool DefaultAutoJumpOn = true;
         public const int DefaultMouseSensitivity = 50;
         public const int DefaultControllerSensitivity = 50;
-        public const bool DefaultInvertYAxis = false;
+        public const bool DefaultInvertYAxisOn = false;
 
         // Player movement ranges
         public static int[] MouseSensitivityRange = { 30, 70 };
@@ -53,18 +53,18 @@ namespace Assignment4
 
         // Video defaults
         public const int DefaultBrightness = 50;
-        public const bool DefaultFancyGraphics = true;
-        public const bool DefaulVSync = true;
-        public const bool DefaultFullscreen = false;
+        public const bool DefaultFancyGraphicsOn = true;
+        public const bool DefaultVSyncOn = true;
+        public const bool DefaultFullscreenOn = false;
         public const int DefaultRenderDistance = 16;
         public const int DefaultFieldOfView = 64;
-        public const bool DefaultRayTracing = false;
-        public const bool DefaultUpscaling = false;
+        public const bool DefaultRayTracingOn = false;
+        public const bool DefaultUpscalingOn = false;
 
         // Video ranges
         public static int[] BrightnessRange = { 0, 100 };
         public static int[] RenderDistanceRange = { 4, 128 };
-        public static int[] FiledOfViewRange = { 60, 90 };
+        public static int[] FieldOfViewRange = { 60, 90 };
 
         #endregion
 
@@ -94,7 +94,7 @@ namespace Assignment4
 
         // Interface defaults
         public const int DefaultHUDTransparency = 100;
-        public const bool DefaultShowCoordinates = false;
+        public const bool DefaultShowCoordinatesOn = false;
         public const CameraPerspective DefaultCameraPerspective = CameraPerspective.FirstPerson;
 
         // Interface ranges
@@ -102,6 +102,13 @@ namespace Assignment4
 
         #endregion
 
+        #region General
+
+        public const bool DefaultIsStartupProfile = false;
+        public static int[] ProfileNameLengthRange = { 3, 30 };
+        public const string DefaultProfileName = "Unknown";
+
+        #endregion
 
     }
 }
