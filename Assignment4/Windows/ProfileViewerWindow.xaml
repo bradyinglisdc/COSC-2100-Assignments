@@ -7,8 +7,7 @@
         mc:Ignorable="d"
         Title="Profile Viewer" Height="650" Width="1000"
         ResizeMode="CanMinimize"
-        WindowStartupLocation="CenterScreen"
-        >
+        WindowStartupLocation="CenterScreen">
     <StackPanel VerticalAlignment="Top">
         <!-- Search Area -->
         <Grid Background="Black"
@@ -19,11 +18,21 @@
                 <Image Source="pack://application:,,,/Resources/DirtBackground.png" />
             </StackPanel>
             
+            <!-- Back button -->
+            <Button x:Name="ReturnToMenuButton"
+                    Style="{StaticResource MainMenuButton}"
+                    HorizontalAlignment="Left"
+                    Width="110"
+                    Content="_Back To Menu"
+                    ToolTip="Click here, or press 'alt + b' to go back to the menu."
+                    Margin="10"
+                    Click="ReturnToMenuButton_Click"/>
+
             <!-- Search Bar -->
             <Border CornerRadius="10"
-                    BorderBrush="Gray"
+                    BorderBrush="{StaticResource ButtonForeColorDark}"
                     BorderThickness="2"
-                    Background="#1E1E1E"
+                    Background="{StaticResource ButtonBackColorDark}"
                     Height="30"
                     Width="275"
                     ClipToBounds="True">
@@ -63,6 +72,16 @@
 
 
 
+        </Grid>
+        <Grid>
+            <!-- ProfilesArea Background styling -->
+            <StackPanel Grid.Column="0" Grid.Row="0" Height="475">
+                <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"/>
+            </StackPanel>
+        </Grid>
+        <Grid Background="Black"
+              Height="85">
+            
         </Grid>
 
 

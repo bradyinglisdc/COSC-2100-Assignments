@@ -1,5 +1,5 @@
 ﻿/*
- * Title: MainMenuWindow.xa,l.cs
+ * Title: MainMenuWindow.xaml.cs
  * Name: Brady Inglis (100926284)
  * Date: 2024-11-14
  * Purpose: To provide an interface to the user for viewing, editing and creating new minecraft setting profiles
