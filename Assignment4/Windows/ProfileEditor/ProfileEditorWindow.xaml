@@ -1,13 +1,193 @@
-﻿<Window x:Class="Assignment4.Windows.ProfileEditor.ProfileEditorWindow"
+﻿<Window x:Class="Assignment4.ProfileEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Assignment4.Windows.ProfileEditor"
+        xmlns:local="clr-namespace:Assignment4"
         mc:Ignorable="d"
-        Title="ProfileEditorWindow" Height="650" Width="1000"
-        WindowStartupLocation="CenterScreen">
+        Title="Profile Editor" Height="650" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
     <Grid>
+
+        <!-- Header and Background-->
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Image Source="pack://application:,,,/Resources/DirtBackground.png"
+                   Width="1200"
+                   Grid.Column="0"
+                   Grid.Row="0"/>
+            <StackPanel VerticalAlignment="Top" 
+                        HorizontalAlignment="Center"
+                        Grid.Column="0" 
+                        Grid.Row="0"
+                        Margin="12">
+
+                <Label Content="Profile  Editor"
+                       FontFamily="Minecraftia"
+                       Foreground="White"
+                       FontSize="16"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Options Area -->
+        <Grid Grid.Column="0" Grid.Row="0">
+            <TabControl Margin="15,30,15,75">
+                
+                <!-- Movement Options -->
+                <TabItem Header="Movement"
+                         FontFamily="Minecraftia">
+                    <Grid Background="#1E1E1E">
+                        <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
+                               Height="1000"/>
+
+                        <Grid Background="#801E1E1E">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Change Input Device Button -->
+                            <Button x:Name="ChangeInputDeviceButton"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + i' to change Input Device."
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeInputDeviceButton_Click">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="InputDeviceBinding" Text="{Binding EditedProfile.InputDevice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='_Input Device:  {0}'}"/>
+                            </Button>
+
+                            <!-- Change Auto-Jump Button -->
+                            <Button x:Name="ChangeAutoJumpButton"
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + j' to turn auto jump on/off."
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeAutoJumpButton_Click">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="AutoJumpBinding" Text="{Binding EditedProfile.AutoJumpOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='_Auto Jump On:  {0}'}"/>
+                            </Button>
+
+                            <Grid HorizontalAlignment="Right"
+                                  Grid.Column="0"
+                                  Grid.Row="1"
+                                  Margin="0,0,10,0"
+                                  
+                                  Height="70"
+                                  Width="300">
+
+                                <Slider Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}">
+                                </Slider>
+                                <TextBlock HorizontalAlignment="Left"
+                                           VerticalAlignment="Top"
+                                           Text="Mouse Sensitivity: "
+                                           Foreground="White"
+                                           Height="20"/>
+                            </Grid>
+
+
+                            <!-- Change Auto-Jump Button -->
+                
+
+
+                        </Grid>
+                    </Grid>
+                    
+                    
+                </TabItem>
+
+                <!-- Video Options -->
+                <TabItem Header="Video"
+                         FontFamily="Minecraftia">
+                    <Grid Background="#1E1E1E">
+                        <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
+                               Height="1000"/>
+
+                        <Grid Background="#801E1E1E">
         
+
+
+                        </Grid>
+                        <Label Content="Some Settings"></Label>
+
+                    </Grid>
+                </TabItem>
+
+                <!-- Audio Options -->
+                <TabItem Header="Audio"
+                         FontFamily="Minecraftia">
+                    <Grid Background="#1E1E1E">
+                        <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
+                               Height="1000"/>
+
+                        <Grid Background="#801E1E1E">
+
+                        </Grid>
+                        <Label Content="Some Settings"></Label>
+                    </Grid>
+                </TabItem>
+
+                <!-- Interface Options -->
+                <TabItem Header="Interface"
+                         FontFamily="Minecraftia">
+                    <Grid Background="#1E1E1E">
+                        <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
+                               Height="1000"/>
+
+                        <Grid Background="#801E1E1E">
+
+                        </Grid>
+                        <Label Content="Some Settings"></Label>
+                    </Grid>
+                </TabItem>
+                
+            </TabControl>
+        </Grid>
+        
+        <!-- Footer -->
+        <Grid Grid.Column="0" Grid.Row="0">
+            
+            <!-- Discard and Save buttons -->
+            <Grid VerticalAlignment="Bottom"
+                  Width="290">
+
+                <!-- Discard Button -->
+                <Button x:Name="DiscardChangesButton"
+                    Style="{StaticResource MainMenuButton}"
+                    Width="140"
+                    Content="_Discard Changes"
+                    ToolTip="Click here, or press 'alt + d' to discard changes and return to profile viewer."
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Left"/>
+
+                <!-- Save Button -->
+                <Button x:Name="SaveProfileButton"
+                    Style="{StaticResource MainMenuButton}"
+                    Width="140"
+                    Content="_Save Profile"
+                    ToolTip="Click here, or press 'alt + s' to save changes and return to profile viewer."
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Right"/>
+            </Grid>
+        </Grid>
+
+
     </Grid>
 </Window>

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace Assignment4
     public partial class Profile
     {
 
-        #region Instance Methods - Profile Writing
+        #region Instance Methods - Profile Writing Preparation
 
         /// <summary>
         /// Returns the string representation of this instance.
@@ -69,22 +70,23 @@ namespace Assignment4
 
         #endregion
 
-        #region Instance Methods - Profile Reading
+        #region Instance Methods - Profile Reading Preparation
 
         /// <summary>
         /// Interprets a formatted string as a dictionary then initializes properties.
         /// </summary>
-        /// <param name="rawSettings">A formatted string with Profile settings in format: "SettingName: SettingValue, Setting2Name: Setting2Value"</param>
-        private void CreateProfileFromString(string rawSettings)
+        /// <param name="rawSettings">A formatted string with as Byte array,
+        /// representing Profile settings in format: "SettingName: SettingValue, Setting2Name: Setting2Value"</param>
+        private void CreateProfileFromString(byte[] rawSettings)
         {
             // Separate each setting into a key value pair.
-            string[] settingKeyValuePairs = rawSettings.Split(',');
+            string settingsAsString = Encoding.UTF8.GetString(rawSettings);
+            string[] settingKeyValuePairs = settingsAsString.Split(',');
 
             // Create a dictionary of settings
             Dictionary<string, string> settingDictionary = CreateProfileDictionary(settingKeyValuePairs);
 
-            // Attempt to create the profile. If a parse exceptin is thrown, data was not formatted correctly
-
+            // Attempt to create the profile. If a parse exception is thrown, data was not formatted correctly
             try
             {
                 CreateProfileFromDictionary(settingDictionary);
@@ -171,6 +173,20 @@ namespace Assignment4
 
         #endregion
 
+        #region Instance Methods - General
+
+        /// <summary>
+        /// Switches to the next input device based on the enum definition
+        /// </summary>
+        public void SwitchInputDevice()
+        {
+            if (InputDevice == GenericSettings.InputDevice.Keyboard) { InputDevice = GenericSettings.InputDevice.Controller; }
+            else if (InputDevice == GenericSettings.InputDevice.Controller) { InputDevice = GenericSettings.InputDevice.Touch; }
+            else { InputDevice = GenericSettings.InputDevice.Keyboard; }
+        }
+
+        #endregion
+
         #region General Static Methods
 
         /// <summary>
@@ -179,7 +195,7 @@ namespace Assignment4
         /// <returns>A unique name.</returns>
         public static string GetUniqueName()
         {
-            string uniqueName = $"GenericSettings.DefaultProfileName + {AutoNameNumber++}";
+            string uniqueName = $"{GenericSettings.DefaultProfileName} {AutoNameNumber++}";
 
             // Loop until name is unique, then return it.
             while (FindProfileByName(uniqueName) != null) { uniqueName = $"GenericSettings.DefaultProfileName + {AutoNameNumber++}"; }
@@ -198,36 +214,6 @@ namespace Assignment4
                 if (profile.ProfileName == name) { return profile; }
             }
             return null;
-        }
-
-        /// <summary>
-        /// Stores string cast of each Profile instance as an array of bytes for more secure storage.
-        /// After this method is called, all Profile settings are ready to be written to a file.
-        /// </summary>
-        public static void PackageAllSettings()
-        {
-            // Iterate through all profiles, building a combined string where each profile is separated by '|'.
-            string allSettings = string.Empty;
-            foreach (Profile profile in Profiles)
-            {
-                allSettings += profile.ToString() + '|';
-            }
-            PackagedProfiles = Encoding.UTF8.GetBytes(allSettings);
-        }
-
-        /// <summary>
-        /// Stores all procided profiles in static list within class.
-        /// </summary>
-        /// <param name="profilesByteArray">A byte array of all the profiles to store</param>
-        public static void SetAllProfiles(byte[] profilesByteArray)
-        {
-            // Encode byte array back to string, then instantiate a Profile for each Profile
-            string unpackagedProfiles = Encoding.UTF8.GetString(profilesByteArray);
-
-            foreach (string rawSetting in unpackagedProfiles.Split('|'))
-            {
-                Profile profile = new Profile(rawSetting);
-            }
         }
 
         /// <summary>

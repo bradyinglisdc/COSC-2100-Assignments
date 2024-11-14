@@ -80,7 +80,7 @@
                 <Image Source="pack://application:,,,/Resources/DirtBackground.png"/>
             </StackPanel>
 
-            <!-- Create New Profile Button -->
+            <!-- Edit Selected Profile Button -->
             <Grid Width="360">
                 <Button x:Name="EditSelectedProfileButton"
                         Style="{StaticResource MainMenuButton}"
@@ -89,7 +89,7 @@
                         Content="_Edit Selected Profile"
                         ToolTip="Click here, or press 'alt + e' to edit the selected profile."
                         Margin="10"
-                        Click="ReturnToMenuButton_Click"/>
+                        Click="EditSelectedProfileButton_Click"/>
 
 
                 <!-- Create New Profile Button -->
@@ -100,7 +100,7 @@
                         Content="_Create New Profile"
                         ToolTip="Click here, or press 'alt + c' to create a new profile."
                         Margin="10"
-                        Click="ReturnToMenuButton_Click"/>
+                        Click="CreateNewProfileButton_Click"/>
             </Grid>
 
 

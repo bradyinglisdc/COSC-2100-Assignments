@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * Title: ProfileEditorWindow.xaml.cs
+ * Name: Brady Inglis (100926284)
+ * Date: 2024-11-14
+ * Purpose: To provide an interface to the user for profile editing
+ */
+
+#region Namespaces Used
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +21,76 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Assignment4.Windows.ProfileEditor
+#endregion
+
+#region Namespace Definition
+
+namespace Assignment4
 {
     /// <summary>
-    /// Interaction logic for ProfileEditorWindow.xaml
+    /// Provides Interaction logic for ProfileEditorWindow
     /// </summary>
     public partial class ProfileEditorWindow : Window
     {
+
+        #region Instance Properties
+
+        /// <summary>
+        /// Initial setting properties will be pulled from here. Changes made to settings will instantly 
+        /// be stored in memory via EditedProfile, and if the user chooses to save, BoundProfile will become EditedProfile.
+        /// </summary>
+        public Profile BoundProfile { get; set; }
+
+        /// <summary>
+        /// A profile to store setting changes in memory.
+        /// </summary>
+        public Profile EditedProfile { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Default constructor instantiates a new default profile
+        /// </summary>
         public ProfileEditorWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            BoundProfile = new Profile();
+            EditedProfile = new Profile();
         }
+
+        #endregion
+
+        #region Event Handler Methods
+
+        /// <summary>
+        /// Switches input device in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeInputDeviceButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.SwitchInputDevice();
+            InputDeviceBinding.GetBindingExpression(AccessText.TextProperty).UpdateTarget();
+        }
+
+        /// <summary>
+        /// Switches auto jump in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeAutoJumpButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.AutoJumpOn = !EditedProfile.AutoJumpOn;
+            AutoJumpBinding.GetBindingExpression(AccessText.TextProperty).UpdateTarget();
+        }
+
+        #endregion
+
+
     }
 }
+
+#endregion

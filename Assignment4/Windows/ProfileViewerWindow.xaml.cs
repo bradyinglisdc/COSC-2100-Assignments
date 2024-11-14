@@ -78,6 +78,25 @@ namespace Assignment4
             ReturnToMainMenu();
         }
 
+        /// <summary>
+        /// Calls EditSelectedProfile()
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EditSelectedProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            ReturnToMainMenu();
+        }
+
+        /// <summary>
+        /// Calls CreateNewProfile()
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void CreateNewProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNewProfile();
+        }
         #endregion
 
         #region Interaction Logic
@@ -88,6 +107,15 @@ namespace Assignment4
         private void ReturnToMainMenu()
         {
             MainMenu.Show();
+            Close();
+        }
+
+        /// <summary>
+        /// Closes this window, then instantiates and opens a new ProfileEditorWindow, calling the default constructor
+        /// </summary>
+        private void CreateNewProfile()
+        {
+            (new ProfileEditorWindow()).Show();
             Close();
         }
 

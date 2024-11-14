@@ -34,11 +34,6 @@ namespace Assignment4
         /// </summary>
         private static int AutoNameNumber = 0;
 
-        /// <summary>
-        /// Gets or sets the settings of all profile instances as a byte array for efficient storage.
-        /// </summary>
-        public static byte[]? PackagedProfiles { get; private set; }
-
         #endregion
 
         #region Private Backing Members
@@ -152,7 +147,6 @@ namespace Assignment4
         /// Gets or sets the invert y axis value of this instance to true or false (true = on, false = off)
         /// </summary>
         public bool InvertYAxisOn { get; set; } = GenericSettings.DefaultInvertYAxisOn;
-
 
         #endregion
 
@@ -316,10 +310,10 @@ namespace Assignment4
         }
           
         /// <summary>
-        /// Takes in a raw settings string to read from
+        /// Takes in a raw settings string encoded as a byte array to read from
         /// </summary>
-        /// <param name="rawSettings">The settings string formatted in dictionary format</param>
-        public Profile(string rawSettings)
+        /// <param name="rawSettings">The settings string as a byte array formatted in dictionary format</param>
+        public Profile(byte[] rawSettings)
         {
             CreateProfileFromString(rawSettings);
             Profiles.Add(this);
