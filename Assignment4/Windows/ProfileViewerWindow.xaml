@@ -42,7 +42,7 @@
                         <ColumnDefinition Width="35"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    
+
 
                     <Image Source="pack://application:,,,/Resources/SearchIcon.png"
                            Margin="5,0"
@@ -57,31 +57,53 @@
                              Grid.Column="1"
                              FontFamily="Minecraftia"/>
                 </Grid>
-
-
-
-
             </Border>
-
-
-
-
-
-
-
-
-
-
         </Grid>
+        
+        <!-- Profiles Area -->
         <Grid>
-            <!-- ProfilesArea Background styling -->
-            <StackPanel Grid.Column="0" Grid.Row="0" Height="475">
-                <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"/>
-            </StackPanel>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <!-- ProfilesArea Background styling -->
+                <StackPanel Grid.Column="0" Grid.Row="0" Height="460">
+                    <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="0">
+                
+            </Grid>
         </Grid>
-        <Grid Background="Black"
-              Height="85">
-            
+
+        <!-- Footer -->
+        <Grid Height="80">
+            <!-- ProfilesArea Background styling -->
+            <StackPanel Grid.Column="0" Grid.Row="0">
+                <Image Source="pack://application:,,,/Resources/DirtBackground.png"/>
+            </StackPanel>
+
+            <!-- Create New Profile Button -->
+            <Grid Width="360">
+                <Button x:Name="EditSelectedProfileButton"
+                        Style="{StaticResource MainMenuButton}"
+                        HorizontalAlignment="Left"
+                        Width="165"
+                        Content="_Edit Selected Profile"
+                        ToolTip="Click here, or press 'alt + e' to edit the selected profile."
+                        Margin="10"
+                        Click="ReturnToMenuButton_Click"/>
+
+
+                <!-- Create New Profile Button -->
+                <Button x:Name="CreateNewProfileButton"
+                        Style="{StaticResource MainMenuButton}"
+                        HorizontalAlignment="Right"
+                        Width="165"
+                        Content="_Create New Profile"
+                        ToolTip="Click here, or press 'alt + c' to create a new profile."
+                        Margin="10"
+                        Click="ReturnToMenuButton_Click"/>
+            </Grid>
+
+
         </Grid>
 
 
