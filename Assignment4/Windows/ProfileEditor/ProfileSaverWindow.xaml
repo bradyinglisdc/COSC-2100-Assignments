@@ -43,7 +43,7 @@
                 Height="30"
                 Width="275"
                 ClipToBounds="True">
-            <TextBox x:Name="ProfileNameTextBox"
+            <TextBox x:Name="tbxProfileName"
                      Background="Transparent"
                      Foreground="White"
                      BorderThickness="0"
@@ -61,23 +61,25 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="CancelButton"
+            <Button x:Name="btnCancel"
                     Style="{StaticResource MainMenuButton}"
                     Width="125"
                     Content="_Cancel"
                     Grid.Column="0"
                     HorizontalAlignment="right"
                     IsCancel="True"
-                    ToolTip="Click here, or press 'alt + c' to cancel save"/>
+                    ToolTip="Click here, or press 'alt + c' to cancel save"
+                    Click="btnCancel_Click"/>
 
-            <Button x:Name="SaveButton"
+            <Button x:Name="btnSave"
                     Style="{StaticResource MainMenuButton}"
                     Width="125"
                     Content="_Save"
                     Grid.Column="1"
                     HorizontalAlignment="left"
                     IsDefault="True"
-                    ToolTip="Click here, or press 'alt + s' to save this profile."/>
+                    ToolTip="Click here, or press 'alt + s' to save this profile."
+                    Click="btnSave_Click"/>
         </Grid>
     </Grid>
 </Window>

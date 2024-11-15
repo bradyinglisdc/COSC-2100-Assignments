@@ -261,6 +261,17 @@ namespace Assignment4
             return null;
         }
 
+        /// <summary>
+        /// Removes and replaces a set of profiles from the static list
+        /// </summary>
+        /// <param name="profileToAdd">The profile to add to the list</param>
+        /// <param name="profileToReplace">The profile to remove from the list</param>
+        public static void Swap(Profile profileToAdd, Profile profileToReplace)
+        {
+            Profiles.Remove(profileToReplace);
+            Profiles.Add(profileToAdd);
+        }
+
         #endregion
 
     }

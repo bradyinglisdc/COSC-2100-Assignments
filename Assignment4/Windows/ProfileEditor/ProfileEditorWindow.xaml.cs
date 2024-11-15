@@ -193,7 +193,7 @@ namespace Assignment4
         /// </summary>
         private void SaveProfile()
         {
-            (new ProfileSaverWindow()).ShowDialog();
+            (new ProfileSaverWindow(BoundProfile, EditedProfile)).ShowDialog();
         }
 
         #endregion
