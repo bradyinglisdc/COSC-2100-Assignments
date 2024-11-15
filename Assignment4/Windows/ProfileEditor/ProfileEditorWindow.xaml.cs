@@ -66,6 +66,8 @@ namespace Assignment4
 
         #region Event Handler Methods
 
+        #region Options Button Clicks
+
         /// <summary>
         /// Switches input device in memory and hides sensitivity slider if touch is selected
         /// </summary>
@@ -147,7 +149,57 @@ namespace Assignment4
             EditedProfile.UpscalingOn = !EditedProfile.UpscalingOn;
         }
 
+        /// <summary>
+        /// Switches show coordinates in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeShowCoordinatesButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.ShowCoordinatesOn = !EditedProfile.ShowCoordinatesOn;
+        }
+
+        /// <summary>
+        /// Switches camera perspective in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeCameraPerspectiveButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.SwitchCameraPerspective();
+        }
+
         #endregion
+
+        #region Save/Discard Button Clicks
+
+        /// <summary>
+        /// Calls SaveProfile()
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void SaveProfileButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveProfile();
+        }
+
+        #endregion
+
+        #region Interaction Logic
+        
+        /// <summary>
+        /// Prompts user to edit profile name,
+        /// then saves profile.
+        /// </summary>
+        private void SaveProfile()
+        {
+            (new ProfileSaverWindow()).ShowDialog();
+        }
+
+        #endregion
+
+        #endregion
+
 
     }
 }

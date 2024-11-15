@@ -196,6 +196,16 @@ namespace Assignment4
             else { InputDevice = GenericSettings.InputDevice.Keyboard; }
         }
 
+        /// <summary>
+        /// Switches to the next camera perspective based on the enum definition
+        /// </summary>
+        public void SwitchCameraPerspective()
+        {
+            if (CameraPerspective == GenericSettings.CameraPerspective.FirstPerson) { CameraPerspective = GenericSettings.CameraPerspective.ThirdPersonBack; }
+            else if (CameraPerspective == GenericSettings.CameraPerspective.ThirdPersonBack) { CameraPerspective = GenericSettings.CameraPerspective.ThirdPersonFront; }
+            else { CameraPerspective = GenericSettings.CameraPerspective.FirstPerson; }
+        }
+
         #endregion
 
         #region General Static Methods

@@ -437,6 +437,7 @@ namespace Assignment4
             get { return _cameraPerspective; }
             set
             {
+                _cameraPerspective = value;
                 OnPropertyChanged(nameof(CameraPerspective));
             }
         }
@@ -448,12 +449,9 @@ namespace Assignment4
         #region Constructors 
 
         /// <summary>
-        /// Default constructor - default values already set on object initialization, so this constructor just adds the instance to memory
+        /// Default constructor - default values already set on object initialization - nothing more done here
         /// </summary>
-        public Profile()
-        {
-            Profiles.Add(this);
-        }
+        public Profile() { }
           
         /// <summary>
         /// Takes in a raw settings string encoded as a byte array to read from

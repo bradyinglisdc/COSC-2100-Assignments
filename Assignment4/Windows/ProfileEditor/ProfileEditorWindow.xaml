@@ -8,7 +8,7 @@
         Title="Profile Editor" Height="650" Width="1000"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
-    <Grid>
+    <Grid x:Name="ProfileEditorGrid">
 
         <!-- Header and Background-->
         <Grid Grid.Column="0" Grid.Row="0">
@@ -464,16 +464,34 @@
                             </Grid>
 
                             <!-- Change Show Coordinates Button -->
-                            <Button x:Name="ChangeRaytracingButton"
+                            <Button x:Name="ChangeShowCoordinatesButton"
                                     Grid.Column="1"
-                                    Grid.Row="3"
+                                    Grid.Row="1"
                                     Style="{StaticResource MainMenuButton}"
                                     Width="300"
-                                    ToolTip="Click here, or press 'alt + r' to turn ray tracing on/off."
-                                    HorizontalAlignment="Left"
+                                    ToolTip="Click here, or press 'alt + c' to turn show coordinates on/off."
+                                    HorizontalAlignment="Center"
                                     Margin="0,0,10,0" 
-                                    Click="ChangeRayTracingButton_Click"
-                                    VerticalAlignment="Top">
+                                    Click="ChangeShowCoordinatesButton_Click"
+                                    VerticalAlignment="Center">
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ShowCoordinatesBinding" Text="{Binding EditedProfile.ShowCoordinatesOn, StringFormat='Show _Coordinates On:  {0}'}"/>
+                            </Button>
+
+                            <!-- Change Camera Perspective Button -->
+                            <Button x:Name="ChangeCameraPerspectiveButton"
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + p' to change camera perspective."
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeCameraPerspectiveButton_Click"
+                                    VerticalAlignment="Center">
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeCameraPerspectiveBinding" Text="{Binding EditedProfile.CameraPerspective, StringFormat='Camera Perspective:  {0}'}"/>
+                            </Button>
 
                         </Grid>
                     </Grid>
@@ -505,7 +523,8 @@
                     Content="_Save Profile"
                     ToolTip="Click here, or press 'alt + s' to save changes and return to profile viewer."
                     Margin="0,0,0,20"
-                    HorizontalAlignment="Right"/>
+                    HorizontalAlignment="Right"
+                    Click="SaveProfileButton_Click"/>
             </Grid>
         </Grid>
 

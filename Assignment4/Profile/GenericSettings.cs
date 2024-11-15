@@ -108,15 +108,6 @@ namespace Assignment4
         public static int[] ProfileNameLengthRange = { 3, 30 };
         public const string DefaultProfileName = "Unknown";
 
-        /// <summary>
-        /// This enum maps true or falses to on or off, where 0 is off and 1 is on.
-        /// </summary>
-        public enum OnOff
-        {
-            Off,
-            On
-        }
-
         #endregion
 
     }
