@@ -107,6 +107,7 @@ namespace Assignment4
         public const bool DefaultIsStartupProfile = false;
         public static int[] ProfileNameLengthRange = { 3, 30 };
         public const string DefaultProfileName = "Unknown";
+        public static string ProfileOutputURL = $"{Environment.CurrentDirectory}\\UserProfiles\\";
 
         #endregion
 

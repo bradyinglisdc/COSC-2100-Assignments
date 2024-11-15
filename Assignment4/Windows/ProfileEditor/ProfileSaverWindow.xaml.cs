@@ -7,19 +7,7 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 #endregion
 
@@ -105,6 +93,7 @@ namespace Assignment4
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                return;
             }
 
             // Add to memory list if not already there. This will remove and overwrite the current reference from the list and add the new one
@@ -112,10 +101,17 @@ namespace Assignment4
             Profile.Swap(ProfileToWriteTo, ProfileToReadFrom);
 
             // Attempt to write to storage
-/*            try
+            ProfileToWriteTo.PackcageSettings();
+            try
             {
+                BasicFileIO.WriteByteArrayIntoFIle($"{GenericSettings.ProfileOutputURL}{ProfileToWriteTo.ProfileName}", ProfileToWriteTo.PackagedSettings);
+            }
 
-            }*/
+            catch (Exception ex) 
+            { 
+                MessageBox.Show(ex.Message);
+                return;
+            }
         }
 
         #endregion

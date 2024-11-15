@@ -98,7 +98,7 @@ namespace Assignment4
             {
                 if (FindProfileByName(value) != null)
                 {
-                    throw new Exception($"The name '{value} already exists.'");
+                    throw new Exception($"The name '{value}' already exists.");
                 }
 
                 else if (value.Length < GenericSettings.ProfileNameLengthRange[0] || value.Length > GenericSettings.ProfileNameLengthRange[1])
@@ -454,10 +454,10 @@ namespace Assignment4
         public Profile() { }
           
         /// <summary>
-        /// Takes in a raw settings string encoded as a byte array to read from
+        /// Takes in a raw settings string to read from
         /// </summary>
-        /// <param name="rawSettings">The settings string as a byte array formatted in dictionary format</param>
-        public Profile(byte[] rawSettings)
+        /// <param name="rawSettings">The settings string formatted in dictionary format</param>
+        public Profile(string rawSettings)
         {
             CreateProfileFromString(rawSettings);
             Profiles.Add(this);

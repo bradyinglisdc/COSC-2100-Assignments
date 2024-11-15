@@ -51,6 +51,7 @@ namespace Assignment4
         public ProfileViewerWindow()
         {
             MainMenu = new MainMenuWindow();
+            Profile.CreateAllProfiles(BasicFileIO.ReadDirectoryIntoByteArray($"{GenericSettings.ProfileOutputURL}"));
             InitializeComponent();
         }
 

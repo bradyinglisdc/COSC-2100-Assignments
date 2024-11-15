@@ -69,6 +69,12 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="0" Grid.Row="0">
+
+                <ComboBox Width="100"
+                          Height="30"
+                          ItemsSource="{Binding Profile.Profiles}">
+                    
+                </ComboBox>
                 
             </Grid>
         </Grid>

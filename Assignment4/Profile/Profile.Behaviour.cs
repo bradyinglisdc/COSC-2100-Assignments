@@ -8,12 +8,9 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 #endregion
 
@@ -75,13 +72,12 @@ namespace Assignment4
         /// <summary>
         /// Interprets a formatted string as a dictionary then initializes properties.
         /// </summary>
-        /// <param name="rawSettings">A formatted string with as Byte array,
+        /// <param name="rawSettings">A formatted string with,
         /// representing Profile settings in format: "SettingName: SettingValue, Setting2Name: Setting2Value"</param>
-        private void CreateProfileFromString(byte[] rawSettings)
+        private void CreateProfileFromString(string rawSettings)
         {
             // Separate each setting into a key value pair.
-            string settingsAsString = Encoding.UTF8.GetString(rawSettings);
-            string[] settingKeyValuePairs = settingsAsString.Split(',');
+            string[] settingKeyValuePairs = rawSettings.Split(',');
 
             // Create a dictionary of settings
             Dictionary<string, string> settingDictionary = CreateProfileDictionary(settingKeyValuePairs);
@@ -133,6 +129,8 @@ namespace Assignment4
             // Iterate through each key value pair, storing each in the dictionary
             foreach (string keyValuePair in settingKeyValuePairs)
             {
+                if (keyValuePair.Split(": ").Length < 2) { break; }
+
                 string settingName = keyValuePair.Split(':')[0];
                 string settingValue = keyValuePair.Split(": ")[1];
                 settingDictionary[settingName] = settingValue;
@@ -204,6 +202,30 @@ namespace Assignment4
             if (CameraPerspective == GenericSettings.CameraPerspective.FirstPerson) { CameraPerspective = GenericSettings.CameraPerspective.ThirdPersonBack; }
             else if (CameraPerspective == GenericSettings.CameraPerspective.ThirdPersonBack) { CameraPerspective = GenericSettings.CameraPerspective.ThirdPersonFront; }
             else { CameraPerspective = GenericSettings.CameraPerspective.FirstPerson; }
+        }
+
+        #endregion
+
+        #region Static Methods - Read Preperation
+
+        /// <summary>
+        /// Taks a byte array of profiles. Each profile should be separated by a '|'.
+        /// Each setting should be separated by a ','.
+        /// And each key value pair should be separated by a ': '
+        /// </summary>
+        /// <param name="rawProfiles">The profile array to read from.</param>
+        public static void CreateAllProfiles(byte[] rawProfiles)
+        {
+            // Separate each profile by |
+            string profilesAsString = Encoding.UTF8.GetString(rawProfiles);
+            string[] separatedProfiles = profilesAsString.Split('|');
+
+            // Instantiate all profiles 
+            foreach (string rawSetting in separatedProfiles)
+            {
+                new Profile(rawSetting);
+            }
+
         }
 
         #endregion
