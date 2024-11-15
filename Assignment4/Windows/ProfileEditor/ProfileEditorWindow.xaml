@@ -40,16 +40,19 @@
                         <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
                                Height="1000"/>
 
-                        <Grid Background="#801E1E1E">
+                        <Grid Background="#801E1E1E"
+                              Margin="0,0,0,0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
                             
+  
                             <!-- Change Input Device Button -->
                             <Button x:Name="ChangeInputDeviceButton"
                                     Grid.Column="0"
@@ -57,9 +60,10 @@
                                     Style="{StaticResource MainMenuButton}"
                                     Width="300"
                                     ToolTip="Click here, or press 'alt + i' to change Input Device."
-                                    HorizontalAlignment="Right"
-                                    Margin="0,0,10,0" 
-                                    Click="ChangeInputDeviceButton_Click">
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,0" 
+                                    Click="ChangeInputDeviceButton_Click"
+                                    VerticalAlignment="Center">
 
                                 <!-- Data Binding With Keyboard Shortcut -->
                                 <AccessText x:Name="InputDeviceBinding" Text="{Binding EditedProfile.InputDevice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='_Input Device:  {0}'}"/>
@@ -67,35 +71,53 @@
 
                             <!-- Change Auto-Jump Button -->
                             <Button x:Name="ChangeAutoJumpButton"
-                                    Grid.Column="1"
-                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.Row="1"
                                     Style="{StaticResource MainMenuButton}"
                                     Width="300"
                                     ToolTip="Click here, or press 'alt + j' to turn auto jump on/off."
-                                    HorizontalAlignment="Left"
-                                    Margin="0,0,10,0" 
-                                    Click="ChangeAutoJumpButton_Click">
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,0" 
+                                    Click="ChangeAutoJumpButton_Click"
+                                    VerticalAlignment="Center">
 
                                 <!-- Data Binding With Keyboard Shortcut -->
                                 <AccessText x:Name="AutoJumpBinding" Text="{Binding EditedProfile.AutoJumpOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='Auto _Jump On:  {0}'}"/>
                             </Button>
 
+                            <!-- Invert Y Axis Button -->
+                            <Button x:Name="InvertYAxisButton"
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + j' to turn auto jump on/off."
+                                    HorizontalAlignment="Center"
+                                    Margin="0,0,0,0" 
+                                    Click="InvertYAxisButton_Click"
+                                    VerticalAlignment="Center">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="InvertYAxisBinding" Text="{Binding EditedProfile.InvertYAxisOn, StringFormat='Invert Y Axis On:  {0}'}"/>
+                            </Button>
+
                             <!-- Sensitivity Slider -->
                             <Grid x:Name="SensitivityContainer"
-                                  HorizontalAlignment="Right"
+                                  HorizontalAlignment="Center"
                                   Grid.Column="0"
-                                  Grid.Row="1"
-                                  Margin="0,0,10,0"      
+                                  Grid.Row="3"
+                                  Margin="0,10,0,0"      
                                   Height="70"
-                                  Width="300">
+                                  Width="300"
+                                  VerticalAlignment="Center">
 
                                 <Slider x:Name="SensitivitySlider"
                                         Width="300"
                                         Height="30"
                                         Background="{StaticResource ButtonBackColorDark}"
                                         Value="{Binding EditedProfile.CurrentInputDeviceSensitivity}"
-                                        Maximum="70"
-                                        Minimum="30">
+                                        Maximum="100"
+                                        Minimum="0">
                                 </Slider>
 
                                 <!-- Sensitivity Header -->
@@ -109,15 +131,8 @@
                                         </MultiBinding>
                                     </TextBlock.Text>
                                 </TextBlock>
-                                
-               
 
                             </Grid>
-
-
-                            <!-- Change Auto-Jump Button -->
-                
-
 
                         </Grid>
                     </Grid>
@@ -133,12 +148,193 @@
                                Height="1000"/>
 
                         <Grid Background="#801E1E1E">
-        
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <!-- Brightness Slider -->
+                            <Grid x:Name="BrightnessContainer"
+                                  HorizontalAlignment="Right"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Margin="0,0,10,0"      
+                                  Height="70"
+                                  Width="300"
+                                  VerticalAlignment="Bottom">
+
+                                <Slider x:Name="BrightnessSlider"
+                                        Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="{Binding EditedProfile.Brightness}"
+                                        Maximum="70"
+                                        Minimum="30">
+                                </Slider>
+
+                                <!-- Brightness Header -->
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Brightness  {0}">
+                                            <Binding Path="EditedProfile.Brightness"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                            </Grid>
+
+                            <!-- RenderDistance Slider -->
+                            <Grid x:Name="FancyGraphicsContainer"
+                                  HorizontalAlignment="Left"
+                                  Grid.Column="1"
+                                  Grid.Row="0"
+                                  Margin="0,0,10,0"      
+                                  Height="70"
+                                  Width="300"
+                                  VerticalAlignment="Bottom">
+
+                                <Slider x:Name="FancyGraphicsSlider"
+                                        Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="{Binding EditedProfile.RenderDistance}"
+                                        Maximum="128"
+                                        Minimum="4">
+                                </Slider>
+
+                                <!-- RenderDistance Header -->
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Render Distance:  {0}">
+                                            <Binding Path="EditedProfile.RenderDistance"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+
+                            <!-- FieldOfView Slider -->
+                            <Grid x:Name="FieldOfViewContainer"
+                            HorizontalAlignment="Right"
+                            Grid.Column="0"
+                            Grid.Row="1"
+                            Margin="0,0,10,0"      
+                            Height="70"
+                            Width="300"
+                            VerticalAlignment="Center">
+
+                                <Slider x:Name="FieldOfViewSlider"
+                                  Width="300"
+                                  Height="30"
+                                  Background="{StaticResource ButtonBackColorDark}"
+                                  Value="{Binding EditedProfile.FieldOfView}"
+                                  Maximum="128"
+                                  Minimum="30">
+                                </Slider>
+
+                                <!-- FieldOfView Header -->
+                                <TextBlock Foreground="White"
+                                     Height="20"
+                                     VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Field Of View:  {0}">
+                                            <Binding Path="EditedProfile.FieldOfView"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+
+                            </Grid>
+
+                            <!-- Change FancyGraphics Button -->
+                            <Button x:Name="ChangeFancyGraphicsButton"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + g' to turn fancy graphics on/off."
+                                    HorizontalAlignment="Left"
+                                    Margin="0,43,0,0" 
+                                    Click="ChangeFancyGraphicsButton_Click"
+                                    VerticalAlignment="Top">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeFancyGraphicsBinding" Text="{Binding EditedProfile.FancyGraphicsOn, StringFormat='Fancy _Graphics On:  {0}'}"/>
+                            </Button>
 
 
+                            <!-- Change VSync Button -->
+                            <Button x:Name="ChangeVSyncButton"
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + v' to turn v sync on/off."
+                                    HorizontalAlignment="Right"
+                                    Margin="0,20,10,0" 
+                                    Click="ChangeVSyncButton_Click"
+                                    VerticalAlignment="Top">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeVSyncBinding" Text="{Binding EditedProfile.VSyncOn, StringFormat='_V Sync On:  {0}'}"/>
+                            </Button>
+
+                            <!-- Change Fullscreen Button -->
+                            <Button x:Name="ChangeFullscreenButton"
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + f' to turn full screen on/off."
+                                    HorizontalAlignment="Left"
+                                    Margin="0,20,0,0" 
+                                    Click="ChangeFullscreenButton_Click"
+                                    VerticalAlignment="Top">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeFullscreenBinding" Text="{Binding EditedProfile.FullscreenOn, StringFormat='Fullscreen On:  {0}'}"/>
+                            </Button>
+
+                            <!-- Change Raytracing Button -->
+                            <Button x:Name="ChangeRaytracingButton"
+                                    Grid.Column="1"
+                                    Grid.Row="3"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + r' to turn ray tracing on/off."
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeRayTracingButton_Click"
+                                    VerticalAlignment="Top">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeRayTracingBinding" Text="{Binding EditedProfile.RayTracingOn, StringFormat='_Raytracing On:  {0}'}"/>
+                            </Button>
+
+                            <!-- Change Upscaling Button -->
+                            <Button x:Name="ChangeUpscalingButton"
+                                    Grid.Column="0"
+                                    Grid.Row="3"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + r' to turn upscaling on/off."
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeUpscalingButton_Click"
+                                    VerticalAlignment="Top">
+
+                                <!-- Data Binding With Keyboard Shortcut -->
+                                <AccessText x:Name="ChangeUpscalingBinding" Text="{Binding EditedProfile.UpscalingOn, StringFormat='Up Scaling On:  {0}'}"/>
+                            </Button>
                         </Grid>
-                        <Label Content="Some Settings"></Label>
-
                     </Grid>
                 </TabItem>
 
@@ -150,9 +346,75 @@
                                Height="1000"/>
 
                         <Grid Background="#801E1E1E">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
 
+                            <!-- SoundVolume Slider -->
+                            <Grid x:Name="SoundolumeContainer"
+                                  HorizontalAlignment="Center"
+                                  Grid.Column="0"
+                                  Grid.Row="0"
+                                  Margin="10,0,10,20"      
+                                  Height="70"
+                                  Width="300"
+                                  VerticalAlignment="Bottom">
+
+                                <Slider x:Name="SoundVolumeSlider"
+                                        Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="{Binding EditedProfile.SoundVolume}"
+                                        Maximum="100"
+                                        Minimum="0">
+                                </Slider>
+
+                                <!-- SoundVolume Header -->
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Sound Volume:  {0}">
+                                            <Binding Path="EditedProfile.SoundVolume"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+
+
+                            <!-- MusicVolume Slider -->
+                            <Grid x:Name="MusicVolumeContainer"
+                                  HorizontalAlignment="Center"
+                                  Grid.Column="0"
+                                  Grid.Row="1"
+                                  Margin="10,20,10,0"      
+                                  Height="70"
+                                  Width="300"
+                                  VerticalAlignment="Top">
+
+                                <Slider x:Name="MusicVolumeSlider"
+                                        Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="{Binding EditedProfile.MusicVolume}"
+                                        Maximum="100"
+                                        Minimum="0">
+                                </Slider>
+
+                                <!-- MusicVolume Header -->
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Music Volume:  {0}">
+                                            <Binding Path="EditedProfile.MusicVolume"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+                            
                         </Grid>
-                        <Label Content="Some Settings"></Label>
                     </Grid>
                 </TabItem>
 
@@ -164,9 +426,56 @@
                                Height="1000"/>
 
                         <Grid Background="#801E1E1E">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            
+                            <!-- HudTransparency Slider -->
+                            <Grid x:Name="HudTransparencyContainer"
+                                          HorizontalAlignment="Center"
+                                          Grid.Column="0"
+                                          Grid.Row="0"
+                                          Margin="10,20,10,0"      
+                                          Height="70"
+                                          Width="300"
+                                          VerticalAlignment="Center">
+
+                                <Slider x:Name="HudTransparencySlider"
+                                        Width="300"
+                                        Height="30"
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="{Binding EditedProfile.HUDTransparency}"
+                                        Maximum="100"
+                                        Minimum="25">
+                                    </Slider>
+
+                                <!-- HudTransparency Header -->
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="HUD Transparency:  {0}">
+                                            <Binding Path="EditedProfile.HUDTransparency"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Grid>
+
+                            <!-- Change Show Coordinates Button -->
+                            <Button x:Name="ChangeRaytracingButton"
+                                    Grid.Column="1"
+                                    Grid.Row="3"
+                                    Style="{StaticResource MainMenuButton}"
+                                    Width="300"
+                                    ToolTip="Click here, or press 'alt + r' to turn ray tracing on/off."
+                                    HorizontalAlignment="Left"
+                                    Margin="0,0,10,0" 
+                                    Click="ChangeRayTracingButton_Click"
+                                    VerticalAlignment="Top">
 
                         </Grid>
-                        <Label Content="Some Settings"></Label>
                     </Grid>
                 </TabItem>
                 

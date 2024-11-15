@@ -87,19 +87,68 @@ namespace Assignment4
             EditedProfile.AutoJumpOn = !EditedProfile.AutoJumpOn;
         }
 
+        /// <summary>
+        /// Switches y axis in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void InvertYAxisButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.InvertYAxisOn = !EditedProfile.InvertYAxisOn;
+        }
+
+        /// <summary>
+        /// Switches fancy graphics in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeFancyGraphicsButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.FancyGraphicsOn = !EditedProfile.FancyGraphicsOn;
+        }
+
+        /// <summary>
+        /// Switches v sync in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeVSyncButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.VSyncOn = !EditedProfile.VSyncOn;
+        }
+
+        /// <summary>
+        /// Switches fullscreen in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeFullscreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.FullscreenOn = !EditedProfile.FullscreenOn;
+        }
+
+        /// <summary>
+        /// Switches ray tracing in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeRayTracingButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.RayTracingOn = !EditedProfile.RayTracingOn;
+        }
+
+        /// <summary>
+        /// Switches up scaling in memory.
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ChangeUpscalingButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditedProfile.UpscalingOn = !EditedProfile.UpscalingOn;
+        }
 
         #endregion
 
-        #region Setup
-
-   
-
-        #endregion
-
-        #region Interaction Logic
-
-
-        #endregion
     }
 }
 

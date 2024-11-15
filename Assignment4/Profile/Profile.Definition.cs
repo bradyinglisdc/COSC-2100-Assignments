@@ -278,6 +278,18 @@ namespace Assignment4
             }
         }
 
+        /// <summary>
+        /// Gets or sets the full screen value of this instance to true or false (true = on, false = off)
+        /// </summary>
+        public bool FullscreenOn
+        {
+            get { return _fullScreenOn; }
+            set
+            {
+                _fullScreenOn = value;
+                OnPropertyChanged(nameof(FullscreenOn));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the render distance of this instance. If render distance is not within allowed range, exception is thrown.
@@ -428,7 +440,6 @@ namespace Assignment4
                 OnPropertyChanged(nameof(CameraPerspective));
             }
         }
-
 
         #endregion
 
