@@ -10,9 +10,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 #endregion
 
@@ -20,8 +22,20 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
-    public partial class Profile
+    public partial class Profile : INotifyPropertyChanged
     {
+
+        #region Property Changed Event
+
+        /// <summary>
+        /// Property changed event handler. Essentially, when a WPF binding is made to a Profile, an auto generated method
+        /// is subscribed to this event, such that when a property changed event occurs the auto generated method checks 
+        /// the property that was changed; and if it was the bound property it updates the display.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        #endregion
+
         #region Static Properties/Variables
 
         /// <summary>
@@ -39,18 +53,36 @@ namespace Assignment4
         #region Private Backing Members
 
         // Defaults initialized directly on class instantiation to minimize redundancy
+
+        // Profile
         private string _profileName = GetUniqueName();
         private bool _isStartupProfile = GenericSettings.DefaultIsStartupProfile;
+
+        // Movement
+        private GenericSettings.InputDevice _inputDevice = GenericSettings.DefaultInputDevice;
+        private bool _autoJumpOn = GenericSettings.DefaultAutoJumpOn;
         private int _mouseSensitivity = GenericSettings.DefaultMouseSensitivity;
         private int _controllerSensitivity = GenericSettings.DefaultControllerSensitivity;
-        private int _brightness = GenericSettings.DefaultBrightness;
+        private bool _invertYAxisOn = GenericSettings.DefaultInvertYAxisOn;
 
+        // Video
+        private int _brightness = GenericSettings.DefaultBrightness;
+        private bool _fancyGraphicsOn = GenericSettings.DefaultFancyGraphicsOn;
+        private bool _vSyncOn = GenericSettings.DefaultVSyncOn;
+        private bool _fullScreenOn = GenericSettings.DefaultFullscreenOn;
         private int _renderDistance = GenericSettings.DefaultRenderDistance;
         private int _fieldOfView = GenericSettings.DefaultFieldOfView;
+        private bool _rayTracingOn = GenericSettings.DefaultRayTracingOn;
+        private bool _upscalingOn = GenericSettings.DefaultUpscalingOn;
+
+        // Audio
         private int _musicVolume = GenericSettings.DefaultMusicVolume;
         private int _soundVolume = GenericSettings.DefaultSoundVolume;
 
+        // Interface
         private int _hudTransparency = GenericSettings.DefaultHUDTransparency;
+        private bool _showCoordinatesOn = GenericSettings.DefaultShowCoordinatesOn;
+        private GenericSettings.CameraPerspective _cameraPerspective = GenericSettings.DefaultCameraPerspective;
 
         #endregion
 
@@ -75,6 +107,7 @@ namespace Assignment4
                 }
 
                 _profileName = value;
+                OnPropertyChanged(nameof(ProfileName));
             }
         }
 
@@ -89,6 +122,7 @@ namespace Assignment4
             {
                 ClearStartupProfile();
                 _isStartupProfile = value;
+                OnPropertyChanged(nameof(IsStartupProfile));
             }
         }
 
@@ -102,12 +136,46 @@ namespace Assignment4
         /// <summary>
         /// Gets or sets the input device for this profile instance.
         /// </summary>
-        public GenericSettings.InputDevice InputDevice { get; set; } = GenericSettings.DefaultInputDevice;
+        public GenericSettings.InputDevice InputDevice
+        {
+            get { return _inputDevice; }
+            set
+            {
+                _inputDevice = value;
+                OnPropertyChanged(nameof(InputDevice));
+            }
+        } 
 
         /// <summary>
         /// Gets or sets the auto jump value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool AutoJumpOn { get; set; } = GenericSettings.DefaultAutoJumpOn;
+        public bool AutoJumpOn
+        {
+            get { return _autoJumpOn; }
+            set
+            {
+                _autoJumpOn = value;
+                OnPropertyChanged(nameof(AutoJumpOn));
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the sensitivity of the currently selected input device
+        /// </summary>
+        public int CurrentInputDeviceSensitivity
+        {
+            get
+            {
+                if (InputDevice == GenericSettings.InputDevice.Keyboard) { return MouseSensitivity; }
+                return ControllerSensitivity;
+            }
+            set
+            {
+                if (InputDevice == GenericSettings.InputDevice.Keyboard) { MouseSensitivity = value; }
+                else { ControllerSensitivity = value; }
+                OnPropertyChanged(nameof(CurrentInputDeviceSensitivity));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the mouse sensitivity of this instance. If it is not within the allowed range, an exception is thrown.
@@ -123,6 +191,7 @@ namespace Assignment4
                 }
 
                 _mouseSensitivity = value;
+                OnPropertyChanged(nameof(MouseSensitivity));
             }
         }
 
@@ -140,13 +209,22 @@ namespace Assignment4
                 }
 
                 _mouseSensitivity = value;
+                OnPropertyChanged(nameof(ControllerSensitivity));
             }
         }
 
         /// <summary>
         /// Gets or sets the invert y axis value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool InvertYAxisOn { get; set; } = GenericSettings.DefaultInvertYAxisOn;
+        public bool InvertYAxisOn
+        {
+            get { return _invertYAxisOn; }
+            set
+            {
+                _invertYAxisOn = value;
+                OnPropertyChanged(nameof(InvertYAxisOn));
+            }
+        }
 
         #endregion
 
@@ -166,18 +244,35 @@ namespace Assignment4
                 }
 
                 _brightness = value;
+                OnPropertyChanged(nameof(Brightness));
             }
         }
 
         /// <summary>
         /// Gets or sets the fancy graphics value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool FancyGraphicsOn { get; set; } = GenericSettings.DefaultFancyGraphicsOn;
+        public bool FancyGraphicsOn
+        {
+            get { return _fancyGraphicsOn; }
+            set
+            {
+                _fancyGraphicsOn = value;
+                OnPropertyChanged(nameof(FancyGraphicsOn));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the v sync value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool VSyncOn { get; set; } = GenericSettings.DefaultVSyncOn;
+        public bool VSyncOn
+        {
+            get { return _vSyncOn; }
+            set
+            {
+                _vSyncOn = value;
+                OnPropertyChanged(nameof(VSyncOn));
+            }
+        }
 
 
         /// <summary>
@@ -194,6 +289,7 @@ namespace Assignment4
                 }
 
                 _renderDistance = value;
+                OnPropertyChanged(nameof(RenderDistance));
             }
         }
 
@@ -212,18 +308,35 @@ namespace Assignment4
                 }
 
                 _fieldOfView = value;
+                OnPropertyChanged(nameof(FieldOfView));
             }
         }
 
         /// <summary>
         /// Gets or sets the ray tracing value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool RayTracingOn { get; set; } = GenericSettings.DefaultRayTracingOn;
+        public bool RayTracingOn
+        {
+            get { return _rayTracingOn; }
+            set
+            {
+                _rayTracingOn = value;
+                OnPropertyChanged(nameof(RayTracingOn));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the upscaling value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool UpscalingOn { get; set; } = GenericSettings.DefaultUpscalingOn;
+        public bool UpscalingOn
+        {
+            get { return _upscalingOn; }
+            set
+            {
+                _upscalingOn = value;
+                OnPropertyChanged(nameof(UpscalingOn));
+            }
+        }
 
         #endregion
 
@@ -243,6 +356,7 @@ namespace Assignment4
                 }
 
                 _musicVolume = value;
+                OnPropertyChanged(nameof(MusicVolume));
             }
         }
 
@@ -260,6 +374,7 @@ namespace Assignment4
                 }
 
                 _soundVolume = value;
+                OnPropertyChanged(nameof(SoundVolume));
             }
         }
 
@@ -281,18 +396,34 @@ namespace Assignment4
                 }
 
                 _hudTransparency = value;
+                OnPropertyChanged(nameof(HUDTransparency));
             }
         }
 
         /// <summary>
         /// Gets or sets the show coordinates value of this instance to true or false (true = on, false = off)
         /// </summary>
-        public bool ShowCoordinatesOn { get; set; } = GenericSettings.DefaultShowCoordinatesOn;
+        public bool ShowCoordinatesOn
+        {
+            get { return _showCoordinatesOn; }
+            set
+            {
+                _showCoordinatesOn = value;
+                OnPropertyChanged(nameof(ShowCoordinatesOn));
+            }
+        }
 
         /// <summary>
         /// Gets or sets the camera perspective of this instance.
         /// </summary>
-        public GenericSettings.CameraPerspective CameraPerspective { get; set; } = GenericSettings.DefaultCameraPerspective;
+        public GenericSettings.CameraPerspective CameraPerspective
+        {
+            get { return _cameraPerspective; }
+            set
+            {
+                OnPropertyChanged(nameof(CameraPerspective));
+            }
+        }
 
 
         #endregion

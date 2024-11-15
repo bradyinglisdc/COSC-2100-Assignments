@@ -176,6 +176,17 @@ namespace Assignment4
         #region Instance Methods - General
 
         /// <summary>
+        /// Invokes propety changed event if it isn't null (meaning if it has any methods subscribed to it).
+        /// The name of the property as a string is passed in as an event arg, such that it can be determined easily
+        /// which property was changed
+        /// </summary>
+        /// <param name="propertyName">The name of the property which was changed as a string</param>
+        private void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
         /// Switches to the next input device based on the enum definition
         /// </summary>
         public void SwitchInputDevice()

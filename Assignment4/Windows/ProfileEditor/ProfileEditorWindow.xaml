@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Profile Editor" Height="650" Width="1000"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
 
         <!-- Header and Background-->
@@ -48,9 +48,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition />
                                 <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
                             </Grid.RowDefinitions>
                             
                             <!-- Change Input Device Button -->
@@ -80,26 +77,43 @@
                                     Click="ChangeAutoJumpButton_Click">
 
                                 <!-- Data Binding With Keyboard Shortcut -->
-                                <AccessText x:Name="AutoJumpBinding" Text="{Binding EditedProfile.AutoJumpOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='_Auto Jump On:  {0}'}"/>
+                                <AccessText x:Name="AutoJumpBinding" Text="{Binding EditedProfile.AutoJumpOn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='Auto _Jump On:  {0}'}"/>
                             </Button>
 
+                            <!-- Sensitivity Slider -->
                             <Grid HorizontalAlignment="Right"
                                   Grid.Column="0"
                                   Grid.Row="1"
-                                  Margin="0,0,10,0"
-                                  
+                                  Margin="0,0,10,0"      
                                   Height="70"
                                   Width="300">
 
-                                <Slider Width="300"
+                                <Slider x:Name="SensitivitySlider"
+                                        Width="300"
                                         Height="30"
-                                        Background="{StaticResource ButtonBackColorDark}">
+                                        Background="{StaticResource ButtonBackColorDark}"
+                                        Value="50"
+                                        Maximum="70"
+                                        Minimum="30" ValueChanged="SensitivitySlider_ValueChanged">
                                 </Slider>
-                                <TextBlock HorizontalAlignment="Left"
-                                           VerticalAlignment="Top"
-                                           Text="Mouse Sensitivity: "
-                                           Foreground="White"
-                                           Height="20"/>
+
+                                <!-- Sensitivity Header -->
+                                <Grid Height="20"
+                                      VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock x:Name="DeviceSensitivityHeader"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top"
+                                               Foreground="White"
+                                               Height="20">
+                                    </TextBlock>
+                                </Grid>
+                                
+               
+
                             </Grid>
 
 
