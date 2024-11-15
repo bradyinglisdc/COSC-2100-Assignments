@@ -7,16 +7,7 @@
 
 #region Namespaces Used
 
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 #endregion
 
@@ -34,12 +25,25 @@ namespace Assignment4
         #region Constructors
 
         /// <summary>
-        /// Default constructor simply instantiates and applies properties determined in the parsed xaml partial class
+        /// Default constructor simply instantiates and applies properties determined in the parsed xaml partial class,
+        /// then loads splash screen along with all profiles.
         /// </summary>
         public MainMenuWindow()
         {
             InitializeComponent();
+            InitializeApplication(true);
         }
+
+        /// <summary>
+        /// Loads splash screen and all profiles if specified.
+        /// </summary>
+        /// <param name="isFirstLoad">If true, first-time setup runs.</param>
+        public MainMenuWindow(bool isFirstLoad)
+        {
+            InitializeComponent();
+            InitializeApplication(isFirstLoad);
+        }
+
 
         #endregion
 
@@ -89,8 +93,21 @@ namespace Assignment4
         /// </summary>
         private void OpenProfileViewer()
         {
-            Hide();
             (new ProfileViewerWindow()).Show();
+            Close();
+        }
+
+        #endregion
+
+        #region Initialization Logic
+
+        /// <summary>
+        /// Loads splash screen and all profiles if is first load
+        /// </summary>
+        /// <param name="isFirstLoad">Determines if initialization should proceed.</param>
+        private void InitializeApplication(bool isFirstLoad)
+        {
+            if (isFirstLoad) { (new SplashScreenWindow(this)).ShowDialog(); }
         }
 
         #endregion

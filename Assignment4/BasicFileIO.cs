@@ -2,7 +2,7 @@
  * Title: BasicFileIO.cs
  * Name: Brady Inglis (100926284)
  * Date: 2024-11-15
- * Purpose: Static clas to provide basic file input and output methods
+ * Purpose: Static class to provide basic file input and output methods
  */
 
 #region Namespaces Used
@@ -77,7 +77,7 @@ namespace Assignment4
         /// </summary>
         /// <param name="byteArray">The byte array to read from</param>
         /// <param name="filePath">The file path to write to</param>
-        public static void WriteByteArrayIntoFIle(string filePath, byte[] byteArray)
+        public static void WriteByteArrayIntoFile(string filePath, byte[] byteArray)
         {
             try
             {

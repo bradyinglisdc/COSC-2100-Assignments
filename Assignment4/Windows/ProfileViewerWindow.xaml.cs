@@ -7,19 +7,7 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 #endregion
 
@@ -33,35 +21,13 @@ namespace Assignment4
     public partial class ProfileViewerWindow : Window
     {
 
-        #region Instance Properties
-
-        /// <summary>
-        /// The main menu associated with this window instance
-        /// </summary>
-        private MainMenuWindow MainMenu { get; set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
         /// Default constructor simply instantiates and applies properties determined in the parsed xaml partial class.
-        /// Since this default constructor would not take in a main menu window, it instantiates a new one
         /// </summary>
         public ProfileViewerWindow()
         {
-            MainMenu = new MainMenuWindow();
-            Profile.CreateAllProfiles(BasicFileIO.ReadDirectoryIntoByteArray($"{GenericSettings.ProfileOutputURL}"));
-            InitializeComponent();
-        }
-
-        /// <summary>
-        /// Keeps track of main menu by storing it as a member in case user decides to go back.
-        /// </summary>
-        /// <param name="mainMenu"></param>
-        public ProfileViewerWindow(MainMenuWindow mainMenu)
-        {
-            MainMenu = mainMenu;
             InitializeComponent();
         }
 
@@ -103,11 +69,11 @@ namespace Assignment4
         #region Interaction Logic
 
         /// <summary>
-        /// Unhides main menu window and closes this window
+        /// Opens main menu window and closes this window
         /// </summary>
         private void ReturnToMainMenu()
         {
-            MainMenu.Show();
+            (new MainMenuWindow(false)).Show();
             Close();
         }
 

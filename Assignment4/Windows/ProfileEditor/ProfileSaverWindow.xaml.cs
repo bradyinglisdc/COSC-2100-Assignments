@@ -84,10 +84,10 @@ namespace Assignment4
         /// </summary>
         private void AttemptProfileSave()
         {
-            // Attempt to set the name
+            // Attempt to set the name if it was edited; basically if a change was made to profile name, check if the new name is available
             try
             {
-                ProfileToReadFrom.ProfileName = tbxProfileName.Text;
+                if (tbxProfileName.Text != ProfileToWriteTo.ProfileName) { ProfileToReadFrom.ProfileName = tbxProfileName.Text; }
             }
 
             catch (Exception ex)
@@ -96,20 +96,28 @@ namespace Assignment4
                 return;
             }
 
-            // Add to memory list if not already there. This will remove and overwrite the current reference from the list and add the new one
+            // Remove and overwrite the current reference from the profile list and add the new one, then attempt file write
             ProfileToWriteTo = ProfileToReadFrom;
             Profile.Swap(ProfileToWriteTo, ProfileToReadFrom);
+            FinalSave();
+        }
+
+        /// <summary>
+        /// Attempts to write ProfileToWriteTo to a file using ProfileLoader.cs. ProfileToWriteTo should
+        /// be reference to ProfileToReadFrom before this method is called.
+        /// </summary>
+        private void FinalSave()
+        {
 
             // Attempt to write to storage
-            ProfileToWriteTo.PackcageSettings();
             try
             {
-                BasicFileIO.WriteByteArrayIntoFIle($"{GenericSettings.ProfileOutputURL}{ProfileToWriteTo.ProfileName}", ProfileToWriteTo.PackagedSettings);
+                ProfileLoader.SaveProfile(ProfileToWriteTo);
             }
 
-            catch (Exception ex) 
-            { 
-                MessageBox.Show(ex.Message);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred saving profile. Profile will not be saved to pemanent storage.\nError: {ex.Message}");
                 return;
             }
         }

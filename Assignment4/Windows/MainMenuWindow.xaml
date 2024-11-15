@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment4"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1000"
+        Title="Profile Editor: Main Menu" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
     <StackPanel VerticalAlignment="Center">

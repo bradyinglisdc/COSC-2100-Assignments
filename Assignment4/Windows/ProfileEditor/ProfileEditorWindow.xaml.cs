@@ -7,20 +7,7 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 #endregion
 
@@ -194,6 +181,21 @@ namespace Assignment4
         private void SaveProfile()
         {
             (new ProfileSaverWindow(BoundProfile, EditedProfile)).ShowDialog();
+        }
+
+        /// <summary>
+        /// Prompts user to confirm discard,
+        /// then discards returns to profile view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDiscardChanges_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to discard changes and return to profile browser?", $"Discard changes to profile: {BoundProfile.ProfileName}?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                (new ProfileViewerWindow()).Show();
+                Close();
+            }
         }
 
         #endregion

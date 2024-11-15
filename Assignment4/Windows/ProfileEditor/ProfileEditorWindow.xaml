@@ -270,7 +270,6 @@
                                 <AccessText x:Name="ChangeFancyGraphicsBinding" Text="{Binding EditedProfile.FancyGraphicsOn, StringFormat='Fancy _Graphics On:  {0}'}"/>
                             </Button>
 
-
                             <!-- Change VSync Button -->
                             <Button x:Name="ChangeVSyncButton"
                                     Grid.Column="0"
@@ -325,14 +324,14 @@
                                     Grid.Row="3"
                                     Style="{StaticResource MainMenuButton}"
                                     Width="300"
-                                    ToolTip="Click here, or press 'alt + r' to turn upscaling on/off."
+                                    ToolTip="Click here, or press 'alt + u' to turn upscaling on/off."
                                     HorizontalAlignment="Right"
                                     Margin="0,0,10,0" 
                                     Click="ChangeUpscalingButton_Click"
                                     VerticalAlignment="Top">
 
                                 <!-- Data Binding With Keyboard Shortcut -->
-                                <AccessText x:Name="ChangeUpscalingBinding" Text="{Binding EditedProfile.UpscalingOn, StringFormat='Up Scaling On:  {0}'}"/>
+                                <AccessText x:Name="ChangeUpscalingBinding" Text="{Binding EditedProfile.UpscalingOn, StringFormat='_Up Scaling On:  {0}'}"/>
                             </Button>
                         </Grid>
                     </Grid>
@@ -502,19 +501,20 @@
         
         <!-- Footer -->
         <Grid Grid.Column="0" Grid.Row="0">
-            
+
             <!-- Discard and Save buttons -->
             <Grid VerticalAlignment="Bottom"
                   Width="290">
 
                 <!-- Discard Button -->
-                <Button x:Name="DiscardChangesButton"
+                <Button x:Name="btnDiscardChanges"
                     Style="{StaticResource MainMenuButton}"
                     Width="140"
                     Content="_Discard Changes"
                     ToolTip="Click here, or press 'alt + d' to discard changes and return to profile viewer."
                     Margin="0,0,0,20"
-                    HorizontalAlignment="Left"/>
+                    HorizontalAlignment="Left"
+                    Click="btnDiscardChanges_Click"/>
 
                 <!-- Save Button -->
                 <Button x:Name="SaveProfileButton"
@@ -527,7 +527,5 @@
                     Click="SaveProfileButton_Click"/>
             </Grid>
         </Grid>
-
-
     </Grid>
 </Window>
