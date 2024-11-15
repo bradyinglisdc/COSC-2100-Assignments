@@ -67,24 +67,14 @@ namespace Assignment4
         #region Event Handler Methods
 
         /// <summary>
-        /// Initializes values to be displayed
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Initialize();
-        }
-
-        /// <summary>
-        /// Switches input device in memory and updates slider to reflect new device sensitiviy.
+        /// Switches input device in memory and hides sensitivity slider if touch is selected
         /// </summary>
         /// <param name="sender">The button which was clicked</param>
         /// <param name="e">Event args</param>
         private void ChangeInputDeviceButton_Click(object sender, RoutedEventArgs e)
         {
             EditedProfile.SwitchInputDevice();
-            UpdateSensitivitySlider();
+            SensitivityContainer.Visibility = EditedProfile.InputDevice == GenericSettings.InputDevice.Touch ? Visibility.Hidden : Visibility.Visible;
         }
 
         /// <summary>
@@ -97,45 +87,16 @@ namespace Assignment4
             EditedProfile.AutoJumpOn = !EditedProfile.AutoJumpOn;
         }
 
-        /// <summary>
-        /// Updates currently selecyed device's sensitivity
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SensitivitySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            UpdateSensitivity();
-        }
 
         #endregion
 
         #region Setup
 
-        /// <summary>
-        /// Sets all properties which need to be added manually
-        /// </summary>
-        private void Initialize()
-        {
-            UpdateSensitivitySlider();
-        }
+   
 
         #endregion
 
         #region Interaction Logic
-
-        /// <summary>
-        /// Sets the value of the sensitivity slider to the current input device's sensitivity
-        /// </summary>
-        private void UpdateSensitivitySlider()
-        {
-            SensitivitySlider.Value = EditedProfile.CurrentInputDeviceSensitivity;
-        }
-
-
-        private void UpdateSensitivity()
-        {
-            if (EditedProfile != null) { EditedProfile.CurrentInputDeviceSensitivity = (int)SensitivitySlider.Value; }
-        }
 
 
         #endregion

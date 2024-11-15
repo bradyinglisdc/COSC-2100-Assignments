@@ -143,6 +143,10 @@ namespace Assignment4
             {
                 _inputDevice = value;
                 OnPropertyChanged(nameof(InputDevice));
+
+                // Update sensitivity to reflect new device
+                if (InputDevice == GenericSettings.InputDevice.Keyboard) { CurrentInputDeviceSensitivity = MouseSensitivity; }
+                else { CurrentInputDeviceSensitivity = ControllerSensitivity; }
             }
         } 
 
@@ -208,7 +212,7 @@ namespace Assignment4
                     throw new Exception($"Controller sensitivity must be greater than or equal to {GenericSettings.ControllerSensitivityRange[0]} and less than or equal to {GenericSettings.ControllerSensitivityRange[1]}.");
                 }
 
-                _mouseSensitivity = value;
+                _controllerSensitivity = value;
                 OnPropertyChanged(nameof(ControllerSensitivity));
             }
         }

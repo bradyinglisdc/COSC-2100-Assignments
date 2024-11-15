@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Profile Editor" Height="650" Width="1000"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize" Loaded="Window_Loaded">
+        ResizeMode="CanMinimize">
     <Grid>
 
         <!-- Header and Background-->
@@ -81,7 +81,8 @@
                             </Button>
 
                             <!-- Sensitivity Slider -->
-                            <Grid HorizontalAlignment="Right"
+                            <Grid x:Name="SensitivityContainer"
+                                  HorizontalAlignment="Right"
                                   Grid.Column="0"
                                   Grid.Row="1"
                                   Margin="0,0,10,0"      
@@ -92,25 +93,22 @@
                                         Width="300"
                                         Height="30"
                                         Background="{StaticResource ButtonBackColorDark}"
-                                        Value="50"
+                                        Value="{Binding EditedProfile.CurrentInputDeviceSensitivity}"
                                         Maximum="70"
-                                        Minimum="30" ValueChanged="SensitivitySlider_ValueChanged">
+                                        Minimum="30">
                                 </Slider>
 
                                 <!-- Sensitivity Header -->
-                                <Grid Height="20"
-                                      VerticalAlignment="Top">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock x:Name="DeviceSensitivityHeader"
-                                               HorizontalAlignment="Left"
-                                               VerticalAlignment="Top"
-                                               Foreground="White"
-                                               Height="20">
-                                    </TextBlock>
-                                </Grid>
+                                <TextBlock Foreground="White"
+                                           Height="20"
+                                           VerticalAlignment="Top">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}  Sensitivity:  {1}">
+                                            <Binding Path="EditedProfile.InputDevice" />
+                                            <Binding Path="EditedProfile.CurrentInputDeviceSensitivity" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                                 
                
 
