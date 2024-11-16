@@ -49,6 +49,19 @@ namespace Assignment4
             EditedProfile = new Profile();
         }
 
+        /// <summary>
+        /// Parameterizerd constructor instantiates an existing profile
+        /// </summary>
+        /// <param name="profileToBind">The profile which the user will edit.</param>
+        public ProfileEditorWindow(Profile profileToBind)
+        {
+            InitializeComponent();
+            DataContext = this;
+            BoundProfile = profileToBind;
+            EditedProfile = Profile.InstantiateClone(BoundProfile);
+        }
+
+
         #endregion
 
         #region Event Handler Methods

@@ -26,12 +26,12 @@ namespace Assignment4
         /// <summary>
         /// The profile which the user wants to overwrite
         /// </summary>
-        private Profile ProfileToWriteTo { get; set; }
+        private Profile OldProfile { get; set; }
 
         /// <summary>
         /// The profile which the user wants to read from
         /// </summary>
-        private Profile ProfileToReadFrom { get; set; }
+        private Profile NewProfile { get; set; }
 
         #endregion
 
@@ -40,14 +40,14 @@ namespace Assignment4
         /// <summary>
         /// Has a single constructor for quick profile saving.
         /// </summary>
-        /// <param name="profileToWriteTo">The un-edited profile in memory to be overwritten.</param>
-        /// <param name="profileToReadFrom">The edited profile to read into the old one.</param>
-        public ProfileSaverWindow(Profile profileToWriteTo, Profile profileToReadFrom)
+        /// <param name="oldProfile">The un-edited profile in memory to be overwritten.</param>
+        /// <param name="newProfile">The edited profile to read into the old one.</param>
+        public ProfileSaverWindow(Profile oldProfile, Profile newProfile)
         {
             InitializeComponent();
-            ProfileToWriteTo = profileToWriteTo;
-            ProfileToReadFrom = profileToReadFrom;
-            tbxProfileName.Text = profileToWriteTo.ProfileName;
+            OldProfile = oldProfile;
+            NewProfile = newProfile;
+            tbxProfileName.Text = oldProfile.ProfileName;
         }
 
         #endregion
@@ -79,15 +79,22 @@ namespace Assignment4
         #region Interaction Logic
 
         /// <summary>
-        /// Sets old profile to reference new profile. Attempts to add to memory list to check for uniqueness.
-        /// If no errors, proceeds to attempt file write.
+        /// Checks if user wants to change name and updates name, then attempts to remove old 
+        /// profile from memory and storage, adding the new one.
         /// </summary>
         private void AttemptProfileSave()
         {
-            // Attempt to set the name if it was edited; basically if a change was made to profile name, check if the new name is available
+            // If a change was made to profile name, check if the new name is available
+            // and then remove the old file if needed.
             try
             {
-                if (tbxProfileName.Text != ProfileToWriteTo.ProfileName) { ProfileToReadFrom.ProfileName = tbxProfileName.Text; }
+                if (tbxProfileName.Text != OldProfile.ProfileName) 
+                { 
+                    NewProfile.ProfileName = tbxProfileName.Text;
+                    ProfileLoader.DeleteProfile(NewProfile.ProfileName);
+                }
+
+                else { NewProfile.ProfileName = OldProfile.ProfileName; }
             }
 
             catch (Exception ex)
@@ -96,11 +103,11 @@ namespace Assignment4
                 return;
             }
 
-            // Remove and overwrite the current reference from the profile list and add the new one, then attempt file write
-            ProfileToWriteTo = ProfileToReadFrom;
-            Profile.Swap(ProfileToWriteTo, ProfileToReadFrom);
+            // Remove old profile from memory
+            Profile.Swap(NewProfile, OldProfile);
             FinalSave();
         }
+
 
         /// <summary>
         /// Attempts to write ProfileToWriteTo to a file using ProfileLoader.cs. ProfileToWriteTo should
@@ -112,7 +119,7 @@ namespace Assignment4
             // Attempt to write to storage
             try
             {
-                ProfileLoader.SaveProfile(ProfileToWriteTo);
+                ProfileLoader.SaveProfile(NewProfile);
             }
 
             catch (Exception ex)

@@ -12,8 +12,7 @@
           Width="500"
           Margin="0,0,0,5"
           MouseEnter="ProfileDisplay_MouseEnter"
-          MouseLeave="ProfileDisplay_MouseLeave"
-          MouseLeftButtonDown="ProfileDisplay_MouseLeftButtonDown">
+          MouseLeave="ProfileDisplay_MouseLeave">
         <TextBlock x:Name="tboProfileName"
                    Text="Profile Name"
                    FontSize="14"

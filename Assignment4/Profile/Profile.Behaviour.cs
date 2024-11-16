@@ -204,6 +204,35 @@ namespace Assignment4
             else { CameraPerspective = GenericSettings.CameraPerspective.FirstPerson; }
         }
 
+        /// <summary>
+        /// Copies all properties of the provided profile into this instance - except for the name
+        /// </summary>
+        /// <param name="profileToCloneFrom">The profile to pull properties from.</param>
+        public void Clone(Profile profileToCloneFrom)
+        {
+            InputDevice = profileToCloneFrom.InputDevice;
+            AutoJumpOn = profileToCloneFrom.AutoJumpOn;
+            MouseSensitivity = profileToCloneFrom.MouseSensitivity;
+            ControllerSensitivity = profileToCloneFrom.ControllerSensitivity;
+            InvertYAxisOn = profileToCloneFrom.InvertYAxisOn;
+            
+            Brightness = profileToCloneFrom.Brightness;
+            FancyGraphicsOn = profileToCloneFrom.FancyGraphicsOn;
+            VSyncOn = profileToCloneFrom.VSyncOn;
+            FullscreenOn = profileToCloneFrom.FullscreenOn;
+            RenderDistance = profileToCloneFrom.RenderDistance;
+            FieldOfView = profileToCloneFrom.FieldOfView;
+            RayTracingOn = profileToCloneFrom.RayTracingOn;
+            UpscalingOn = profileToCloneFrom.UpscalingOn;
+            
+            MusicVolume = profileToCloneFrom.MusicVolume;
+            SoundVolume = profileToCloneFrom.SoundVolume;
+           
+            HUDTransparency = profileToCloneFrom.HUDTransparency;
+            ShowCoordinatesOn = profileToCloneFrom.ShowCoordinatesOn;
+            CameraPerspective = profileToCloneFrom.CameraPerspective;
+        }
+
         #endregion
 
         #region Static Methods - Read Preperation
@@ -216,15 +245,14 @@ namespace Assignment4
         /// <param name="rawProfiles">The profile array to read from.</param>
         public static void CreateAllProfiles(byte[] rawProfiles)
         {
-            // Separate each profile by |, return if length is default array length
+            // Separate each profile by |
             string profilesAsString = Encoding.UTF8.GetString(rawProfiles);
             string[] separatedProfiles = profilesAsString.Split('|');
-            if (separatedProfiles.Length <= 1) { return; }
 
-
-            // Instantiate all profiles 
+            // Instantiate all profiles. Break on last array index.
             foreach (string rawSetting in separatedProfiles)
             {
+                if (rawSetting == string.Empty) { break; }
                 new Profile(rawSetting);
             }
 
@@ -294,6 +322,18 @@ namespace Assignment4
         {
             Profiles.Remove(profileToReplace);
             Profiles.Add(profileToAdd);
+        }
+
+        /// <summary>
+        /// Returns a new profile instance with the provided instances properties
+        /// </summary>
+        /// <param name="profileToCloneFrom">The profile to pull properties from</param>
+        /// <returns>The profile as a clone</returns>
+        public static Profile InstantiateClone(Profile profileToCloneFrom)
+        {
+            Profile clonedProfile = new Profile();
+            clonedProfile.Clone(profileToCloneFrom);
+            return clonedProfile;
         }
 
         #endregion

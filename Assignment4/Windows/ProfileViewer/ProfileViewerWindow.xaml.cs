@@ -8,6 +8,7 @@
 #region Namespaces Used
 
 using System.Windows;
+using System.Windows.Input;
 
 #endregion
 
@@ -20,6 +21,15 @@ namespace Assignment4
     /// </summary>
     public partial class ProfileViewerWindow : Window
     {
+
+        #region Instance Properties
+
+        /// <summary>
+        /// The name of the currently selected profile.
+        /// </summary>
+        private string? SelectedProfileName { get; set; }
+
+        #endregion
 
         #region Constructors
 
@@ -51,9 +61,9 @@ namespace Assignment4
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void EditSelectedProfileButton_Click(object sender, RoutedEventArgs e)
+        private void btnEditSelectedProfile_Click(object sender, RoutedEventArgs e)
         {
-            ReturnToMainMenu();
+            EditSelectedProfile();
         }
 
         /// <summary>
@@ -65,6 +75,17 @@ namespace Assignment4
         {
             CreateNewProfile();
         }
+
+        /// <summary>
+        /// Opens a new profile editor and closes this window.
+        /// </summary>
+        /// <param name="sender">The profile container which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void ProfileContainer_Click(object sender, MouseButtonEventArgs e)
+        {
+            SelectedProfileName = ((ProfileViewUserControl)sender).tboProfileName.Text;
+        }
+
         #endregion
 
         #region Interaction Logic
@@ -87,6 +108,18 @@ namespace Assignment4
             Close();
         }
 
+        /// <summary>
+        /// Closes this window, then instantiates and opensa new ProfileEditorWindow, calling the paramaterized constructor
+        /// </summary>
+        private void EditSelectedProfile()
+        {
+            if (SelectedProfileName == null) { return; }
+            Profile? matchingProfile = Profile.FindProfileByName(SelectedProfileName);
+
+            if (matchingProfile == null) { return; }
+            (new ProfileEditorWindow(matchingProfile)).Show();
+        }
+
         #endregion
 
         #region Display Logic
@@ -103,6 +136,7 @@ namespace Assignment4
                 profileContainer.tboStartupProfile.Text = profile.IsStartupProfile ? "Is startup profile" : "Not startup profile";
                 profileContainer.tboInputDevice.Text = $"Input Device: {profile.InputDevice}";
                 profileContainer.ToolTip = $"Click here to edit {profile.ProfileName}";
+                profileContainer.MouseLeftButtonDown += new MouseButtonEventHandler(ProfileContainer_Click);
                 ProfilesContainer.Children.Add(profileContainer);
             }
         }

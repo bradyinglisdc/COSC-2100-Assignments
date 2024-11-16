@@ -9,6 +9,7 @@
 
 using System.IO;
 using System.Text;
+using System.Windows;
 
 #endregion
 
@@ -91,6 +92,28 @@ namespace Assignment4
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Deletes the file if it exists
+        /// </summary>
+        /// <param name="filePath">The file to delete</param>
+        public static void DeleteFile(string filePath)
+        {
+            try
+            {
+                
+                    File.Delete(filePath);
+                    
+                
+                
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+ 
         }
 
     }

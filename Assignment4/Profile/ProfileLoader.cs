@@ -49,12 +49,28 @@ namespace Assignment4
             // Begin file write.
             try
             {
-                BasicFileIO.WriteByteArrayIntoFile($"{GenericSettings.ProfileOutputDir}{profileToSave.ProfileName}", profileToSave.PackagedSettings);
+                BasicFileIO.WriteByteArrayIntoFile($"{GenericSettings.ProfileOutputDir}{profileToSave.ProfileName}.settings", profileToSave.PackagedSettings);
             }
 
             catch (Exception ex)
             {
                 throw new Exception($"Profile write error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Attempt to delete the specified profile
+        /// </summary>
+        public static void DeleteProfile(string profileName)
+        {
+            try
+            {
+                BasicFileIO.DeleteFile($"{GenericSettings.ProfileOutputDir}{profileName}");
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"Profile deletion error: {ex.Message}");
             }
         }
 
