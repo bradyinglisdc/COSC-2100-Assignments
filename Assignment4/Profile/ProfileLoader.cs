@@ -23,6 +23,7 @@ namespace Assignment4
         /// </summary>
         public static void LoadProfiles()
         {
+
             try
             {
                 byte[] rawProfileSettings = BasicFileIO.ReadDirectoryIntoByteArray(GenericSettings.ProfileOutputDir);
@@ -65,7 +66,7 @@ namespace Assignment4
         {
             try
             {
-                BasicFileIO.DeleteFile($"{GenericSettings.ProfileOutputDir}{profileName}");
+                BasicFileIO.DeleteFile($"{GenericSettings.ProfileOutputDir}{profileName}.settings");
             }
 
             catch (Exception ex)

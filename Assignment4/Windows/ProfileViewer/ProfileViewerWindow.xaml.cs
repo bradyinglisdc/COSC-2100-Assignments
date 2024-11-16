@@ -118,6 +118,7 @@ namespace Assignment4
 
             if (matchingProfile == null) { return; }
             (new ProfileEditorWindow(matchingProfile)).Show();
+            Close();
         }
 
         #endregion

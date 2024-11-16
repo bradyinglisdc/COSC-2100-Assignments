@@ -24,14 +24,19 @@ namespace Assignment4
         #region Instance Properties
 
         /// <summary>
-        /// The profile which the user wants to overwrite
+        /// The profile which will be saved
         /// </summary>
-        private Profile OldProfile { get; set; }
+        private Profile CurrentProfile { get; set; }
 
         /// <summary>
-        /// The profile which the user wants to read from
+        /// The profile to pull changes from
         /// </summary>
-        private Profile NewProfile { get; set; }
+        private Profile AlteredProfile { get; set; }
+
+        /// <summary>
+        /// Reference to the editor window which this window was opened from - closes this window when save complete.
+        /// </summary>
+        private ProfileEditorWindow EditorWindow { get; set; }
 
         #endregion
 
@@ -40,14 +45,15 @@ namespace Assignment4
         /// <summary>
         /// Has a single constructor for quick profile saving.
         /// </summary>
-        /// <param name="oldProfile">The un-edited profile in memory to be overwritten.</param>
-        /// <param name="newProfile">The edited profile to read into the old one.</param>
-        public ProfileSaverWindow(Profile oldProfile, Profile newProfile)
+        /// <param name="currentProfile">The un-edited profile in memory.</param>
+        /// <param name="alteredProfile">The edited profile to read into the old one.</param>
+        public ProfileSaverWindow(Profile currentProfile, Profile alteredProfile, ProfileEditorWindow editorWindow)
         {
             InitializeComponent();
-            OldProfile = oldProfile;
-            NewProfile = newProfile;
-            tbxProfileName.Text = oldProfile.ProfileName;
+            CurrentProfile = currentProfile;
+            AlteredProfile = alteredProfile;
+            EditorWindow = editorWindow;
+            tbxProfileName.Text = currentProfile.ProfileName;
         }
 
         #endregion
@@ -79,33 +85,30 @@ namespace Assignment4
         #region Interaction Logic
 
         /// <summary>
-        /// Checks if user wants to change name and updates name, then attempts to remove old 
-        /// profile from memory and storage, adding the new one.
+        /// Deletes file corresponding to the current profile name if it exists, such that
+        /// when a user edits an existing profile, the previous file is not lost.
+        /// Next, changes are saved to memory and then storage.
         /// </summary>
         private void AttemptProfileSave()
         {
-            // If a change was made to profile name, check if the new name is available
-            // and then remove the old file if needed.
-            try
-            {
-                if (tbxProfileName.Text != OldProfile.ProfileName) 
-                { 
-                    NewProfile.ProfileName = tbxProfileName.Text;
-                    ProfileLoader.DeleteProfile(NewProfile.ProfileName);
-                }
+            // Delete profile file from storage if it's name matches CurrentProfile.ProfileName.. It will be recreated.
+            ProfileLoader.DeleteProfile(CurrentProfile.ProfileName);
 
-                else { NewProfile.ProfileName = OldProfile.ProfileName; }
-            }
+            // Save name to memory. Display message if name already exists
+            try { CurrentProfile.ProfileName = tbxProfileName.Text; }
+            catch (Exception ex){ MessageBox.Show($"Error updating profile name:\n{ex.Message}"); }
 
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
+            // Save all other changes in memory
+            if (!Profile.Profiles.Contains(CurrentProfile)) { Profile.Profiles.Add(CurrentProfile); }
+            CurrentProfile.Clone(AlteredProfile);
 
-            // Remove old profile from memory
-            Profile.Swap(NewProfile, OldProfile);
+            // Save all profile changes to storage
             FinalSave();
+
+            // Return to viewer
+            (new ProfileViewerWindow()).Show();
+            EditorWindow.Close();
+            Close();
         }
 
 
@@ -119,7 +122,7 @@ namespace Assignment4
             // Attempt to write to storage
             try
             {
-                ProfileLoader.SaveProfile(NewProfile);
+                ProfileLoader.SaveProfile(CurrentProfile);
             }
 
             catch (Exception ex)

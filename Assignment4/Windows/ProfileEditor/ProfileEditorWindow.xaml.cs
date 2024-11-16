@@ -193,7 +193,7 @@ namespace Assignment4
         /// </summary>
         private void SaveProfile()
         {
-            (new ProfileSaverWindow(BoundProfile, EditedProfile)).ShowDialog();
+            (new ProfileSaverWindow(BoundProfile, EditedProfile, this)).ShowDialog();
         }
 
         /// <summary>

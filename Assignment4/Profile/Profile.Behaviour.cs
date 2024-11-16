@@ -130,12 +130,11 @@ namespace Assignment4
             foreach (string keyValuePair in settingKeyValuePairs)
             {
                 if (keyValuePair.Split(": ").Length < 2) { break; }
-
-                string settingName = keyValuePair.Split(':')[0];
-                string settingValue = keyValuePair.Split(": ")[1];
+                string settingName = keyValuePair.Split(": ")[0].Trim();
+                string settingValue = keyValuePair.Split(": ")[1].Trim();
                 settingDictionary[settingName] = settingValue;
             }
-
+            
             return settingDictionary;
         }
 
@@ -287,6 +286,16 @@ namespace Assignment4
                 if (profile.ProfileName == name) { return profile; }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Deletes a file from memory corresponding to the provided name if it exists in memory.
+        /// </summary>
+        /// <param name="name">The file to delete</param>
+        public static void DeleteProfileByName(string name)
+        {
+            Profile? profileToDelete = FindProfileByName(name);
+            if (profileToDelete != null) { }
         }
 
         /// <summary>
