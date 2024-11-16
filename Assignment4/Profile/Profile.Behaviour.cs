@@ -216,9 +216,11 @@ namespace Assignment4
         /// <param name="rawProfiles">The profile array to read from.</param>
         public static void CreateAllProfiles(byte[] rawProfiles)
         {
-            // Separate each profile by |
+            // Separate each profile by |, return if length is default array length
             string profilesAsString = Encoding.UTF8.GetString(rawProfiles);
             string[] separatedProfiles = profilesAsString.Split('|');
+            if (separatedProfiles.Length <= 1) { return; }
+
 
             // Instantiate all profiles 
             foreach (string rawSetting in separatedProfiles)

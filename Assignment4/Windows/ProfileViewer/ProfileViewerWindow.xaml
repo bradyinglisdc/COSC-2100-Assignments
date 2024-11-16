@@ -9,10 +9,10 @@
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
     <StackPanel VerticalAlignment="Top">
+        
         <!-- Search Area -->
         <Grid Background="Black"
               Height="75">
-                  
             <!-- Search Background styling -->
             <StackPanel Grid.Column="0" Grid.Row="0">
                 <Image Source="pack://application:,,,/Resources/DirtBackground.png" />
@@ -27,7 +27,6 @@
                     ToolTip="Click here, or press 'alt + b' to go back to the menu."
                     Margin="10"
                     Click="ReturnToMenuButton_Click"/>
-
             <!-- Search Bar -->
             <Border CornerRadius="10"
                     BorderBrush="{StaticResource ButtonForeColorDark}"
@@ -36,19 +35,15 @@
                     Height="30"
                     Width="275"
                     ClipToBounds="True">
-
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="35"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-
-
                     <Image Source="pack://application:,,,/Resources/SearchIcon.png"
                            Margin="5,0"
                            Grid.Column="0"
                            Height="20"/>
-
                     <TextBox Background="Transparent"
                              Foreground="White"
                              BorderThickness="0"
@@ -62,28 +57,31 @@
         
         <!-- Profiles Area -->
         <Grid>
-            <Grid Grid.Column="0" Grid.Row="0">
+            <Grid x:Name="ProfilesArea"
+                  Grid.Column="0" 
+                  Grid.Row="0">
                 <!-- ProfilesArea Background styling -->
                 <StackPanel Grid.Column="0" Grid.Row="0" Height="460">
                     <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"/>
                 </StackPanel>
+                <!-- Profile Containers Area  -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Height="460">
+                    <StackPanel x:Name="ProfilesContainer"
+                                CanVerticallyScroll="True">
+                        <Grid Margin="0,5,0,0"></Grid>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="0">
-
-                <ComboBox Width="100"
-                          Height="30"
-                          ItemsSource="{Binding Profile.Profiles}">
-                    
-                </ComboBox>
-                
-            </Grid>
+            <Grid Grid.Column="0" Grid.Row="0"/>
         </Grid>
-
+        
         <!-- Footer -->
         <Grid Height="80">
-            <!-- ProfilesArea Background styling -->
+            <!-- Footer  styling -->
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Image Source="pack://application:,,,/Resources/DirtBackground.png"/>
+                <Image x:Name="imgFooterBackground"
+                       Source="pack://application:,,,/Resources/DirtBackground.png"/>
             </StackPanel>
 
             <!-- Edit Selected Profile Button -->
@@ -96,8 +94,6 @@
                         ToolTip="Click here, or press 'alt + e' to edit the selected profile."
                         Margin="10"
                         Click="EditSelectedProfileButton_Click"/>
-
-
                 <!-- Create New Profile Button -->
                 <Button x:Name="CreateNewProfileButton"
                         Style="{StaticResource MainMenuButton}"
@@ -108,10 +104,6 @@
                         Margin="10"
                         Click="CreateNewProfileButton_Click"/>
             </Grid>
-
-
         </Grid>
-
-
     </StackPanel>
 </Window>

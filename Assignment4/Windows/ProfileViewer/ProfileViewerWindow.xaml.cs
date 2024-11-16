@@ -24,11 +24,12 @@ namespace Assignment4
         #region Constructors
 
         /// <summary>
-        /// Default constructor simply instantiates and applies properties determined in the parsed xaml partial class.
+        /// Default constructor performs default instantiations, then displays profiles.
         /// </summary>
         public ProfileViewerWindow()
         {
             InitializeComponent();
+            DisplayProfiles();
         }
 
         #endregion
@@ -84,6 +85,26 @@ namespace Assignment4
         {
             (new ProfileEditorWindow()).Show();
             Close();
+        }
+
+        #endregion
+
+        #region Display Logic
+
+        /// <summary>
+        /// Iterates through profiles, displaying each.
+        /// </summary>
+        private void DisplayProfiles()
+        {
+            foreach (Profile profile in Profile.Profiles)
+            {
+                ProfileViewUserControl profileContainer = new ProfileViewUserControl();
+                profileContainer.tboProfileName.Text = $"{profile.ProfileName}";
+                profileContainer.tboStartupProfile.Text = profile.IsStartupProfile ? "Is startup profile" : "Not startup profile";
+                profileContainer.tboInputDevice.Text = $"Input Device: {profile.InputDevice}";
+                profileContainer.ToolTip = $"Click here to edit {profile.ProfileName}";
+                ProfilesContainer.Children.Add(profileContainer);
+            }
         }
 
         #endregion

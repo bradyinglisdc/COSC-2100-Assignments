@@ -34,6 +34,9 @@ namespace Assignment4
         {
             try
             {
+                // If the dir path doesn't exist, create it
+                if (!Directory.Exists(filePath)) { Directory.CreateDirectory(filePath); }
+
                 // Concat each file to the string
                 string fileContent = string.Empty;
                 foreach (string file in Directory.GetFiles(filePath))
