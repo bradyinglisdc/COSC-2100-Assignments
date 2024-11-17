@@ -58,7 +58,8 @@
                              Width="275"
                              Grid.Column="1"
                              FontFamily="Minecraftia"
-                             TextChanged="tbxSearchQuery_TextChanged"/>
+                             TextChanged="tbxSearchQuery_TextChanged"
+                             ToolTip="Click here to begin searching for profiles."/>
                 </Grid>
             </Border>
         </Grid>
