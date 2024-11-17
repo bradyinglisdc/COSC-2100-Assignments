@@ -99,7 +99,7 @@ namespace Assignment4
                 if (value == _profileName) { return; }
                 if (!IsValidName(value))
                 {
-                    throw new Exception($"Name cannot contain characters: {GenericSettings.InvalidFileNameChars.ToString()}");
+                    throw new Exception($"Name cannot contain characters: {new string(GenericSettings.InvalidFileNameChars)}");
                 }
 
 
