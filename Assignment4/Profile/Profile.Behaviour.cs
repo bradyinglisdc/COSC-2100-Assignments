@@ -90,7 +90,7 @@ namespace Assignment4
 
             catch
             {
-                throw new Exception("Incorrect settings format recieved.");
+                throw new Exception("Incorrect settings format or already existing profile name recieved.");
             }
 
         }

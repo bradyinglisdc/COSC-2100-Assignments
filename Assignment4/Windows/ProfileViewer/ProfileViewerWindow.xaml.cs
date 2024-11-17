@@ -22,15 +22,6 @@ namespace Assignment4
     public partial class ProfileViewerWindow : Window
     {
 
-        #region Instance Properties
-
-        /// <summary>
-        /// The name of the currently selected profile.
-        /// </summary>
-        private string? SelectedProfileName { get; set; }
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -51,19 +42,9 @@ namespace Assignment4
         /// </summary>
         /// <param name="sender">The button which was clicked</param>
         /// <param name="e">Event args</param>
-        private void ReturnToMenuButton_Click(object sender, RoutedEventArgs e)
+        private void btnReturnToMenu_Click(object sender, RoutedEventArgs e)
         {
             ReturnToMainMenu();
-        }
-
-        /// <summary>
-        /// Calls EditSelectedProfile()
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnEditSelectedProfile_Click(object sender, RoutedEventArgs e)
-        {
-            EditSelectedProfile();
         }
 
         /// <summary>
@@ -71,7 +52,7 @@ namespace Assignment4
         /// </summary>
         /// <param name="sender">The button which was clicked</param>
         /// <param name="e">Event args</param>
-        private void CreateNewProfileButton_Click(object sender, RoutedEventArgs e)
+        private void btnCreateNewProfile_Click(object sender, RoutedEventArgs e)
         {
             CreateNewProfile();
         }
@@ -83,7 +64,17 @@ namespace Assignment4
         /// <param name="e">Event args</param>
         private void ProfileContainer_Click(object sender, MouseButtonEventArgs e)
         {
-            SelectedProfileName = ((ProfileViewUserControl)sender).tboProfileName.Text;
+            EditSelectedProfile(sender);
+        }
+
+        /// <summary>
+        /// Calls OpenExistingProfile()
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void btnEditExistingProfile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenExistingProfile();
         }
 
         #endregion
@@ -111,13 +102,48 @@ namespace Assignment4
         /// <summary>
         /// Closes this window, then instantiates and opensa new ProfileEditorWindow, calling the paramaterized constructor
         /// </summary>
-        private void EditSelectedProfile()
+        /// <param name="profileContainer">The profile container which was clicked</param>
+        private void EditSelectedProfile(object profileContainer)
         {
-            if (SelectedProfileName == null) { return; }
-            Profile? matchingProfile = Profile.FindProfileByName(SelectedProfileName);
+            // Cast the container to a profile view, and grab the profile name text block property 
+            string profileName = ((ProfileViewUserControl)profileContainer).tboProfileName.Text;
 
-            if (matchingProfile == null) { return; }
-            (new ProfileEditorWindow(matchingProfile)).Show();
+            // Grab the matching profile based on the name, ensure it isn't null
+            Profile? matchingProfile = Profile.FindProfileByName(profileName);
+
+            // Instantiate and open a profile editor window, closing this window
+            EditExistingProfile(matchingProfile);
+        }
+
+        /// <summary>
+        /// Opens a new OpenFileDialog, filters by .settings files, gets user selected file
+        /// directory, then opens profile editor after reading the file.
+        /// </summary>
+        private void OpenExistingProfile()
+        {
+            try
+            {
+                Profile? profileToOpen = ProfileLoader.GetExistingProfile();
+                EditExistingProfile(profileToOpen);
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Edits a 
+        /// </summary>
+        /// <param name="profileToEdit"></param>
+        private void EditExistingProfile(Profile? profileToEdit)
+        {
+            // Just return if the profile is null
+            if (profileToEdit == null) { return; }
+
+            // Instantiate the editor window and close this window
+            (new ProfileEditorWindow(profileToEdit)).Show();
             Close();
         }
 
@@ -143,8 +169,6 @@ namespace Assignment4
         }
 
         #endregion
-
-
     }
 }
 

@@ -9,7 +9,7 @@
 
 using System.IO;
 using System.Text;
-using System.Windows;
+using Microsoft.Win32;
 
 #endregion
 
@@ -24,6 +24,30 @@ namespace Assignment4
     /// </summary>
     public static class BasicFileIO
     {
+
+        #region Write
+
+        /// <summary>
+        /// Takes a file path and byte array, then writes the byte array into the file
+        /// </summary>
+        /// <param name="byteArray">The byte array to read from</param>
+        /// <param name="filePath">The file path to write to</param>
+        public static void WriteByteArrayIntoFile(string filePath, byte[] byteArray)
+        {
+            try
+            {
+                File.WriteAllBytes(filePath, byteArray);
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Read
 
         /// <summary>
         /// Takes a directory path, and iterates through each file in the directory,
@@ -55,7 +79,6 @@ namespace Assignment4
             }
         }
 
-
         /// <summary>
         /// Takes a file path, and simply reads the file as a byte array.
         /// If an error, a new exception is thrown indicating the problem
@@ -73,26 +96,28 @@ namespace Assignment4
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            } 
+            }
         }
 
         /// <summary>
-        /// Takes a file path and byte array, then writes the byte array into the file
+        /// Opens a file dialog and returns the selected file directory or an empty string.
         /// </summary>
-        /// <param name="byteArray">The byte array to read from</param>
-        /// <param name="filePath">The file path to write to</param>
-        public static void WriteByteArrayIntoFile(string filePath, byte[] byteArray)
+        /// <param name="filter">File filter in format: Display Text|File Extension pattern</param>
+        /// <returns></returns>
+        public static string OpenFileDialog(string filter)
         {
-            try
-            {
-                File.WriteAllBytes(filePath, byteArray);
-            }
+            // Instantiate and apply filter to open file dialog
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = filter;
 
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            // Open dialog and return the directory if the user selected a file, otherwise return an empty string
+            if (openFileDialog.ShowDialog() == true) { return openFileDialog.FileName; }
+            return string.Empty;
         }
+
+        #endregion
+
+        #region Delete
 
         /// <summary>
         /// Deletes the file if it exists
@@ -102,19 +127,17 @@ namespace Assignment4
         {
             try
             {
-                
-                    File.Delete(filePath);
-                    
-                
-                
+                File.Delete(filePath);
             }
 
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
- 
+
         }
+
+        #endregion
 
     }
 }

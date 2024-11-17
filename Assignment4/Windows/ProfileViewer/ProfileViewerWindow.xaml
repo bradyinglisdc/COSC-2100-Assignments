@@ -19,14 +19,14 @@
             </StackPanel>
             
             <!-- Back button -->
-            <Button x:Name="ReturnToMenuButton"
+            <Button x:Name="btnReturnToMenu"
                     Style="{StaticResource MainMenuButton}"
                     HorizontalAlignment="Left"
                     Width="110"
                     Content="_Back To Menu"
                     ToolTip="Click here, or press 'alt + b' to go back to the menu."
                     Margin="10"
-                    Click="ReturnToMenuButton_Click"/>
+                    Click="btnReturnToMenu_Click"/>
             <!-- Search Bar -->
             <Border CornerRadius="10"
                     BorderBrush="{StaticResource ButtonForeColorDark}"
@@ -84,25 +84,25 @@
                        Source="pack://application:,,,/Resources/DirtBackground.png"/>
             </StackPanel>
 
-            <!-- Edit Selected Profile Button -->
+            <!-- Edit Existing Profile Button -->
             <Grid Width="360">
-                <Button x:Name="btnEditSelectedProfile"
+                <Button x:Name="btnEditExistingProfile"
                         Style="{StaticResource MainMenuButton}"
                         HorizontalAlignment="Left"
                         Width="165"
-                        Content="_Edit Selected Profile"
-                        ToolTip="Click here, or press 'alt + e' to edit the selected profile."
+                        Content="_Import Existing File"
+                        ToolTip="Click here, or press 'alt + i' to edit an existing .settings file."
                         Margin="10"
-                        Click="btnEditSelectedProfile_Click"/>
+                        Click="btnEditExistingProfile_Click"/>
                 <!-- Create New Profile Button -->
-                <Button x:Name="CreateNewProfileButton"
+                <Button x:Name="btnCreateNewProfile"
                         Style="{StaticResource MainMenuButton}"
                         HorizontalAlignment="Right"
                         Width="165"
                         Content="_Create New Profile"
                         ToolTip="Click here, or press 'alt + c' to create a new profile."
                         Margin="10"
-                        Click="CreateNewProfileButton_Click"/>
+                        Click="btnCreateNewProfile_Click"/>
             </Grid>
         </Grid>
     </StackPanel>
