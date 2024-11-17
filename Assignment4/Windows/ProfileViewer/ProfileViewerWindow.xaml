@@ -66,10 +66,12 @@
                 </StackPanel>
                 <!-- Profile Containers Area  -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
-                              Height="460">
+                              Height="450"
+                              Width="530">
                     <StackPanel x:Name="ProfilesContainer"
-                                CanVerticallyScroll="True">
-                        <Grid Margin="0,5,0,0"></Grid>
+                                CanVerticallyScroll="True"
+                                Margin="0,5,0,0">
+                        
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

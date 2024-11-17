@@ -134,7 +134,6 @@ namespace Assignment4
                 string settingValue = keyValuePair.Split(": ")[1].Trim();
                 settingDictionary[settingName] = settingValue;
             }
-            
             return settingDictionary;
         }
 
@@ -145,6 +144,7 @@ namespace Assignment4
         private void CreateProfileFromDictionary(Dictionary<string, string> settingDictionary)
         {
             ProfileName = settingDictionary["ProfileName"];
+            IsStartupProfile = bool.Parse(settingDictionary["IsStartupProfile"]);
             InputDevice = (GenericSettings.InputDevice)Enum.Parse(typeof(GenericSettings.InputDevice), settingDictionary["InputDevice"]);
             AutoJumpOn = bool.Parse(settingDictionary["AutoJumpOn"]);
             MouseSensitivity = int.Parse(settingDictionary["MouseSensitivity"]);
@@ -209,6 +209,8 @@ namespace Assignment4
         /// <param name="profileToCloneFrom">The profile to pull properties from.</param>
         public void Clone(Profile profileToCloneFrom)
         {
+            IsStartupProfile = profileToCloneFrom.IsStartupProfile;
+
             InputDevice = profileToCloneFrom.InputDevice;
             AutoJumpOn = profileToCloneFrom.AutoJumpOn;
             MouseSensitivity = profileToCloneFrom.MouseSensitivity;

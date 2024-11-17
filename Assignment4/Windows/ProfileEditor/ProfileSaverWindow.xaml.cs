@@ -54,6 +54,7 @@ namespace Assignment4
             AlteredProfile = alteredProfile;
             EditorWindow = editorWindow;
             tbxProfileName.Text = currentProfile.ProfileName;
+            DataContext = this;
         }
 
         #endregion

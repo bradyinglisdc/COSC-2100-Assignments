@@ -16,7 +16,7 @@
                Source="pack://application:,,,/Resources/StoneBackground.jpg"
                Width="500" 
                Stretch="None"/>
-        <TextBlock x:Name="ProfileSaveTextBlock"
+        <TextBlock x:Name="tboProfileSaveHeader"
                    FontFamily="Minecraftia"
                    Padding="5"
                    FontSize="15"
@@ -29,11 +29,11 @@
             Press 'save' to confirm profile save.
         </TextBlock>
 
-        <TextBlock x:Name="ProfileNameTextBlock"
+        <TextBlock x:Name="tboProfileNameHeader"
                    Foreground="White"
                    FontFamily="Minecraftia"
                    VerticalAlignment="Center"
-                   Margin="70,0,0,45">Profile Name:</TextBlock>
+                   Margin="70,0,0,75">Profile Name:</TextBlock>
 
         <Border x:Name="ProfileNameContainerBorder"
                 CornerRadius="10"
@@ -42,16 +42,34 @@
                 Background="{StaticResource ButtonBackColorDark}"
                 Height="30"
                 Width="275"
-                ClipToBounds="True">
+                ClipToBounds="True"
+                Margin="0,0,0,30">
             <TextBox x:Name="tbxProfileName"
                      Background="Transparent"
                      Foreground="White"
                      BorderThickness="0"
                      Height="20"
                      Width="275"
-                     Grid.Column="1"
                      FontFamily="Minecraftia"/>
         </Border>
+
+        <Grid x:Name="StartupProfileContainerGrid"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Margin="0,50,0,0"
+              Background="#801E1E1E"
+              Height="25"
+              Width="200">
+
+            <CheckBox x:Name="cbxIsStartupProfile"
+                      Content="Set Startup Profile?"
+                      FontFamily="Minecraftia"
+                      Foreground="White"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      Margin="0,5,0,0"
+                      IsChecked="{Binding AlteredProfile.IsStartupProfile}"/>
+        </Grid>
 
         <Grid x:Name="ExitSaveContainerGrid"
               VerticalAlignment="Bottom"
