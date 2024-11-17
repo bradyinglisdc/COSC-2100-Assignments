@@ -102,6 +102,7 @@ namespace Assignment4
             // Save all other changes in memory
             if (!Profile.Profiles.Contains(CurrentProfile)) { Profile.Profiles.Add(CurrentProfile); }
             CurrentProfile.Clone(AlteredProfile);
+            CurrentProfile.IsStartupProfile = cbxIsStartupProfile.IsChecked == true;
 
             // Save all profile changes to storage
             FinalSave();

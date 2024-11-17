@@ -122,7 +122,7 @@ namespace Assignment4
             get { return _isStartupProfile; }
             set
             {
-                ClearStartupProfile();
+                if (value == true) { ClearStartupProfile(); }
                 _isStartupProfile = value;
                 OnPropertyChanged(nameof(IsStartupProfile));
             }

@@ -22,7 +22,7 @@
                         Grid.Row="0"
                         Margin="12">
 
-                <Label Content="Profile  Editor"
+                <TextBlock Text="{Binding BoundProfile.ProfileName, StringFormat='Currently  Editing:  {0}'}"
                        FontFamily="Minecraftia"
                        Foreground="White"
                        FontSize="16"/>

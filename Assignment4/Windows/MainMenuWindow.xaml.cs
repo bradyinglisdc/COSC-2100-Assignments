@@ -86,6 +86,7 @@ namespace Assignment4
                 MessageBox.Show("No startup profile is currently set. Click 'Profile Editor' to create/set one.");
                 return;
             }
+            OpenProfileEditor(startupProfile);
         }
 
         /// <summary>
@@ -94,6 +95,15 @@ namespace Assignment4
         private void OpenProfileViewer()
         {
             (new ProfileViewerWindow()).Show();
+            Close();
+        }
+
+        /// <summary>
+        /// Hides this window, then instnatiates and opens ProfileEditorWindow
+        /// </summary>
+        private void OpenProfileEditor(Profile profileToEdit)
+        {
+            (new ProfileEditorWindow(profileToEdit)).Show();
             Close();
         }
 
