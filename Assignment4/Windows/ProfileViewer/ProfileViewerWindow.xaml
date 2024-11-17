@@ -8,14 +8,17 @@
         Title="Profile Viewer" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
-    <StackPanel VerticalAlignment="Top">
+    <StackPanel x:Name="ProfilesViewerStack"
+                VerticalAlignment="Top">
         
         <!-- Search Area -->
         <Grid Background="Black"
-              Height="75">
+              Height="75"
+              x:Name="SearchArea">
             <!-- Search Background styling -->
             <StackPanel Grid.Column="0" Grid.Row="0">
-                <Image Source="pack://application:,,,/Resources/DirtBackground.png" />
+                <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
+                       x:Name="imgViewerBackground"/>
             </StackPanel>
             
             <!-- Back button -->
@@ -26,7 +29,8 @@
                     Content="_Back To Menu"
                     ToolTip="Click here, or press 'alt + b' to go back to the menu."
                     Margin="10"
-                    Click="btnReturnToMenu_Click"/>
+                    Click="btnReturnToMenu_Click"
+                    IsCancel="True"/>
             <!-- Search Bar -->
             <Border CornerRadius="10"
                     BorderBrush="{StaticResource ButtonForeColorDark}"
@@ -34,8 +38,9 @@
                     Background="{StaticResource ButtonBackColorDark}"
                     Height="30"
                     Width="275"
-                    ClipToBounds="True">
-                <Grid>
+                    ClipToBounds="True"
+                    x:Name="brdrSearchQuery">
+                <Grid x:Name="SearchAreaGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="35"/>
                         <ColumnDefinition />
@@ -43,7 +48,8 @@
                     <Image Source="pack://application:,,,/Resources/SearchIcon.png"
                            Margin="5,0"
                            Grid.Column="0"
-                           Height="20"/>
+                           Height="20"
+                           x:Name="imgSearchIcon"/>
                     <TextBox x:Name="tbxSearchQuery"
                              Background="Transparent"
                              Foreground="White"
@@ -63,33 +69,37 @@
                   Grid.Column="0" 
                   Grid.Row="0">
                 <!-- ProfilesArea Background styling -->
-                <StackPanel Grid.Column="0" Grid.Row="0" Height="460">
-                    <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"/>
+                <StackPanel Grid.Column="0" Grid.Row="0" Height="460"
+                            x:Name="ProfilesAreaStack">
+                    <Image Source="pack://application:,,,/Resources/StoneBackground.jpg"
+                           x:Name="imgProfilesAreaBackground"/>
                 </StackPanel>
                 <!-- Profile Containers Area  -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto"
                               Height="450"
-                              Width="530">
+                              Width="530"
+                              x:Name="ProfilesAreaScroll">
                     <StackPanel x:Name="ProfilesContainer"
                                 CanVerticallyScroll="True"
                                 Margin="0,5,0,0">
-                        
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="0"/>
         </Grid>
         
         <!-- Footer -->
-        <Grid Height="80">
+        <Grid Height="80"
+              x:Name="FooterGrid">
             <!-- Footer  styling -->
-            <StackPanel Grid.Column="0" Grid.Row="0">
+            <StackPanel Grid.Column="0" Grid.Row="0"
+                        x:Name="FooterStylingStack">
                 <Image x:Name="imgFooterBackground"
                        Source="pack://application:,,,/Resources/DirtBackground.png"/>
             </StackPanel>
 
             <!-- Edit Existing Profile Button -->
-            <Grid Width="360">
+            <Grid Width="360"
+                  x:Name="ProfileOptionsGrid">
                 <Button x:Name="btnEditExistingProfile"
                         Style="{StaticResource MainMenuButton}"
                         HorizontalAlignment="Left"
@@ -106,7 +116,8 @@
                         Content="_Create New Profile"
                         ToolTip="Click here, or press 'alt + c' to create a new profile."
                         Margin="10"
-                        Click="btnCreateNewProfile_Click"/>
+                        Click="btnCreateNewProfile_Click"
+                        IsDefault="True"/>
             </Grid>
         </Grid>
     </StackPanel>

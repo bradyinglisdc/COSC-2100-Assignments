@@ -8,7 +8,8 @@
         Title="Profile Editor: Main Menu" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
-    <Grid Width="1000">
+    <Grid x:Name="MainMenuGrid"
+          Width="1000">
         
         <!-- Main Menu Styling -->
         <Image x:Name="imgMenuBackground"
@@ -30,27 +31,26 @@
             <TextBlock.RenderTransform>
                 <RotateTransform Angle="-20"/>
             </TextBlock.RenderTransform>
-
-
         </TextBlock>
         
         <!-- Main Menu Buttons -->
-        <StackPanel VerticalAlignment="Center">
-            <Button x:Name="EditStartupProfileButton"
+        <StackPanel x:Name="MainMenuButtonButtonsContainer" 
+                    VerticalAlignment="Center">
+            <Button x:Name="btnEditStartupProfile"
                     Style="{StaticResource MainMenuButton}"
                     Width="350"
                     ToolTip="Click here, or press 'alt + s' to edit the startup profile."
                     Content="Edit _Startup Profile"
-                    Click="EditStartupProfileButton_Click"
+                    Click="btnEditStartupProfile_Click"
                     IsDefault="True">
             </Button>
 
-            <Button x:Name="ProfileViewerButton"
+            <Button x:Name="btnProfileViewer"
                     Style="{StaticResource MainMenuButton}"
                     Width="350"
                     ToolTip="Click here, or press 'alt + p' to view, edit, and create profiles."
                     Content="_Profile Editor" 
-                    Click="ProfileViewerButton_Click">
+                    Click="btnProfileViewer_Click">
             </Button>
             <Button x:Name="btnQuitApplication"
                     Style="{StaticResource MainMenuButton}"

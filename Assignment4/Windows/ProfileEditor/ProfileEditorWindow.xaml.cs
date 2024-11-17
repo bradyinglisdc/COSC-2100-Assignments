@@ -34,6 +34,8 @@ namespace Assignment4
         /// </summary>
         public Profile EditedProfile { get; set; }
 
+        private bool ReturnToMenuOnExit { get; set; } = false;
+
         #endregion
 
         #region Constructors
@@ -59,6 +61,7 @@ namespace Assignment4
             DataContext = this;
             BoundProfile = profileToBind;
             EditedProfile = Profile.InstantiateClone(BoundProfile);
+            ReturnToMenuOnExit = true;
         }
 
 
@@ -198,7 +201,7 @@ namespace Assignment4
 
         /// <summary>
         /// Prompts user to confirm discard,
-        /// then discards returns to profile view
+        /// then discards returns to profile view or menu
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -206,9 +209,18 @@ namespace Assignment4
         {
             if (MessageBox.Show("Are you sure you want to discard changes and return to profile browser?", $"Discard changes to profile: {BoundProfile.ProfileName}?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                (new ProfileViewerWindow()).Show();
-                Close();
+                CloseWindow();
             }
+        }
+
+        /// <summary>
+        /// Closes and returns to profile view or menu depending on ReturnToMenuOnExit property
+        /// </summary>
+        private void CloseWindow()
+        {
+            if (ReturnToMenuOnExit) { (new MainMenuWindow(false)).Show(); }
+            else { (new ProfileViewerWindow()).Show(); }
+            Close();
         }
 
         #endregion

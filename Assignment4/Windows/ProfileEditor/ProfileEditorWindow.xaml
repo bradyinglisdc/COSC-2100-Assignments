@@ -15,27 +15,32 @@
             <Image Source="pack://application:,,,/Resources/DirtBackground.png"
                    Width="1200"
                    Grid.Column="0"
-                   Grid.Row="0"/>
+                   Grid.Row="0"
+                   x:Name="imgEditorBackground"/>
             <StackPanel VerticalAlignment="Top" 
                         HorizontalAlignment="Center"
                         Grid.Column="0" 
                         Grid.Row="0"
-                        Margin="12">
+                        Margin="12"
+                        x:Name="HeaderStack">
 
                 <TextBlock Text="{Binding BoundProfile.ProfileName, StringFormat='Currently  Editing:  {0}'}"
-                       FontFamily="Minecraftia"
-                       Foreground="White"
-                       FontSize="16"/>
+                           FontFamily="Minecraftia"
+                           Foreground="White"
+                           FontSize="16"
+                           x:Name="tboCurrentProfile"/>
             </StackPanel>
         </Grid>
 
         <!-- Options Area -->
-        <Grid Grid.Column="0" Grid.Row="0">
-            <TabControl Margin="15,30,15,75">
+        <Grid Grid.Column="0" Grid.Row="0" x:Name="OptionsAreaGrid">
+            <TabControl Margin="15,30,15,75"
+                        x:Name="tctrlOptions">
                 
                 <!-- Movement Options -->
                 <TabItem Header="Movement"
-                         FontFamily="Minecraftia">
+                         FontFamily="Minecraftia"
+                         x:Name="tbitMovement">
                     <Grid Background="#1E1E1E">
                         <Image Source="pack://application:,,,/Resources/DirtBackground.png" 
                                Height="1000"/>
@@ -51,8 +56,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            
-  
+                              
                             <!-- Change Input Device Button -->
                             <Button x:Name="ChangeInputDeviceButton"
                                     Grid.Column="0"
@@ -508,23 +512,25 @@
 
                 <!-- Discard Button -->
                 <Button x:Name="btnDiscardChanges"
-                    Style="{StaticResource MainMenuButton}"
-                    Width="140"
-                    Content="_Discard Changes"
-                    ToolTip="Click here, or press 'alt + d' to discard changes and return to profile viewer."
-                    Margin="0,0,0,20"
-                    HorizontalAlignment="Left"
-                    Click="btnDiscardChanges_Click"/>
+                        Style="{StaticResource MainMenuButton}"
+                        Width="140"
+                        Content="_Discard Changes"
+                        ToolTip="Click here, or press 'alt + d' to discard changes and return to profile viewer."
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Left"
+                        Click="btnDiscardChanges_Click"
+                        IsCancel="True"/>
 
                 <!-- Save Button -->
                 <Button x:Name="SaveProfileButton"
-                    Style="{StaticResource MainMenuButton}"
-                    Width="140"
-                    Content="_Save Profile"
-                    ToolTip="Click here, or press 'alt + s' to save changes and return to profile viewer."
-                    Margin="0,0,0,20"
-                    HorizontalAlignment="Right"
-                    Click="SaveProfileButton_Click"/>
+                        Style="{StaticResource MainMenuButton}"
+                        Width="140"
+                        Content="_Save Profile"
+                        ToolTip="Click here, or press 'alt + s' to save changes and return to profile viewer."
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Right"
+                        Click="SaveProfileButton_Click"
+                        IsDefault="True"/>
             </Grid>
         </Grid>
     </Grid>

@@ -22,9 +22,6 @@
                HorizontalAlignment="Center"
                Margin="0,-100,0,0"/>
 
-
-
-
         <TextBlock x:Name="tboProfileLoadIndicator"
                    Text="Profiles Loading"
                    FontFamily="Minecraftia"

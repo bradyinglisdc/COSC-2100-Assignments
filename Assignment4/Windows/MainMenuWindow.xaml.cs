@@ -75,7 +75,7 @@ namespace Assignment4
         /// </summary>
         /// <param name="sender">The button which was clicked</param>
         /// <param name="e">Event args</param>
-        private void EditStartupProfileButton_Click(object sender, RoutedEventArgs e)
+        private void btnEditStartupProfile_Click(object sender, RoutedEventArgs e)
         {
             EditStartupProfile();
         }
@@ -85,7 +85,7 @@ namespace Assignment4
         /// </summary>
         /// <param name="sender">The button which was clicked</param>
         /// <param name="e">Event args</param>
-        private void ProfileViewerButton_Click(object sender, RoutedEventArgs e)
+        private void btnProfileViewer_Click(object sender, RoutedEventArgs e)
         {
             OpenProfileViewer();
         }
@@ -119,7 +119,6 @@ namespace Assignment4
 
         #endregion
 
-
         #region Interaction Logic
 
         /// <summary>
@@ -148,7 +147,7 @@ namespace Assignment4
         }
 
         /// <summary>
-        /// Hides this window, then instnatiates and opens ProfileEditorWindow
+        /// Hides this window, then instnatiates and opens ProfileEditorWindow with a profile to edit
         /// </summary>
         private void OpenProfileEditor(Profile profileToEdit)
         {
