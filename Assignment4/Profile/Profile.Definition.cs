@@ -97,6 +97,11 @@ namespace Assignment4
             set
             {
                 if (value == _profileName) { return; }
+                if (!IsValidName(value))
+                {
+                    throw new Exception($"Name cannot contain characters: {GenericSettings.InvalidFileNameChars.ToString()}");
+                }
+
 
                 if (FindProfileByName(value) != null)
                 {

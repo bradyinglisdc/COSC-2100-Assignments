@@ -54,6 +54,7 @@ namespace Assignment4
             AlteredProfile = alteredProfile;
             EditorWindow = editorWindow;
             tbxProfileName.Text = currentProfile.ProfileName;
+            cbxIsStartupProfile.IsChecked = currentProfile.IsStartupProfile;
             DataContext = this;
         }
 
@@ -92,12 +93,19 @@ namespace Assignment4
         /// </summary>
         private void AttemptProfileSave()
         {
-            // Delete profile file from storage if it's name matches CurrentProfile.ProfileName.. It will be recreated.
-            ProfileLoader.DeleteProfile(CurrentProfile.ProfileName);
+            // Get the old name of the profile to be overwritten
+            string profileToOverWrite = CurrentProfile.ProfileName;
 
-            // Save name to memory. Display message if name already exists
+            // Save new name to memory. Display message if name already exists or is not formatting correctly
             try { CurrentProfile.ProfileName = tbxProfileName.Text; }
-            catch (Exception ex){ MessageBox.Show($"Error updating profile name:\n{ex.Message}"); }
+            catch (Exception ex) 
+            { 
+                MessageBox.Show($"Error updating profile name:\n{ex.Message}");
+                return;
+            }
+
+            // Delete profile file from storage if it's name matches CurrentProfile.ProfileName.. It will be recreated.
+            ProfileLoader.DeleteProfile(profileToOverWrite);
 
             // Save all other changes in memory
             if (!Profile.Profiles.Contains(CurrentProfile)) { Profile.Profiles.Add(CurrentProfile); }

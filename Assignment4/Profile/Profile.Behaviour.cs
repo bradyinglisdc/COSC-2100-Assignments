@@ -209,8 +209,6 @@ namespace Assignment4
         /// <param name="profileToCloneFrom">The profile to pull properties from.</param>
         public void Clone(Profile profileToCloneFrom)
         {
-            IsStartupProfile = profileToCloneFrom.IsStartupProfile;
-
             InputDevice = profileToCloneFrom.InputDevice;
             AutoJumpOn = profileToCloneFrom.AutoJumpOn;
             MouseSensitivity = profileToCloneFrom.MouseSensitivity;
@@ -257,6 +255,20 @@ namespace Assignment4
                 new Profile(rawSetting);
             }
 
+        }
+
+        /// <summary>
+        /// Checks if the provided profile name contains any invalid characters.
+        /// </summary>
+        /// <param name="profileName">The profile name to check</param>
+        /// <returns>True if the name is valid, false otherwise</returns>
+        public static bool IsValidName(string profileName)
+        {
+            foreach (char character in GenericSettings.InvalidFileNameChars)
+            {
+                if (profileName.Contains(character)) { return false; }
+            }
+            return true;
         }
 
         #endregion

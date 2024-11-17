@@ -108,6 +108,7 @@ namespace Assignment4
         public static int[] ProfileNameLengthRange = { 3, 30 };
         public const string DefaultProfileName = "Unknown";
         public static string ProfileOutputDir= $"{Environment.CurrentDirectory}\\UserProfiles\\";
+        public static char[] InvalidFileNameChars = { '<', '>', ':', '"', '/', '\\', '|', '?', '*' };
 
         #endregion
 
