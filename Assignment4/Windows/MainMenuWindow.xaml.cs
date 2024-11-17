@@ -22,6 +22,27 @@ namespace Assignment4
     public partial class MainMenuWindow : Window
     {
 
+        #region Instance Properties for animation
+
+        /// <summary>
+        /// First index is when to stop shrinking bouncing text, last index is 
+        /// when to stop growing bouncing text
+        /// </summary>
+        private static int[] FontSizeRange = { 20, 23 };
+
+        /// <summary>
+        /// Becomes true when the when the window application begins
+        /// </summary>
+        private bool WindowAnimating { get; set; } = false;
+
+        /// <summary>
+        /// Should be set to true when low end of fontsizerange is reached, false when high end is reached
+        /// </summary>
+        private bool GrowFont { get; set; } = false;
+
+        #endregion
+
+
         #region Constructors
 
         /// <summary>
@@ -81,6 +102,24 @@ namespace Assignment4
 
         #endregion
 
+        #region Initialization Logic
+
+        /// <summary>
+        /// Loads splash screen and all profiles if is first load, then starts animating bouncing text
+        /// </summary>
+        /// <param name="isFirstLoad">Determines if initialization should proceed.</param>
+        private void InitializeApplication(bool isFirstLoad)
+        {
+            // Open splash screen to begin loading profiles
+            if (isFirstLoad) { (new SplashScreenWindow(this)).ShowDialog(); }
+
+            // Begin animation
+            AnimateScreen();
+        }
+
+        #endregion
+
+
         #region Interaction Logic
 
         /// <summary>
@@ -128,19 +167,41 @@ namespace Assignment4
             }
         }
 
-        #endregion
-
-        #region Initialization Logic
+        #region Animation
 
         /// <summary>
-        /// Loads splash screen and all profiles if is first load
+        /// Animates bouncing logo so it appears it's getting bigger then smaller
         /// </summary>
-        /// <param name="isFirstLoad">Determines if initialization should proceed.</param>
-        private void InitializeApplication(bool isFirstLoad)
+        private async void AnimateScreen()
         {
-            if (isFirstLoad) { (new SplashScreenWindow(this)).ShowDialog(); }
+            // Will loop while window is open, using async Task.Delay to return control
+            // back to the program in between animations
+            WindowAnimating = true;
+            while (WindowAnimating)
+            {
+                // Determine if font size should grow or shrink
+                if (tboBouncingLogo.FontSize <= FontSizeRange[0]) { GrowFont = true; }
+                else if (tboBouncingLogo.FontSize >= FontSizeRange[1]) { GrowFont = false; }
+
+                // Animate the font size so it appears bouncing
+                AnimateFont();
+
+                // As to not loop infinitely, return control to the program. Basically,
+                // this loop will execute every 75 milliseconds
+                await Task.Delay(75);
+            }
         }
 
+        /// <summary>
+        /// Grows font if GrowFont is true, else shrinks
+        /// </summary>
+        private void AnimateFont()
+        {
+            if (GrowFont) { tboBouncingLogo.FontSize += 1; }
+            else { tboBouncingLogo.FontSize -= 1; }
+        }
+
+        #endregion
 
         #endregion
 
