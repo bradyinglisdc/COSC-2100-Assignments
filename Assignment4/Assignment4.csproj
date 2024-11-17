@@ -10,12 +10,24 @@
 
   <ItemGroup>
     <None Remove="Resources\DirtBackground.PNG" />
+    <None Remove="Resources\MainMenuBackground.jpg" />
+    <None Remove="Resources\MinecraftMainLogo.png" />
+    <None Remove="Resources\MinecraftProfileEditorSplashLogo.png" />
     <None Remove="Resources\SearchIcon.png" />
     <None Remove="Resources\StoneBackground.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\DirtBackground.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\MainMenuBackground.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\MinecraftMainLogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\MinecraftProfileEditorSplashLogo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\SearchIcon.png">

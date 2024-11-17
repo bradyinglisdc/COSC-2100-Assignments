@@ -8,33 +8,56 @@
         Title="Profile Editor: Main Menu" Height="650" Width="1000"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen">
-    <StackPanel VerticalAlignment="Center">
+    <Grid Width="1000">
         
-        <!-- Main Menu -->
-        <Button x:Name="EditStartupProfileButton"
-                Style="{StaticResource MainMenuButton}"
-                Width="350"
-                ToolTip="Click here, or press 'alt + s' to edit the startup profile."
-                Content="Edit _Startup Profile"
-                Click="EditStartupProfileButton_Click">
-        </Button>
-
-        <Button x:Name="ProfileViewerButton"
-                Style="{StaticResource MainMenuButton}"
-                Width="350"
-                ToolTip="Click here, or press 'alt + p' to view, edit, and create profiles."
-                Content="_Profile Editor" 
-                Click="ProfileViewerButton_Click">
-        </Button>
-
-        <Button x:Name="QuitApplicationButton"
-                Style="{StaticResource MainMenuButton}"
-                Width="200"
-                ToolTip="Click here, or press 'alt + q' to quit the application."
-                Content="_Quit">
-        </Button>
+        <!-- Main Menu Styling -->
+        <Image x:Name="imgMenuBackground"
+               Source="pack://application:,,,/Resources/MainMenuBackground.jpg"
+               Width="1200"
+               HorizontalAlignment="Center"/>
+        <Image x:Name="imgMinecraftLogo"
+               Source="pack://application:,,,/Resources/MinecraftProfileEditorSplashLogo.png"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Top"
+               Height="500"
+               Margin="0,-125,0,0"/>
+        <TextBlock x:Name="tboBouncingLogo"
+                   FontFamily="Minecraftia"
+                   Foreground="Yellow"
+                   FontSize="20"
+                   Margin="645,140,0,0"
+                   Text="Edit some profiles!">
+            <TextBlock.RenderTransform>
+                <RotateTransform Angle="-20"/>
+            </TextBlock.RenderTransform>
 
 
+        </TextBlock>
+        
+        <!-- Main Menu Buttons -->
+        <StackPanel VerticalAlignment="Center">
+            <Button x:Name="EditStartupProfileButton"
+                    Style="{StaticResource MainMenuButton}"
+                    Width="350"
+                    ToolTip="Click here, or press 'alt + s' to edit the startup profile."
+                    Content="Edit _Startup Profile"
+                    Click="EditStartupProfileButton_Click">
+            </Button>
 
-    </StackPanel>
+            <Button x:Name="ProfileViewerButton"
+                    Style="{StaticResource MainMenuButton}"
+                    Width="350"
+                    ToolTip="Click here, or press 'alt + p' to view, edit, and create profiles."
+                    Content="_Profile Editor" 
+                    Click="ProfileViewerButton_Click">
+            </Button>
+            <Button x:Name="btnQuitApplication"
+                    Style="{StaticResource MainMenuButton}"
+                    Width="200"
+                    ToolTip="Click here, or press 'alt + q' to quit the application."
+                    Content="_Quit"
+                    Click="btnQuitApplication_Click">
+            </Button>
+        </StackPanel>
+    </Grid>
 </Window>

@@ -69,6 +69,16 @@ namespace Assignment4
             OpenProfileViewer();
         }
 
+        /// <summary>
+        /// Calls CloseProgram();
+        /// </summary>
+        /// <param name="sender">The button which was clicked</param>
+        /// <param name="e">Event args</param>
+        private void btnQuitApplication_Click(object sender, RoutedEventArgs e)
+        {
+            CloseProgram();
+        }
+
         #endregion
 
         #region Interaction Logic
@@ -107,6 +117,17 @@ namespace Assignment4
             Close();
         }
 
+        /// <summary>
+        /// Closes the program if user agrees to prompt.
+        /// </summary>
+        private void CloseProgram()
+        {
+            if (MessageBox.Show("Are you sure you want to exit the program?", "Exit Profile Editor?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Close();
+            }
+        }
+
         #endregion
 
         #region Initialization Logic
@@ -120,8 +141,8 @@ namespace Assignment4
             if (isFirstLoad) { (new SplashScreenWindow(this)).ShowDialog(); }
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment4"
         mc:Ignorable="d"
-        Title="Profiles Loading..." Height="250" Width="500"
+        Title="Profiles Loading..." Height="275" Width="600"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -14,27 +14,72 @@
     <Grid x:Name="LoadProgressGrid">
         <Image x:Name="imgSplashBackground"
                Source="pack://application:,,,/Resources/StoneBackground.jpg"
-               Width="500" 
+               Width="700" 
                Stretch="None"/>
+
+        <Image x:Name="imgMinecraftLogo"
+               Source="pack://application:,,,/Resources/MinecraftProfileEditorSplashLogo.png"           
+               HorizontalAlignment="Center"
+               Margin="0,-100,0,0"/>
+
+
+
+
         <TextBlock x:Name="tboProfileLoadIndicator"
-                   Text="Profiles Loading..."
+                   Text="Profiles Loading"
                    FontFamily="Minecraftia"
                    Foreground="White"
-                   FontSize="20"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
+                   FontSize="12"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
                    Background="#801E1E1E"
-                   Padding="0,10,0,0"
-                   Width="300"
-                   TextAlignment="Center"/>
+                   Padding="5,0,0,0"
+                   Width="150"
+                   Height="20"
+                   TextAlignment="Center"
+                   Margin="0,0,0,0"/>
+        <TextBlock x:Name="tboDeveloperName"
+                   FontFamily="Minecraftia"
+                   Foreground="White"
+                   FontSize="12"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Background="#801E1E1E"
+                   Padding="5,0,0,0"
+                   Width="200"
+                   Height="20"
+                   TextAlignment="Left"
+                   Margin="0,0,0,20"
+                   LineHeight="30"
+                   TextWrapping="Wrap"
+                   Text="Developed by: Brady Inglis" />
+        <TextBlock x:Name="tboDeveloperID"
+                   FontFamily="Minecraftia"
+                   Foreground="White"
+                   FontSize="12"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="LEft"
+                   Background="#801E1E1E"
+                   Padding="5,0,0,0"
+                   Width="200"
+                   Height="20"
+                   TextAlignment="Left"
+                   Margin="0,0,0,0"
+                   LineHeight="30"
+                   TextWrapping="Wrap"
+                   Text="Student ID: 100926284" 
+            />
+
+
         <Button x:Name="btnProceedToApplication"
-                Visibility="Hidden"
+                Visibility="Visible"
                 Style="{StaticResource MainMenuButton}"
                 Width="150"
                 VerticalAlignment="Bottom"
-                Margin="0,0,0,15"
+                Margin="0,0,0,40"
                 Content="_Proceed"
                 ToolTip="Click here, or press 'alt + p' to proceed to the profile editor!"
-                Click="btnProceedToApplication_Click"/>
+                Click="btnProceedToApplication_Click"
+                IsEnabled="False"/>
     </Grid>
 </Window>
