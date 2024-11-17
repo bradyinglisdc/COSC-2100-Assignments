@@ -77,6 +77,7 @@
                 Content="_Proceed"
                 ToolTip="Click here, or press 'alt + p' to proceed to the profile editor!"
                 Click="btnProceedToApplication_Click"
-                IsEnabled="False"/>
+                IsEnabled="False"
+                IsDefault="True"/>
     </Grid>
 </Window>
