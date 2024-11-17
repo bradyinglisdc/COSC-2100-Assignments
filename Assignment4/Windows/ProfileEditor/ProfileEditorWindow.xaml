@@ -116,8 +116,8 @@
                                         Height="30"
                                         Background="{StaticResource ButtonBackColorDark}"
                                         Value="{Binding EditedProfile.CurrentInputDeviceSensitivity}"
-                                        Maximum="100"
-                                        Minimum="0">
+                                        Maximum="70"
+                                        Minimum="30">
                                 </Slider>
 
                                 <!-- Sensitivity Header -->
@@ -174,8 +174,8 @@
                                         Height="30"
                                         Background="{StaticResource ButtonBackColorDark}"
                                         Value="{Binding EditedProfile.Brightness}"
-                                        Maximum="70"
-                                        Minimum="30">
+                                        Maximum="100"
+                                        Minimum="0">
                                 </Slider>
 
                                 <!-- Brightness Header -->
@@ -237,8 +237,8 @@
                                   Height="30"
                                   Background="{StaticResource ButtonBackColorDark}"
                                   Value="{Binding EditedProfile.FieldOfView}"
-                                  Maximum="128"
-                                  Minimum="30">
+                                  Maximum="90"
+                                  Minimum="60">
                                 </Slider>
 
                                 <!-- FieldOfView Header -->
