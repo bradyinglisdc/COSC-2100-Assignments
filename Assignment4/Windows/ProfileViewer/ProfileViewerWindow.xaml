@@ -44,13 +44,15 @@
                            Margin="5,0"
                            Grid.Column="0"
                            Height="20"/>
-                    <TextBox Background="Transparent"
+                    <TextBox x:Name="tbxSearchQuery"
+                             Background="Transparent"
                              Foreground="White"
                              BorderThickness="0"
                              Height="20"
                              Width="275"
                              Grid.Column="1"
-                             FontFamily="Minecraftia"/>
+                             FontFamily="Minecraftia"
+                             TextChanged="tbxSearchQuery_TextChanged"/>
                 </Grid>
             </Border>
         </Grid>

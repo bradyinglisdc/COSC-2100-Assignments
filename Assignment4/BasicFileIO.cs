@@ -99,22 +99,6 @@ namespace Assignment4
             }
         }
 
-        /// <summary>
-        /// Opens a file dialog and returns the selected file directory or an empty string.
-        /// </summary>
-        /// <param name="filter">File filter in format: Display Text|File Extension pattern</param>
-        /// <returns></returns>
-        public static string OpenFileDialog(string filter)
-        {
-            // Instantiate and apply filter to open file dialog
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = filter;
-
-            // Open dialog and return the directory if the user selected a file, otherwise return an empty string
-            if (openFileDialog.ShowDialog() == true) { return openFileDialog.FileName; }
-            return string.Empty;
-        }
-
         #endregion
 
         #region Delete

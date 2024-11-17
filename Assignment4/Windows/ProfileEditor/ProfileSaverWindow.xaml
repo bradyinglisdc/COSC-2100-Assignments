@@ -33,7 +33,7 @@
                    Foreground="White"
                    FontFamily="Minecraftia"
                    VerticalAlignment="Center"
-                   Margin="70,0,0,75">Profile Name:</TextBlock>
+                   Margin="70,0,0,95">Profile Name:</TextBlock>
 
         <Border x:Name="ProfileNameContainerBorder"
                 CornerRadius="10"
@@ -43,7 +43,7 @@
                 Height="30"
                 Width="275"
                 ClipToBounds="True"
-                Margin="0,0,0,30">
+                Margin="0,0,0,50">
             <TextBox x:Name="tbxProfileName"
                      Background="Transparent"
                      Foreground="White"
@@ -56,18 +56,26 @@
         <Grid x:Name="StartupProfileContainerGrid"
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              Margin="0,50,0,0"
+              Margin="0,80,0,0"
               Background="#801E1E1E"
-              Height="25"
+              Height="60"
               Width="200">
 
             <CheckBox x:Name="cbxIsStartupProfile"
-                      Content="Set Startup Profile?"
+                      Content="Set startup profile"
                       FontFamily="Minecraftia"
                       Foreground="White"
-                      VerticalAlignment="Center"
+                      VerticalAlignment="Top"
                       HorizontalAlignment="Center"
                       Margin="0,5,0,0"/>
+
+            <CheckBox x:Name="cbxSaveExternal"
+                      Content="Save to custom path"
+                      FontFamily="Minecraftia"
+                      Foreground="White"
+                      VerticalAlignment="Bottom"
+                      HorizontalAlignment="Center"
+                      Margin="0,1,0,0"/>
         </Grid>
 
         <Grid x:Name="ExitSaveContainerGrid"

@@ -20,7 +20,7 @@ namespace Assignment4
 {
     /// <summary>
     /// An instance of this class will contain basic minecraft settings loaded from a text file.
-    /// The class also contains various static and instance file IO methods for reading and writing settings.
+    /// The class also contains various static and instance methods to package settings for reading and writing to/from file.
     /// </summary>
     public partial class Profile
     {
@@ -273,6 +273,31 @@ namespace Assignment4
 
         #endregion
 
+        #region Static Methods - Search
+
+        public static void ReorderListByClosestMatch(string searchKey)
+        {
+            // Get the match ranking of the current list
+            List<string> profileListString = ProfileListToStringList();
+            List<int> matchRankings = Search.GetMatchRankings(profileListString, searchKey);
+
+            // Compare each rankning against all rankings, swaping Profiles at their index value
+            for (int i = 0; i < matchRankings.Count; i++)
+            {
+                for (int j = 0; j < matchRankings.Count; j++)
+                {
+                    if (matchRankings[j] > matchRankings[i])
+                    {
+                        Profile tempProfile = Profiles[j];
+                        Profiles[j] = Profiles[i];
+                        Profiles[i] = tempProfile;
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #region General Static Methods
 
         /// <summary>
@@ -359,7 +384,23 @@ namespace Assignment4
             return clonedProfile;
         }
 
+        /// <summary>
+        /// Iterates through current profile list and creates a list of all profle names
+        /// </summary>
+        /// <returns>All profile names as a string list</returns>
+        private static List<string> ProfileListToStringList()
+        {
+            List<string> profileStringList = new List<string>();
+            foreach (Profile profile in Profiles)
+            {
+                profileStringList.Add(profile.ProfileName);
+            }
+            return profileStringList;
+        }
+
         #endregion
+
+
 
     }
 }

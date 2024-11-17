@@ -128,17 +128,16 @@ namespace Assignment4
         /// </summary>
         private void FinalSave()
         {
-
-            // Attempt to write to storage
+            // Attempt to write to storage. Write to local dir defined in GenericSettings if specified, else allow a custom
             try
             {
-                ProfileLoader.SaveProfile(CurrentProfile);
+                if (cbxSaveExternal.IsChecked == true) { ProfileLoader.SaveProfile(CurrentProfile, true); }
+                else { ProfileLoader.SaveProfile(CurrentProfile); }
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred saving profile. Profile will not be saved to pemanent storage.\nError: {ex.Message}");
-                return;
             }
         }
 

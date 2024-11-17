@@ -9,6 +9,7 @@
 
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Controls;
 
 #endregion
 
@@ -75,6 +76,17 @@ namespace Assignment4
         private void btnEditExistingProfile_Click(object sender, RoutedEventArgs e)
         {
             OpenExistingProfile();
+        }
+
+        /// <summary>
+        /// Calls UpdateResults(), passing in the search string
+        /// </summary>
+        /// <param name="sender">The text box which was changed</param>
+        /// <param name="e">Event args</param>
+        private void tbxSearchQuery_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchKey = ((TextBox)sender).Text;
+            UpdateResults(searchKey);
         }
 
         #endregion
@@ -147,6 +159,17 @@ namespace Assignment4
             Close();
         }
 
+        /// <summary>
+        /// Updates the profiles area such that it is ordered from closest
+        /// to furtherst match based on the provided search key
+        /// </summary>
+        /// <param name="searchKey">The key to be used for match checking</param>
+        private void UpdateResults(string searchKey)
+        {
+            Profile.ReorderListByClosestMatch(searchKey);
+            DisplayProfiles();
+        }
+
         #endregion
 
         #region Display Logic
@@ -156,6 +179,7 @@ namespace Assignment4
         /// </summary>
         private void DisplayProfiles()
         {
+            ProfilesContainer.Children.Clear();
             foreach (Profile profile in Profile.Profiles)
             {
                 ProfileViewUserControl profileContainer = new ProfileViewUserControl();
@@ -169,6 +193,7 @@ namespace Assignment4
         }
 
         #endregion
+
     }
 }
 
