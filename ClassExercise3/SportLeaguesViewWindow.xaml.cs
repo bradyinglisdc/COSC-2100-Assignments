@@ -3,6 +3,8 @@
  * Name: Brady Inglis (100926284)
  * Date: 2024-11-21
  * Purpose: To provide an interface for user reading of a sportleagues data base.
+ * 
+ * ** NOTE: I used data views so data could be filtered without the need to further query with the data table adapters **
  */
 
 #region Namespaces Used
