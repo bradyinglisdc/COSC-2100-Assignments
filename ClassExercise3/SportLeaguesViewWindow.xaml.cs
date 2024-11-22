@@ -1,4 +1,11 @@
-﻿#region Namespaces Used
+﻿/*
+ * Title: SportLeaguesViewWindow.xaml.cs
+ * Name: Brady Inglis (100926284)
+ * Date: 2024-11-21
+ * Purpose: To provide an interface for user reading of a sportleagues data base.
+ */
+
+#region Namespaces Used
 
 using ClassExercise3.DataSets;
 using System.Windows;
@@ -6,7 +13,6 @@ using System.Windows.Input;
 using System.Data;
 
 #endregion
-
 
 #region Namepsace Definition
 
