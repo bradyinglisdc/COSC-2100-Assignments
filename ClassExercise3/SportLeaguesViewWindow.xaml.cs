@@ -3,11 +3,12 @@
  * Name: Brady Inglis (100926284)
  * Date: 2024-11-21
  * Purpose: To provide an interface for user reading of a sportleagues data base.
+ * 
+ * ** NOTE: DataViews are used so that player rows can be easily filtered **
  */
 
 #region Namespaces Used
 
-using ClassExercise3.DataSets;
 using System.Windows;
 using System.Windows.Input;
 using System.Data;
@@ -26,24 +27,55 @@ namespace ClassExercise3
 
         #region Instance Properties
 
-        private SportLeaguesDataSet? SportLeaguesDataSet { get; set; }
+        /// <summary>
+        /// This data view represents the data of all players within the sportleagues database.
+        /// It will be filtered each time a selected team changes.
+        /// </summary>
+        public DataView? PlayersInfoView { get; set; }
+
+        /// <summary>
+        /// This data view represents the data of all teams within the sportleagues database.
+        /// </summary>
+        public DataView? TeamsInfoView { get; set; }
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Simply calls InitializeComponent() to pars
+        /// Initializes all properties
         /// </summary>
         public SportLeaguesViewWindow()
         {
+            // Fill the data views and set data context before xaml parse
+            try
+            {
+                PlayersInfoView = DataFetcher.GetPlayersAsView();
+                TeamsInfoView = DataFetcher.GetTeamsAsView();
+            }
+
+            catch (Exception ex) 
+            { 
+                MessageBox.Show($"Error reading from sport leagues database: {ex.Message}");
+                Close();
+            }
+            DataContext = this;
             InitializeComponent();
         }
 
         #endregion
 
-
         #region Event Handlers
+
+        /// <summary>
+        /// Sets cboTeamSelector index to first team.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SportLeaguesView_Loaded(object sender, RoutedEventArgs e)
+        {
+            cboTeamSelector.SelectedIndex = cboTeamSelector.Items.Count >= 0 ? 0 : -1;
+        }
 
         /// <summary>
         /// This method allows the custom title bar to drag the window when the
@@ -77,91 +109,28 @@ namespace ClassExercise3
         }
 
         /// <summary>
-        /// Calls LoadSportLeagues()
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SportLeaguesViewWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadSportLeagues();
-        }
-
-
-        /// <summary>
-        /// Update data grid on every team change
+        /// Filters players data view
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cboTeamSelector_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            UpdateDataGrid();
+            FilterPlayers();
         }
+
 
         #endregion
 
         #region Setup
 
         /// <summary>
-        /// Instantiates data set and adapters, then uses adapters
-        /// to pull data from database.
+        /// Filters the players info data view based on the selected team
         /// </summary>
-        private void LoadSportLeagues()
+        private void FilterPlayers()
         {
-            // Instantiate the sport leagues data set
-            SportLeaguesDataSet = new SportLeaguesDataSet();
-
-            // Instantiate an adapter for teams, players, and rosters
-            DataSets.SportLeaguesDataSetTableAdapters.teamsTableAdapter teamsTableAdapter = new DataSets.SportLeaguesDataSetTableAdapters.teamsTableAdapter();
-            DataSets.SportLeaguesDataSetTableAdapters.playersInfoTableAdapter playersInfoTableAdapter = new DataSets.SportLeaguesDataSetTableAdapters.playersInfoTableAdapter();
-
-            // Fill the data tables
-            teamsTableAdapter.Fill(SportLeaguesDataSet.teams);
-            playersInfoTableAdapter.Fill(SportLeaguesDataSet.playersInfo);
-
-            // Set combo box and data grid up
-            SetupControls();
+            if (PlayersInfoView == null) { return; }
+            PlayersInfoView.RowFilter = $"teamid = '{cboTeamSelector.SelectedValue}'";
         }
-
-
-        /// <summary>
-        /// Sets up initial position of cboTeamSelector, then updates data grid
-        /// </summary>
-        private void SetupControls()
-        {
-            // Ensure the data set was instantiaeted
-            if (SportLeaguesDataSet == null) { return; }
-
-            // Set combo box the source
-            cboTeamSelector.ItemsSource = SportLeaguesDataSet.teams.DefaultView;
-
-            // Setup display member and selected value
-            cboTeamSelector.DisplayMemberPath = "teamname";
-            cboTeamSelector.SelectedValuePath = "teamid";
-            cboTeamSelector.SelectedIndex = 0;
-
-            // Set initial binding, then update the data grid
-            PlayerDataGrid.ItemsSource = SportLeaguesDataSet.playersInfo.DefaultView;
-            UpdateDataGrid();
-        }
-
-        /// <summary>
-        /// Updates data grid to display player names, jersey number, registration number,
-        /// and if they are active or not based on the selected team
-        /// </summary>
-        private void UpdateDataGrid()
-        {
-            // Ensure the data set was instantiaeted
-            if (SportLeaguesDataSet == null) { return; }
-
-            // Convert players info data table to data view and filter based on selected team
-            DataView selectedTeamDataView = new DataView(SportLeaguesDataSet.playersInfo);
-            selectedTeamDataView.RowFilter = $"teamid = '{cboTeamSelector.SelectedValue}'";
-
-            // Apply the filter
-            PlayerDataGrid.ItemsSource = selectedTeamDataView;
-
-        }
-
 
         #endregion
     }

@@ -11,13 +11,13 @@
         Background="#121212"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize" Loaded="SportLeaguesViewWindow_Loaded">
+        ResizeMode="CanMinimize"
+        Loaded="SportLeaguesView_Loaded">
     <Grid x:Name="ViewGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <!-- Titlebar -->
         <Grid x:Name="TitlebarGrid"
               Background="#121212"
@@ -65,7 +65,7 @@
         <!-- Selection Area -->
         <Grid x:Name="SelectionAreaGrid"
               Grid.Row="1"
-              Width="170"
+              Width="150"
               Height="24"
               VerticalAlignment="Top"
               Margin="50,20,0,0"
@@ -85,8 +85,11 @@
             <ComboBox x:Name="cboTeamSelector" 
                       Grid.Column="1"
                       HorizontalAlignment="Right"
-                      Width="90"
-                      Foreground="Black" SelectionChanged="cboTeamSelector_SelectionChanged"/>
+                      Width="80"
+                      Foreground="Black" SelectionChanged="cboTeamSelector_SelectionChanged"
+                      ItemsSource="{Binding TeamsInfoView}"
+                      DisplayMemberPath="teamname"
+                      SelectedValuePath="teamid"/>
         </Grid>
 
         <!-- Data Area -->
@@ -96,7 +99,8 @@
                   Width="700"
                   Height="500"
                   AutoGenerateColumns="False"
-                  FontSize="16">
+                  FontSize="16"
+                  ItemsSource="{Binding PlayersInfoView}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="First Name" Binding="{Binding firstname}" />
                 <DataGridTextColumn Header="Last Name" Binding="{Binding lastname}" />
