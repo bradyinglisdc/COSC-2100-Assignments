@@ -13,17 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="DataSets\Sportleagues.Designer.cs">
+    <Compile Update="DataSets\SportLeaguesDataSet.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Sportleagues.xsd</DependentUpon>
+      <DependentUpon>SportLeaguesDataSet.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="DataSets\Sportleagues.xsd">
+    <None Update="DataSets\SportLeaguesDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Sportleagues.Designer.cs</LastGenOutput>
+      <LastGenOutput>SportLeaguesDataSet.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

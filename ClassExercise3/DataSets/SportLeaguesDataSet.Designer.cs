@@ -20,21 +20,19 @@ namespace ClassExercise3.DataSets {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("Sportleagues")]
+    [global::System.Xml.Serialization.XmlRootAttribute("SportLeaguesDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class Sportleagues : global::System.Data.DataSet {
+    public partial class SportLeaguesDataSet : global::System.Data.DataSet {
         
         private teamsDataTable tableteams;
         
-        private rostersDataTable tablerosters;
-        
-        private global::System.Data.DataRelation relationfk_rosters_team;
+        private playersInfoDataTable tableplayersInfo;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public Sportleagues() {
+        public SportLeaguesDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -47,7 +45,7 @@ namespace ClassExercise3.DataSets {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [System.ObsoleteAttribute("This API supports obsolete formatter-based serialization. It should not be called" +
             " or extended by application code.", DiagnosticId="SYSLIB0051")]
-        protected Sportleagues(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected SportLeaguesDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -63,8 +61,8 @@ namespace ClassExercise3.DataSets {
                 if ((ds.Tables["teams"] != null)) {
                     base.Tables.Add(new teamsDataTable(ds.Tables["teams"]));
                 }
-                if ((ds.Tables["rosters"] != null)) {
-                    base.Tables.Add(new rostersDataTable(ds.Tables["rosters"]));
+                if ((ds.Tables["playersInfo"] != null)) {
+                    base.Tables.Add(new playersInfoDataTable(ds.Tables["playersInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -98,9 +96,9 @@ namespace ClassExercise3.DataSets {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public rostersDataTable rosters {
+        public playersInfoDataTable playersInfo {
             get {
-                return this.tablerosters;
+                return this.tableplayersInfo;
             }
         }
         
@@ -146,7 +144,7 @@ namespace ClassExercise3.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            Sportleagues cln = ((Sportleagues)(base.Clone()));
+            SportLeaguesDataSet cln = ((SportLeaguesDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -174,8 +172,8 @@ namespace ClassExercise3.DataSets {
                 if ((ds.Tables["teams"] != null)) {
                     base.Tables.Add(new teamsDataTable(ds.Tables["teams"]));
                 }
-                if ((ds.Tables["rosters"] != null)) {
-                    base.Tables.Add(new rostersDataTable(ds.Tables["rosters"]));
+                if ((ds.Tables["playersInfo"] != null)) {
+                    base.Tables.Add(new playersInfoDataTable(ds.Tables["playersInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -216,31 +214,26 @@ namespace ClassExercise3.DataSets {
                     this.tableteams.InitVars();
                 }
             }
-            this.tablerosters = ((rostersDataTable)(base.Tables["rosters"]));
+            this.tableplayersInfo = ((playersInfoDataTable)(base.Tables["playersInfo"]));
             if ((initTable == true)) {
-                if ((this.tablerosters != null)) {
-                    this.tablerosters.InitVars();
+                if ((this.tableplayersInfo != null)) {
+                    this.tableplayersInfo.InitVars();
                 }
             }
-            this.relationfk_rosters_team = this.Relations["fk_rosters_team"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "Sportleagues";
+            this.DataSetName = "SportLeaguesDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/Sportleagues.xsd";
+            this.Namespace = "http://tempuri.org/SportLeaguesDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableteams = new teamsDataTable();
             base.Tables.Add(this.tableteams);
-            this.tablerosters = new rostersDataTable();
-            base.Tables.Add(this.tablerosters);
-            this.relationfk_rosters_team = new global::System.Data.DataRelation("fk_rosters_team", new global::System.Data.DataColumn[] {
-                        this.tableteams.teamidColumn}, new global::System.Data.DataColumn[] {
-                        this.tablerosters.teamidColumn}, false);
-            this.Relations.Add(this.relationfk_rosters_team);
+            this.tableplayersInfo = new playersInfoDataTable();
+            base.Tables.Add(this.tableplayersInfo);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -251,7 +244,7 @@ namespace ClassExercise3.DataSets {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private bool ShouldSerializerosters() {
+        private bool ShouldSerializeplayersInfo() {
             return false;
         }
         
@@ -266,7 +259,7 @@ namespace ClassExercise3.DataSets {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            Sportleagues ds = new Sportleagues();
+            SportLeaguesDataSet ds = new SportLeaguesDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -314,7 +307,7 @@ namespace ClassExercise3.DataSets {
         public delegate void teamsRowChangeEventHandler(object sender, teamsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public delegate void rostersRowChangeEventHandler(object sender, rostersRowChangeEvent e);
+        public delegate void playersInfoRowChangeEventHandler(object sender, playersInfoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -561,7 +554,7 @@ namespace ClassExercise3.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                Sportleagues ds = new Sportleagues();
+                SportLeaguesDataSet ds = new SportLeaguesDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -625,13 +618,17 @@ namespace ClassExercise3.DataSets {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class rostersDataTable : global::System.Data.TypedTableBase<rostersRow> {
-            
-            private global::System.Data.DataColumn columnrosterid;
+        public partial class playersInfoDataTable : global::System.Data.TypedTableBase<playersInfoRow> {
             
             private global::System.Data.DataColumn columnplayerid;
             
             private global::System.Data.DataColumn columnteamid;
+            
+            private global::System.Data.DataColumn columnlastname;
+            
+            private global::System.Data.DataColumn columnfirstname;
+            
+            private global::System.Data.DataColumn columnregnumber;
             
             private global::System.Data.DataColumn columnIsactive;
             
@@ -639,8 +636,8 @@ namespace ClassExercise3.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersDataTable() {
-                this.TableName = "rosters";
+            public playersInfoDataTable() {
+                this.TableName = "playersInfo";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -648,7 +645,7 @@ namespace ClassExercise3.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal rostersDataTable(global::System.Data.DataTable table) {
+            internal playersInfoDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -667,17 +664,9 @@ namespace ClassExercise3.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [System.ObsoleteAttribute("This API supports obsolete formatter-based serialization. It should not be called" +
                 " or extended by application code.", DiagnosticId="SYSLIB0051")]
-            protected rostersDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected playersInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn rosteridColumn {
-                get {
-                    return this.columnrosterid;
-                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -693,6 +682,30 @@ namespace ClassExercise3.DataSets {
             public global::System.Data.DataColumn teamidColumn {
                 get {
                     return this.columnteamid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn lastnameColumn {
+                get {
+                    return this.columnlastname;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn firstnameColumn {
+                get {
+                    return this.columnfirstname;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn regnumberColumn {
+                get {
+                    return this.columnregnumber;
                 }
             }
             
@@ -723,59 +736,58 @@ namespace ClassExercise3.DataSets {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow this[int index] {
+            public playersInfoRow this[int index] {
                 get {
-                    return ((rostersRow)(this.Rows[index]));
+                    return ((playersInfoRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event rostersRowChangeEventHandler rostersRowChanging;
+            public event playersInfoRowChangeEventHandler playersInfoRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event rostersRowChangeEventHandler rostersRowChanged;
+            public event playersInfoRowChangeEventHandler playersInfoRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event rostersRowChangeEventHandler rostersRowDeleting;
+            public event playersInfoRowChangeEventHandler playersInfoRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public event rostersRowChangeEventHandler rostersRowDeleted;
+            public event playersInfoRowChangeEventHandler playersInfoRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void AddrostersRow(rostersRow row) {
+            public void AddplayersInfoRow(playersInfoRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow AddrostersRow(int playerid, teamsRow parentteamsRowByfk_rosters_team, int Isactive, int jerseynumber) {
-                rostersRow rowrostersRow = ((rostersRow)(this.NewRow()));
+            public playersInfoRow AddplayersInfoRow(int playerid, int teamid, string lastname, string firstname, string regnumber, int Isactive, int jerseynumber) {
+                playersInfoRow rowplayersInfoRow = ((playersInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
                         playerid,
-                        null,
+                        teamid,
+                        lastname,
+                        firstname,
+                        regnumber,
                         Isactive,
                         jerseynumber};
-                if ((parentteamsRowByfk_rosters_team != null)) {
-                    columnValuesArray[2] = parentteamsRowByfk_rosters_team[0];
-                }
-                rowrostersRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowrostersRow);
-                return rowrostersRow;
+                rowplayersInfoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowplayersInfoRow);
+                return rowplayersInfoRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow FindByrosterid(int rosterid) {
-                return ((rostersRow)(this.Rows.Find(new object[] {
-                            rosterid})));
+            public playersInfoRow FindByplayerid(int playerid) {
+                return ((playersInfoRow)(this.Rows.Find(new object[] {
+                            playerid})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                rostersDataTable cln = ((rostersDataTable)(base.Clone()));
+                playersInfoDataTable cln = ((playersInfoDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -783,15 +795,17 @@ namespace ClassExercise3.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new rostersDataTable();
+                return new playersInfoDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
-                this.columnrosterid = base.Columns["rosterid"];
                 this.columnplayerid = base.Columns["playerid"];
                 this.columnteamid = base.Columns["teamid"];
+                this.columnlastname = base.Columns["lastname"];
+                this.columnfirstname = base.Columns["firstname"];
+                this.columnregnumber = base.Columns["regnumber"];
                 this.columnIsactive = base.Columns["Isactive"];
                 this.columnjerseynumber = base.Columns["jerseynumber"];
             }
@@ -799,50 +813,53 @@ namespace ClassExercise3.DataSets {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             private void InitClass() {
-                this.columnrosterid = new global::System.Data.DataColumn("rosterid", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnrosterid);
                 this.columnplayerid = new global::System.Data.DataColumn("playerid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnplayerid);
                 this.columnteamid = new global::System.Data.DataColumn("teamid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnteamid);
+                this.columnlastname = new global::System.Data.DataColumn("lastname", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnlastname);
+                this.columnfirstname = new global::System.Data.DataColumn("firstname", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfirstname);
+                this.columnregnumber = new global::System.Data.DataColumn("regnumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnregnumber);
                 this.columnIsactive = new global::System.Data.DataColumn("Isactive", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsactive);
                 this.columnjerseynumber = new global::System.Data.DataColumn("jerseynumber", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnjerseynumber);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnrosterid}, true));
-                this.columnrosterid.AutoIncrement = true;
-                this.columnrosterid.AutoIncrementSeed = -1;
-                this.columnrosterid.AutoIncrementStep = -1;
-                this.columnrosterid.AllowDBNull = false;
-                this.columnrosterid.ReadOnly = true;
-                this.columnrosterid.Unique = true;
+                                this.columnplayerid}, true));
+                this.columnplayerid.AllowDBNull = false;
+                this.columnplayerid.Unique = true;
+                this.columnlastname.MaxLength = 25;
+                this.columnfirstname.MaxLength = 25;
+                this.columnregnumber.MaxLength = 15;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow NewrostersRow() {
-                return ((rostersRow)(this.NewRow()));
+            public playersInfoRow NewplayersInfoRow() {
+                return ((playersInfoRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new rostersRow(builder);
+                return new playersInfoRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(rostersRow);
+                return typeof(playersInfoRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.rostersRowChanged != null)) {
-                    this.rostersRowChanged(this, new rostersRowChangeEvent(((rostersRow)(e.Row)), e.Action));
+                if ((this.playersInfoRowChanged != null)) {
+                    this.playersInfoRowChanged(this, new playersInfoRowChangeEvent(((playersInfoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -850,8 +867,8 @@ namespace ClassExercise3.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.rostersRowChanging != null)) {
-                    this.rostersRowChanging(this, new rostersRowChangeEvent(((rostersRow)(e.Row)), e.Action));
+                if ((this.playersInfoRowChanging != null)) {
+                    this.playersInfoRowChanging(this, new playersInfoRowChangeEvent(((playersInfoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -859,8 +876,8 @@ namespace ClassExercise3.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.rostersRowDeleted != null)) {
-                    this.rostersRowDeleted(this, new rostersRowChangeEvent(((rostersRow)(e.Row)), e.Action));
+                if ((this.playersInfoRowDeleted != null)) {
+                    this.playersInfoRowDeleted(this, new playersInfoRowChangeEvent(((playersInfoRow)(e.Row)), e.Action));
                 }
             }
             
@@ -868,14 +885,14 @@ namespace ClassExercise3.DataSets {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.rostersRowDeleting != null)) {
-                    this.rostersRowDeleting(this, new rostersRowChangeEvent(((rostersRow)(e.Row)), e.Action));
+                if ((this.playersInfoRowDeleting != null)) {
+                    this.playersInfoRowDeleting(this, new playersInfoRowChangeEvent(((playersInfoRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void RemoverostersRow(rostersRow row) {
+            public void RemoveplayersInfoRow(playersInfoRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -884,7 +901,7 @@ namespace ClassExercise3.DataSets {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                Sportleagues ds = new Sportleagues();
+                SportLeaguesDataSet ds = new SportLeaguesDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -902,7 +919,7 @@ namespace ClassExercise3.DataSets {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "rostersDataTable";
+                attribute2.FixedValue = "playersInfoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1051,57 +1068,30 @@ namespace ClassExercise3.DataSets {
             public void SetjerseycolourNull() {
                 this[this.tableteams.jerseycolourColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow[] GetrostersRows() {
-                if ((this.Table.ChildRelations["fk_rosters_team"] == null)) {
-                    return new rostersRow[0];
-                }
-                else {
-                    return ((rostersRow[])(base.GetChildRows(this.Table.ChildRelations["fk_rosters_team"])));
-                }
-            }
         }
         
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class rostersRow : global::System.Data.DataRow {
+        public partial class playersInfoRow : global::System.Data.DataRow {
             
-            private rostersDataTable tablerosters;
+            private playersInfoDataTable tableplayersInfo;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            internal rostersRow(global::System.Data.DataRowBuilder rb) : 
+            internal playersInfoRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablerosters = ((rostersDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int rosterid {
-                get {
-                    return ((int)(this[this.tablerosters.rosteridColumn]));
-                }
-                set {
-                    this[this.tablerosters.rosteridColumn] = value;
-                }
+                this.tableplayersInfo = ((playersInfoDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int playerid {
                 get {
-                    try {
-                        return ((int)(this[this.tablerosters.playeridColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'playerid\' in table \'rosters\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tableplayersInfo.playeridColumn]));
                 }
                 set {
-                    this[this.tablerosters.playeridColumn] = value;
+                    this[this.tableplayersInfo.playeridColumn] = value;
                 }
             }
             
@@ -1110,14 +1100,62 @@ namespace ClassExercise3.DataSets {
             public int teamid {
                 get {
                     try {
-                        return ((int)(this[this.tablerosters.teamidColumn]));
+                        return ((int)(this[this.tableplayersInfo.teamidColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'teamid\' in table \'rosters\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'teamid\' in table \'playersInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablerosters.teamidColumn] = value;
+                    this[this.tableplayersInfo.teamidColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string lastname {
+                get {
+                    try {
+                        return ((string)(this[this.tableplayersInfo.lastnameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'lastname\' in table \'playersInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableplayersInfo.lastnameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string firstname {
+                get {
+                    try {
+                        return ((string)(this[this.tableplayersInfo.firstnameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'firstname\' in table \'playersInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableplayersInfo.firstnameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string regnumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableplayersInfo.regnumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'regnumber\' in table \'playersInfo\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableplayersInfo.regnumberColumn] = value;
                 }
             }
             
@@ -1126,14 +1164,14 @@ namespace ClassExercise3.DataSets {
             public int Isactive {
                 get {
                     try {
-                        return ((int)(this[this.tablerosters.IsactiveColumn]));
+                        return ((int)(this[this.tableplayersInfo.IsactiveColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Isactive\' in table \'rosters\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Isactive\' in table \'playersInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablerosters.IsactiveColumn] = value;
+                    this[this.tableplayersInfo.IsactiveColumn] = value;
                 }
             }
             
@@ -1142,74 +1180,87 @@ namespace ClassExercise3.DataSets {
             public int jerseynumber {
                 get {
                     try {
-                        return ((int)(this[this.tablerosters.jerseynumberColumn]));
+                        return ((int)(this[this.tableplayersInfo.jerseynumberColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'jerseynumber\' in table \'rosters\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'jerseynumber\' in table \'playersInfo\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablerosters.jerseynumberColumn] = value;
+                    this[this.tableplayersInfo.jerseynumberColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public teamsRow teamsRow {
-                get {
-                    return ((teamsRow)(this.GetParentRow(this.Table.ParentRelations["fk_rosters_team"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["fk_rosters_team"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsplayeridNull() {
-                return this.IsNull(this.tablerosters.playeridColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetplayeridNull() {
-                this[this.tablerosters.playeridColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsteamidNull() {
-                return this.IsNull(this.tablerosters.teamidColumn);
+                return this.IsNull(this.tableplayersInfo.teamidColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetteamidNull() {
-                this[this.tablerosters.teamidColumn] = global::System.Convert.DBNull;
+                this[this.tableplayersInfo.teamidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IslastnameNull() {
+                return this.IsNull(this.tableplayersInfo.lastnameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetlastnameNull() {
+                this[this.tableplayersInfo.lastnameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsfirstnameNull() {
+                return this.IsNull(this.tableplayersInfo.firstnameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetfirstnameNull() {
+                this[this.tableplayersInfo.firstnameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsregnumberNull() {
+                return this.IsNull(this.tableplayersInfo.regnumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetregnumberNull() {
+                this[this.tableplayersInfo.regnumberColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsIsactiveNull() {
-                return this.IsNull(this.tablerosters.IsactiveColumn);
+                return this.IsNull(this.tableplayersInfo.IsactiveColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetIsactiveNull() {
-                this[this.tablerosters.IsactiveColumn] = global::System.Convert.DBNull;
+                this[this.tableplayersInfo.IsactiveColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsjerseynumberNull() {
-                return this.IsNull(this.tablerosters.jerseynumberColumn);
+                return this.IsNull(this.tableplayersInfo.jerseynumberColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetjerseynumberNull() {
-                this[this.tablerosters.jerseynumberColumn] = global::System.Convert.DBNull;
+                this[this.tableplayersInfo.jerseynumberColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1251,22 +1302,22 @@ namespace ClassExercise3.DataSets {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public class rostersRowChangeEvent : global::System.EventArgs {
+        public class playersInfoRowChangeEvent : global::System.EventArgs {
             
-            private rostersRow eventRow;
+            private playersInfoRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRowChangeEvent(rostersRow row, global::System.Data.DataRowAction action) {
+            public playersInfoRowChangeEvent(playersInfoRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public rostersRow Row {
+            public playersInfoRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1282,7 +1333,7 @@ namespace ClassExercise3.DataSets {
         }
     }
 }
-namespace ClassExercise3.DataSets.SportleaguesTableAdapters {
+namespace ClassExercise3.DataSets.SportLeaguesDataSetTableAdapters {
     
     
     /// <summary>
@@ -1454,8 +1505,8 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = "Data Source=localhost;Initial Catalog=Sportleagues;Integrated Security=True;Trust" +
-                "ServerCertificate=True";
+            this._connection.ConnectionString = "Data Source=localhost;Initial Catalog=Sportleagues;Integrated Security=True;Encry" +
+                "pt=True;TrustServerCertificate=True";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1472,7 +1523,7 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(Sportleagues.teamsDataTable dataTable) {
+        public virtual int Fill(SportLeaguesDataSet.teamsDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1485,9 +1536,9 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual Sportleagues.teamsDataTable GetData() {
+        public virtual SportLeaguesDataSet.teamsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            Sportleagues.teamsDataTable dataTable = new Sportleagues.teamsDataTable();
+            SportLeaguesDataSet.teamsDataTable dataTable = new SportLeaguesDataSet.teamsDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -1495,14 +1546,14 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(Sportleagues.teamsDataTable dataTable) {
+        public virtual int Update(SportLeaguesDataSet.teamsDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(Sportleagues dataSet) {
+        public virtual int Update(SportLeaguesDataSet dataSet) {
             return this.Adapter.Update(dataSet, "teams");
         }
         
@@ -1690,7 +1741,7 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class rostersTableAdapter : global::System.ComponentModel.Component {
+    public partial class playersInfoTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -1704,7 +1755,7 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public rostersTableAdapter() {
+        public playersInfoTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -1801,64 +1852,23 @@ SELECT teamid, teamname, isactive, jerseycolour FROM teams WHERE (teamid = @team
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "rosters";
-            tableMapping.ColumnMappings.Add("rosterid", "rosterid");
+            tableMapping.DataSetTable = "playersInfo";
             tableMapping.ColumnMappings.Add("playerid", "playerid");
             tableMapping.ColumnMappings.Add("teamid", "teamid");
+            tableMapping.ColumnMappings.Add("lastname", "lastname");
+            tableMapping.ColumnMappings.Add("firstname", "firstname");
+            tableMapping.ColumnMappings.Add("regnumber", "regnumber");
             tableMapping.ColumnMappings.Add("Isactive", "Isactive");
             tableMapping.ColumnMappings.Add("jerseynumber", "jerseynumber");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[rosters] WHERE (([rosterid] = @Original_rosterid) AND ((@IsNull_playerid = 1 AND [playerid] IS NULL) OR ([playerid] = @Original_playerid)) AND ((@IsNull_teamid = 1 AND [teamid] IS NULL) OR ([teamid] = @Original_teamid)) AND ((@IsNull_Isactive = 1 AND [Isactive] IS NULL) OR ([Isactive] = @Original_Isactive)) AND ((@IsNull_jerseynumber = 1 AND [jerseynumber] IS NULL) OR ([jerseynumber] = @Original_jerseynumber)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_rosterid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rosterid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[rosters] ([playerid], [teamid], [Isactive], [jerseynumber]) VA" +
-                "LUES (@playerid, @teamid, @Isactive, @jerseynumber);\r\nSELECT rosterid, playerid," +
-                " teamid, Isactive, jerseynumber FROM rosters WHERE (rosterid = SCOPE_IDENTITY())" +
-                "";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[rosters] SET [playerid] = @playerid, [teamid] = @teamid, [Isactive] = @Isactive, [jerseynumber] = @jerseynumber WHERE (([rosterid] = @Original_rosterid) AND ((@IsNull_playerid = 1 AND [playerid] IS NULL) OR ([playerid] = @Original_playerid)) AND ((@IsNull_teamid = 1 AND [teamid] IS NULL) OR ([teamid] = @Original_teamid)) AND ((@IsNull_Isactive = 1 AND [Isactive] IS NULL) OR ([Isactive] = @Original_Isactive)) AND ((@IsNull_jerseynumber = 1 AND [jerseynumber] IS NULL) OR ([jerseynumber] = @Original_jerseynumber)));
-SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (rosterid = @rosterid)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_rosterid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "rosterid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_playerid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "playerid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_teamid", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "teamid", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Isactive", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Isactive", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_jerseynumber", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "jerseynumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@rosterid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "rosterid", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = "Data Source=localhost;Initial Catalog=Sportleagues;Integrated Security=True;Trust" +
-                "ServerCertificate=True";
+            this._connection.ConnectionString = "Data Source=localhost;Initial Catalog=Sportleagues;Integrated Security=True;Encry" +
+                "pt=True;TrustServerCertificate=True";
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1867,7 +1877,10 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM dbo.rosters";
+            this._commandCollection[0].CommandText = "SELECT        players.playerid, rosters.teamid, players.lastname, players.firstna" +
+                "me, players.regnumber, rosters.Isactive, rosters.jerseynumber\r\nFROM            p" +
+                "layers INNER JOIN\r\n                         rosters ON players.playerid = roster" +
+                "s.playerid";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1875,7 +1888,7 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(Sportleagues.rostersDataTable dataTable) {
+        public virtual int Fill(SportLeaguesDataSet.playersInfoDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -1888,226 +1901,11 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual Sportleagues.rostersDataTable GetData() {
+        public virtual SportLeaguesDataSet.playersInfoDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            Sportleagues.rostersDataTable dataTable = new Sportleagues.rostersDataTable();
+            SportLeaguesDataSet.playersInfoDataTable dataTable = new SportLeaguesDataSet.playersInfoDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(Sportleagues.rostersDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(Sportleagues dataSet) {
-            return this.Adapter.Update(dataSet, "rosters");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_rosterid, global::System.Nullable<int> Original_playerid, global::System.Nullable<int> Original_teamid, global::System.Nullable<int> Original_Isactive, global::System.Nullable<int> Original_jerseynumber) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_rosterid));
-            if ((Original_playerid.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_playerid.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((Original_teamid.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_teamid.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((Original_Isactive.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_Isactive.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_jerseynumber.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((int)(Original_jerseynumber.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> playerid, global::System.Nullable<int> teamid, global::System.Nullable<int> Isactive, global::System.Nullable<int> jerseynumber) {
-            if ((playerid.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((int)(playerid.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((teamid.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(teamid.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((Isactive.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Isactive.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((jerseynumber.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(jerseynumber.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> playerid, global::System.Nullable<int> teamid, global::System.Nullable<int> Isactive, global::System.Nullable<int> jerseynumber, int Original_rosterid, global::System.Nullable<int> Original_playerid, global::System.Nullable<int> Original_teamid, global::System.Nullable<int> Original_Isactive, global::System.Nullable<int> Original_jerseynumber, int rosterid) {
-            if ((playerid.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(playerid.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            if ((teamid.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(teamid.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            if ((Isactive.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Isactive.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            if ((jerseynumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(jerseynumber.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_rosterid));
-            if ((Original_playerid.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_playerid.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            if ((Original_teamid.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_teamid.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            if ((Original_Isactive.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Isactive.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((Original_jerseynumber.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_jerseynumber.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(rosterid));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> playerid, global::System.Nullable<int> teamid, global::System.Nullable<int> Isactive, global::System.Nullable<int> jerseynumber, int Original_rosterid, global::System.Nullable<int> Original_playerid, global::System.Nullable<int> Original_teamid, global::System.Nullable<int> Original_Isactive, global::System.Nullable<int> Original_jerseynumber) {
-            return this.Update(playerid, teamid, Isactive, jerseynumber, Original_rosterid, Original_playerid, Original_teamid, Original_Isactive, Original_jerseynumber, Original_rosterid);
         }
     }
     
@@ -2124,8 +1922,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         private UpdateOrderOption _updateOrder;
         
         private teamsTableAdapter _teamsTableAdapter;
-        
-        private rostersTableAdapter _rostersTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -2158,20 +1954,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public rostersTableAdapter rostersTableAdapter {
-            get {
-                return this._rostersTableAdapter;
-            }
-            set {
-                this._rostersTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -2193,10 +1975,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
                             && (this._teamsTableAdapter.Connection != null))) {
                     return this._teamsTableAdapter.Connection;
                 }
-                if (((this._rostersTableAdapter != null) 
-                            && (this._rostersTableAdapter.Connection != null))) {
-                    return this._rostersTableAdapter.Connection;
-                }
                 return null;
             }
             set {
@@ -2213,9 +1991,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
                 if ((this._teamsTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._rostersTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 return count;
             }
         }
@@ -2225,7 +2000,7 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateUpdatedRows(Sportleagues dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(SportLeaguesDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._teamsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.teams.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -2233,15 +2008,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._teamsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._rostersTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.rosters.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._rostersTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -2253,21 +2019,13 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateInsertedRows(Sportleagues dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(SportLeaguesDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._teamsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.teams.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._teamsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._rostersTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.rosters.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._rostersTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -2279,16 +2037,8 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateDeletedRows(Sportleagues dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(SportLeaguesDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._rostersTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.rosters.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._rostersTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._teamsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.teams.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -2329,7 +2079,7 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public virtual int UpdateAll(Sportleagues dataSet) {
+        public virtual int UpdateAll(SportLeaguesDataSet dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
@@ -2338,11 +2088,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
             }
             if (((this._teamsTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._teamsTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
-                        "tring.");
-            }
-            if (((this._rostersTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._rostersTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -2385,15 +2130,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
                     if (this._teamsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._teamsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._teamsTableAdapter.Adapter);
-                    }
-                }
-                if ((this._rostersTableAdapter != null)) {
-                    revertConnections.Add(this._rostersTableAdapter, this._rostersTableAdapter.Connection);
-                    this._rostersTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._rostersTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._rostersTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._rostersTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._rostersTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -2457,10 +2193,6 @@ SELECT rosterid, playerid, teamid, Isactive, jerseynumber FROM rosters WHERE (ro
                 if ((this._teamsTableAdapter != null)) {
                     this._teamsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._teamsTableAdapter]));
                     this._teamsTableAdapter.Transaction = null;
-                }
-                if ((this._rostersTableAdapter != null)) {
-                    this._rostersTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._rostersTableAdapter]));
-                    this._rostersTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];
