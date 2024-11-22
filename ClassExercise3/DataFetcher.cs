@@ -26,7 +26,7 @@ namespace ClassExercise3
         #region Constants
 
         private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=Sportleagues;Integrated Security=True;TrustServerCertificate=True";
-        private const string PLAYER_DATA_QUERY = "SELECT players.firstname, players.lastname, rosters.teamid, rosters.jerseynumber, players.regnumber, rosters.Isactive FROM players JOIN rosters ON players.playerid = rosters.playerid;";
+        private const string PLAYER_DATA_QUERY = "SELECT players.firstname, players.lastname, rosters.teamid, rosters.jerseynumber, players.regnumber, players.Isactive FROM players JOIN rosters ON players.playerid = rosters.playerid;";
         private const string TEAM_DATA_QUERY = "SELECT teamid, teamname FROM teams;";
 
         #endregion

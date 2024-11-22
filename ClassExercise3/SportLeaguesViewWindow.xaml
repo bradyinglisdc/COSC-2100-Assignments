@@ -62,54 +62,71 @@
                     IsCancel="True"/>
         </Grid>
 
-        <!-- Selection Area -->
-        <Grid x:Name="SelectionAreaGrid"
+        <!-- Data Area -->
+        <Grid x:Name="DataAreaGrid"
               Grid.Row="1"
-              Width="150"
-              Height="24"
-              VerticalAlignment="Top"
-              Margin="50,20,0,0"
-              HorizontalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+              Width="650"
+              Height="525"
+              Background="#1E1E1E"
+              VerticalAlignment="Top">
+            <DataGrid x:Name="PlayerDataGrid"
+                      Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      FontSize="16"
+                      ItemsSource="{Binding PlayersInfoView}"
+                      VerticalAlignment="Center"
+                      Margin="10"
+                      Height="500"
+                      IsReadOnly="True"
+                      ToolTip="Players of the selected team are shown here.">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding firstname}"/>
+                    <DataGridTextColumn Header="Last Name" Binding="{Binding lastname}" />
+                    <DataGridTextColumn Header="Jersey Number" Binding="{Binding jerseynumber}" />
+                    <DataGridTextColumn Header="Registration Number" Binding="{Binding regnumber}" />
+                    <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding Isactive}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Control Area -->
+        <Grid x:Name="ControlAreaGrid"
+              Grid.Row="1"
+              Width="250"
+              Height="70"
+              VerticalAlignment="Bottom"
+              Margin="0,0,0,15"
+              HorizontalAlignment="Center"
+              Background="#1E1E1E">
             <TextBlock x:Name="tboSelectionHeader" 
-                       FontSize="24"
+                       FontSize="14"
                        Text="Team:"
                        Foreground="White"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Padding="0,0,0,5"
-                       Width="60"/>
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Padding="0,0,0,0"/>
             <ComboBox x:Name="cboTeamSelector" 
-                      Grid.Column="1"
-                      HorizontalAlignment="Right"
+                      Grid.Column="0"
+                      HorizontalAlignment="Center"
                       Width="80"
+                      Height="25"
                       Foreground="Black" SelectionChanged="cboTeamSelector_SelectionChanged"
                       ItemsSource="{Binding TeamsInfoView}"
                       DisplayMemberPath="teamname"
-                      SelectedValuePath="teamid"/>
+                      SelectedValuePath="teamid"
+                      ToolTip="Click here to change team, and update the data grid display of players above."/>
         </Grid>
-
-        <!-- Data Area -->
-        <DataGrid x:Name="PlayerDataGrid"
-                  Grid.Row="1"
-                  Background="#1E1E1E"
-                  Width="700"
-                  Height="500"
-                  AutoGenerateColumns="False"
-                  FontSize="16"
-                  ItemsSource="{Binding PlayersInfoView}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding firstname}" />
-                <DataGridTextColumn Header="Last Name" Binding="{Binding lastname}" />
-                <DataGridTextColumn Header="Jersey Number" Binding="{Binding jerseynumber}" />
-                <DataGridTextColumn Header="Registration Number" Binding="{Binding regnumber}" />
-                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding Isactive}"/>
-            </DataGrid.Columns>
-        </DataGrid>
         
-       
+        <!-- Exit button -->
+        <Button x:Name="btnExitApplication" 
+                Click="btnExit_Click"
+                Grid.Row="1"
+                Height="25"
+                Width="80"
+                Content="_Exit"
+                ToolTip="Click here, or press 'alt + e' to exit the application."
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Margin="15"/>
     </Grid>
 </Window>

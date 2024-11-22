@@ -97,13 +97,13 @@ namespace ClassExercise3
         }
 
         /// <summary>
-        /// Closes the application.
+        /// Calls CloseApplication()
         /// </summary>
         /// <param name="sender">The button which was clicked.</param>
         /// <param name="e">Event args</param>
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            CloseApplication();
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace ClassExercise3
 
         #endregion
 
-        #region Setup
+        #region Logic
 
         /// <summary>
         /// Filters the players info data view based on the selected team
@@ -130,7 +130,20 @@ namespace ClassExercise3
             PlayersInfoView.RowFilter = $"teamid = '{cboTeamSelector.SelectedValue}'";
         }
 
+        /// <summary>
+        /// Prompts the user to confirm, then closes the window.
+        /// </summary>
+        private void CloseApplication()
+        {
+            if (MessageBox.Show("Click 'OK' to confirm exit.", "Exit Confirmation", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                Close();
+            }
+
+        }
+
         #endregion
+
     }
 
 }
