@@ -1,0 +1,25 @@
+﻿<Window x:Class="ClassExercise3.SportLeaguesViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClassExercise3"
+        mc:Ignorable="d"
+        Title="Sport Leagues Player View " Height="450" Width="800"
+        Background="#1E1E2E"
+        WindowStyle="None">
+    <Grid x:Name="ViewGrid">
+        
+        <!-- Footer -->
+        <TextBlock x:Name="tboHeader"
+                   Text="Player Viewer"
+                   Foreground="White"
+                   FontStyle="Italic"
+                   FontWeight="Bold"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
+                   Padding="5"/>
+
+
+    </Grid>
+</Window>
