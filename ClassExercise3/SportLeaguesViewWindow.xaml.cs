@@ -4,7 +4,8 @@
  * Date: 2024-11-21
  * Purpose: To provide an interface for user reading of a sportleagues data base.
  * 
- * ** NOTE: DataViews are used so that player rows can be easily filtered **
+ * ** NOTE: I used a data view so that player rows can be easily filtered. This prevents
+ *          the need to re query with data adapter **
  */
 
 #region Namespaces Used
@@ -56,7 +57,7 @@ namespace ClassExercise3
 
             catch (Exception ex) 
             { 
-                MessageBox.Show($"Error reading from sport leagues database: {ex.Message}");
+                MessageBox.Show($"Error reading from sport leagues database. Application will exit after this message is closed:\n\n {ex.Message}");
                 Close();
             }
             DataContext = this;
