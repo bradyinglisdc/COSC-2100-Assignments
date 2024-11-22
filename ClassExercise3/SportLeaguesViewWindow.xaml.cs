@@ -139,7 +139,6 @@ namespace ClassExercise3
             {
                 Close();
             }
-
         }
 
         #endregion
