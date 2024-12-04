@@ -1,0 +1,104 @@
+﻿ <!--
+ * Title: frmLogin.xaml
+ * Name: Brady Inglis (100926284)
+ * Date: 2024-12-03
+ * Purpose: To provide a login interface for the game review application.
+ -->   
+ <Window x:Class="Assignment5.frmLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Assignment5"
+        mc:Ignorable="d"
+        Title="Login" Height="450" Width="800">
+    <Grid x:Name="grdLoginArea"
+          Background="#1A1A1A">
+        
+        <!-- Email and Password Containers -->
+        <Border CornerRadius="20" 
+                Background="#242424"
+                Height="250"
+                Width="300">
+            <Grid x:Name="grdLoginContainer"
+                  Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!-- Login Header -->
+                <TextBlock x:Name="tboLoginHeader"
+                       Foreground="White"
+                       Text="Login"
+                       FontSize="32"
+                       FontWeight="Light"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"/>
+                <!-- Email -->
+                <Grid x:Name="grdEmailContainer"
+                  Grid.Row="1"
+                  Height="100">
+
+                    <!-- Email Header -->
+                    <TextBlock x:Name="tboEmailHeader"
+                           Text="Email"
+                           Foreground="White"
+                           FontWeight="Light"
+                           Margin="10,0,10,0"
+                           FontSize="20"/>
+
+                    <!-- Email Entry-->
+                    <Border x:Name="bdrEmailEntry"
+                            Height="35"
+                            Width="280"
+                            Background="White"
+                            CornerRadius="12">
+                        <TextBox x:Name="tbxEmailAddress"       
+                                 Background="Transparent"
+                                 BorderThickness="0">
+                        </TextBox>
+                    </Border>
+                </Grid>
+
+                <!-- Password -->
+                <Grid x:Name="grdPasswordContainer"
+                  Grid.Row="2"
+                  Height="100">
+
+                    <!-- Password Header -->
+                    <TextBlock x:Name="tboPasswordHeader"
+                           Text="Passcode"
+                           Foreground="White"
+                           FontWeight="Light"
+                           Margin="10,0,10,0"
+                           FontSize="20"/>
+
+                    <!-- Password Entry-->
+                    <Border x:Name="bdrPasswordEntry"
+                            Height="35"
+                            Width="280"
+                            Background="White"
+                            CornerRadius="12">
+                        <TextBox x:Name="tbxPassword"       
+                                 Background="Transparent"
+                                 BorderThickness="0">
+                        </TextBox>
+                    </Border>
+                </Grid>
+
+
+
+
+
+
+            </Grid>
+
+        </Border>
+
+      
+
+
+    </Grid>
+</Window>
