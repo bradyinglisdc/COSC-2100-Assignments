@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\LoginRegistrationBackground.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\LoginRegistrationBackground.PNG">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
