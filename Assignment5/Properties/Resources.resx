@@ -145,10 +145,10 @@
     <value>spDeleteReview</value>
   </data>
   <data name="QUERY_USER_CREDENTIAL" xml:space="preserve">
-    <value>SELECT * FROM User WHERE</value>
+    <value>SELECT * FROM Users WHERE</value>
   </data>
   <data name="QUERY_ALL_USER_ID" xml:space="preserve">
-    <value>SELECT UserID FROM User;</value>
+    <value>SELECT UserID FROM Users;</value>
   </data>
   <data name="SP_DELETE_USER" xml:space="preserve">
     <value>spDeleteUser</value>

@@ -11,6 +11,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Input;
 
 #endregion
 
@@ -48,10 +49,8 @@ namespace Assignment5
         }
 
         /// <summary>
-        /// Gets and sets numeric value; true if passkey should be only numeric
+        /// True if password should be shown.
         /// </summary>
-        public bool Numeric { get; set; }
-
         public bool Show
         {
             get { return _show; }
@@ -61,7 +60,6 @@ namespace Assignment5
                 SetShow();
             }
         }
-
 
         #endregion
 
@@ -100,16 +98,25 @@ namespace Assignment5
         {
             // Just return if text has already been entered
             if (pbxContent.Password.Length > 0) { return; }
-
             tboPlaceholder.Visibility = tboPlaceholder.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
         }
 
         /// <summary>
-        /// Removes any non numeric keys when a numeric password is changed.
+        /// Ensures password box and text box hold same values.
         /// </summary>
-        private void Content_PasswordChanged(object sender, EventArgs e)
+        private void Content_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            EnsureNumeric();
+            if (tbxContent.Text == pbxContent.Password) { return; }
+            tbxContent.Text = pbxContent.Password;
+        }
+
+        /// <summary>
+        /// Ensures password box and text box hold same values.
+        /// </summary>
+        private void Content_TextChanged(object sender, RoutedEventArgs e)
+        {
+            if (tbxContent.Text == pbxContent.Password) { return; }
+            pbxContent.Password = tbxContent.Text;
         }
 
         #endregion
@@ -136,12 +143,12 @@ namespace Assignment5
             pbxContent.VerticalAlignment = VerticalAlignment.Center;
             pbxContent.BorderThickness = new Thickness(0);
 
-            pbxContent.GotFocus += new RoutedEventHandler(ChangePlaceholderVisibility);
-            pbxContent.LostFocus += new RoutedEventHandler(ChangePlaceholderVisibility);
+            pbxContent.GotFocus += ChangePlaceholderVisibility;
+            pbxContent.LostFocus += ChangePlaceholderVisibility;
 
             // If the password should be numeric, remove non numeric keys on password change
-            pbxContent.PasswordChanged += new RoutedEventHandler(Content_PasswordChanged);
-            tbxContent.TextChanged += new TextChangedEventHandler(Content_PasswordChanged);
+            pbxContent.PasswordChanged += Content_PasswordChanged;
+            tbxContent.TextChanged += Content_TextChanged;
 
             // Derived class text box is hidden unless password should be shown.
             tbxContent.Visibility = Visibility.Hidden;
@@ -161,58 +168,12 @@ namespace Assignment5
             { 
                 pbxContent.Visibility = Visibility.Hidden;
                 tbxContent.Visibility = Visibility.Visible;
-                tbxContent.Text = pbxContent.Password;
             }
             else
             {
                 pbxContent.Visibility = Visibility.Visible;
                 tbxContent.Visibility = Visibility.Hidden;
-                pbxContent.Password = tbxContent.Text;
             }
-        }
-
-        /// <summary>
-        /// Ensures all characters are numeric, if Numeric is true
-        /// </summary>
-        private void EnsureNumeric()
-        {
-            // Just return if non numeric
-            if (!Numeric) { return; }
-
-            // Remove all non-numerics from password and textbox
-            if (ContainsNonNumerics(pbxContent.Password) || ContainsNonNumerics(tbxContent.Text))
-            {
-                pbxContent.Password = RemoveNonNumerics(pbxContent.Password);
-                tbxContent.Text = RemoveNonNumerics(tbxContent.Text);
-            }
-        }
-
-        /// <summary>
-        /// Checks if a string contains non numeric values.
-        /// </summary>
-        /// <param name="content">String to search through</param>
-        /// <returns>True if the value contains non numerics</returns>
-        private bool ContainsNonNumerics(string content)
-        {
-            foreach (char character in content)
-            {
-                if (!char.IsNumber(character)) { return true; ; }
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Ensures all characters in a string are numeric, returns result
-        /// </summary>
-        /// <param name="strToChange">The string to remove numerics from</param>
-        /// <returns>The numeric only string</returns>s
-        private static string RemoveNonNumerics(string strToChange)
-        {
-            foreach (char character in strToChange)
-            {
-                if (!char.IsNumber(character)) { strToChange = strToChange.Replace($"{character}", ""); }
-            }
-            return strToChange;
         }
 
         #endregion

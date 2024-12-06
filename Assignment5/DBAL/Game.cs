@@ -168,9 +168,6 @@ namespace Assignment5.DBAL
         /// <returns>The game to be returned, or null if not found.</returns>
         public static Game? GetGame(int gameID)
         {
-            // Ensure games are up to date
-            RefreshGames();
-
             // Return a match if it's found
             foreach (Game game in Games)
             {

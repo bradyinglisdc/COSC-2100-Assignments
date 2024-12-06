@@ -35,8 +35,9 @@
             <Grid x:Name="grdLoginContainer"
                   Background="Transparent">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition x:Name="ErrorRow" 
+                                   Height="50"/>
                     <RowDefinition Height="95"/>
                     <RowDefinition Height="95"/>
                     <RowDefinition />
@@ -45,6 +46,7 @@
                 <!-- Game Review Pal Logo -->
                 <TextBlock x:Name="tboGame"
                            TextAlignment="Center"
+                           VerticalAlignment="Top"
                            FontFamily="Press Start 2P"
                            Foreground="White"
                            Margin="0,10,0,0">
@@ -61,7 +63,26 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Center"
                            Grid.Row="1"/>
-                
+
+                <!-- Error Header -->
+                <Border x:Name="bdrErrorContainer"
+                        Background="Pink"
+                        Width="280"
+                        Height="20"
+                        CornerRadius="8"
+                        Grid.Row="1"
+                        VerticalAlignment="Bottom"
+                        BorderBrush="#FF1111"
+                        BorderThickness="1"
+                        Visibility="Hidden">
+                    <TextBlock x:Name="tboErrorText"
+                               VerticalAlignment="Center"
+                               TextAlignment="Center"
+                               Foreground="Red"
+                               FontWeight="Light"
+                               />
+                </Border>
+
                 <!-- Email -->
                 <Grid x:Name="grdEmailContainer"
                       Grid.Row="2">
@@ -110,7 +131,6 @@
                                                 BorderThickness="2"
                                                 BorderBrush="#A2E0F7FF"
                                                 MaximumLength="4"
-                                                Numeric="True"
                                                 Placeholder="Enter 4-digit numeric passkey"
                                                 ToolTip="Click here, or navigate to tab control 1 to begin typing your passkey."/>
 
@@ -141,12 +161,12 @@
                                          Width="100"
                                          Grid.Column="0"          
                                          HorizontalAlignment="Left"
-                                         Margin="10,0,0,0"
+                                         Margin="10,0,0,20"
                                          Foreground="Red"
                                          Content="Cancel"
+                                         VerticalAlignment="Bottom"
                                          Shortcut="_c"
                                          Style="{StaticResource GenericButtonStyle}"
-                                         Click="btnLogin_MouseLeftButtonDown"
                                          ToolTip="Click here, or press 'alt + c' to cancel and exit the application."
                                          IsCancel="True"/>
 
@@ -156,12 +176,13 @@
                                          Width="100"
                                          Grid.Column="1"          
                                          HorizontalAlignment="Left"
-                                         Margin="10,0,0,0"
+                                         Margin="10,0,0,20"
                                          Foreground="DarkBlue"
                                          Content="Login"
+                                         VerticalAlignment="Bottom"
                                          Shortcut="_l"
                                          Style="{StaticResource GenericButtonStyle}"
-                                         Click="btnLogin_MouseLeftButtonDown"
+                                         Click="btnLogin_Click"
                                          ToolTip="Click here, or press 'alt + l' to login."
                                          IsDefault="True"/>
                 </Grid>

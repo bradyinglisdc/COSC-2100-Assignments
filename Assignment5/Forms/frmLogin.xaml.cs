@@ -21,6 +21,12 @@ namespace Assignment5
     /// </summary>
     public partial class frmLogin : Window
     {
+        #region Constants 
+
+        private static GridLength ERROR_GRID_HEIGHT = new GridLength(70);
+
+        #endregion
+
         #region Constructor(s)
 
         /// <summary>
@@ -60,10 +66,43 @@ namespace Assignment5
         /// </summary>
         /// <param name="sender">Login button</param>
         /// <param name="e">Event args</param>
-        private void btnLogin_MouseLeftButtonDown(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
-            //DBAL.User.GetUser()
-            Game.DeleteGame(44);
+            AttemptLogin();
+        }
+
+        #endregion
+
+        #region Logic
+
+        /// <summary>
+        /// Attempts login based on email and password, displays error if failure
+        /// </summary>
+        private void AttemptLogin()
+        {
+            try
+            {
+                if (User.GetUser(tboEmailEntry.Content, pbxPasskeyEntry.Content) == null) { ShowError("No user by that email or password."); }
+            }
+
+            catch (Exception ex)
+            {
+                ShowError(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Displays an error message
+        /// </summary>
+        /// <param name="error">The error to display</param>
+        private void ShowError(string error)
+        {
+            // Expand error area
+            ErrorRow.Height = ERROR_GRID_HEIGHT;
+
+            // Display the error
+            tboErrorText.Text = error;
+            bdrErrorContainer.Visibility = Visibility.Visible;
         }
 
         #endregion

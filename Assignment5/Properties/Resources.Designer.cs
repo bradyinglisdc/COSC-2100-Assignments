@@ -88,7 +88,7 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT UserID FROM User;.
+        ///   Looks up a localized string similar to SELECT UserID FROM Users;.
         /// </summary>
         internal static string QUERY_ALL_USER_ID {
             get {
@@ -97,7 +97,7 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM User WHERE.
+        ///   Looks up a localized string similar to SELECT * FROM Users WHERE.
         /// </summary>
         internal static string QUERY_USER_CREDENTIAL {
             get {

@@ -15,6 +15,7 @@ using System.Windows;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Windows.Media;
+using Microsoft.IdentityModel.Tokens;
 
 #endregion
 
@@ -118,10 +119,13 @@ namespace Assignment5.DBAL
         /// <returns>The matching user if credentials match, else null</returns>
         public static User? GetUser(string email, string passkey)
         {
+            // Ensure non empty email
+            if (email.IsNullOrEmpty()) { throw new Exception("Email must not be empty."); }
+
             // Ensure passkey is valid integer
             int validPass;
             try { validPass = ValidatePasskey(passkey); }
-            catch (Exception ex) { throw new Exception($"Passkey Invalid: {ex.Message}"); }
+            catch (Exception) { throw new Exception($"Passkey must be integer between {PASSKEY_BOUNDS[0]} and {PASSKEY_BOUNDS[1]}."); }
 
             // Attempt to log the user in
             User? user = null;
@@ -143,6 +147,7 @@ namespace Assignment5.DBAL
                         user = new User((int)userReader["UserID"], (string)userReader["FirstName"], (string)userReader["LastName"], (string)userReader["Email"]);
                     }
                 }
+                CurrentUser = user;
                 return user;
             }
 
@@ -236,26 +241,15 @@ namespace Assignment5.DBAL
         }
 
         /// <summary>
-        /// Attempts to data validate a passkey.
+        /// Attempts to data validate a passkey, throws error if can't parse or  invalid bounds.
         /// </summary>
         /// <param name="passkey"></param>
-        /// <returns></returns>
+        /// <returns>The validated passkey</returns>
         private static int ValidatePasskey(string passkey)
         {
-            try
-            {
-                int validatedPasskey = int.Parse(passkey);
-                if (validatedPasskey < PASSKEY_BOUNDS[0] || validatedPasskey > PASSKEY_BOUNDS[1]) { throw new Exception($"Passkey must be between {PASSKEY_BOUNDS[0]} and {PASSKEY_BOUNDS[0]}."); }
-                return validatedPasskey;
-            }
-
-            catch (Exception)
-            {
-                throw new Exception("Passkey must be an integer.");
-            }
-
-
-
+            int validatedPasskey = int.Parse(passkey);
+            if (validatedPasskey < PASSKEY_BOUNDS[0] || validatedPasskey > PASSKEY_BOUNDS[1]) { throw new Exception($"Passkey must be between {PASSKEY_BOUNDS[0]} and {PASSKEY_BOUNDS[1]}."); }
+            return validatedPasskey;
         }
 
         #endregion
