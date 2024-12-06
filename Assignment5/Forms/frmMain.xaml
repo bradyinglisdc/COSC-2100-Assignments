@@ -5,9 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment5"
         mc:Ignorable="d"
-        Title="frmMain" Height="450" Width="800"
-        x:Name="e">
-    <Grid>
+        Title="Game Review Pal" Height="750" Width="1200"
+        Background="#050110"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Grid x:Name="grdMainContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!-- Top Menu -->
+        <Grid x:Name="grdTopMenu">
+            <!-- Logo -->
+            <TextBlock x:Name="tboGame"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontFamily="Press Start 2P"
+                       Foreground="White"
+                       Margin="50,0,0,0">
+                Game <LineBreak />
+                Review Pal
+            </TextBlock>
+            <!-- Menu Strip -->
+            <Border x:Name="bdrMenuArea"
+                    Width="300"
+                    Height="25"
+                    VerticalAlignment="Center"
+                    Background="#A1FFFFFF"
+                    CornerRadius="10">
+                <Menu x:Name="mnuStrip"
+                      Background="Transparent"
+                      VerticalAlignment="Center"
+                      HorizontalAlignment="Center"
+                      FontWeight="Light">
+                    <MenuItem x:Name="mnuItmSession"
+                              Header="Session">
+                        <MenuItem x:Name="mnuItmSaveAll"
+                                  Header="Save all reviews"/>
+                        <MenuItem x:Name="mnuItmSaveCurrent"
+                                  Header="Save current review"/>
+                    </MenuItem>
+                    <MenuItem x:Name="mnuItmAccount"
+                              Header="Account">
+                    </MenuItem>
+                    <MenuItem x:Name="mnuItmFilter"
+                              Header="Filter">
+                    </MenuItem>
+                </Menu>
+            </Border>
+                    
+
+        </Grid>
+        <!-- Main Content Area -->
+        <Border x:Name="bdrContentArea"
+                Background="#B5201645"
+                Grid.Row="1"
+                CornerRadius="40"
+                Height="1200">
+        </Border>
+        
+
         
     </Grid>
 </Window>
