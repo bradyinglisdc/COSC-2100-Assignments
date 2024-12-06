@@ -24,7 +24,7 @@
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
             
-            <!-- General button style for full application -->
+            <!-- General button style for this application -->
             <Style x:Key="GenericButtonStyle" TargetType="local:GenericButton">
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
@@ -36,6 +36,18 @@
                 <Setter Property="BorderThickness" Value="2"/>
                 <Setter Property="BorderBrush" Value="#A2E0F7FF"/>
             </Style>
+            
+            <!-- Data grid column styling -->
+            <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
+                <Setter Property="Background" Value="#A2E0F7FF"/>
+                <Setter Property="Padding" Value="10,0,0,0"/>
+            </Style>
+
+            <!-- Data row column styling -->
+            <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+                <Setter Property="Background" Value="#A2E0F7FF" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

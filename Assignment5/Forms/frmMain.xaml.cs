@@ -19,7 +19,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Assignment5.DBAL;
 
 #endregion
 
@@ -37,10 +37,58 @@ namespace Assignment5
 
         public frmMain()
         {
+            DataContext = Game.Games;
             InitializeComponent();
+            InitializeSetup();
         }
 
         #endregion
+
+        #region Setup
+
+        /// <summary>
+        /// Loads all games and reviews into memory, then opens login form.
+        /// </summary>
+        private void InitializeSetup()
+        {
+            FillModels();
+            Login();
+            SetGrids();
+        }
+
+        /// <summary>
+        /// Fills all games and reviews into memory.
+        /// </summary>
+        private void FillModels()
+        {
+            Game.FillGames();
+            Review.FillReviews();
+        }
+
+        /// <summary>
+        /// Hides this and opens a login form
+        /// </summary>
+        private void Login()
+        {
+            Hide();
+            (new frmLogin(this)).Show();
+        }
+
+        /// <summary>
+        /// Sets item sources for each grid.
+        /// </summary>
+        private void SetGrids()
+        {
+            dgrdGames.ItemsSource = Game.Games;
+            clmGameTitle.Binding = new Binding("Title");
+            clmGameGenre.Binding = new Binding("Genre");
+            clmGameReleaseDate.Binding = new Binding("ReleaseDate");
+
+
+        }
+
+        #endregion
+
     }
 }
 

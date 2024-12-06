@@ -21,6 +21,13 @@ namespace Assignment5
     /// </summary>
     public partial class frmLogin : Window
     {
+        #region Instance Properties
+
+        private frmMain frmBoundWindow { get; set; }
+
+        #endregion
+
+
         #region Constants 
 
         private static GridLength ERROR_GRID_HEIGHT = new GridLength(70);
@@ -30,11 +37,21 @@ namespace Assignment5
         #region Constructor(s)
 
         /// <summary>
-        /// Default constructor - just parses xaml
+        /// Default constructor - just parses xaml and instantiates a new main form
         /// </summary>
         public frmLogin()
         {
             InitializeComponent();
+            frmBoundWindow = new frmMain();
+        }
+
+        /// <summary>
+        /// Paramaterized constructor - takes a main form to open on login
+        /// </summary>
+        public frmLogin(frmMain frmWindowToBind)
+        {
+            InitializeComponent();
+            frmBoundWindow = frmWindowToBind;
         }
 
         #endregion
@@ -82,7 +99,12 @@ namespace Assignment5
         {
             try
             {
-                if (User.GetUser(tboEmailEntry.Content, pbxPasskeyEntry.Content) == null) { ShowError("No user by that email or password."); }
+                if (User.GetUser(tboEmailEntry.Content, pbxPasskeyEntry.Content) == null) 
+                { 
+                    ShowError("No user by that email or password.");
+                    return;
+                }
+                ShowMain();
             }
 
             catch (Exception ex)
@@ -103,6 +125,15 @@ namespace Assignment5
             // Display the error
             tboErrorText.Text = error;
             bdrErrorContainer.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Shows the main form bound to this, and then closes this.
+        /// </summary>
+        private void ShowMain()
+        {
+            frmBoundWindow.Show();
+            Close();
         }
 
         #endregion

@@ -112,13 +112,14 @@ namespace Assignment5
             tbxContent.Padding = new Thickness(5, 0, 0, 0);
             tbxContent.VerticalAlignment = VerticalAlignment.Center;
             tbxContent.BorderThickness = new Thickness(0);
+            tbxContent.Foreground = Brushes.White;
 
             tbxContent.GotFocus += new RoutedEventHandler(ChangePlaceholderVisibility);
             tbxContent.LostFocus += new RoutedEventHandler(ChangePlaceholderVisibility);
 
             tboPlaceholder.Padding = new Thickness(5, 0, 0, 0);
             tboPlaceholder.VerticalAlignment = VerticalAlignment.Center;
-            tboPlaceholder.Foreground = new SolidColorBrush(Color.FromArgb(150,0,0,0));
+            tboPlaceholder.Foreground = new SolidColorBrush(Color.FromArgb(190,0,0,0));
         }
 
         #endregion

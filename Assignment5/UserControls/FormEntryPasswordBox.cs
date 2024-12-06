@@ -142,6 +142,7 @@ namespace Assignment5
             pbxContent.Padding = new Thickness(5, 0, 0, 0);
             pbxContent.VerticalAlignment = VerticalAlignment.Center;
             pbxContent.BorderThickness = new Thickness(0);
+            pbxContent.Foreground = Brushes.White;
 
             pbxContent.GotFocus += ChangePlaceholderVisibility;
             pbxContent.LostFocus += ChangePlaceholderVisibility;
