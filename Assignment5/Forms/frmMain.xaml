@@ -70,7 +70,8 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="50"/>
+                    <RowDefinition x:Name="ReviewArea"
+                                   Height="50"/>
                 </Grid.RowDefinitions>
                 <!-- Games -->
                 <TextBlock x:Name="tboGamesHeader"
@@ -90,9 +91,11 @@
                               Background="Transparent"
                               AutoGenerateColumns="False"
                               ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
-                              RowStyle="{StaticResource DataGridRowStyle}"
+                              RowStyle="{StaticResource DataGridSlimRowStyle}"
                               Margin="0,0,0,0"
-                              IsReadOnly="True">
+                              IsReadOnly="True"
+                              BorderBrush="White"
+                              BorderThickness="2">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="clmGameTitle"
                                                 Header="Title"
@@ -107,13 +110,14 @@
                     </DataGrid>
                     <!-- Create Review Button -->
                     <local:GenericButton x:Name="btnCreateReview"
-                                        Width="100"
-                                        Height="25"
-                                        Grid.Row="1"
-                                        HorizontalAlignment="Right"
-                                        Content="New Review"
-                                        Margin="0,0,0,0"
-                                        Style="{StaticResource GenericButtonStyle}"/>
+                                         Width="100"
+                                         Height="25"
+                                         Grid.Row="1"
+                                         HorizontalAlignment="Right"
+                                         Content="New Review"
+                                         Margin="0,0,0,0"
+                                         Style="{StaticResource GenericButtonStyle}"
+                                         Click="btnCreateReview_Click"/>
                 </Grid>
                 <!-- Reviews -->
                 <TextBlock x:Name="tboReviewsHeader"
@@ -132,37 +136,97 @@
                     </Grid.RowDefinitions>
 
                     <DataGrid x:Name="dgrdReviews"
-                          Background="Transparent"
-                          AutoGenerateColumns="False"
-                          ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
-                          
-                          Grid.Column="1">
+                              Background="Transparent"
+                              AutoGenerateColumns="False"
+                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                              RowStyle="{StaticResource DataGridTallRowStyle}"
+                              Grid.Column="1"
+                              IsReadOnly="True"
+                              BorderBrush="White"
+                              BorderThickness="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Reviewer"
-                                            Width="100"/>
-                            <DataGridTextColumn Header="Rating"
-                                            Width="100"/>
-                            <DataGridTextColumn Header="Review"
-                                            Width="135"/>
+                            <DataGridTextColumn x:Name="clmReviewerName"
+                                                Header="Reviewer"
+                                                Width="100"/>
+                            <DataGridTextColumn x:Name="clmReviewerRating"
+                                                Header="Rating"
+                                                Width="100"/>
+                            <DataGridTextColumn x:Name="clmReviewerReview"
+                                                Header="Review"
+                                                Width="448"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <!-- Delete Review Button -->
-                    <local:GenericButton x:Name="btnReviewGame"
+                    <local:GenericButton x:Name="btnDeleteReview"
                                          Width="100"
                                          Height="25"
                                          Grid.Row="1"
                                          HorizontalAlignment="Right"
                                          Content="Delete Review"
+                                         Click="btnDeleteReview_Click"
                                          Style="{StaticResource GenericButtonStyle}"/>
                 </Grid>
-                <!-- Review Writer -->
-                <TextBox x:Name="tboReviewWriter"
-                         Grid.Row="1"
-                         Grid.ColumnSpan="2"
-                         Margin="0,50,0,0"
-                         Visibility="Hidden">
+                <!-- Review Writer Area -->
+                <Grid x:Name="grdReviewArea"
+                      Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="tboReviewWriterHeader"
+                               Grid.ColumnSpan="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Top"
+                               Text="SomeGame Review"
+                               FontWeight="Light"
+                               Foreground="White"
+                               FontSize="18"
+                               Margin="0,45,0,0"/>
+                    <Border x:Name="bdrReviewArea"
+                            Grid.ColumnSpan="2"
+                            Margin="0,75,0,125"
+                            Background="#EEEEFF"
+                            CornerRadius="25"
+                            BorderThickness="3"
+                            BorderBrush="LightBlue"
+                            Height="190">
+                        <TextBox x:Name="tbxReviewWriter"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Padding="20"
+                                 Grid.Column="1">
+                        </TextBox>
+                    </Border>
+                    <!-- Submit and Cancel review buttons -->
+                    <local:GenericButton x:Name="btnCancelReview"
+                                         Width="100"
+                                         Height="25"
+                                         HorizontalAlignment="Right"
+                                         Content="Cancel Review"
+                                         Margin="0,240,10,0"
+                                         Style="{StaticResource GenericButtonStyle}"
+                                         Click="btnCancelReview_Click"
+                                         Foreground="Red"/>
+                    <local:GenericButton x:Name="btnSubmitReview"
+                                         Width="100"
+                                         Height="25"
+                                         HorizontalAlignment="Left"
+                                         Grid.Column="1"
+                                         Content="Submit Review"
+                                         Margin="10,240,0,0"
+                                         Style="{StaticResource GenericButtonStyle}"
+                                         Click="btnSubmitReview_Click"
+                                         Foreground="#20FF20"/>
+                </Grid>
+
+
+
                     
-                </TextBox>
+                    
+                
+         
                 
             </Grid>
             

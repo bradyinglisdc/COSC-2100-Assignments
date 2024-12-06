@@ -106,6 +106,15 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT FirstName FROM Users WHERE.
+        /// </summary>
+        internal static string QUERY_USER_NAME {
+            get {
+                return ResourceManager.GetString("QUERY_USER_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to spDeleteGame.
         /// </summary>
         internal static string SP_DELETE_GAME {
@@ -142,7 +151,7 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to spInsertReview.
+        ///   Looks up a localized string similar to spInsertNewReview.
         /// </summary>
         internal static string SP_INSERT_REVIEW {
             get {
@@ -151,7 +160,7 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to spInsertUser.
+        ///   Looks up a localized string similar to spInsertNewUser.
         /// </summary>
         internal static string SP_INSERT_USER {
             get {

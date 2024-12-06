@@ -24,6 +24,7 @@ namespace Assignment5.DBAL
         private const int DEFAULT_RATING = 0;
         private const string DEFAULT_REVIEW_TEXT = "No review data available.";
         private static DateTime DEFAULT_REVIEW_DATE = DateTime.Today;
+        private const string DEFAULT_USER_NAME = "No Name";
 
         #endregion
 
@@ -82,6 +83,18 @@ namespace Assignment5.DBAL
         /// </summary>
         public DateTime? ReviewDate { get; set; }
 
+        /// <summary>
+        /// Gets this reviewers name if they exist in the database as a user.
+        /// </summary>
+        public string Reviewer
+        {
+            get
+            {
+                if (ReviewerID == null) { return DEFAULT_USER_NAME; }
+                return User.GetUserName((int)ReviewerID);
+            }
+        }
+
         #endregion
 
         #region Constructor(s)
@@ -117,6 +130,7 @@ namespace Assignment5.DBAL
             Rating = rating;
             ReviewText = reviewText;
             ReviewDate = reviewDate;
+            Reviews.Add(this);
         }
 
         #endregion
@@ -263,6 +277,21 @@ namespace Assignment5.DBAL
 
         }
 
+        /// <summary>
+        /// Creates and returns sub-list of Reviews which match a GameID
+        /// </summary>
+        /// <param name="gameID">The gameID to find reviews for</param>
+        /// <returns>A list of reviews for the specified game</returns>
+        public static List<Review> GetReviewsByGameID(int gameID)
+        {
+            List<Review> gameReviews = new List<Review>();
+            foreach (Review review in Reviews)
+            {
+                if (review.GameID == gameID) { gameReviews.Add(review); }
+            }
+            return gameReviews;
+        }
+
         #endregion
 
         #region Instance Methods - Update
@@ -277,6 +306,7 @@ namespace Assignment5.DBAL
                 using (SqlCommand procedure = DatabaseAccess.CreateStoredProcedure(Properties.Resources.SP_UPDATE_REVIEW))
                 {
                     PackageProcedure(procedure);
+                    procedure.Parameters.AddWithValue("@ReviewID", ReviewID);
                     DatabaseAccess.ExecuteNonQuery(procedure);
                 }
             }
@@ -297,9 +327,8 @@ namespace Assignment5.DBAL
         /// </summary>
         private void PackageProcedure(SqlCommand procedure)
         {
-            procedure.Parameters.AddWithValue("@ReviewID", ReviewID);
             procedure.Parameters.AddWithValue("@GameID", GameID);
-            procedure.Parameters.AddWithValue("@ReviewerID", ReviewerID);
+            procedure.Parameters.AddWithValue("@UserID", ReviewerID);
             procedure.Parameters.AddWithValue("@Rating", Rating);
             procedure.Parameters.AddWithValue("@ReviewText", ReviewText);
             procedure.Parameters.AddWithValue("@ReviewDate", ReviewDate);

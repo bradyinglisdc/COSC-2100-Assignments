@@ -15,6 +15,7 @@ using System.Windows;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using System.Windows.Media;
+using System.Data;
 using Microsoft.IdentityModel.Tokens;
 
 #endregion
@@ -134,11 +135,13 @@ namespace Assignment5.DBAL
                 using (SqlConnection connection = DatabaseAccess.OpenConnection())
                 {
                     // Get the reader
-                    SqlCommand query = new SqlCommand();
+                    SqlCommand query = new SqlCommand()
+                    {
+                        CommandType = CommandType.Text,
+                        CommandText = $"{Properties.Resources.QUERY_USER_CREDENTIAL} Email = @Email AND Passkey = @Passkey"
+                    };
                     query.Parameters.AddWithValue("@Email", email);
                     query.Parameters.AddWithValue("@Passkey", validPass);
-                    query.CommandType = System.Data.CommandType.Text;
-                    query.CommandText = $"{Properties.Resources.QUERY_USER_CREDENTIAL} Email = @Email AND Passkey = @Passkey";
                     SqlDataReader userReader = DatabaseAccess.ExecuteQuery(connection, query);
 
                     // Attempt to read the user
@@ -147,7 +150,7 @@ namespace Assignment5.DBAL
                         user = new User((int)userReader["UserID"], (string)userReader["FirstName"], (string)userReader["LastName"], (string)userReader["Email"]);
                     }
                 }
-                CurrentUser = user;
+                CurrentUser = user; 
                 return user;
             }
 
@@ -155,6 +158,31 @@ namespace Assignment5.DBAL
             {
                 throw new Exception($"Database error: {ex.Message}");
             }
+        }
+        
+        /// <summary>
+        /// Searches database for a corresponding userID and pulls the first name.
+        /// </summary>
+        /// <param name="userID">The userID to pull a name from.</param>
+        /// <returns>The first name of the user</returns>
+        public static string GetUserName(int userID)
+        {
+            // Open connetion and execute query
+            string userName = "No Name";
+            using (SqlConnection connection = DatabaseAccess.OpenConnection())
+            {
+                SqlCommand query = new SqlCommand()
+                {
+                    CommandType = CommandType.Text,
+                    CommandText = $"{Properties.Resources.QUERY_USER_NAME} UserID = @UserID"
+                };
+                query.Parameters.AddWithValue("@UserID", userID);
+
+                // Read results
+                SqlDataReader userNameReader = DatabaseAccess.ExecuteQuery(connection, query);
+                while (userNameReader.Read()) { userName = (string)userNameReader["FirstName"];}
+            }
+            return userName;
         }
 
         #endregion

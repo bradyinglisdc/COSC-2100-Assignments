@@ -37,15 +37,32 @@
                 <Setter Property="BorderBrush" Value="#A2E0F7FF"/>
             </Style>
             
+            <!-- Generic gradient brushes -->
+            <LinearGradientBrush x:Key="GradientBrushTheme" StartPoint="0.5, 0.0" EndPoint="0.5, 1.0">
+                <GradientStop Color="#C0C1FF" Offset="0.0"/>
+                <GradientStop Color="#55A1AF" Offset="1.0"/>
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="GradientBrushDarkTheme" StartPoint="0, 0.5" EndPoint="1, 0.5">
+                <GradientStop Color="#000000" Offset="0.0"/>
+                <GradientStop Color="#FFFFFF" Offset="1.0"/>
+            </LinearGradientBrush>
+
             <!-- Data grid column styling -->
             <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="#A2E0F7FF"/>
+                <Setter Property="Background" Value="{StaticResource GradientBrushTheme}"/>
                 <Setter Property="Padding" Value="10,0,0,0"/>
             </Style>
 
-            <!-- Data row column styling -->
-            <Style x:Key="DataGridRowStyle" TargetType="DataGridRow">
+            <!-- Data row column for slim rows -->
+            <Style x:Key="DataGridSlimRowStyle" TargetType="DataGridRow">
                 <Setter Property="Background" Value="#A2E0F7FF" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
+            
+            <!-- Data row column for fat rows -->
+            <Style x:Key="DataGridTallRowStyle" TargetType="DataGridRow">
+                <Setter Property="Background" Value="#A2E0F7FF"/>
+                <Setter Property="Height" Value="60"/>
             </Style>
 
         </ResourceDictionary>
