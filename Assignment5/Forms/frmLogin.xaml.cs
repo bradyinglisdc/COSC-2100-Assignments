@@ -7,6 +7,7 @@
 
 #region Namespaces Used
 
+using Assignment5.DBAL;
 using System.Windows;
 
 #endregion
@@ -62,6 +63,7 @@ namespace Assignment5
         private void btnLogin_MouseLeftButtonDown(object sender, EventArgs e)
         {
             //DBAL.User.GetUser()
+            Game.DeleteGame(44);
         }
 
         #endregion
