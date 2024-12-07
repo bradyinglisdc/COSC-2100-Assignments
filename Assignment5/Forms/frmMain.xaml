@@ -167,67 +167,165 @@
                                          Style="{StaticResource GenericButtonStyle}"/>
                 </Grid>
                 <!-- Review Writer Area -->
-                <Grid x:Name="grdReviewArea"
-                      Grid.Row="1"
-                      Grid.ColumnSpan="2"
-                      Visibility="Visible">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="tboReviewWriterHeader"
-                               Grid.ColumnSpan="2"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Top"
-                               Text="SomeGame Review"
-                               FontWeight="Light"
-                               Foreground="White"
-                               FontSize="18"
-                               Margin="0,45,0,0"/>
-                    <Border x:Name="bdrReviewArea"
-                            Grid.ColumnSpan="2"
-                            Margin="0,75,0,125"
-                            Background="#EEEEFF"
-                            CornerRadius="25"
-                            BorderThickness="3"
-                            BorderBrush="LightBlue"
-                            Height="190">
-                        <TextBox x:Name="tbxReviewWriter"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 Padding="20"
-                                 Grid.Column="1">
-                        </TextBox>
-                    </Border>
-                    <!-- Submit and Cancel review buttons -->
-                    <local:GenericButton x:Name="btnCancelReview"
-                                         Width="100"
-                                         Height="25"
-                                         HorizontalAlignment="Right"
-                                         Content="Cancel Review"
-                                         Margin="0,240,10,0"
-                                         Style="{StaticResource GenericButtonStyle}"
-                                         Click="btnCancelReview_Click"
-                                         Foreground="Red"/>
-                    <local:GenericButton x:Name="btnSubmitReview"
-                                         Width="100"
-                                         Height="25"
-                                         HorizontalAlignment="Left"
-                                         Grid.Column="1"
-                                         Content="Submit Review"
-                                         Margin="10,240,0,0"
-                                         Style="{StaticResource GenericButtonStyle}"
-                                         Click="btnSubmitReview_Click"
-                                         Foreground="#20FF20"/>
-                </Grid>
+                <Border x:Name="bdrReviewContainer"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
+                        Visibility="Hidden"
+                        Background="#26ADD8E6"
+                        CornerRadius="15"
+                        Width="450"
+                        Height="550"
+                        VerticalAlignment="Center"
+                        Margin="0,0,0,25"
+                        BorderBrush="#A2E0F7FF"
+                        BorderThickness="2">
+                    <Grid x:Name="grdReviewArea">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="tboReviewWriterHeader"
+                                   Grid.ColumnSpan="2"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Text="SomeGame Review"
+                                   FontWeight="Light"
+                                   Foreground="White"
+                                   FontSize="28"
+                                   TextWrapping="Wrap"
+                                   TextAlignment="Center"
+                                   Margin="0,15,0,0"
+                                   Padding="10"/>
+                        <!-- Review entry -->
+                        <TextBlock x:Name="tboReviewTextHeader"
+                                   Text="Your Review:"
+                                   Foreground="White"
+                                   FontWeight="Light"
+                                   VerticalAlignment="Center"
+                                   FontSize="18"
+                                   Height="30"
+                                   Margin="40,0,0,50"
+                                   />
+                        <local:FormEntryTextBox x:Name="tbxReviewWriter"
+                                                Grid.ColumnSpan="2"
+                                                Margin="0,120,0,0"
+                                                Background="#26FFFFFF"
+                                                CornerRadius="25"
+                                                BorderThickness="2"
+                                                BorderBrush="#A2E0F7FF"
+                                                Height="150"
+                                                TextWrapping="Wrap"
+                                                AcceptsReturn="True"
+                                                Placeholder="Type review here..."
+                                                Width="400"/>
+                        <!-- Rating -->
+                        <TextBlock x:Name="tboRatingHeader"
+                                   Text="Your Rating:"
+                                   Foreground="White"
+                                   FontWeight="Light"
+                                   FontSize="18"
+                                   Margin="40,0,0,293"
+                                   Height="30"/>
+                        <TextBlock x:Name="tboRatingDisplay"
+                                   Text="0/10"
+                                   Foreground="White"
+                                   FontWeight="Light"
+                                   FontSize="18"
+                                   Margin="0,0,40,293"
+                                   Grid.Column="1"
+                                   HorizontalAlignment="Right"
+                                   Height="30"/>
+                        <Border x:Name="bdrRadting"
+                                Grid.ColumnSpan="2"
+                                Height="50"
+                                Width="375"
+                                Margin="0,0,0,220"
+                                Background="#13FFFFFF"
+                                CornerRadius="8"
+                                Padding="2">
+                            <Grid x:Name="grdRating">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <!-- Rating Stars -->
+                                <Image x:Name="imgStarOne"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarTwo"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="1"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarThree"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="2"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarFour"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="3"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarFive"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="4"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarSix"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="5"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarSevem"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="6"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarEight"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="7"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarNine"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="8"
+                                       MouseLeftButtonDown="RatingChanged"/>
+                                <Image x:Name="imgStarTen"
+                                       Source="pack://application:,,,/Resources/UnSelectedStar.png"
+                                       Grid.Column="9"
+                                       MouseLeftButtonDown="RatingChanged"/>
+
+                            </Grid>
+                        </Border>
+                        <!-- Submit and Cancel review buttons -->
+                        <local:GenericButton x:Name="btnCancelReview"
+                                             Width="100"
+                                             Height="25"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Bottom"
+                                             Content="Cancel Review"
+                                             Margin="0,0,10,50"
+                                             Style="{StaticResource GenericButtonStyle}"
+                                             Click="btnCancelReview_Click"
+                                             Foreground="Red"/>
+                        <local:GenericButton x:Name="btnSubmitReview"
+                                             Width="100"
+                                             Height="25"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Bottom"
+                                             Grid.Column="1"
+                                             Content="Submit Review"
+                                             Margin="10,0,0,50"
+                                             Style="{StaticResource GenericButtonStyle}"
+                                             Click="btnSubmitReview_Click"
+                                             Foreground="Black"/>
+                    </Grid>
+
+                </Border>
 
 
-
-                    
-                    
-                
-         
-                
             </Grid>
             
         </Border>

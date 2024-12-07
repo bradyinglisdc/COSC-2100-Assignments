@@ -48,6 +48,21 @@ namespace Assignment5
             set { tboPlaceholder.Text = value; }
         }
 
+        /// <summary>
+        /// Gets and sets the value of the text wrapping property witin the text box content.
+        /// </summary>
+        public TextWrapping TextWrapping
+        {
+            get { return tbxContent.TextWrapping; }
+            set { tbxContent.TextWrapping = value; }
+        }
+
+        public bool AcceptsReturn
+        {
+            get { return tbxContent.AcceptsReturn; }
+            set { tbxContent.AcceptsReturn = value; }
+        }
+
         #endregion
 
         #region Controls

@@ -79,8 +79,7 @@
                                VerticalAlignment="Center"
                                TextAlignment="Center"
                                Foreground="Red"
-                               FontWeight="Light"
-                               />
+                               FontWeight="Light"/>
                 </Border>
 
                 <!-- Email -->

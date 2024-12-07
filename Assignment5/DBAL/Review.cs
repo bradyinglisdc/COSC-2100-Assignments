@@ -306,7 +306,6 @@ namespace Assignment5.DBAL
                 using (SqlCommand procedure = DatabaseAccess.CreateStoredProcedure(Properties.Resources.SP_UPDATE_REVIEW))
                 {
                     PackageProcedure(procedure);
-                    procedure.Parameters.AddWithValue("@ReviewID", ReviewID);
                     DatabaseAccess.ExecuteNonQuery(procedure);
                 }
             }
@@ -327,6 +326,7 @@ namespace Assignment5.DBAL
         /// </summary>
         private void PackageProcedure(SqlCommand procedure)
         {
+            procedure.Parameters.AddWithValue("@ReviewID", ReviewID);
             procedure.Parameters.AddWithValue("@GameID", GameID);
             procedure.Parameters.AddWithValue("@UserID", ReviewerID);
             procedure.Parameters.AddWithValue("@Rating", Rating);

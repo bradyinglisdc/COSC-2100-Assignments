@@ -7,18 +7,10 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Data;
 using Assignment5.DBAL;
 
 #endregion
@@ -33,10 +25,36 @@ namespace Assignment5
     /// </summary>
     public partial class frmMain : Window
     {
+        #region Private Backing Members
+
+        private int _selectedStarIndex;
+
+        #endregion
+
+        #region Instance Properties
+        
+        /// <summary>
+        /// Gets and sets the currently selected star's index, automatically taking care of styling.
+        /// </summary>
+        private int SelectedStarIndex
+        {
+            get { return _selectedStarIndex; }
+            set
+            {
+                // If the selected star index is the same as current, set it to -1 (0/10)
+                if (value == _selectedStarIndex) { _selectedStarIndex = -1; }
+                else { _selectedStarIndex = value; }
+                UpdateRating();
+            }
+        }
+
+        #endregion
+
+
         #region Constructor(s)
 
         /// <summary>
-        /// Parses xaml and initialzes models and datagrids
+        /// Parses xaml and initialzes models and datagrids, then sets default selected star.
         /// </summary>
         public frmMain()
         {
@@ -68,7 +86,6 @@ namespace Assignment5
             DisplayReviewWriter();
         }
 
-
         /// <summary>
         /// Called when user clicks btnCancelReview. Clears review text box and hides review writer.
         /// </summary>
@@ -97,6 +114,17 @@ namespace Assignment5
         private void btnSubmitReview_Click(object sender, EventArgs e)
         {
             SubmitReview();
+        }
+            
+        /// <summary>
+        /// Called when a rating star is selected, indicating the user's rating for this game changed.
+        /// Updates the currentely selected star.
+        /// </summary>
+        /// <param name="sender">The start image which was clicked.</param>
+        /// <param name="e">Event args.</param>
+        private void RatingChanged(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SelectedStarIndex = Grid.GetColumn((Image)sender);
         }
 
         #endregion
@@ -164,7 +192,7 @@ namespace Assignment5
         private void RefreshReviews()
         {
             dgrdReviews.ItemsSource = Review.GetReviewsByGameID(((Game)dgrdGames.SelectedItem).GameID);
-            tboReviewWriterHeader.Text = $"{((Game)dgrdGames.SelectedItem).Title} Review";
+            tboReviewWriterHeader.Text = $"{((Game)dgrdGames.SelectedItem).Title} | New Review";
         }
 
         /// <summary>
@@ -172,17 +200,18 @@ namespace Assignment5
         /// </summary>
         private void DisplayReviewWriter()
         {
-            tbxReviewWriter.Visibility = Visibility.Visible;
-            ReviewArea.Height = new GridLength(400);
+            bdrReviewContainer.Visibility = Visibility.Visible;
+            ReviewArea.Height = new GridLength(720);
         }
 
         /// <summary>
-        /// Hides review writer, clearing the associated text box
+        /// Hides review writer, clearing the associated text box and review stars
         /// </summary>
         private void HideReviewWriter()
         {
-            tbxReviewWriter.Text = string.Empty;
-            tbxReviewWriter.Visibility = Visibility.Visible;
+            tbxReviewWriter.Content = string.Empty;
+            SelectedStarIndex = -1;
+            bdrReviewContainer.Visibility = Visibility.Hidden;
             ReviewArea.Height = new GridLength(50);
         }
 
@@ -210,14 +239,45 @@ namespace Assignment5
             {
                 GameID = reviewedGame.GameID,
                 ReviewerID = User.CurrentUser.UserID,
-                Rating = 5,
-                ReviewText = tbxReviewWriter.Text,
+                Rating = SelectedStarIndex + 1,
+                ReviewText = tbxReviewWriter.Content,
                 ReviewDate = DateTime.Now
             };
 
-            // Submit the review and refresh reviews
+            // Try to submit the review, refresh reviews, and hide review writer.
             review.Insert();
             RefreshReviews();
+            HideReviewWriter();
+        }
+
+        #endregion
+
+        #region Rating Updates
+
+        /// <summary>
+        /// Updates the current rating based on the selected star index.
+        /// </summary>
+        private void UpdateRating()
+        {
+            // Update rating display
+            tboRatingDisplay.Text = $"{SelectedStarIndex + 1}/10";
+
+
+            // Update stars for each rating value
+            foreach(Image star in grdRating.Children)
+            {
+                // If the index of a star is less than or equal to the last star's index, select it
+                if (Grid.GetColumn(star) <= SelectedStarIndex)
+                {
+                    star.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/SelectedStar.png"));
+                }
+
+                // Otherwise, it is blank
+                else
+                {
+                    star.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/UnselectedStar.png"));
+                }
+            }
         }
 
         #endregion
