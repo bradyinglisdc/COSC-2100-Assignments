@@ -97,6 +97,15 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT COUNT(UserID) AS UserCount FROM Users WHERE Email = @Email;.
+        /// </summary>
+        internal static string QUERY_EXISTING_USERS {
+            get {
+                return ResourceManager.GetString("QUERY_EXISTING_USERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT * FROM Users WHERE.
         /// </summary>
         internal static string QUERY_USER_CREDENTIAL {

@@ -162,4 +162,7 @@
   <data name="QUERY_USER_NAME" xml:space="preserve">
     <value>SELECT FirstName FROM Users WHERE</value>
   </data>
+  <data name="QUERY_EXISTING_USERS" xml:space="preserve">
+    <value>SELECT COUNT(UserID) AS UserCount FROM Users WHERE Email = @Email;</value>
+  </data>
 </root>

@@ -14,7 +14,7 @@ using System.Text;
 using System.Windows;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
-using System.Windows.Media;
+using System.Net.Mail;
 using System.Data;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,6 +40,9 @@ namespace Assignment5.DBAL
         #region Private Backing Members
 
         private int _userID;
+        private string? _firstName;
+        private string? _lastName;
+        private string? _email;
 
         #endregion
 
@@ -62,17 +65,54 @@ namespace Assignment5.DBAL
         /// <summary>
         /// Gets and sets this user's first name
         /// </summary>
-        public string? FirstName { get; set; }
+        public string? FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                if (value == string.Empty) { throw new Exception("First name must not be blank."); }
+                _firstName = value;
+            }
+        }
 
         /// <summary>
         /// Gets and sets this user's last name
         /// </summary>
-        public string? LastName { get; set; }
+        public string? LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                if (value == string.Empty) { throw new Exception("Last name must not be blank."); }
+                _lastName = value;
+            }
+        }
 
         /// <summary>
         /// Gets and sets this user's email
         /// </summary>
-        public string? Email { get; set; }
+        public string? Email
+        {
+            get { return _email; }
+            set
+            {
+                // Email validation - null is fine
+                if (value == null) 
+                { 
+                    _email = value; 
+                    return; 
+                }
+
+                // Empty email throws error
+                if (value == string.Empty) { throw new Exception("Email must not be empty."); }
+
+                // Invalid format throws error
+                try { new MailAddress(value); }
+                catch { throw new Exception("Email must be in format: user@example.com."); }
+
+                _email = value;
+            }
+        }
 
         /*Passkey is never stored in memory*/
 
@@ -101,7 +141,20 @@ namespace Assignment5.DBAL
         public User(int userID, string? firstName, string? lastName, string? email)
         {
             UserID = userID;
-            UserID = userID;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+        }
+
+        /// <summary>
+        /// Instantiates a user with auto pk
+        /// </summary>
+        /// <param name="firstName">This user's first name</param>
+        /// <param name="lastName">This user's last name</param>
+        /// <param name="email">This user's email</param>
+        public User(string? firstName, string? lastName, string? email)
+        {
+            UserID = GetNextUniqueID();
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -109,16 +162,52 @@ namespace Assignment5.DBAL
 
         #endregion
 
+        #region Static Methods - Create
+
+        /// <summary>
+        /// Attemts to create a new user. If successful, the user will be returned and stored in CurrentUser (if login is true)
+        /// Else null will be returned
+        /// </summary>
+        /// <param name="email">The chosen email.</param>
+        /// <param name="passkey">The chosen passkey.</param>
+        /// <param name="login">True if user should be logged in.</param>
+        /// <returns></returns>
+        public static User? CreateUser(string firstName, string lastName, string email, string passkey, bool login)
+        {
+            try
+            {
+                // Ensure user doesn't already exist by that email
+                if (UserExists(email)) { throw new Exception("User already exists by that email."); }
+
+                // Attempt to create and insert the new user
+                User newUser = new User(firstName, lastName, email);
+                newUser.Insert(passkey);
+
+                // Log the user in if specified
+                if (login) { CurrentUser = newUser; }
+                return newUser;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+
+        }
+
+        #endregion
+
         #region Static Methods - Read
 
         /// <summary>
-        /// Attempts to log user in. If successful, the user will be returned and stored in CurrentUser.
+        /// Attempts to log user in. If successful, the user will be returned and stored in CurrentUser (if login is true)
         /// Else null will be returned
         /// </summary>
-        /// <param name="email">This user's email</param>
-        /// <param name="passkey">This user's passkey</param>
+        /// <param name="email">A user's email</param>
+        /// <param name="passkey">A user's passkey</param>
+        /// <param name="login">True if user should be logged in</param>
         /// <returns>The matching user if credentials match, else null</returns>
-        public static User? GetUser(string email, string passkey)
+        public static User? GetUser(string email, string passkey, bool login)
         {
             // Ensure non empty email
             if (email.IsNullOrEmpty()) { throw new Exception("Email must not be empty."); }
@@ -150,7 +239,7 @@ namespace Assignment5.DBAL
                         user = new User((int)userReader["UserID"], (string)userReader["FirstName"], (string)userReader["LastName"], (string)userReader["Email"]);
                     }
                 }
-                CurrentUser = user; 
+                if (login) { CurrentUser = user; } 
                 return user;
             }
 
@@ -275,9 +364,53 @@ namespace Assignment5.DBAL
         /// <returns>The validated passkey</returns>
         private static int ValidatePasskey(string passkey)
         {
-            int validatedPasskey = int.Parse(passkey);
-            if (validatedPasskey < PASSKEY_BOUNDS[0] || validatedPasskey > PASSKEY_BOUNDS[1]) { throw new Exception($"Passkey must be between {PASSKEY_BOUNDS[0]} and {PASSKEY_BOUNDS[1]}."); }
-            return validatedPasskey;
+            try
+            {
+                int validatedPasskey = int.Parse(passkey);
+                if (validatedPasskey < PASSKEY_BOUNDS[0] || validatedPasskey > PASSKEY_BOUNDS[1]) { throw new Exception(); }
+                return validatedPasskey;
+            }
+
+            catch
+            {
+                throw new Exception($"Passkey must be between {PASSKEY_BOUNDS[0]} and {PASSKEY_BOUNDS[1]}.");
+            }
+        }
+
+        /// <summary>
+        /// Returns true if user exists by a given email.
+        /// </summary>
+        /// <param name="email">The email to search for.</param>
+        /// <returns>True if user exists by that email.</returns>
+        private static bool UserExists(string email)
+        {
+            try
+            {
+                using (SqlConnection connection = DatabaseAccess.OpenConnection())
+                {
+                    // Setup the command
+                    SqlCommand query = new SqlCommand()
+                    {
+                        CommandText = Properties.Resources.QUERY_EXISTING_USERS,
+                        CommandType = CommandType.Text
+                    };
+                    query.Parameters.AddWithValue("@Email", email);
+
+                    // If the reader can be read, there is at least one user by that email.
+                    SqlDataReader userReader = DatabaseAccess.ExecuteQuery(connection, query);
+                    while (userReader.Read())
+                    {
+                        if ((int)userReader["UserCount"] > 0) { return true; }
+                    }
+                }
+                return false;
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+                throw new Exception($"Database error. {ex.Message}");
+            }
         }
 
         #endregion
@@ -301,7 +434,7 @@ namespace Assignment5.DBAL
 
             catch (Exception ex)
             {
-                throw new Exception($"{FirstName}, there was an error saving your account: {ex.Message}");
+                throw new Exception($"{ex.Message}");
             }
 
         }
@@ -345,6 +478,15 @@ namespace Assignment5.DBAL
             procedure.Parameters.AddWithValue("@LastName", LastName);
             procedure.Parameters.AddWithValue("@Email", Email);
             procedure.Parameters.AddWithValue("@Passkey", passkey);
+        }
+
+        /// <summary>
+        /// Returns this user's full name and email address
+        /// </summary>
+        /// <returns>This user's full name and email address</returns>
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName} ({Email})";
         }
 
         #endregion

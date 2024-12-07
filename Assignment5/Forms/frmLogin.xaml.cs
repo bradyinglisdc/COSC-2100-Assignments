@@ -27,7 +27,6 @@ namespace Assignment5
 
         #endregion
 
-
         #region Constants 
 
         private static GridLength ERROR_GRID_HEIGHT = new GridLength(70);
@@ -87,6 +86,36 @@ namespace Assignment5
         {
             AttemptLogin();
         }
+        
+        /// <summary>
+        /// Closes the application if user agrees.
+        /// </summary>
+        /// <param name="sender">Cancel button</param>
+        /// <param name="e">Event args</param>
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Shutdown();
+        }
+
+        /// <summary>
+        /// Opens registration form.
+        /// </summary>
+        /// <param name="sender">Create account button</param>
+        /// <param name="e">Event args</param>
+        private void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            (new frmRegister()).ShowDialog();
+        }
+
+        /// <summary>
+        /// Opens main if user already logged in.
+        /// </summary>
+        /// <param name="sender">Window</param>
+        /// <param name="e">Event args/param>
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            /*if (User.CurrentUser != null) { ShowMain(); }*/
+        }
 
         #endregion
 
@@ -99,7 +128,7 @@ namespace Assignment5
         {
             try
             {
-                if (User.GetUser(tboEmailEntry.Content, pbxPasskeyEntry.Content) == null) 
+                if (User.GetUser(tboEmailEntry.Content, pbxPasskeyEntry.Content, true) == null) 
                 { 
                     ShowError("No user by that email or password.");
                     return;
@@ -136,7 +165,19 @@ namespace Assignment5
             Close();
         }
 
+        /// <summary>
+        /// Prompts user before shutting down the application.
+        /// </summary>
+        private void Shutdown()
+        {
+            if (MessageBox.Show("Press 'Yes' to confirm and exit application.", "Exit application?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
         #endregion
+
     }
 }
 

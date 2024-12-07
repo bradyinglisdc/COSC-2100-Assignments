@@ -25,6 +25,13 @@ namespace Assignment5
     /// </summary>
     public partial class frmMain : Window
     {
+        #region Constants
+
+        private const int ReviewWriterHiddenHeight = 50;
+        private const int ReviewWriterShownHeight = 720;
+
+        #endregion
+
         #region Private Backing Members
 
         private int _selectedStarIndex;
@@ -127,6 +134,16 @@ namespace Assignment5
             SelectedStarIndex = Grid.GetColumn((Image)sender);
         }
 
+        /// <summary>
+        /// If a user is logged in, status is updated.
+        /// </summary>
+        /// <param name="sender">This window.</param>
+        /// <param name="e">Event args.</param>
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (User.CurrentUser != null) { sbrItemCurrentStatus.Content = $"Logged in as {User.CurrentUser.ToString()}"; }
+        }
+
         #endregion
 
         #region Setup
@@ -156,7 +173,7 @@ namespace Assignment5
         private void Login()
         {
             Hide();
-            (new frmLogin(this)).Show();
+            (new frmLogin(this)).ShowDialog();
         }
 
         /// <summary>
@@ -201,7 +218,7 @@ namespace Assignment5
         private void DisplayReviewWriter()
         {
             bdrReviewContainer.Visibility = Visibility.Visible;
-            ReviewArea.Height = new GridLength(720);
+            ReviewArea.Height = new GridLength(ReviewWriterShownHeight);
         }
 
         /// <summary>
@@ -212,7 +229,7 @@ namespace Assignment5
             tbxReviewWriter.Content = string.Empty;
             SelectedStarIndex = -1;
             bdrReviewContainer.Visibility = Visibility.Hidden;
-            ReviewArea.Height = new GridLength(50);
+            ReviewArea.Height = new GridLength(ReviewWriterHiddenHeight);
         }
 
         /// <summary>
@@ -281,6 +298,7 @@ namespace Assignment5
         }
 
         #endregion
+
     }
 }
 

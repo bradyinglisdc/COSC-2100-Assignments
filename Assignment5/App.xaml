@@ -51,6 +51,7 @@
             <Style x:Key="DataGridHeaderStyle" TargetType="DataGridColumnHeader">
                 <Setter Property="Background" Value="{StaticResource GradientBrushTheme}"/>
                 <Setter Property="Padding" Value="10,0,0,0"/>
+                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
             </Style>
 
             <!-- Data row column for slim rows -->
@@ -63,6 +64,11 @@
             <Style x:Key="DataGridTallRowStyle" TargetType="DataGridRow">
                 <Setter Property="Background" Value="#A2E0F7FF"/>
                 <Setter Property="Height" Value="60"/>
+            </Style>
+            
+            <!-- Data grid text block style -->
+            <Style x:Key="DataGridTextBlock" TargetType="TextBlock">
+                <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
 
         </ResourceDictionary>

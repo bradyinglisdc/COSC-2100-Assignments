@@ -8,7 +8,8 @@
         Title="Game Review Pal" Height="800" Width="1200"
         Background="#050110"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        GotFocus="Window_GotFocus">
     <Grid x:Name="grdMainContainer">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -66,7 +67,7 @@
                   Margin="50,0,50,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="700"/>
+                    <ColumnDefinition Width="690"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -95,17 +96,24 @@
                               Margin="0,0,0,0"
                               IsReadOnly="True"
                               BorderBrush="White"
-                              BorderThickness="2">
+                              BorderThickness="2"
+                              HorizontalScrollBarVisibility="Disabled">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="clmGameTitle"
                                                 Header="Title"
-                                                Width="200"/>
+                                                Width="185"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn x:Name="clmGameGenre"
                                                 Header="Genre"
-                                                Width="100"/>
+                                                Width="100"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn x:Name="clmGameReleaseDate"
                                                 Header="Release Date"
-                                                Width="135"/>
+                                                Width="83"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <!-- Create Review Button -->
@@ -143,17 +151,24 @@
                               Grid.Column="1"
                               IsReadOnly="True"
                               BorderBrush="White"
-                              BorderThickness="2">
+                              BorderThickness="2"
+                              HorizontalScrollBarVisibility="Disabled">
                         <DataGrid.Columns>
                             <DataGridTextColumn x:Name="clmReviewerName"
                                                 Header="Reviewer"
-                                                Width="100"/>
+                                                Width="100"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn x:Name="clmReviewerRating"
                                                 Header="Rating"
-                                                Width="100"/>
+                                                Width="100"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                             <DataGridTextColumn x:Name="clmReviewerReview"
                                                 Header="Review"
-                                                Width="448"/>
+                                                Width="430"
+                                                ElementStyle="{StaticResource DataGridTextBlock}"
+                                                HeaderStyle="{StaticResource DataGridHeaderStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <!-- Delete Review Button -->
@@ -322,18 +337,16 @@
                                              Click="btnSubmitReview_Click"
                                              Foreground="Black"/>
                     </Grid>
-
                 </Border>
-
-
             </Grid>
             
         </Border>
         <!-- Custom Status Strip -->
-        <StatusBar x:Name="sbr"
+        <StatusBar x:Name="sbrStatus"
                    Grid.Row="2"
                    Background="#050110">
-            <StatusBarItem Content="Ready to review!"
+            <StatusBarItem x:Name="sbrItemCurrentStatus" 
+                           Content="Ready to review!"
                            Foreground="White"
                            Margin="10,0,0,0"/>
         </StatusBar>
