@@ -171,7 +171,7 @@ namespace Assignment5
 
             catch (Exception ex)
             {
-                if (MessageBox.Show($"Error connecting to database. Would you like to try again? Error message: {ex.Message}", 
+                if (MessageBox.Show($"Error connecting to database. Would you like to try again?\n\n{ex.Message}", 
                     "Database Error", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     FillModels();
