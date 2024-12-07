@@ -163,8 +163,25 @@ namespace Assignment5
         /// </summary>
         private void FillModels()
         {
-            Game.FillGames();
-            Review.FillReviews();
+            try
+            {
+                Game.FillGames();
+                Review.FillReviews();
+            }
+
+            catch (Exception ex)
+            {
+                if (MessageBox.Show($"Error connecting to database. Would you like to try again? Error message: {ex.Message}", 
+                    "Database Error", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                {
+                    FillModels();
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+
         }
 
         /// <summary>
