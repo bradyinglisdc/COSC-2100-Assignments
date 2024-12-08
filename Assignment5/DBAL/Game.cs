@@ -77,6 +77,22 @@ namespace Assignment5.DBAL
         /// </summary>
         public DateTime? ReleaseDate { get; set; }
 
+        /// <summary>
+        /// Gets ReleaseDate without time incusion, as a string
+        /// </summary>
+        public string? ReleaseDateFormatted
+        {
+            get
+            {
+                // Since nullable date time (DateTime?) doesn't have formattable ToString method, cast it. 
+                if (ReleaseDate == null) { return null; }
+                DateTime nonNullReleaseDate = (DateTime)ReleaseDate;
+
+                // Return review date formatted dd-mm-yyyy as a string
+                return nonNullReleaseDate.ToString("yyyy-mm-dd");
+            }
+        }
+
         #endregion
 
         #region Constructor(s)

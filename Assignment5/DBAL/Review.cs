@@ -74,6 +74,19 @@ namespace Assignment5.DBAL
         public int? Rating { get; set; }
 
         /// <summary>
+        /// Gets the formatted rating out of 10, as a string
+        /// </summary>
+        public string? FormattedRating
+        {
+            get
+            {
+                if (Rating == null) { return null; }
+                return $"{Rating}/10";
+            }
+        }
+
+
+        /// <summary>
         /// Gets and sets this reviews Review Text
         /// </summary>
         public string? ReviewText { get; set; }
@@ -82,6 +95,22 @@ namespace Assignment5.DBAL
         /// Gets and sets this reviews date
         /// </summary>
         public DateTime? ReviewDate { get; set; }
+        
+        /// <summary>
+        /// Gets ReviewDate without time incusion, as a string
+        /// </summary>
+        public string? ReviewDateFormatted
+        {
+            get
+            {
+                // Since nullable date time (DateTime?) doesn't have formattable ToString method, cast it. 
+                if (ReviewDate == null) { return null; }
+                DateTime nonNullReviewDate = (DateTime)ReviewDate;
+
+                // Return review date formatted dd-mm-yyyy as a string
+                return nonNullReviewDate.ToString("yyyy-mm-dd");
+            }
+        }
 
         /// <summary>
         /// Gets this reviewers name if they exist in the database as a user.
