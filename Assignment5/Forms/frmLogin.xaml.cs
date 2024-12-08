@@ -172,7 +172,8 @@ namespace Assignment5
         {
             if (MessageBox.Show("Press 'Yes' to confirm and exit application.", "Exit application?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                Application.Current.Shutdown();
+                frmBoundWindow.Close();
+                Close();
             }
         }
 
