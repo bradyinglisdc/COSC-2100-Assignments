@@ -59,15 +59,20 @@
         </Grid>
         <!-- Main Content Area -->
         <Border x:Name="bdrContentArea"
-                Background="#B5201645"
                 Grid.Row="1"
                 CornerRadius="40"
                 Height="720">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0.2, 0" EndPoint="0.5, 1">
+                    <GradientStop Color="#B5201645" Offset="0.0"/>
+                    <GradientStop Color="#100110"  Offset="2.0"/>
+                </LinearGradientBrush>
+            </Border.Background>
             <Grid x:Name="grdContentArea"
                   Margin="50,0,50,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="700"/>
+                    <ColumnDefinition Width="659"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -88,31 +93,35 @@
                         <RowDefinition />
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
-                    <DataGrid x:Name="dgrdGames"
-                              Background="Transparent"
-                              AutoGenerateColumns="False"
-                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
-                              RowStyle="{StaticResource DataGridSlimRowStyle}"
-                              Margin="0,0,0,0"
-                              IsReadOnly="True"
-                              BorderBrush="White"
-                              BorderThickness="2"
-                              HorizontalScrollBarVisibility="Disabled">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="clmGameTitle"
-                                                Header="Title"
-                                                Width="185"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                            <DataGridTextColumn x:Name="clmGameGenre"
-                                                Header="Genre"
-                                                Width="100"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                            <DataGridTextColumn x:Name="clmGameReleaseDate"
-                                                Header="Release Date"
-                                                Width="100"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Border x:Name="bdrGames"
+                            CornerRadius="8"
+                            BorderThickness="8"
+                            BorderBrush="White"
+                            Background="#16ADD8E6">
+                        <DataGrid x:Name="dgrdGames"
+                                  Background="Transparent"
+                                  AutoGenerateColumns="False"
+                                  ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                                  RowStyle="{StaticResource DataGridSlimRowStyle}"
+                                  Margin="0,0,0,0"
+                                  IsReadOnly="True"
+                                  HorizontalScrollBarVisibility="Disabled">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="clmGameTitle"
+                                                    Header="Title"
+                                                    Width="185"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                                <DataGridTextColumn x:Name="clmGameGenre"
+                                                    Header="Genre"
+                                                    Width="100"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                                <DataGridTextColumn x:Name="clmGameReleaseDate"
+                                                    Header="Release Date"
+                                                    Width="100"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
                     <!-- Create Review Button -->
                     <local:GenericButton x:Name="btnCreateReview"
                                          Width="100"
@@ -140,35 +149,41 @@
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
 
-                    <DataGrid x:Name="dgrdReviews"
-                              Background="Transparent"
-                              AutoGenerateColumns="False"
-                              ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
-                              RowStyle="{StaticResource DataGridSlimRowStyle}"
-                              Grid.Column="1"
-                              IsReadOnly="True"
-                              BorderBrush="White"
-                              BorderThickness="2"
-                              HorizontalScrollBarVisibility="Disabled">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn x:Name="clmReviewerName"
-                                                Header="Reviewer"
-                                                Width="100"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                            <DataGridTextColumn x:Name="clmReviewerRating"
-                                                Header="Rating"
-                                                Width="50"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                            <DataGridTextColumn x:Name="clmReviewDate"
-                                                Header="Reviewed On"
-                                                Width="100"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                            <DataGridTextColumn x:Name="clmReviewerReview"
-                                                Header="Review"
-                                                Width="391"
-                                                ElementStyle="{StaticResource DataGridTextBlock}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Border x:Name="bdrReviews"
+                            CornerRadius="8"
+                            BorderThickness="8"
+                            BorderBrush="White"
+                            Background="#16ADD8E6">
+                            <DataGrid x:Name="dgrdReviews"
+                                      Background="Transparent"
+                                      AutoGenerateColumns="False"
+                                      ColumnHeaderStyle="{StaticResource DataGridHeaderStyle}"
+                                      RowStyle="{StaticResource DataGridSlimRowStyle}"
+                                      Grid.Column="1"
+                                      IsReadOnly="True"
+                                      BorderBrush="White"
+                                      BorderThickness="2"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn x:Name="clmReviewerName"
+                                                    Header="Reviewer"
+                                                    Width="100"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                                <DataGridTextColumn x:Name="clmReviewerRating"
+                                                    Header="Rating"
+                                                    Width="50"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                                <DataGridTextColumn x:Name="clmReviewDate"
+                                                    Header="Reviewed On"
+                                                    Width="100"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                                <DataGridTextColumn x:Name="clmReviewerReview"
+                                                    Header="Review"
+                                                    Width="391"
+                                                    ElementStyle="{StaticResource DataGridTextBlock}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
                     <!-- Delete Review Button -->
                     <local:GenericButton x:Name="btnDeleteReview"
                                          Width="100"

@@ -170,14 +170,6 @@ namespace Assignment5.DBAL
         #region Static Methods - Create
 
         /// <summary>
-        /// 
-        /// </summary>
-        public static void FillUsers()
-        {
-
-        }
-
-        /// <summary>
         /// Attemts to create a new user. If successful, the user will be returned and stored in CurrentUser (if login is true)
         /// Else null will be returned
         /// </summary>
@@ -213,6 +205,34 @@ namespace Assignment5.DBAL
         #region Static Methods - Read
 
         /// <summary>
+        /// Fills static User list so that all non-sensitive user data can be easily accessed.
+        /// </summary>
+        public static void FillUsers()
+        {
+            // Open connection
+            try
+            {
+                using (SqlConnection connection = DatabaseAccess.OpenConnection())
+                {
+                    // Define query
+                    SqlCommand query = new SqlCommand()
+                    {
+                        CommandType = CommandType.Text,
+                        CommandText = Properties.Resources.QUERY_ALL_USER_CREDENTIALS
+                    };
+
+                    // Run query and read users
+                    SqlDataReader userReader = DatabaseAccess.ExecuteQuery(connection, query);
+                    while (userReader.Read()) { Users.Add(new User((int)userReader["UserID"], (string)userReader["FirstName"], (string)userReader["LastName"], (string)userReader["Email"])); }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unable to load users: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Attempts to log user in. If successful, the user will be returned and stored in CurrentUser (if login is true)
         /// Else null will be returned
         /// </summary>
@@ -246,12 +266,15 @@ namespace Assignment5.DBAL
                     query.Parameters.AddWithValue("@Passkey", validPass);
                     SqlDataReader userReader = DatabaseAccess.ExecuteQuery(connection, query);
 
-                    // Attempt to read the user
+                    // Attempt to read the user - this loop will not execute if invalid credentials recieved, as no data will exist
                     while (userReader.Read())
                     {
                         user = new User((int)userReader["UserID"], (string)userReader["FirstName"], (string)userReader["LastName"], (string)userReader["Email"]);
                     }
                 }
+
+                // Add user to list of users if not in already, and login user if specified
+                if (user != null && !Users.Contains(user)) { Users.Add(user); }
                 if (login) { CurrentUser = user; } 
                 return user;
             }
@@ -263,27 +286,19 @@ namespace Assignment5.DBAL
         }
         
         /// <summary>
-        /// Searches database for a corresponding userID and pulls the first name.
+        /// Searches memory for a corresponding userID and pulls the first name and last name as a single string.
         /// </summary>
         /// <param name="userID">The userID to pull a name from.</param>
         /// <returns>The first name of the user</returns>
         public static string GetUserName(int userID)
         {
-            // Open connetion and execute query
+            // Check if a user exists in memory by that userID
             string userName = "No Name";
-            using (SqlConnection connection = DatabaseAccess.OpenConnection())
+            foreach (User user in Users)
             {
-                SqlCommand query = new SqlCommand()
-                {
-                    CommandType = CommandType.Text,
-                    CommandText = $"{Properties.Resources.QUERY_USER_NAME} UserID = @UserID"
-                };
-                query.Parameters.AddWithValue("@UserID", userID);
-
-                // Read results
-                SqlDataReader userNameReader = DatabaseAccess.ExecuteQuery(connection, query);
-                while (userNameReader.Read()) { userName = (string)userNameReader["FirstName"];}
+                if (user.UserID == userID) { return $"{user.FirstName} {user.LastName}"; }
             }
+
             return userName;
         }
 

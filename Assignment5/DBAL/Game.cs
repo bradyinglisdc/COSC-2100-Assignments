@@ -89,7 +89,7 @@ namespace Assignment5.DBAL
                 DateTime nonNullReleaseDate = (DateTime)ReleaseDate;
 
                 // Return review date formatted dd-mm-yyyy as a string
-                return nonNullReleaseDate.ToString("yyyy-mm-dd");
+                return nonNullReleaseDate.ToString("yyyy-MM-dd");
             }
         }
 

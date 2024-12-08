@@ -88,6 +88,15 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SELECT UserID, Email, FirstName, LastName FROM Users;.
+        /// </summary>
+        internal static string QUERY_ALL_USER_CREDENTIALS {
+            get {
+                return ResourceManager.GetString("QUERY_ALL_USER_CREDENTIALS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SELECT UserID FROM Users;.
         /// </summary>
         internal static string QUERY_ALL_USER_ID {
@@ -106,7 +115,7 @@ namespace Assignment5.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT * FROM Users WHERE.
+        ///   Looks up a localized string similar to SELECT UserID, Email, FirstName, LastName FROM Users WHERE.
         /// </summary>
         internal static string QUERY_USER_CREDENTIAL {
             get {
@@ -201,15 +210,6 @@ namespace Assignment5.Properties {
         internal static string SP_UPDATE_USER {
             get {
                 return ResourceManager.GetString("SP_UPDATE_USER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to wererwer.
-        /// </summary>
-        internal static string TES {
-            get {
-                return ResourceManager.GetString("TES", resourceCulture);
             }
         }
     }

@@ -85,7 +85,6 @@ namespace Assignment5.DBAL
             }
         }
 
-
         /// <summary>
         /// Gets and sets this reviews Review Text
         /// </summary>
@@ -108,7 +107,7 @@ namespace Assignment5.DBAL
                 DateTime nonNullReviewDate = (DateTime)ReviewDate;
 
                 // Return review date formatted dd-mm-yyyy as a string
-                return nonNullReviewDate.ToString("yyyy-mm-dd");
+                return nonNullReviewDate.ToString("yyyy-MM-dd");
             }
         }
 

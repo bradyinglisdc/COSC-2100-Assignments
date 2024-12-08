@@ -145,7 +145,7 @@
     <value>spDeleteReview</value>
   </data>
   <data name="QUERY_USER_CREDENTIAL" xml:space="preserve">
-    <value>SELECT * FROM Users WHERE</value>
+    <value>SELECT UserID, Email, FirstName, LastName FROM Users WHERE</value>
   </data>
   <data name="QUERY_ALL_USER_ID" xml:space="preserve">
     <value>SELECT UserID FROM Users;</value>
@@ -165,7 +165,7 @@
   <data name="QUERY_EXISTING_USERS" xml:space="preserve">
     <value>SELECT COUNT(UserID) AS UserCount FROM Users WHERE Email = @Email;</value>
   </data>
-  <data name="TES" xml:space="preserve">
-    <value>wererwer</value>
+  <data name="QUERY_ALL_USER_CREDENTIALS" xml:space="preserve">
+    <value>SELECT UserID, Email, FirstName, LastName FROM Users;</value>
   </data>
 </root>

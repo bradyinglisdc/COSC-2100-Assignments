@@ -15,7 +15,6 @@ using Assignment5.DBAL;
 
 #endregion
 
-
 #region Namespace Definition
 
 namespace Assignment5
@@ -56,7 +55,6 @@ namespace Assignment5
         }
 
         #endregion
-
 
         #region Constructor(s)
 
@@ -149,7 +147,7 @@ namespace Assignment5
         #region Setup
 
         /// <summary>
-        /// Loads all games and reviews into memory, then opens login form.
+        /// Loads all users, games and reviews into memory, then opens login form.
         /// </summary>
         private void InitializeSetup()
         {
@@ -159,12 +157,13 @@ namespace Assignment5
         }
 
         /// <summary>
-        /// Fills all games and reviews into memory; if there is a database issue a retry prompt is given.
+        /// Fills all users, games and reviews into memory; if there is a database issue a retry prompt is given.
         /// </summary>
         private void FillModels()
         {
             try
             {
+                User.FillUsers();
                 Game.FillGames();
                 Review.FillReviews();
             }
