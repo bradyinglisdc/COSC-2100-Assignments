@@ -105,7 +105,7 @@
                                                 BorderThickness="2"
                                                 BorderBrush="#A2E0F7FF"
                                                 Placeholder="Enter first name"
-                                                ToolTip="Click here, or navigate to tab control 0 to begin typing your email."/>
+                                                ToolTip="Click here, or navigate to tab control 0 to begin typing your first name."/>
                     </Grid>
                     <Grid x:Name="grdLastNameContaine"
                           Grid.Column="1">
@@ -124,7 +124,7 @@
                                                 BorderThickness="2"
                                                 BorderBrush="#A2E0F7FF"
                                                 Placeholder="Enter last name"
-                                                ToolTip="Click here, or navigate to tab control 0 to begin typing your email."/>
+                                                ToolTip="Click here, or navigate to tab control 1 to begin typing your last name."/>
                     </Grid>
 
                 </Grid>
@@ -153,7 +153,7 @@
                                             BorderThickness="2"
                                             BorderBrush="#A2E0F7FF"
                                             Placeholder="Enter email"
-                                            ToolTip="Click here, or navigate to tab control 0 to begin typing your email."
+                                            ToolTip="Click here, or navigate to tab control 2 to begin typing your email."
                                             />
                 </Grid>
 
@@ -179,7 +179,7 @@
                                                 BorderBrush="#A2E0F7FF"
                                                 MaximumLength="4"
                                                 Placeholder="Enter 4-digit numeric passkey"
-                                                ToolTip="Click here, or navigate to tab control 1 to begin typing your passkey."/>
+                                                ToolTip="Click here, or navigate to tab control 3 to begin typing your passkey."/>
 
 
                     <!-- Show Passkey Checkbox -->
@@ -190,7 +190,8 @@
                               VerticalAlignment="Bottom"
                               Margin="10,0,0,0"
                               Checked="cbxShowPasskey_Checked"
-                              Unchecked="cbxShowPasskey_Unchecked"/>
+                              Unchecked="cbxShowPasskey_Unchecked"
+                              ToolTip="Click here, or press 'alt + s' to show passkey."/>
                 </Grid>
 
                 <!-- Submission Area -->

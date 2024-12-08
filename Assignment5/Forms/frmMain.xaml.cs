@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Data;
 using Assignment5.DBAL;
+using System.Windows.Input;
 
 #endregion
 
@@ -150,7 +151,7 @@ namespace Assignment5
         /// <param name="e">Eventargs</param>
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (Mouse.LeftButton == MouseButtonState.Pressed) { DragMove(); }
         }
 
         /// <summary>

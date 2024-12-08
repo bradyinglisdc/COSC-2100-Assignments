@@ -93,15 +93,15 @@
                                    Margin="10,8,0,0"/>
                     <!-- Title Header -->
                     <local:FormEntryTextBox x:Name="tbxTitleEntry"
-                                                Height="25"
-                                                Width="280"
-                                                Background="#26FFFFFF"
-                                                CornerRadius="8"
-                                                VerticalAlignment="Center"
-                                                BorderThickness="2"
-                                                BorderBrush="#A2E0F7FF"
-                                                Placeholder="Enter game title"
-                                                ToolTip="Click here, or navigate to tab control 0 to begin typing a game title."/>
+                                            Height="25"
+                                            Width="280"
+                                            Background="#26FFFFFF"
+                                            CornerRadius="8"
+                                            VerticalAlignment="Center"
+                                            BorderThickness="2"
+                                            BorderBrush="#A2E0F7FF"
+                                            Placeholder="Enter game title"
+                                            ToolTip="Click here, or navigate to tab control 0 to begin typing a game title."/>
                 </Grid>
                 <!-- Genre -->
                 <Grid x:Name="grdGenreContainer"
@@ -167,9 +167,9 @@
                                          Foreground="DarkBlue"
                                          Content="Confirm"
                                          VerticalAlignment="Bottom"
-                                         Shortcut="_a"
+                                         Shortcut="_g"
                                          Style="{StaticResource GenericButtonStyle}"
-                                         ToolTip="Click here, or press 'alt + a' to create game."
+                                         ToolTip="Click here, or press 'alt + g' to create game."
                                          IsDefault="True"
                                          Click="btnAddGame_Click"/>
                     <!-- Cancel -->
@@ -182,7 +182,7 @@
                                          Foreground="Red"
                                          Content="Cancel"
                                          VerticalAlignment="Bottom"
-                                         Shortcut="_a"
+                                         Shortcut="_c"
                                          Style="{StaticResource GenericButtonStyle}"
                                          ToolTip="Click here, or press 'alt + c' to cancel."
                                          IsCancel="True"

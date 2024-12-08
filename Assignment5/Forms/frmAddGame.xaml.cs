@@ -71,7 +71,7 @@ namespace Assignment5
         /// <param name="e">Eventargs</param>
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            if (Mouse.LeftButton == MouseButtonState.Pressed) { DragMove(); }
         }
 
         #endregion

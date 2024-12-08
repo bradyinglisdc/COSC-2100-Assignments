@@ -44,19 +44,24 @@
                       HorizontalAlignment="Center"
                       FontWeight="Light">
                     <MenuItem x:Name="mnuItmDatabase"
-                              Header="Games">
+                              Header="_Games"
+                              ToolTip="Click here, or press 'alt + g' to expand game options.">
                         <MenuItem x:Name="mnuItmAddGame"
-                                  Header="Add new game"
-                                  Click="mnuItmAddGame_Click"/>
+                                  Header="Add n_ew game"
+                                  Click="mnuItmAddGame_Click"
+                                  ToolTip="Click here, or press 'alt + n' to create a new game."/>
                         <MenuItem x:Name="mnuItmDeleteGame"
-                                  Header="Delete selected game"
-                                  Click="mnuItmDeleteGame_Click"/>
+                                  Header="_Delete selected game"
+                                  Click="mnuItmDeleteGame_Click"
+                                  ToolTip="Click here, or press 'alt + d' to delete the selected game."/>
                     </MenuItem>
                     <MenuItem x:Name="mnuItmAccount"
-                              Header="Account">
+                              Header="_Account"
+                              ToolTip="Click here, or press 'alt + a' to expand account options.">
                         <MenuItem x:Name="mnuItmLogout"
                                   Header="Logout"
-                                  Click="mnuItmLogout_Click"/>
+                                  Click="mnuItmLogout_Click"
+                                  ToolTip="Click here, or press 'alt + l' to logout."/>
                     </MenuItem>
                 </Menu>
             </Border>
@@ -91,7 +96,8 @@
                                      Height="30"
                                      Foreground="White"
                                      Style="{StaticResource TransparentBackgroundButtonStyle}"
-                                     Click="btnMinimize_Click">
+                                     Click="btnMinimize_Click"
+                                     Shortcut="-">
                     <TextBlock Text="-"
                                FontSize="20"
                                HorizontalAlignment="Center"
@@ -108,7 +114,8 @@
                                      Height="30"
                                      Foreground="White"
                                      Style="{StaticResource TransparentBackgroundButtonStyle}"
-                                     Click="btnExit_Click">
+                                     Click="btnExit_Click"
+                                     IsCancel="True">
                     <TextBlock Text="X"
                                FontWeight="Light"
                                FontSize="16"
@@ -194,8 +201,10 @@
                                          HorizontalAlignment="Right"
                                          Content="New Review"
                                          Margin="0,0,0,0"
+                                         Shortcut="_n"
                                          Style="{StaticResource GenericButtonStyle}"
-                                         Click="btnCreateReview_Click"/>
+                                         Click="btnCreateReview_Click"
+                                         ToolTip="Click here, or press 'alt + n' to create a new review."/>
                 </Grid>
                 <!-- Reviews -->
                 <TextBlock x:Name="tboReviewsHeader"
@@ -256,7 +265,9 @@
                                          HorizontalAlignment="Right"
                                          Content="Delete Review"
                                          Click="btnDeleteReview_Click"
-                                         Style="{StaticResource GenericButtonStyle}"/>
+                                         Shortcut="_d"
+                                         Style="{StaticResource GenericButtonStyle}"
+                                         ToolTip="Click here, or press 'alt + d' to delete the selected review."/>
                 </Grid>
                 <!-- Review Writer Area -->
                 <Border x:Name="bdrReviewContainer"

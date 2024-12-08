@@ -139,13 +139,14 @@
 
                     <!-- Show Passkey Checkbox -->
                     <CheckBox x:Name="cbxShowPasskey"
-                              Content="Show passkey"
+                              Content="_Show passkey"
                               Foreground="White"
                               FontWeight="Light"
                               VerticalAlignment="Bottom"
                               Margin="10,0,0,0" 
                               Checked="cbxShowPasskey_Checked"
-                              Unchecked="cbxShowPasskey_Unchecked"/>
+                              Unchecked="cbxShowPasskey_Unchecked"
+                              ToolTip="Click here, or press 'alt + s' to show passkey."/>
                 </Grid>
 
                 <!-- Submission Area -->

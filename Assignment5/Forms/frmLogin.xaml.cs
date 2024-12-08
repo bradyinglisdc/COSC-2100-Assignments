@@ -9,6 +9,7 @@
 
 using Assignment5.DBAL;
 using System.Windows;
+using System.Windows.Input;
 
 #endregion
 
@@ -114,7 +115,7 @@ namespace Assignment5
         /// <param name="e">Event args/param>
         private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
-            /*if (User.CurrentUser != null) { ShowMain(); }*/
+            if (User.CurrentUser != null) { ShowMain(); }
         }
 
         /// <summary>
@@ -125,7 +126,7 @@ namespace Assignment5
         /// <param name="e">Eventargs</param>
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DragMove();
+            if (Mouse.LeftButton == MouseButtonState.Pressed) { DragMove(); }
         }
 
         #endregion
