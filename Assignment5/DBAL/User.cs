@@ -49,6 +49,11 @@ namespace Assignment5.DBAL
         #region Static Properties
 
         /// <summary>
+        /// Gets amd sets static list of users for quick refrence to user information.
+        /// </summary>
+        public static List<User> Users { get; set; } = new List<User>();
+
+        /// <summary>
         /// The currently logged in user
         /// </summary>
         public static User? CurrentUser { get; set; }
@@ -163,6 +168,14 @@ namespace Assignment5.DBAL
         #endregion
 
         #region Static Methods - Create
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static void FillUsers()
+        {
+
+        }
 
         /// <summary>
         /// Attemts to create a new user. If successful, the user will be returned and stored in CurrentUser (if login is true)

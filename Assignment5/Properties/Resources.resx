@@ -165,4 +165,7 @@
   <data name="QUERY_EXISTING_USERS" xml:space="preserve">
     <value>SELECT COUNT(UserID) AS UserCount FROM Users WHERE Email = @Email;</value>
   </data>
+  <data name="TES" xml:space="preserve">
+    <value>wererwer</value>
+  </data>
 </root>

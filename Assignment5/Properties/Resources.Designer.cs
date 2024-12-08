@@ -203,5 +203,14 @@ namespace Assignment5.Properties {
                 return ResourceManager.GetString("SP_UPDATE_USER", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to wererwer.
+        /// </summary>
+        internal static string TES {
+            get {
+                return ResourceManager.GetString("TES", resourceCulture);
+            }
+        }
     }
 }
