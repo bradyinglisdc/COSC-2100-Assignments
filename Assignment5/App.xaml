@@ -70,15 +70,6 @@
             <Style x:Key="DataGridTextBlock" TargetType="TextBlock">
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
-            
-            <!-- Rating area styling -->
-            <Style x:Key="RatingStyle" TargetType="Border">
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#13FFFFFF"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

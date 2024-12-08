@@ -159,7 +159,7 @@ namespace Assignment5
         }
 
         /// <summary>
-        /// Fills all games and reviews into memory; if there is a database issue a retry prompt is given.
+        /// Fills all games and reviews into memory.
         /// </summary>
         private void FillModels()
         {
@@ -202,13 +202,12 @@ namespace Assignment5
             dgrdGames.ItemsSource = Game.Games;
             clmGameTitle.Binding = new Binding("Title");
             clmGameGenre.Binding = new Binding("Genre");
-            clmGameReleaseDate.Binding = new Binding("ReleaseDateFormatted");
+            clmGameReleaseDate.Binding = new Binding("ReleaseDate");
 
-            // Set reviews data source, and all appropriate columns
+            // Set reviews data source, and all appropeiate columns
             dgrdReviews.ItemsSource = Review.Reviews;
             clmReviewerName.Binding = new Binding("Reviewer");
-            clmReviewerRating.Binding = new Binding("FormattedRating");
-            clmReviewDate.Binding = new Binding("ReviewDateFormatted");
+            clmReviewerRating.Binding = new Binding("Rating");
             clmReviewerReview.Binding = new Binding("ReviewText");
 
             // Subscribed to index change event, then select the first index of games data grid, if it isn't empty
