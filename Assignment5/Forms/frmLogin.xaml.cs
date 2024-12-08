@@ -117,6 +117,17 @@ namespace Assignment5
             /*if (User.CurrentUser != null) { ShowMain(); }*/
         }
 
+        /// <summary>
+        /// While user keeps left mouse down anywhere on window, DragMove() will allow them to move window
+        /// with mouse.
+        /// </summary>
+        /// <param name="sender">Window</param>
+        /// <param name="e">Eventargs</param>
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
         #endregion
 
         #region Logic
@@ -178,7 +189,6 @@ namespace Assignment5
         }
 
         #endregion
-
     }
 }
 

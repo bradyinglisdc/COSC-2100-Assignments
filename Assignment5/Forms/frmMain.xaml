@@ -9,14 +9,16 @@
         Background="#050110"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
-        GotFocus="Window_GotFocus">
+        GotFocus="Window_GotFocus"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Grid x:Name="grdMainContainer">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition />
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <!-- Top Menu -->
+        <!-- Top Menu/title bar-->
         <Grid x:Name="grdTopMenu">
             <!-- Logo -->
             <TextBlock x:Name="tboGame"
@@ -31,7 +33,7 @@
             </TextBlock>
             <!-- Menu Strip -->
             <Border x:Name="bdrMenuArea"
-                    Width="300"
+                    Width="200"
                     Height="25"
                     VerticalAlignment="Center"
                     Background="#A1FFFFFF"
@@ -41,27 +43,89 @@
                       VerticalAlignment="Center"
                       HorizontalAlignment="Center"
                       FontWeight="Light">
-                    <MenuItem x:Name="mnuItmSession"
-                              Header="Session">
-                        <MenuItem x:Name="mnuItmSaveAll"
-                                  Header="Save all reviews"/>
-                        <MenuItem x:Name="mnuItmSaveCurrent"
-                                  Header="Save current review"/>
+                    <MenuItem x:Name="mnuItmDatabase"
+                              Header="Games">
+                        <MenuItem x:Name="mnuItmAddGame"
+                                  Header="Add new game"
+                                  Click="mnuItmAddGame_Click"/>
+                        <MenuItem x:Name="mnuItmDeleteGame"
+                                  Header="Delete selected game"
+                                  Click="mnuItmDeleteGame_Click"/>
                     </MenuItem>
                     <MenuItem x:Name="mnuItmAccount"
                               Header="Account">
-                    </MenuItem>
-                    <MenuItem x:Name="mnuItmFilter"
-                              Header="Filter">
+                        <MenuItem x:Name="mnuItmLogout"
+                                  Header="Logout"
+                                  Click="mnuItmLogout_Click"/>
                     </MenuItem>
                 </Menu>
             </Border>
+            <!-- Window controls -->
+            <Grid x:Name="grdWindowsControls"
+                  HorizontalAlignment="Right"
+                  Width="125"
+                  Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!-- Refresh -->
+                <local:GenericButton x:Name="btnRefresh"
+                                     Style="{StaticResource TransparentBackgroundButtonStyle}"
+                                     Width="30"
+                                     Height="30"
+                                     ToolTip="Click her, or press 'alt + r' to refresh all."
+                                     Shortcut="_r"
+                                     Click="btnRefresh_Click">
+                    <Image Source="pack://application:,,,/Resources/RefreshLogo.png"
+                           Width="18"/>
+                </local:GenericButton>
+                <!-- Minimize -->
+                <local:GenericButton x:Name="btnMinimize"
+                                     Grid.Column="1"
+                                     BorderThickness="0"
+                                     Padding="0,0,0,5"
+                                     ToolTip="Click her, or press 'alt + -' to minimize the window."
+                                     Width="30"
+                                     Height="30"
+                                     Foreground="White"
+                                     Style="{StaticResource TransparentBackgroundButtonStyle}"
+                                     Click="btnMinimize_Click">
+                    <TextBlock Text="-"
+                               FontSize="20"
+                               HorizontalAlignment="Center"
+                               Foreground="White"/>
+                </local:GenericButton>
+                <!-- Exit -->
+                <local:GenericButton x:Name="btnExit"
+                                     Grid.Column="2"
+                                     BorderThickness="0"
+                                     Padding="0,0,0,5"
+                                     ToolTip="Click her, or press 'alt + x' to minimize the window."
+                                     Shortcut="_x"
+                                     Width="30"
+                                     Height="30"
+                                     Foreground="White"
+                                     Style="{StaticResource TransparentBackgroundButtonStyle}"
+                                     Click="btnExit_Click">
+                    <TextBlock Text="X"
+                               FontWeight="Light"
+                               FontSize="16"
+                               HorizontalAlignment="Center"
+                               Foreground="White"
+                               Padding="0,4,0,0"/>
+                </local:GenericButton>
+
+
+
+            </Grid>
         </Grid>
         <!-- Main Content Area -->
         <Border x:Name="bdrContentArea"
                 Grid.Row="1"
                 CornerRadius="40"
-                Height="720">
+                Height="760">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0.2, 0" EndPoint="0.5, 1">
                     <GradientStop Color="#B5201645" Offset="0.0"/>
@@ -72,7 +136,7 @@
                   Margin="50,0,50,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
-                    <ColumnDefinition Width="659"/>
+                    <ColumnDefinition Width="675"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -179,7 +243,7 @@
                                                     ElementStyle="{StaticResource DataGridTextBlock}"/>
                                 <DataGridTextColumn x:Name="clmReviewerReview"
                                                     Header="Review"
-                                                    Width="391"
+                                                    Width="350"
                                                     ElementStyle="{StaticResource DataGridTextBlock}"/>
                             </DataGrid.Columns>
                         </DataGrid>

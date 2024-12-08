@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\RefreshLogo.png" />
     <None Remove="Resources\SelectedStar.png" />
     <None Remove="Resources\UnselectedStar.png" />
   </ItemGroup>
@@ -18,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\RefreshLogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\SelectedStar.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

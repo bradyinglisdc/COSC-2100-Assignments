@@ -15,7 +15,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize"
         WindowStyle="None"
-        GotFocus="Window_GotFocus">
+        GotFocus="Window_GotFocus"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
     <Grid x:Name="grdLoginArea">
         <Grid.Background>

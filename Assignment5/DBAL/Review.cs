@@ -199,6 +199,8 @@ namespace Assignment5.DBAL
         /// <param name="reviewReader">The review reader to read from.</param>
         private static void ReadReviewsIntoMemory(SqlDataReader reviewReader)
         {
+            // Clear reviews, then read from reviewReader into list
+            Reviews.Clear();
             try
             {
                 while (reviewReader.Read())
@@ -228,6 +230,22 @@ namespace Assignment5.DBAL
             }
             return null;
         }
+
+        /// <summary>
+        /// Creates and returns sub-list of Reviews which match a GameID
+        /// </summary>
+        /// <param name="gameID">The gameID to find reviews for</param>
+        /// <returns>A list of reviews for the specified game</returns>
+        public static List<Review> GetReviewsByGameID(int gameID)
+        {
+            List<Review> gameReviews = new List<Review>();
+            foreach (Review review in Reviews)
+            {
+                if (review.GameID == gameID) { gameReviews.Add(review); }
+            }
+            return gameReviews;
+        }
+
         #endregion
 
         #region Static Methods - Delete
@@ -303,21 +321,6 @@ namespace Assignment5.DBAL
                 throw new Exception($"Error inserting review into database: {ex.Message}");
             }
 
-        }
-
-        /// <summary>
-        /// Creates and returns sub-list of Reviews which match a GameID
-        /// </summary>
-        /// <param name="gameID">The gameID to find reviews for</param>
-        /// <returns>A list of reviews for the specified game</returns>
-        public static List<Review> GetReviewsByGameID(int gameID)
-        {
-            List<Review> gameReviews = new List<Review>();
-            foreach (Review review in Reviews)
-            {
-                if (review.GameID == gameID) { gameReviews.Add(review); }
-            }
-            return gameReviews;
         }
 
         #endregion

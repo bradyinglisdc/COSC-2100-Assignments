@@ -142,6 +142,89 @@ namespace Assignment5
             if (User.CurrentUser != null) { sbrItemCurrentStatus.Content = $"Logged in as {User.CurrentUser.ToString()}"; }
         }
 
+        /// <summary>
+        /// While user keeps left mouse down anywhere on window, DragMove() will allow them to move window
+        /// with mouse.
+        /// </summary>
+        /// <param name="sender">The title bar/menu area</param>
+        /// <param name="e">Eventargs</param>
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
+        }
+
+        /// <summary>
+        /// Closes window and application
+        /// </summary>
+        /// <param name="sender">btnExit</param>
+        /// <param name="e">Event args</param>
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Close();
+            Application.Current.Shutdown();
+        }
+
+        /// <summary>
+        /// Minimizes window
+        /// </summary>
+        /// <param name="sender">btnMinimize</param>
+        /// <param name="e">Event args</param>
+        private void btnMinimize_Click(object sender, EventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        /// <summary>
+        /// Refreshes users, games, and reviews
+        /// </summary>
+        /// <param name="sender">btnRefresh</param>
+        /// <param name="e">Event args</param>
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshAll();
+        }
+
+        /// <summary>
+        /// Opens frmAddGame as dialog
+        /// </summary>
+        /// <param name="sender">mnuItmAddGame</param>
+        /// <param name="e">Event args</param>
+        private void mnuItmAddGame_Click(object sender, RoutedEventArgs e)
+        {
+            if ((new frmAddGame()).ShowDialog() == true) { RefreshGames(); }
+        }
+
+        /// <summary>
+        /// Prompts user before attempting to delete selected game
+        /// </summary>
+        /// <param name="sender">mnuItmDeleteGame</param>
+        /// <param name="e">Event args</param>
+        private void mnuItmDeleteGame_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgrdGames.SelectedItem != null && 
+                MessageBox.Show($"Click 'yes' to confirm deletion of {((Game)dgrdGames.SelectedItem).Title}",
+                "Proceed with deletion?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                DeleteGame();
+            } 
+        }
+
+
+        /// <summary>
+        /// Logs out current user and opens frmLogin()
+        /// </summary>
+        /// <param name="sender">mnItmLogout</param>
+        /// <param name="e">Event args</param>
+        private void mnuItmLogout_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgrdGames.SelectedItem != null &&
+                MessageBox.Show($"Click 'yes' to confirm logout.",
+                "Proceed with logout?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Logout();
+            }
+        }
+
         #endregion
 
         #region Setup
@@ -198,7 +281,7 @@ namespace Assignment5
         private void SetGrids()
         {
             // Set games data source, and all aproparitate columns
-            dgrdGames.ItemsSource = Game.Games;
+            dgrdGames.ItemsSource = Game.CurrentGames;
             clmGameTitle.Binding = new Binding("Title");
             clmGameGenre.Binding = new Binding("Genre");
             clmGameReleaseDate.Binding = new Binding("ReleaseDateFormatted");
@@ -220,13 +303,37 @@ namespace Assignment5
         #region Logic
 
         /// <summary>
-        /// Resets the items souce of dgrdReviews such that it is reflective of the currently selected game.
+        /// Resets the items source of dgrdReviews such that it is reflective of the currently selected game.
         /// Also sets review header to reflect selected game.
         /// </summary>
         private void RefreshReviews()
         {
-            dgrdReviews.ItemsSource = Review.GetReviewsByGameID(((Game)dgrdGames.SelectedItem).GameID);
-            tboReviewWriterHeader.Text = $"{((Game)dgrdGames.SelectedItem).Title} | New Review";
+            if (dgrdGames.SelectedIndex < 0) { return; }
+            try
+            {
+                dgrdReviews.ItemsSource = Review.GetReviewsByGameID(((Game)dgrdGames.SelectedItem).GameID);
+                tboReviewWriterHeader.Text = $"{((Game)dgrdGames.SelectedItem).Title} | New Review";
+            }
+            catch (Exception ex) { MessageBox.Show($"Error refreshing reviews: {ex.Message}"); }
+        }
+
+        /// <summary>
+        /// Resets games items source of dgrdGames so it is reflective of currently
+        /// stored games in memory
+        /// </summary>
+        private void RefreshGames()
+        {
+            dgrdGames.ItemsSource = Game.CurrentGames;
+        }
+
+        /// <summary>
+        /// Refills all models from database, then refreshes datagrids
+        /// </summary>
+        private void RefreshAll()
+        {
+            FillModels();
+            RefreshGames();
+            RefreshReviews();
         }
 
         /// <summary>
@@ -255,8 +362,26 @@ namespace Assignment5
         private void DeleteSelectedReview()
         {
             if (dgrdReviews.Items.IsEmpty || dgrdReviews.SelectedItem == null) { return; }
-            Review.DeleteReview(((Review)dgrdReviews.SelectedItem).ReviewID);
+            try
+            {
+                Review.DeleteReview(((Review)dgrdReviews.SelectedItem).ReviewID);
+            }
+            catch (Exception ex) { MessageBox.Show($"Error deleting review: {ex.Message}"); }
+            
             RefreshReviews();
+        }
+        
+        /// <summary>
+        /// Attempts to delete the currently selected game
+        /// </summary>
+        private void DeleteGame()
+        {
+            try 
+            { 
+                Game.DeleteGame(((Game)dgrdGames.SelectedItem).GameID);
+            }
+            catch (Exception ex) { MessageBox.Show($"Error deleting game: {ex.Message}"); }
+            RefreshGames();
         }
 
         /// <summary>
@@ -267,21 +392,36 @@ namespace Assignment5
             // If no user is logged in, do nothing
             if (User.CurrentUser == null) { return; }
 
-            // Get the associated game and create a review
-            Game reviewedGame = (Game)dgrdGames.SelectedItem;
-            Review review = new Review()
+            try
             {
-                GameID = reviewedGame.GameID,
-                ReviewerID = User.CurrentUser.UserID,
-                Rating = SelectedStarIndex + 1,
-                ReviewText = tbxReviewWriter.Content,
-                ReviewDate = DateTime.Now
-            };
+                // Get the associated game and create a review
+                Game reviewedGame = (Game)dgrdGames.SelectedItem;
+                Review review = new Review()
+                {
+                    GameID = reviewedGame.GameID,
+                    ReviewerID = User.CurrentUser.UserID,
+                    Rating = SelectedStarIndex + 1,
+                    ReviewText = tbxReviewWriter.Content,
+                    ReviewDate = DateTime.Now
+                };
 
-            // Try to submit the review, refresh reviews, and hide review writer.
-            review.Insert();
+                // Try to submit the review, refresh reviews, and hide review writer.
+                review.Insert();
+            }
+            catch (Exception ex) { MessageBox.Show($"Error submitting review: {ex.Message}"); }
+
             RefreshReviews();
             HideReviewWriter();
+        }
+
+        /// <summary>
+        /// Logs out current user and returns to frmLogin
+        /// </summary>
+        private void Logout()
+        {
+            User.CurrentUser = null;
+            Hide();
+            (new frmLogin(this)).ShowDialog();
         }
 
         #endregion

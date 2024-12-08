@@ -209,7 +209,8 @@ namespace Assignment5.DBAL
         /// </summary>
         public static void FillUsers()
         {
-            // Open connection
+            // Clear reviews, then read from reviewReader into list
+            Users.Clear();
             try
             {
                 using (SqlConnection connection = DatabaseAccess.OpenConnection())

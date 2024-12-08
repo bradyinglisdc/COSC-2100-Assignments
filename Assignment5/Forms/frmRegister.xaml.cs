@@ -7,11 +7,7 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using Assignment5.DBAL;
 using System.Windows;
 
@@ -70,15 +66,31 @@ namespace Assignment5
         /// Hides passkey.
         /// </summary>
         /// <param name="sender">cbxShowPasskey</param>
-        /// <param name="e">Event argss</param>
+        /// <param name="e">Event args</param>
         private void cbxShowPasskey_Unchecked(object sender, RoutedEventArgs e)
         {
             pbxPasskeyEntry.Show = false;
         }
 
+        /// <summary>
+        /// Attempts the register with form info
+        /// </summary>
+        /// <param name="sender">btnRegister</param>
+        /// <param name="e">Event args</param>
         private void btnRegister_Click(object sender, EventArgs e)
         {
             AttemptRegister();
+        }
+
+        /// <summary>
+        /// While user keeps left mouse down anywhere on window, DragMove() will allow them to move window
+        /// with mouse.
+        /// </summary>
+        /// <param name="sender">Window</param>
+        /// <param name="e">Eventargs</param>
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
 
         #endregion
@@ -117,6 +129,7 @@ namespace Assignment5
         }
 
         #endregion
+
     }
 }
 

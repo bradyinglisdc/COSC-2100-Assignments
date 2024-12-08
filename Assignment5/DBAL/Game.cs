@@ -45,6 +45,20 @@ namespace Assignment5.DBAL
         /// </summary>
         public static List<Game> Games { get; set; } = new List<Game>();
 
+        /// <summary>
+        /// Since the project must use static Lists instead of observable collections, a different copy is used for displaying
+        /// games such that data grid will not throw error on itemsource count change
+        /// </summary>
+        public static List<Game> CurrentGames
+        {
+            get
+            {
+                List<Game> currentGames = new List<Game>();
+                foreach (Game game in Games) { currentGames.Add(game); }
+                return currentGames;
+            }
+        }
+
         #endregion
 
         #region Instance Properties
@@ -125,6 +139,37 @@ namespace Assignment5.DBAL
             Games.Add(this);
         }
 
+        /// <summary>
+        /// Instantiates a game with specified values and automatic primary key
+        /// </summary>
+        /// <param name="title">A game's title.</param>
+        /// <param name="genre">A game's genre.</param>
+        /// <param name="releaseDate">A game's release date</param>
+        public Game(string? title, string? genre, DateTime? releaseDate)
+        {
+            GameID = GetNextUniqueID();
+            Title = title;
+            Genre = genre;
+            ReleaseDate = releaseDate;
+            Games.Add(this);
+        }
+
+        /// <summary>
+        /// Instantiates a game with specified values, automatic primary key, and release date as string
+        /// </summary>
+        /// <param name="title">A game's title.</param>
+        /// <param name="genre">A game's genre.</param>
+        /// <param name="releaseDate">A game's release date</param>
+        public Game(string? title, string? genre, string releaseDate)
+        {
+            GameID = GetNextUniqueID();
+            Title = title;
+            Genre = genre;
+            try { ReleaseDate = DateTime.Parse(releaseDate); } catch { throw new Exception("Date invalid (Try format YYYY-DD-MM)."); }
+            Games.Add(this);
+        }
+
+
         #endregion
 
         #region Static Methods - Read
@@ -163,6 +208,8 @@ namespace Assignment5.DBAL
         /// <param name="gameReader">The game reader to read from.</param>
         private static void ReadGamesIntoMemory(SqlDataReader gameReader)
         {
+            // Clear games, then read from gameReader into list
+            Games.Clear();
             try
             {
                 while (gameReader.Read())
@@ -197,7 +244,7 @@ namespace Assignment5.DBAL
         #region Static Methods - Delete
 
         /// <summary>
-        /// Deletes the corresponding game from memory, and the database if it exists.
+        /// Deletes the corresponding game from memory, and the database if it exists, INCLUDING ALL ASSOCIATED REVIEWS
         /// </summary>
         /// <param name="gameID">The ID of the game to delete.</param>
         public static void DeleteGame(int gameID)
@@ -207,6 +254,12 @@ namespace Assignment5.DBAL
                 // Remove the game from memory
                 Game? game = GetGame(gameID);
                 if (game != null) { Games.Remove(game); }
+
+                // Remove all reviews
+                foreach (Review review in Review.GetReviewsByGameID(gameID))
+                {
+                    Review.DeleteReview(review.ReviewID);
+                }
 
                 // Remove from the database
                 DatabaseAccess.DeleteRecord(Properties.Resources.SP_DELETE_GAME, "@gameID", gameID);
