@@ -28,7 +28,7 @@ namespace Assignment5
         #region Constants
 
         private const int ReviewWriterHiddenHeight = 50;
-        private const int ReviewWriterShownHeight = 720;
+        private const int ReviewWriterShownHeight = 750;
 
         #endregion
 
