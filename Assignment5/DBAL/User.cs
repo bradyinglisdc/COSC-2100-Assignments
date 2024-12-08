@@ -115,7 +115,7 @@ namespace Assignment5.DBAL
                 try { new MailAddress(value); }
                 catch { throw new Exception("Email must be in format: user@example.com."); }
 
-                _email = value;
+                _email = value.ToLower(); ;
             }
         }
 

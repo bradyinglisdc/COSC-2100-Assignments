@@ -161,8 +161,13 @@ namespace Assignment5
         /// <param name="e">Event args</param>
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Close();
-            Application.Current.Shutdown();
+            if (dgrdGames.SelectedItem != null &&
+                MessageBox.Show($"Click 'yes' to confirm exit.",
+                "Proceed with exit?", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Close();
+                Application.Current.Shutdown();
+            }
         }
 
         /// <summary>

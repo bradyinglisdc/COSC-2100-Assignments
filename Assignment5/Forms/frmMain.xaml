@@ -109,23 +109,26 @@
                                      BorderThickness="0"
                                      Padding="0,0,0,5"
                                      ToolTip="Click her, or press 'alt + x' to minimize the window."
-                                     Shortcut="_x"
+                                     Shortcut="_X"
                                      Width="30"
                                      Height="30"
                                      Foreground="White"
                                      Style="{StaticResource TransparentBackgroundButtonStyle}"
-                                     Click="btnExit_Click"
-                                     IsCancel="True">
+                                     Click="btnExit_Click">
                     <TextBlock Text="X"
                                FontWeight="Light"
                                FontSize="16"
                                HorizontalAlignment="Center"
                                Foreground="White"
-                               Padding="0,4,0,0"/>
+                               Padding="0,4,0,0">
+                    </TextBlock>
                 </local:GenericButton>
-
-
-
+                <!-- Exit shortcut -->
+                <Button x:Name="btnHiddenExit"
+                        Width="0"
+                        Height="0"
+                        IsCancel="True"
+                        Click="btnExit_Click"/>
             </Grid>
         </Grid>
         <!-- Main Content Area -->
@@ -176,7 +179,8 @@
                                   RowStyle="{StaticResource DataGridSlimRowStyle}"
                                   Margin="0,0,0,0"
                                   IsReadOnly="True"
-                                  HorizontalScrollBarVisibility="Disabled">
+                                  HorizontalScrollBarVisibility="Disabled"
+                                      ToolTip="Games are displayed here. To review a game, select one here and press the 'New Review' button.">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="clmGameTitle"
                                                     Header="Title"
@@ -204,7 +208,8 @@
                                          Shortcut="_n"
                                          Style="{StaticResource GenericButtonStyle}"
                                          Click="btnCreateReview_Click"
-                                         ToolTip="Click here, or press 'alt + n' to create a new review."/>
+                                         ToolTip="Click here, or press 'alt + n' to create a new review."
+                                         IsDefault="True"/>
                 </Grid>
                 <!-- Reviews -->
                 <TextBlock x:Name="tboReviewsHeader"
@@ -236,7 +241,8 @@
                                       IsReadOnly="True"
                                       BorderBrush="White"
                                       BorderThickness="2"
-                                      HorizontalScrollBarVisibility="Disabled">
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      ToolTip="Game reviews are displayed here. To delete a review, select one here and press the 'Delete Review' button.">
                             <DataGrid.Columns>
                                 <DataGridTextColumn x:Name="clmReviewerName"
                                                     Header="Reviewer"
