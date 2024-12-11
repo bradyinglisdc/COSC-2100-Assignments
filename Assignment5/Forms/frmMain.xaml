@@ -326,7 +326,8 @@
                                                 TextWrapping="Wrap"
                                                 AcceptsReturn="True"
                                                 Placeholder="Type review here..."
-                                                Width="400"/>
+                                                Width="400"
+                                                ToolTip="Click here, or navigate to tab control 0 to begin typing review."/>
                         <!-- Rating -->
                         <TextBlock x:Name="tboRatingHeader"
                                    Text="Your Rating:"
@@ -418,7 +419,9 @@
                                              Margin="0,0,10,50"
                                              Style="{StaticResource GenericButtonStyle}"
                                              Click="btnCancelReview_Click"
-                                             Foreground="Red"/>
+                                             Foreground="Red"
+                                             Shortcut="_c"
+                                             ToolTip="Click here, or press 'alt + c' to cancel review."/>
                         <local:GenericButton x:Name="btnSubmitReview"
                                              Width="100"
                                              Height="25"
@@ -429,7 +432,9 @@
                                              Margin="10,0,0,50"
                                              Style="{StaticResource GenericButtonStyle}"
                                              Click="btnSubmitReview_Click"
-                                             Foreground="Black"/>
+                                             Foreground="Black"
+                                             Shortcut="_s"
+                                             ToolTip="Click here, or press 'alt + s' to save review."/>
                     </Grid>
                 </Border>
             </Grid>
