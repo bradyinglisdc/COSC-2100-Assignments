@@ -8,4 +8,538 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Note\RawNotes\0.wav" />
+    <None Remove="Note\RawNotes\1.wav" />
+    <None Remove="Note\RawNotes\10.wav" />
+    <None Remove="Note\RawNotes\100.wav" />
+    <None Remove="Note\RawNotes\101.wav" />
+    <None Remove="Note\RawNotes\102.wav" />
+    <None Remove="Note\RawNotes\103.wav" />
+    <None Remove="Note\RawNotes\104.wav" />
+    <None Remove="Note\RawNotes\105.wav" />
+    <None Remove="Note\RawNotes\106.wav" />
+    <None Remove="Note\RawNotes\107.wav" />
+    <None Remove="Note\RawNotes\108.wav" />
+    <None Remove="Note\RawNotes\109.wav" />
+    <None Remove="Note\RawNotes\11.wav" />
+    <None Remove="Note\RawNotes\110.wav" />
+    <None Remove="Note\RawNotes\111.wav" />
+    <None Remove="Note\RawNotes\113.wav" />
+    <None Remove="Note\RawNotes\114.wav" />
+    <None Remove="Note\RawNotes\115.wav" />
+    <None Remove="Note\RawNotes\116.wav" />
+    <None Remove="Note\RawNotes\117.wav" />
+    <None Remove="Note\RawNotes\118.wav" />
+    <None Remove="Note\RawNotes\119.wav" />
+    <None Remove="Note\RawNotes\12.wav" />
+    <None Remove="Note\RawNotes\120.wav" />
+    <None Remove="Note\RawNotes\121.wav" />
+    <None Remove="Note\RawNotes\122.wav" />
+    <None Remove="Note\RawNotes\123.wav" />
+    <None Remove="Note\RawNotes\124.wav" />
+    <None Remove="Note\RawNotes\125.wav" />
+    <None Remove="Note\RawNotes\126.wav" />
+    <None Remove="Note\RawNotes\127.wav" />
+    <None Remove="Note\RawNotes\128.wav" />
+    <None Remove="Note\RawNotes\129.wav" />
+    <None Remove="Note\RawNotes\13.wav" />
+    <None Remove="Note\RawNotes\130.wav" />
+    <None Remove="Note\RawNotes\131.wav" />
+    <None Remove="Note\RawNotes\132.wav" />
+    <None Remove="Note\RawNotes\14.wav" />
+    <None Remove="Note\RawNotes\15.wav" />
+    <None Remove="Note\RawNotes\16.wav" />
+    <None Remove="Note\RawNotes\17.wav" />
+    <None Remove="Note\RawNotes\18.wav" />
+    <None Remove="Note\RawNotes\19.wav" />
+    <None Remove="Note\RawNotes\2.wav" />
+    <None Remove="Note\RawNotes\20.wav" />
+    <None Remove="Note\RawNotes\21.wav" />
+    <None Remove="Note\RawNotes\22.wav" />
+    <None Remove="Note\RawNotes\23.wav" />
+    <None Remove="Note\RawNotes\24.wav" />
+    <None Remove="Note\RawNotes\25.wav" />
+    <None Remove="Note\RawNotes\26.wav" />
+    <None Remove="Note\RawNotes\27.wav" />
+    <None Remove="Note\RawNotes\28.wav" />
+    <None Remove="Note\RawNotes\29.wav" />
+    <None Remove="Note\RawNotes\3.wav" />
+    <None Remove="Note\RawNotes\30.wav" />
+    <None Remove="Note\RawNotes\31.wav" />
+    <None Remove="Note\RawNotes\32.wav" />
+    <None Remove="Note\RawNotes\33.wav" />
+    <None Remove="Note\RawNotes\34.wav" />
+    <None Remove="Note\RawNotes\35.wav" />
+    <None Remove="Note\RawNotes\36.wav" />
+    <None Remove="Note\RawNotes\37.wav" />
+    <None Remove="Note\RawNotes\38.wav" />
+    <None Remove="Note\RawNotes\39.wav" />
+    <None Remove="Note\RawNotes\4.wav" />
+    <None Remove="Note\RawNotes\40.wav" />
+    <None Remove="Note\RawNotes\41.wav" />
+    <None Remove="Note\RawNotes\42.wav" />
+    <None Remove="Note\RawNotes\43.wav" />
+    <None Remove="Note\RawNotes\44.wav" />
+    <None Remove="Note\RawNotes\45.wav" />
+    <None Remove="Note\RawNotes\46.wav" />
+    <None Remove="Note\RawNotes\47.wav" />
+    <None Remove="Note\RawNotes\48.wav" />
+    <None Remove="Note\RawNotes\49.wav" />
+    <None Remove="Note\RawNotes\5.wav" />
+    <None Remove="Note\RawNotes\50.wav" />
+    <None Remove="Note\RawNotes\51.wav" />
+    <None Remove="Note\RawNotes\52.wav" />
+    <None Remove="Note\RawNotes\53.wav" />
+    <None Remove="Note\RawNotes\54.wav" />
+    <None Remove="Note\RawNotes\55.wav" />
+    <None Remove="Note\RawNotes\56.wav" />
+    <None Remove="Note\RawNotes\57.wav" />
+    <None Remove="Note\RawNotes\58.wav" />
+    <None Remove="Note\RawNotes\59.wav" />
+    <None Remove="Note\RawNotes\6.wav" />
+    <None Remove="Note\RawNotes\60.wav" />
+    <None Remove="Note\RawNotes\61.wav" />
+    <None Remove="Note\RawNotes\62.wav" />
+    <None Remove="Note\RawNotes\63.wav" />
+    <None Remove="Note\RawNotes\64.wav" />
+    <None Remove="Note\RawNotes\65.wav" />
+    <None Remove="Note\RawNotes\66.wav" />
+    <None Remove="Note\RawNotes\67.wav" />
+    <None Remove="Note\RawNotes\68.wav" />
+    <None Remove="Note\RawNotes\69.wav" />
+    <None Remove="Note\RawNotes\7.wav" />
+    <None Remove="Note\RawNotes\70.wav" />
+    <None Remove="Note\RawNotes\71.wav" />
+    <None Remove="Note\RawNotes\72.wav" />
+    <None Remove="Note\RawNotes\73.wav" />
+    <None Remove="Note\RawNotes\74.wav" />
+    <None Remove="Note\RawNotes\75.wav" />
+    <None Remove="Note\RawNotes\76.wav" />
+    <None Remove="Note\RawNotes\77.wav" />
+    <None Remove="Note\RawNotes\78.wav" />
+    <None Remove="Note\RawNotes\79.wav" />
+    <None Remove="Note\RawNotes\8.wav" />
+    <None Remove="Note\RawNotes\80.wav" />
+    <None Remove="Note\RawNotes\81.wav" />
+    <None Remove="Note\RawNotes\82.wav" />
+    <None Remove="Note\RawNotes\83.wav" />
+    <None Remove="Note\RawNotes\84.wav" />
+    <None Remove="Note\RawNotes\85.wav" />
+    <None Remove="Note\RawNotes\86.wav" />
+    <None Remove="Note\RawNotes\87.wav" />
+    <None Remove="Note\RawNotes\88.wav" />
+    <None Remove="Note\RawNotes\89.wav" />
+    <None Remove="Note\RawNotes\9.wav" />
+    <None Remove="Note\RawNotes\90.wav" />
+    <None Remove="Note\RawNotes\91.wav" />
+    <None Remove="Note\RawNotes\92.wav" />
+    <None Remove="Note\RawNotes\93.wav" />
+    <None Remove="Note\RawNotes\94.wav" />
+    <None Remove="Note\RawNotes\95.wav" />
+    <None Remove="Note\RawNotes\96.wav" />
+    <None Remove="Note\RawNotes\97.wav" />
+    <None Remove="Note\RawNotes\98.wav" />
+    <None Remove="Note\RawNotes\99.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Note\RawNotes\0.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\10.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\100.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\101.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\102.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\103.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\104.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\105.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\106.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\107.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\108.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\109.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\11.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\110.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\111.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\113.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\114.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\115.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\116.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\117.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\118.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\119.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\12.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\120.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\121.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\122.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\123.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\124.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\125.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\126.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\127.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\128.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\129.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\13.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\130.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\131.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\132.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\14.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\15.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\16.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\17.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\18.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\19.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\20.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\21.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\22.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\23.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\24.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\25.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\26.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\27.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\28.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\29.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\30.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\31.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\32.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\33.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\34.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\35.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\36.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\37.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\38.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\39.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\4.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\40.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\41.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\42.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\43.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\44.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\45.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\46.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\47.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\48.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\49.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\5.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\50.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\51.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\52.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\53.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\54.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\55.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\56.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\57.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\58.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\59.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\6.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\60.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\61.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\62.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\63.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\64.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\65.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\66.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\67.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\68.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\69.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\7.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\70.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\71.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\72.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\73.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\74.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\75.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\76.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\77.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\78.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\79.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\8.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\80.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\81.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\82.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\83.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\84.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\85.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\86.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\87.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\88.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\89.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\9.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\90.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\91.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\92.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\93.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\94.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\95.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\96.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\97.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\98.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Note\RawNotes\99.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

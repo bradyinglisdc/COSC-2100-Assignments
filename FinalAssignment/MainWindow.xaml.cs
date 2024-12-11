@@ -19,6 +19,8 @@ namespace FinalAssignment
         public MainWindow()
         {
             InitializeComponent();
+            Note.FillParents();
+
         }
     }
 }
