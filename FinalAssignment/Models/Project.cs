@@ -187,6 +187,9 @@ namespace FinalAssignment.Models
         /// <param name="timelineLocation">The location to place the note on the timeline.</param>
         public void AddNoteByNumber(int note, int timelineLocation)
         {
+            // Throw error a note already exists at the specified timeline - note SoundPlayer does not support chords
+            if (NoteExists(timelineLocation)) { throw new Exception("Sorry, chords are not supported! Only one note per beat."); }
+
             // Get timeline location as 1/4 note
             timelineLocation *= (int)Note.NoteSize.QuarterBeat;
 
@@ -223,10 +226,27 @@ namespace FinalAssignment.Models
                 if (note.TimelineLocation == timelineLocation)
                 {
                     Timeline.Remove(note);
-                }
-                    
+                }     
             }
         }
+
+        /// <summary>
+        /// Checks if a note exists at the specified timeline location.
+        /// </summary>
+        /// <param name="timelineLocation">The timeline location to check.</param>
+        /// <returns>True if a note exists at the location, otherwise false.</returns>
+        /// AI Used: Yes
+        /// Prompt: "create a NoteExists method basded on the context of the class to aid other methods."
+        /// Changes Made: No changes
+        public bool NoteExists(int timelineLocation)
+        {
+            // Convert the timeline location to 1/4 note size for consistency
+            timelineLocation *= (int)Note.NoteSize.QuarterBeat;
+
+            // Check if any note matches the given location
+            return Timeline.Any(note => note.TimelineLocation == timelineLocation);
+        }
+
 
         #endregion
     }

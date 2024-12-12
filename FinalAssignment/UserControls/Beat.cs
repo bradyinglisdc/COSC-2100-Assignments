@@ -57,14 +57,27 @@ namespace FinalAssignment
             Background = UnclickedBackground;
         }
 
+        #endregion
+
         #region Event Handlers
 
         /// <summary>
-        /// Negates IsClicked.
+        /// Calls ChangeBackground()
         /// </summary>
         /// <param name="sender">Beat.</param>
         /// <param name="e">Event Args.</param>
         private void Beat_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            NegateCurrentState();
+        }
+
+        #endregion
+
+        #region Logic
+        /// <summary>
+        /// Negates IsClicked.
+        /// </summary>
+        public void NegateCurrentState()
         {
             IsClicked = !IsClicked;
             if (IsClicked)
@@ -74,9 +87,6 @@ namespace FinalAssignment
             }
             Background = UnclickedBackground;
         }
-
-        #endregion
-
         #endregion
     }
 }

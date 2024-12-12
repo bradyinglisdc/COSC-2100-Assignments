@@ -374,8 +374,15 @@ namespace FinalAssignment
                 BoundProject.RemoveNote(timelineLocation);
             }
 
-            catch (Exception ex) { throw new Exception($"An error occurred updating the timeline: {ex.Message}"); }
- 
+            // Error could be thrown if uer attempts to create chords
+            catch (Exception ex) 
+            {
+                // Show the error
+                MessageBox.Show($"An error occurred updating the timeline: {ex.Message}");
+
+                // Remove last note
+                ((Beat)sender).NegateCurrentState();
+            }
         }
 
         #endregion
