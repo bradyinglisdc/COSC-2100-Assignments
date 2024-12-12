@@ -125,7 +125,6 @@ namespace FinalAssignment.Models
 
         /// <summary>
         /// Begins timeline reading timeline buffer from the specified point.
-        /// AI Used: No
         /// </summary>
         /// <param name="pointInMilliseconds">The point to play the timeline from.</param>
         public void PlayTimelineFromPoint(int pointInMilliseconds)
@@ -140,7 +139,6 @@ namespace FinalAssignment.Models
         /// AI Used: Prompted to give me a better alternative to Thread.Sleep() for breaking in between
         ///          milliseconds. AI provided stopwatch.
         /// </summary>
-        /// <returns>True if the timeline is still playing.</returns>
         public void Play()
         {
             // Start stop watch
@@ -162,7 +160,54 @@ namespace FinalAssignment.Models
             while (stopwatch.ElapsedMilliseconds < 1) { }
         }
 
-        public 
+        /// <summary>
+        /// Adds a cloned parent note to the uncomposed timeline by it's number.
+        /// </summary>
+        /// <param name="note">The note number.</param>
+        /// <param name="timelineLocation">The location to place the note on the timeline.</param>
+        public void AddNoteByNumber(int note, int timelineLocation)
+        {
+            // Get timeline location as 1/4 note
+            timelineLocation *= (int)Note.NoteSize.QuarterBeat;
+
+            // Grab the note, ensure not null
+            Note? parentNote = Note.GetByNoteNumber(note);
+            if (parentNote == null) { return; }
+
+            // Create a copy of the note, adding it as the parent
+            Note newNote = new Note()
+            {
+                ParentNote = parentNote,
+                CurrentNote = parentNote.CurrentNotePlayer, // Returns a cloned memory stream
+                NoteNumber = parentNote.NoteNumber,
+                TimelineLocation = timelineLocation
+            };
+
+            // Add non null new note to the timeline
+            Timeline.Add(newNote);
+        }
+
+        /// <summary>.
+        /// Removes all notes from the timeline at the specified location
+        /// </summary>
+        /// <param name="timelineLocation">The location to remove at.</param>
+        public void RemoveNote(int timelineLocation)
+        {
+            // Get timeline location as 1/4 note
+            timelineLocation *= (int)Note.NoteSize.QuarterBeat;
+
+            // Cloned list as to not throw a list access error
+            List<Note> clonedTimeline = new List<Note>(Timeline.ToArray());
+
+            foreach (Note note in clonedTimeline) 
+            { 
+                if (note.TimelineLocation == timelineLocation)
+                {
+                    Timeline.Remove(note);
+                }
+                    
+            }
+        }
 
         #endregion
     }

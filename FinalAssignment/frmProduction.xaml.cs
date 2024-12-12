@@ -164,6 +164,17 @@ namespace FinalAssignment
             UpdateTimeline(sender);
         }
 
+
+        /// <summary>
+        /// Calls PlayTimeline()
+        /// </summary>
+        /// <param name="sender">btnPlay.</param>
+        /// <param name="e">Event Args.</param>
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            PlayTimeline();
+        }
+
         #endregion
 
         #region Setup
@@ -308,7 +319,7 @@ namespace FinalAssignment
             try
             {
                 Border key = (Border)sender;
-                Note.GetByNoteNumber(pnlPianoRoll.Children.Count - pnlPianoRoll.Children.IndexOf(key) - 1)?.Play();
+                Note.GetByNoteNumber(pnlPianoRoll.Children.IndexOf(key))?.Play();
             }
 
             catch (Exception ex) { throw new Exception($"Error playing note: {ex.Message}"); }
@@ -333,7 +344,7 @@ namespace FinalAssignment
 
         #endregion
 
-        #region Backend Connection
+        #region Backend Interface
 
         /// <summary>
         /// Plays the corresponding note, and adds a note
@@ -347,19 +358,45 @@ namespace FinalAssignment
                 Grid noteGrid = (Grid)((Beat)sender).Parent;
                 int noteIndex = pnlTimeline.Children.IndexOf(noteGrid);
 
-                // Play the note
-                PlayNote(pnlPianoRoll.Children[noteIndex]);
+                // Get the timeline location (column index)
+                int timelineLocation = (Grid.GetColumn(((Beat)sender)) + 1);
 
-                // Update the timeline
-                BoundProject.AddNoteByNumber(noteIndex);
+                // Play the note and add to timeline if clicked
+                if (((Beat)sender).IsClicked)
+                {
+                    PlayNote(pnlPianoRoll.Children[noteIndex]);
+                    BoundProject.AddNoteByNumber(noteIndex, timelineLocation);
+                    return;
+                }
+
+                // Otherwise, just remove the note
+                BoundProject.RemoveNote(timelineLocation);
             }
 
             catch (Exception ex) { throw new Exception($"An error occurred updating the timeline: {ex.Message}"); }
  
         }
 
+        /// <summary>
+        /// Plays the corresponding BoundProject's timeline
+        /// </summary>
+        private void PlayTimeline()
+        {
+            // Compose the timeline and set up to play
+            BoundProject.ComposeTimeline();
+            BoundProject.PlayTimelineFromPoint(0);
+
+            // Update front-end while back-end reads
+            while (BoundProject.Playing)
+            {
+                awit 
+            }
+
+        }
+
         #endregion
 
+ 
     }
 }
 

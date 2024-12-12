@@ -79,7 +79,8 @@
                                      Width="25"
                                      Height="20"
                                      CornerRadius="5"
-                                     Style="{StaticResource GenericButtonStyle}">
+                                     Style="{StaticResource GenericButtonStyle}"
+                                     Click="btnPlay_Click">
                     <Image Source="pack://application:,,,/Resources/PlayIcon.png"
                            Stretch="Fill"
                            Width="22"

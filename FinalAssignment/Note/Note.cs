@@ -75,7 +75,7 @@ namespace FinalAssignment
         /// <summary>
         /// Clones current note such that the stream can be re-used.
         /// </summary>
-        private MemoryStream? CurrentNotePlayer
+        public MemoryStream? CurrentNotePlayer
         {
             get
             {
@@ -238,15 +238,20 @@ namespace FinalAssignment
         /// <summary>
         /// Returns note if there's a match in Note.Parents.
         /// </summary>
-        /// <param name="noteNumber">The number of the note to search for.</param>
+        /// <param name="noteNumber">The number of the note to search for.</param> 
+        /// <returns>Null or note if found.</returns>
         /// 
         /// AI Used: Yes
         /// Prompt: "make a GetByNoteNumber method, C# which searches through a static list called Parents 
-        /// (it's a Note class), method should take in an integer index and search in note.NoteNumber for a match"
-        /// <returns>Null or note if found.</returns>
+        ///         (it's a Note class), method should take in an integer index and search in note.NoteNumber for a match"
+        /// 
+        /// Changes Made: I added reording such that higher notes come first
         public static Note? GetByNoteNumber(int noteNumber)
         {
-            return Parents.FirstOrDefault(note => note.NoteNumber == noteNumber);
+            // Get the index/note number from the opposite end of the array to order by highest notes
+            int noteNumberByHighest = Parents.Count - noteNumber - 1;
+
+            return Parents.FirstOrDefault(note => note.NoteNumber == noteNumberByHighest);
         }
 
         #endregion
