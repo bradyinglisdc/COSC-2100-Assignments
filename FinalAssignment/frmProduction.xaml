@@ -74,19 +74,19 @@
                                      Style="{StaticResource GenericButtonStyle}">
                     <Image Source="pack://application:,,,/Resources/SettingsIconV2.png"/>
                 </local:GenericButton>
-                <local:GenericButton x:Name="btnPlay"
-                                     Grid.Column="4"
-                                     Width="25"
-                                     Height="20"
-                                     CornerRadius="5"
-                                     Style="{StaticResource GenericButtonStyle}"
-                                     Click="btnPlay_Click">
-                    <Image Source="pack://application:,,,/Resources/PlayIcon.png"
-                           Stretch="Fill"
-                           Width="22"
-                           Height="22" 
-                           Margin="2,-1,1,-1"/>
-                </local:GenericButton>
+                <Border x:Name="bdrPlaybackArea"
+                        Grid.Column="4"
+                        CornerRadius="5"
+                        Style="{StaticResource GenericBorderStyle}"
+                        Width="25"
+                        Height="20"
+                        MouseLeftButtonDown="bdrPlaybackArea_MouseLeftButtonDown">
+                    <Grid x:Name="grdPlaybackContent">
+                        <Image x:Name="imgPlayback" 
+                               Source="pack://application:,,,/Resources/PlayIcon.png"/>
+                    </Grid>
+                </Border>
+   
             </Grid>
             <!-- Window controls -->
             <Grid x:Name="grdDragArea"

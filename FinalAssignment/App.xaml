@@ -22,5 +22,14 @@
             </Style.Triggers>
             <Setter Property="Background" Value="#CCDFDD"/>
         </Style>
+        <!-- Generic border style -->
+        <Style x:Key="GenericBorderStyle" TargetType="Border">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#CCCEEE"/>
+                </Trigger>
+            </Style.Triggers>
+            <Setter Property="Background" Value="#CCDFDD"/>
+        </Style>
     </Application.Resources>
 </Application>

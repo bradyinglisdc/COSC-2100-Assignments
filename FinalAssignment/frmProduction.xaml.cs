@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using FinalAssignment.Models;
 
 #endregion
@@ -164,15 +165,15 @@ namespace FinalAssignment
             UpdateTimeline(sender);
         }
 
-
         /// <summary>
-        /// Calls PlayTimeline() if not already playing
+        /// Calls PlayTimeline() if timeline not already playing
         /// </summary>
-        /// <param name="sender">btnPlay.</param>
+        /// <param name="sender">bdrPlaybackArea.</param>
         /// <param name="e">Event Args.</param>
-        private void btnPlay_Click(object sender, EventArgs e)
+        private void bdrPlaybackArea_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!BoundProject.Playing) { PlayTimeline(); }
+            else { StopTimeline(); }
         }
 
         #endregion
@@ -377,12 +378,19 @@ namespace FinalAssignment
  
         }
 
+        #endregion
+
+        #region Playback
+
         /// <summary>
         /// Plays the corresponding BoundProject's timeline.
         /// This method is async as to not block the UI
         /// </summary>
         private async void PlayTimeline()
         {
+            // Change playback icon to pause icon
+            imgPlayback.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/PauseIcon.png"));
+
             // Compose the timeline and set up to play
             BoundProject.ComposeTimeline();
             BoundProject.PlayTimelineFromPoint(0);
@@ -392,14 +400,28 @@ namespace FinalAssignment
             {
                 // Read the next millisecond
                 try { await BoundProject.Play(); }
-                catch (Exception ex) { MessageBox.Show($"Playback error: {ex.Message}"); }                
+                catch (Exception ex) { MessageBox.Show($"Playback error: {ex.Message}"); }
             }
 
+            // Reset front-end
+            StopTimeline();
+
+        }
+
+        /// <summary>
+        /// Simply sets BoundProject.Playing to false
+        /// </summary>
+        private void StopTimeline()
+        {
+            // Change playback icon back to play button 
+            imgPlayback.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/PlayIcon.png"));
+            
+            // Stop playback
+            BoundProject.Playing = false;
         }
 
         #endregion
 
- 
     }
 }
 

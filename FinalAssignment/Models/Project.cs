@@ -28,6 +28,12 @@ namespace FinalAssignment.Models
     /// </summary>
     internal class Project
     {
+        #region Backing Members
+
+        private bool _playing;
+
+        #endregion
+
         #region Instance Properties
 
         /// <summary>
@@ -55,7 +61,15 @@ namespace FinalAssignment.Models
         /// <summary>
         /// Gets and sets bool to determine if the timeline is playing.
         /// </summary>
-        public bool Playing { get; set; }
+        public bool Playing
+        {
+            get => _playing;
+            set
+            {
+                if (value == false) { BufferPoint = -1; }
+                _playing = value;
+            }
+        }
 
         #endregion
 
