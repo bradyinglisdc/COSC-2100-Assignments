@@ -138,26 +138,32 @@ namespace FinalAssignment.Models
         /// scans to next millisecond in composed timeline, playing a note at that point if it exists.
         /// AI Used: Prompted to give me a better alternative to Thread.Sleep() for breaking in between
         ///          milliseconds. AI provided stopwatch.
+        ///          AI then reccomended Task.Run(), and making the method async as to not block the UI
         /// </summary>
-        public void Play()
+        public async Task Play()
         {
-            // Start stop watch
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            // Plays the next note in the timeline if it isn't null
-            ComposedTimeline[BufferPoint]?.Play();
-
-            // Moves buffer point and checks if buffer has been fully read.
-            BufferPoint++;
-            if (BufferPoint >= TimelineLength)
+            // Use Task.Run to keep UI running
+            await Task.Run(() =>
             {
-                BufferPoint = -1;
-                Playing = false;
-            }
+                // Start stop watch
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
 
-            // Ensure a milliseconds has passed before exiting
-            while (stopwatch.ElapsedMilliseconds < 1) { }
+                // Plays the next note in the timeline if it isn't null
+                ComposedTimeline[BufferPoint]?.Play();
+
+                // Moves buffer point and checks if buffer has been fully read.
+                BufferPoint++;
+                if (BufferPoint >= TimelineLength)
+                {
+                    BufferPoint = -1;
+                    Playing = false;
+                }
+
+                // Ensure a milliseconds has passed before exiting
+                while (stopwatch.ElapsedMilliseconds < 1) { }
+
+            });
         }
 
         /// <summary>
@@ -196,9 +202,8 @@ namespace FinalAssignment.Models
             // Get timeline location as 1/4 note
             timelineLocation *= (int)Note.NoteSize.QuarterBeat;
 
-            // Cloned list as to not throw a list access error
+            // Cloned list as to not throw a list removal access error during loop
             List<Note> clonedTimeline = new List<Note>(Timeline.ToArray());
-
             foreach (Note note in clonedTimeline) 
             { 
                 if (note.TimelineLocation == timelineLocation)

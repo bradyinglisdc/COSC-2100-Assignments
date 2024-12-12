@@ -166,13 +166,13 @@ namespace FinalAssignment
 
 
         /// <summary>
-        /// Calls PlayTimeline()
+        /// Calls PlayTimeline() if not already playing
         /// </summary>
         /// <param name="sender">btnPlay.</param>
         /// <param name="e">Event Args.</param>
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            PlayTimeline();
+            if (!BoundProject.Playing) { PlayTimeline(); }
         }
 
         #endregion
@@ -378,18 +378,21 @@ namespace FinalAssignment
         }
 
         /// <summary>
-        /// Plays the corresponding BoundProject's timeline
+        /// Plays the corresponding BoundProject's timeline.
+        /// This method is async as to not block the UI
         /// </summary>
-        private void PlayTimeline()
+        private async void PlayTimeline()
         {
             // Compose the timeline and set up to play
             BoundProject.ComposeTimeline();
             BoundProject.PlayTimelineFromPoint(0);
 
-            // Update front-end while back-end reads
+            // Continue to update front-end while back-end reads
             while (BoundProject.Playing)
             {
-                awit 
+                // Read the next millisecond
+                try { await BoundProject.Play(); }
+                catch (Exception ex) { MessageBox.Show($"Playback error: {ex.Message}"); }                
             }
 
         }
