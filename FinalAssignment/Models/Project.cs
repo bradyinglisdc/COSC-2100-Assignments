@@ -160,7 +160,9 @@ namespace FinalAssignment.Models
 
             // Ensure a milliseconds has passed before exiting
             while (stopwatch.ElapsedMilliseconds < 1) { }
-        } 
+        }
+
+        public 
 
         #endregion
     }

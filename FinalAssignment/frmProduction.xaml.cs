@@ -4,7 +4,7 @@
  * Date: 2024-12-12
  * Purpose: To provide the interaction logic for frmProduction.xaml
  * AI Used: AI was used to develop the CreateTimeline() method.
- *          More documentation can be found there (lines 82)
+ *          More documentation can be found there (lines 161)
 */
 
 #region Namespaces Used
@@ -28,12 +28,16 @@ namespace FinalAssignment
     {
         #region Styling Constants
 
-        // Piano
+        // Piano static
         private const int TotalPianoKeys = 132;
         private const int PianoKeyHeight = 20;
         private const int BlackKeyWidth = 80;
         private static SolidColorBrush PianoKeyBorderBrush = new SolidColorBrush(Color.FromRgb(187, 187, 187));
         private static Thickness PianoKeyThickness = new Thickness(1);
+        private static char[] PianoPattern = { 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'W', 'B', 'W', 'B', 'W' };
+
+        // Piano hover
+        private static SolidColorBrush PianoKeyHover = new SolidColorBrush(Color.FromRgb(200,200,200));
 
         // Timeline
         private static Thickness TimelineGridThickness = new Thickness(1);
@@ -122,11 +126,42 @@ namespace FinalAssignment
         /// </summary>
         /// <param name="sender">Key.</param>
         /// <param name="e">EventArgs.</param>
-        /// <exception cref="NotImplementedException"></exception>
         private void Key_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             try { PlayNote(sender); }
             catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }   
+        }
+
+        /// <summary>
+        /// Updates key styling to indicate mouse leave.
+        /// </summary>
+        /// <param name="sender">Key.</param>
+        /// <param name="e">Event Args.</param>
+        private void Key_MouseLeave(object sender, MouseEventArgs e)
+        {
+            try { StyleKey(sender); }
+            catch (Exception ex) { MessageBox.Show($"Error styling keys: {ex.Message}"); }
+        }
+
+        /// <summary>
+        /// Updates key styling to indicate mouse hover.
+        /// </summary>
+        /// <param name="sender">Key.</param>
+        /// <param name="e">Event Args.</param>
+        private void Key_MouseEnter(object sender, MouseEventArgs e)
+        {
+            try { StyleKey(sender); }
+            catch (Exception ex) { MessageBox.Show($"Error styling keys: {ex.Message}"); }
+        }
+
+        /// <summary>
+        /// Calls UpdateTimeline() to update backend and play note.
+        /// </summary>
+        /// <param name="sender">Beat.</param>
+        /// <param name="e">Event Args.</param>
+        private void Beat_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UpdateTimeline(sender);
         }
 
         #endregion
@@ -156,10 +191,10 @@ namespace FinalAssignment
         /// </summary>
         private void CreateTimeline()
         {
-            char[] pianoPattern = { 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'W', 'B', 'W', 'B', 'W' };
-            for (int i = 0; i < TotalPianoKeys / pianoPattern.Length; i++)
+            
+            for (int i = 0; i < TotalPianoKeys / PianoPattern.Length; i++)
             {
-                foreach (char currentKey in pianoPattern)
+                foreach (char currentKey in PianoPattern)
                 {
                     CreateKey(currentKey);
                     CreateTimelineRow();
@@ -202,6 +237,8 @@ namespace FinalAssignment
 
             // Add click event handler and styling
             key.MouseLeftButtonDown += Key_MouseLeftButtonDown;
+            key.MouseEnter += Key_MouseEnter;
+            key.MouseLeave += Key_MouseLeave;
         }
 
         /// <summary>
@@ -222,7 +259,7 @@ namespace FinalAssignment
                 });
 
                 // Add a styled border to the column
-                Border beat = new Border()
+                Beat beat = new Beat()
                 {
                     BorderThickness = TimelineGridThickness,
                     BorderBrush = TimelineGridBorderBrush
@@ -231,6 +268,10 @@ namespace FinalAssignment
 
                 // Set the beat's column and row to the last index
                 Grid.SetColumn(beat, timelineGrid.ColumnDefinitions.Count - 1);
+
+                // Subscribe to click event so that backend timeline can be updated, and note can be played
+                beat.MouseLeftButtonDown += Beat_MouseLeftButtonDown;
+
             }
 
             // Add the timeline grid
@@ -259,7 +300,7 @@ namespace FinalAssignment
 
         /// <summary>
         /// Plays the note associated with the given piano key index based on it's
-        //  index as a child of pnlPianoRoll.
+        ///  index as a child of pnlPianoRoll.
         /// </summary>
         /// <param name="sender">They key that was pressed</param>
         private void PlayNote(object sender)
@@ -271,6 +312,50 @@ namespace FinalAssignment
             }
 
             catch (Exception ex) { throw new Exception($"Error playing note: {ex.Message}"); }
+        }
+
+        /// <summary>
+        /// Styles key based on IsMouseOver property.
+        /// Try catch should be used when this method is called, 
+        /// as the cast to border could throw an error.
+        /// </summary>
+        /// <param name="sender">Key to style.</param>
+        private void StyleKey(object sender)
+        {
+            Border key = (Border)sender;
+            if (key.IsMouseOver) 
+            { 
+                key.Background = PianoKeyHover;
+                return;
+            }
+            key.Background = Brushes.White;
+        }
+
+        #endregion
+
+        #region Backend Connection
+
+        /// <summary>
+        /// Plays the corresponding note, and adds a note
+        /// </summary>
+        /// <param name="sender"></param>
+        private void UpdateTimeline(object sender)
+        {
+            try
+            {
+                // Get the parent grid to get it's index in pnlTimeline
+                Grid noteGrid = (Grid)((Beat)sender).Parent;
+                int noteIndex = pnlTimeline.Children.IndexOf(noteGrid);
+
+                // Play the note
+                PlayNote(pnlPianoRoll.Children[noteIndex]);
+
+                // Update the timeline
+                BoundProject.AddNoteByNumber(noteIndex);
+            }
+
+            catch (Exception ex) { throw new Exception($"An error occurred updating the timeline: {ex.Message}"); }
+ 
         }
 
         #endregion
