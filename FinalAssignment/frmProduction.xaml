@@ -30,7 +30,7 @@
         </Grid.RowDefinitions>
         <!-- Custom toolbar -->
         <Grid x:Name="grdToolbar"
-              MouseLeftButtonDown="grdMainContainer_MouseLeftButtonDown"
+              MouseLeftButtonDown="grdToolbar_MouseLeftButtonDown"
               Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="380"/>
@@ -142,10 +142,47 @@
                         Background="White"
                         BorderBrush="#BBBBBB"
                         BorderThickness="1"/>
+                <Border Background="White">
+                    <Border Height="20"
+                        Width="80"
+                        HorizontalAlignment="Left"
+                        Background="Black"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+                </Border>
                 <Border Height="20"
                         Background="White"
                         BorderBrush="#BBBBBB"
                         BorderThickness="1"/>
+                <Border Background="White">
+                    <Border Height="20"
+                        Width="80"
+                        HorizontalAlignment="Left"
+                        Background="Black"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+                </Border>
+                <Border Height="20"
+                        Background="White"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+                <Border Background="White">
+                    <Border Height="20"
+                        Width="80"
+                        HorizontalAlignment="Left"
+                        Background="Black"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+                </Border>
+                <Border Height="20"
+                        Background="White"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+                <Border Height="20"
+                        Background="White"
+                        BorderBrush="#BBBBBB"
+                        BorderThickness="1"/>
+
 
 
             </StackPanel>
@@ -159,10 +196,24 @@
                 <ScrollViewer x:Name="svrTimelineArea"
                               HorizontalScrollBarVisibility="Visible">
                     <!-- Beatlines added here -->
-                    <StackPanel x:Name="pnlTimeline"
-                                Orientation="Horizontal">
-                        <Rectangle Fill="#D1D1D1"
-                                   Width="1"/>
+                    <StackPanel x:Name="pnlTimeline">
+                        <Grid x:Name="row"
+                              Height="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderThickness="1"
+                                    BorderBrush="#80BBBBBB"/>
+                            <Border BorderThickness="1"
+                                    BorderBrush="#80BBBBBB"
+                                    Grid.Column="1"/>
+                        </Grid>
                     </StackPanel>
                 </ScrollViewer>
             </Border>

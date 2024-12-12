@@ -3,7 +3,7 @@
  * Name: Brady Inglis(100926284)
  * Date: 2024-12-11
  * Purpose: To provide a MemoryStream with data members specific a Note.
- * AI Used: AI was used to develop the Resize method of this class, further documentation can be found there.
+ * AI Used: AI was used to develop the Resize and play methods of this class, further documentation can be found there.
 */
 
 #region Namespaces Used
@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.IO;
 using System.Windows.Resources;
+using System.Media;
 
 #endregion
 
@@ -85,8 +86,7 @@ namespace FinalAssignment
         /// <summary>
         /// This notes placement in the conceptual timeline; to be utilized by it's respective Project
         /// </summary>
-        public decimal TimelineLocation { get; set; }
-
+        public int TimelineLocation { get; set; }
 
         #endregion
 
@@ -186,7 +186,7 @@ namespace FinalAssignment
             // Adjust the CurrentNote memory stream based on the new size
             byte[] parentData = ParentNote.CurrentNote.ToArray();
 
-            int bytesPerMillisecond = parentData.Length / (int)NoteSize.FourBeats; // Four beats = 4000 milliseconds
+            int bytesPerMillisecond = parentData.Length / (int)NoteSize.FourBeats; // Four beats = 4000 milliseconds (max file size)
             int newLengthInBytes = lengthInMilliseconds * bytesPerMillisecond;
 
             // Trim or expand the memory stream
@@ -209,6 +209,18 @@ namespace FinalAssignment
             }
 
             CurrentNote = new MemoryStream(resizedData);
+        }
+
+        /// <summary>
+        /// Plays audio for this note using SoundPlayer.
+        /// AI Used: Yes
+        /// Prompt: "Impliment a method for playing MemoryStream .wavs concisely"
+        /// Changes Made: Removed additional declaration of MemoryStream - a stream already exists for each note.
+        /// </summary>
+        public void Play()
+        {
+            SoundPlayer player = new SoundPlayer(CurrentNote);
+            player.Play();
         }
 
         #endregion
