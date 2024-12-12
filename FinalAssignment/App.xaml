@@ -22,7 +22,5 @@
             </Style.Triggers>
             <Setter Property="Background" Value="#CCDFDD"/>
         </Style>
-   
-
     </Application.Resources>
 </Application>

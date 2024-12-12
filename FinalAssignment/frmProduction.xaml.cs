@@ -200,7 +200,7 @@ namespace FinalAssignment
             // Add the key
             pnlPianoRoll.Children.Add(key);
 
-            // Add click event handler
+            // Add click event handler and styling
             key.MouseLeftButtonDown += Key_MouseLeftButtonDown;
         }
 
@@ -267,12 +267,11 @@ namespace FinalAssignment
             try
             {
                 Border key = (Border)sender;
-                Note.GetByName([pnlPianoRoll.Children.IndexOf(key)]).Play();
+                Note.GetByNoteNumber(pnlPianoRoll.Children.Count - pnlPianoRoll.Children.IndexOf(key) - 1)?.Play();
             }
 
             catch (Exception ex) { throw new Exception($"Error playing note: {ex.Message}"); }
         }
-
 
         #endregion
 

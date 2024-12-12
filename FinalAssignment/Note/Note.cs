@@ -235,6 +235,20 @@ namespace FinalAssignment
             player.Play();
         }
 
+        /// <summary>
+        /// Returns note if there's a match in Note.Parents.
+        /// </summary>
+        /// <param name="noteNumber">The number of the note to search for.</param>
+        /// 
+        /// AI Used: Yes
+        /// Prompt: "make a GetByNoteNumber method, C# which searches through a static list called Parents 
+        /// (it's a Note class), method should take in an integer index and search in note.NoteNumber for a match"
+        /// <returns>Null or note if found.</returns>
+        public static Note? GetByNoteNumber(int noteNumber)
+        {
+            return Parents.FirstOrDefault(note => note.NoteNumber == noteNumber);
+        }
+
         #endregion
 
     }
