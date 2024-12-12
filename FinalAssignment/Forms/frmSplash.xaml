@@ -38,7 +38,9 @@
                 Background="#15FFAAAA"
                 CornerRadius="20"
                 Width="750"
-                Height="75">
+                Height="75"
+                BorderThickness="1"
+                BorderBrush="White">
             <StackPanel x:Name="pnlTipArea"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -82,7 +84,7 @@
                        FontWeight="Light"
                        VerticalAlignment="Bottom"/>
             <Grid x:Name="grdOptionsArea"
-                  VerticalAlignment="bOTTOM"
+                  VerticalAlignment="Bottom"
                   HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="115"/>
@@ -102,7 +104,8 @@
                                      BorderBrush="#FFAAAA"
                                      BorderThickness="1"
                                      ToolTip="Click here, or press 'alt + x' to cancel load and exit application."
-                                     Shortcut="_x"/>
+                                     Shortcut="_x"
+                                     Click="btnCancel_Click"/>
                 <local:GenericButton x:Name="btnProceed"
                                      Grid.Column="1"
                                      Content="Proceed"
@@ -118,7 +121,8 @@
                                      IsEnabled="False"
                                      IsDefault="True"
                                      ToolTip="Click here, or press 'alt + p' to proceed to producer pal!"
-                                     Shortcut="_p"/>
+                                     Shortcut="_p"
+                                     Click="btnProceed_Click"/>
             </Grid>
      
 

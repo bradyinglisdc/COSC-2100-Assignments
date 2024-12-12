@@ -56,7 +56,7 @@ namespace FinalAssignment
         private void StartApplication()
         {
             // Splash screen will load all 132 notes into memory
-            (new frmSplash()).ShowDialog();
+            (new frmSplash(this)).Show();
             Hide();
         }
 
