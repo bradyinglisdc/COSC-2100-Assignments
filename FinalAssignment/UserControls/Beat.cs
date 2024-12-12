@@ -74,6 +74,7 @@ namespace FinalAssignment
         #endregion
 
         #region Logic
+
         /// <summary>
         /// Negates IsClicked.
         /// </summary>
@@ -87,6 +88,7 @@ namespace FinalAssignment
             }
             Background = UnclickedBackground;
         }
+
         #endregion
     }
 }

@@ -1,0 +1,130 @@
+﻿<!--
+ * Title: frmSplash.xaml
+ * Name: Brady Inglis (100926284)
+ * Date: 2024-12-12
+ * Purpose: To provide a visual to the user while the application loads.
+ -->
+  
+<Window x:Class="FinalAssignment.frmSplash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinalAssignment"
+        mc:Ignorable="d"
+        Title="frmSplash" Height="350" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <Grid x:Name="grdMain">
+        <!-- Main container styling -->
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                <GradientStop Color="#001120" Offset="0"/>
+                <GradientStop Color="#001500" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image x:Name="imgMainLogo"
+               Source="pack://application:,,,/Resources/ProducerPalLogo.png"/>
+        <!-- Tips -->
+        <Border x:Name="bdrTipArea"
+                Grid.Row="1"
+                Background="#15FFAAAA"
+                CornerRadius="20"
+                Width="750"
+                Height="75">
+            <StackPanel x:Name="pnlTipArea"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <local:GenericButton x:Name="btnScrollLeftTip"
+                                     Width="40"
+                                     Height="40"
+                                     CornerRadius="9"
+                                     Margin="0,0,10,0"
+                                     Style="{StaticResource TransparentBackgroundButtonStyle}">
+                    <Image Source="pack://application:,,,/Resources/ArrowLeft.png"
+                           Width="35"
+                           HorizontalAlignment="Center"/>
+                </local:GenericButton>
+                <TextBlock x:Name="tboTip"       
+                           Text="You can play the keys of the production piano without populating your timeline..."
+                           FontSize="16"
+                           Foreground="White"
+                           FontWeight="Light"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+                <local:GenericButton x:Name="btnScrollRightTip"
+                                     Width="40"
+                                     Height="40"
+                                     CornerRadius="9"
+                                     Margin="10,0,0,0"
+                                     Style="{StaticResource TransparentBackgroundButtonStyle}">
+                    <Image Source="pack://application:,,,/Resources/ArrowRight.png"
+                           Width="35"
+                           HorizontalAlignment="Center"/>
+                </local:GenericButton>
+            </StackPanel>
+        </Border>
+        <!-- User Control area -->
+        <Grid x:Name="grdControlArea"
+              Grid.Row="2"
+              Width="750"
+              Margin="0,0,0,20">
+            <TextBlock x:Name="tboLoadingProgress"
+                       Text="Loading..."
+                       Foreground="White"
+                       FontWeight="Light"
+                       VerticalAlignment="Bottom"/>
+            <Grid x:Name="grdOptionsArea"
+                  VerticalAlignment="bOTTOM"
+                  HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="115"/>
+                    <ColumnDefinition Width="115"/>
+                </Grid.ColumnDefinitions>
+                <local:GenericButton x:Name="btnCancel"
+                                     IsCancel="True"
+                                     Grid.Column="0"
+                                     Content="Cancel"
+                                     Style="{StaticResource MenuButtonStyle}"
+                                     Width="100"
+                                     Height="30"
+                                     FontSize="12"
+                                     CornerRadius="8"
+                                     FontWeight="Light"
+                                     Foreground="#FFAAAA"
+                                     BorderBrush="#FFAAAA"
+                                     BorderThickness="1"
+                                     ToolTip="Click here, or press 'alt + x' to cancel load and exit application."
+                                     Shortcut="_x"/>
+                <local:GenericButton x:Name="btnProceed"
+                                     Grid.Column="1"
+                                     Content="Proceed"
+                                     Style="{StaticResource MenuButtonStyle}"
+                                     Width="100"
+                                     Height="30"
+                                     FontSize="12"
+                                     CornerRadius="8"
+                                     FontWeight="Light"
+                                     Foreground="#EEFFEE"
+                                     BorderBrush="#EEFFEE"
+                                     BorderThickness="1"
+                                     IsEnabled="False"
+                                     IsDefault="True"
+                                     ToolTip="Click here, or press 'alt + p' to proceed to producer pal!"
+                                     Shortcut="_p"/>
+            </Grid>
+     
+
+
+        </Grid>
+        
+        
+    </Grid>
+</Window>

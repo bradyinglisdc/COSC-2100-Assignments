@@ -360,7 +360,7 @@ namespace FinalAssignment
                 int noteIndex = pnlTimeline.Children.IndexOf(noteGrid);
 
                 // Get the timeline location (column index)
-                int timelineLocation = (Grid.GetColumn(((Beat)sender)) + 1);
+                int timelineLocation = (Grid.GetColumn(((Beat)sender)));
 
                 // Play the note and add to timeline if clicked
                 if (((Beat)sender).IsClicked)
