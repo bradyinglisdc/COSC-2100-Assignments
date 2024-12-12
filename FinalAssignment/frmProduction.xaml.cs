@@ -104,7 +104,29 @@ namespace FinalAssignment
         /// <param name="e">Event Args.</param>
         private void svrTimelineArea_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            svrPianoRoll.ScrollToVerticalOffset(svrTimelineArea.VerticalOffset);
+            ScrollTimeline();
+        }
+
+        /// <summary>
+        /// Matches timeline area vertical offset with piano roll on user scroll.
+        /// </summary>
+        /// <param name="sender">svrPianoRoll.</param>
+        /// <param name="e">Event Args.</param>
+        private void svrPianoRoll_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            ScrollPianoRoll();
+        }
+
+        /// <summary>
+        /// Plays the note corresponding to this piano key index.
+        /// </summary>
+        /// <param name="sender">Key.</param>
+        /// <param name="e">EventArgs.</param>
+        /// <exception cref="NotImplementedException"></exception>
+        private void Key_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try { PlayNote(sender); }
+            catch (Exception ex) { MessageBox.Show($"{ex.Message}"); }   
         }
 
         #endregion
@@ -130,7 +152,7 @@ namespace FinalAssignment
         ///          They will be added to the children of 'pnlPianoRoll'.
         ///          "
         /// Changes Made: Gen AI had an extremely hard time comprehending the task, so I had
-        ///               to change essentially everything except for the pattern char system.
+        ///               to change and further abstract things into two separate methods.
         /// </summary>
         private void CreateTimeline()
         {
@@ -177,6 +199,9 @@ namespace FinalAssignment
 
             // Add the key
             pnlPianoRoll.Children.Add(key);
+
+            // Add click event handler
+            key.MouseLeftButtonDown += Key_MouseLeftButtonDown;
         }
 
         /// <summary>
@@ -213,6 +238,44 @@ namespace FinalAssignment
         }
 
         #endregion
+
+        #region Control Interaction
+
+        /// <summary>
+        /// Sets svrPianoRoll vertical offset to that of svrTimelineArea
+        /// </summary>
+        private void ScrollTimeline()
+        {
+            svrPianoRoll.ScrollToVerticalOffset(svrTimelineArea.VerticalOffset);
+        }
+
+        /// <summary>
+        /// Sets svrTimelineArea vertical offset to that of svrPianoRoll
+        /// </summary>
+        private void ScrollPianoRoll()
+        {
+            svrTimelineArea.ScrollToVerticalOffset(svrPianoRoll.VerticalOffset);
+        }
+
+        /// <summary>
+        /// Plays the note associated with the given piano key index based on it's
+        //  index as a child of pnlPianoRoll.
+        /// </summary>
+        /// <param name="sender">They key that was pressed</param>
+        private void PlayNote(object sender)
+        {
+            try
+            {
+                Border key = (Border)sender;
+                Note.GetByName([pnlPianoRoll.Children.IndexOf(key)]).Play();
+            }
+
+            catch (Exception ex) { throw new Exception($"Error playing note: {ex.Message}"); }
+        }
+
+
+        #endregion
+
     }
 }
 

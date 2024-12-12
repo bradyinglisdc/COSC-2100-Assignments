@@ -137,10 +137,11 @@
             </Grid.ColumnDefinitions>
             <!-- Piano roll - to be populated in c# -->
             <ScrollViewer x:Name="svrPianoRoll"
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollBarVisibility="Hidden">
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Hidden"
+                          ScrollChanged="svrPianoRoll_ScrollChanged">
                 <StackPanel x:Name="pnlPianoRoll"
-                        Grid.Column="0"/>
+                            Grid.Column="0"/>
             </ScrollViewer>
 
             <!-- Timeline -->

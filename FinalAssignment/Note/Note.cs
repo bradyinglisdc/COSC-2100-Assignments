@@ -73,6 +73,18 @@ namespace FinalAssignment
         public MemoryStream? CurrentNote { get; set; }
 
         /// <summary>
+        /// Clones current note such that the stream can be re-used.
+        /// </summary>
+        private MemoryStream? CurrentNotePlayer
+        {
+            get
+            {
+                if (CurrentNote == null) { return null; }
+                return new MemoryStream(CurrentNote.ToArray());
+            }
+        }
+
+        /// <summary>
         /// The size of this note (1/4, 1/2, 1, 2, or 4).
         /// </summary>
         public NoteSize Size { get; set; }
@@ -219,7 +231,7 @@ namespace FinalAssignment
         /// </summary>
         public void Play()
         {
-            SoundPlayer player = new SoundPlayer(CurrentNote);
+            SoundPlayer player = new SoundPlayer(CurrentNotePlayer);
             player.Play();
         }
 
