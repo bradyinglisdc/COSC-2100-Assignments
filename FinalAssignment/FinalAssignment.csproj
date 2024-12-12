@@ -141,6 +141,9 @@
     <None Remove="Note\RawNotes\97.wav" />
     <None Remove="Note\RawNotes\98.wav" />
     <None Remove="Note\RawNotes\99.wav" />
+    <None Remove="Resources\PlayIcon.png" />
+    <None Remove="Resources\SettingsIcon.png" />
+    <None Remove="Resources\SettingsIconV2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -540,6 +543,24 @@
     <Content Include="Note\RawNotes\99.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\PlayIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\SettingsIcon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\SettingsIconV2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UserControls\GenericButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -33,6 +33,11 @@ namespace FinalAssignment.Models
         /// </summary>
         public List<Note> Timeline { get; set; }
 
+        /// <summary>
+        /// Gets and sets the length of this project's timeline, in milliseconds
+        /// </summary>
+        public int TimelineLength { get; set; }
+
         #endregion
 
         /// <summary>
@@ -44,12 +49,25 @@ namespace FinalAssignment.Models
         }
 
         /// <summary>
-        /// Parameterized constructor - instantiates this project's pre-populated note list.
+        /// Parameterized constructor - instantiates this project's pre-populated note list with 
+        /// a timeline length
         /// </summary>
-        /// <param name="timeline"></param>
-        public Project(List<Note> timeline)
+        /// <param name="timeline">A pre-populated list of notes.</param>
+        /// <param name="timelineLength">The length of this timeline.</param>
+        public Project(List<Note> timeline, int timelineLength)
         {
             Timeline = timeline;
+            TimelineLength = timelineLength;
+        }
+
+        /// <summary>
+        /// Parameterized constructor - instantiates this project's blank note list and timeline length
+        /// </summary>
+        /// <param name="timelineLength">The length of this timeline.</param>
+        public Project(int timelineLength)
+        {
+            Timeline = new List<Note>();
+            TimelineLength = timelineLength;
         }
     }
 }
