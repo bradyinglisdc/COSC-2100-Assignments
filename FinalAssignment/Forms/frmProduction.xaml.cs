@@ -62,7 +62,7 @@ namespace FinalAssignment
         public frmProduction()
         {
             User.Fill();
-            User.CurrentUser = User.Users[0]; // a change
+            User.CurrentUser = User.Users[0]; 
             BoundProject = new Project() { TimelineLength = 10000 };
             InitializeComponent();
             Note.FillParents();
@@ -449,7 +449,7 @@ namespace FinalAssignment
         {
             try
             {
-                /*BoundProject.Save();*/
+                BoundProject.Save(tbxProjectName.Content);
             }
 
             catch (Exception ex)
@@ -459,7 +459,6 @@ namespace FinalAssignment
         }
 
         #endregion
-
 
     }
 }

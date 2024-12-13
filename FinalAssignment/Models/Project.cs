@@ -19,12 +19,13 @@ using Microsoft.Data.SqlClient;
 using System.Text.Json;
 using System.IO;
 using System.IO.Compression;
+using Microsoft.IdentityModel.Tokens;
 
 #endregion
 
 #region Namespace Definition
 
-namespace FinalAssignment
+namespace FinalAssignment.Models
 {
     /// <summary>
     /// A project is a collection of notes, where each note is placed in a conceptual timeline
@@ -32,7 +33,13 @@ namespace FinalAssignment
     /// </summary>
     internal class Project
     {
-        #region Static Variables
+        #region Constants
+
+        private const string DEFAULT_NAME = "Unnamed.";
+        
+        #endregion
+
+        #region Static Variables 
 
         /// <summary>
         /// A populated list of all projects in memory, pulled from the database.
@@ -44,6 +51,7 @@ namespace FinalAssignment
         #region Backing Members
 
         private bool _playing;
+        private string _name = DEFAULT_NAME;
 
         #endregion
 
@@ -53,6 +61,19 @@ namespace FinalAssignment
         /// Gets and sets the ID for this project.
         /// </summary>
         public int ProjectID { get; set; }
+
+        /// <summary>
+        /// Gets and sets the name of this project.
+        /// </summary>
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (value.IsNullOrEmpty()) { throw new Exception("Project name cannot be empty."); }
+                _name = value;
+            }
+        }
 
         /// <summary>
         /// Gets and sets the timeline for this project, containing all project notes.
@@ -91,6 +112,8 @@ namespace FinalAssignment
 
         #endregion
 
+        #region Constructors
+
         /// <summary>
         /// Default constructor - just instantiates this project's blank note list.
         /// </summary>
@@ -124,6 +147,8 @@ namespace FinalAssignment
             TimelineLength = timelineLength;
             ComposedTimeline = new List<Note?>();
         }
+
+        #endregion
 
         #region Instance Methods - Timeline
 
@@ -282,33 +307,41 @@ namespace FinalAssignment
         ///               Storing entire project objects as base64s as suggested by AI resulted in read
         ///               and writes crashing due to the massive size of each object.
         ///               
-        ///               I opted to Projects in database as jsons instead, with a header containing the
+        ///               I opted to store Projects in database as jsons instead, with a header containing the
         ///               name and length, and a body containing notes (each note gets a note name and a 
-        ///               location on the timeline in milliseconds) 
+        ///               location on the timeline in milliseconds).
         /// </summary>
-      /*  public void Save()
+        /// <param name="projectName">The name to save project as.</param>
+        public void Save(string projectName)
         {
             try
             {
-                // Serialize the current instance to JSON
-                string json = JsonSerializer.Serialize(this);
+                // Added check to ensure user is logged in
+                if (User.CurrentUser == null) { throw new Exception("Please log in to save projects."); }
 
-                // Compress and encode the JSON string
-                string base64ProjectData = CompressAndEncode(json);
+                // Added check to ensure project name isn't empty
+                if (Name.IsNullOrEmpty()) { throw new Exception("Project name must not be empty."); }
+
+                // Set the name before anything
+                Name = projectName;
+
+                // Serialize the current instance to a packaged JSON - Changed AI's extremely inefficient base 64 conversion
+                string jsonData = JsonSerializer.Serialize(new PackagedProject(this));
+                MessageBox.Show(jsonData);
 
                 using (SqlConnection connection = new SqlConnection(Properties.Resources.CONNETION_STRING))
                 {
                     connection.Open();
 
-                    string query = @"INSERT INTO Projects (ProjectID, ProjectData) 
-                             VALUES (@ProjectID, @ProjectData)
-                             ON DUPLICATE KEY UPDATE ProjectData = @ProjectData";
+                    string query = @"INSERT INTO Project (ProjectID, UserID, ProjectData) 
+                                     VALUES (@ProjectID, @UserID, @ProjectData)";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         // Set the parameter values
                         command.Parameters.AddWithValue("@ProjectID", ProjectID);
-                        command.Parameters.AddWithValue("@ProjectData", base64ProjectData);
+                        command.Parameters.AddWithValue("@UserID", User.CurrentUser.UserID);
+                        command.Parameters.AddWithValue("@ProjectData", jsonData);
 
                         // Execute the query
                         command.ExecuteNonQuery();
@@ -369,7 +402,7 @@ namespace FinalAssignment
                 // Log or handle the exception as needed
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-        }*/
+        }
 
         private static Project DeserializeProject(byte[] projectBytes)
         {

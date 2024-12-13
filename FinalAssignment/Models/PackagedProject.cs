@@ -20,12 +20,12 @@ namespace FinalAssignment.Models
         /// <summary>
         /// Header contains a project name and a project length.
         /// </summary>
-        public Dictionary<string, string> Header = new Dictionary<string, string>();
+        public Dictionary<string, string> Header { get; set; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Timeline contains a key value pair for each note. A note gets a name int, and a location (as a millisecond) int.
         /// </summary>
-        public Dictionary<int, int> Timeline = new Dictionary<int, int>();
+        public Dictionary<int, int> Timeline { get; set; } = new Dictionary<int, int>();
 
         #endregion
 
@@ -53,10 +53,28 @@ namespace FinalAssignment.Models
         /// <summary>
         /// Packages this packaged project based on the specified project.
         /// </summary>
-        /// <param name="project"></param>
+        /// <param name="project">The project to package.</param>
         public void Package(Project project)
         {
+            // Header
+            Header.Add("ProjectName", project.Name);
+            Header.Add("ProjectLength", project.TimelineLength.ToString());
+
+            // Timeline
+            PackageAllNotes(project.Timeline);
             
+        }
+
+        /// <summary>
+        /// Adds all project notes to timeline dict.
+        /// </summary>
+        /// <param name="timeline">The timeline to read from.</param>
+        private void PackageAllNotes(List<Note> timeline)
+        {
+            foreach (Note note in timeline)
+            {
+                Timeline.Add(note.NoteNumber, note.TimelineLocation);
+            }
         }
 
         #endregion
