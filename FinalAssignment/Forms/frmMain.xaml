@@ -67,6 +67,7 @@
         </Grid>
         <!-- All Pages will be embeded here. -->
         <Frame x:Name="frmPageDisplay"
-               Grid.Row="1"/>
+               Grid.Row="1"
+               NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

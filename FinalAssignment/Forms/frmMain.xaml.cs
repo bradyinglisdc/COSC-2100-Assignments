@@ -5,7 +5,7 @@
  * Purpose: The main location for application interaction. This is the first form to be loaded. Within it,
  *          access is provided to a login/registration, main menu, a 'My Projects' page, a 'Community Projects' page, and statistics
  *          
- * AI Use and Documentation: Lines xx, xx, xx ,xx
+ * AI Use and Documentation: No AI used for this class.
 */
 
 #region Namespaces Used
@@ -34,7 +34,7 @@ namespace FinalAssignment
     /// Interaction logic for frmMain.xaml
     /// </summary>
     public partial class frmMain : Window
-    {
+    {        
         #region Constructor(s)
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace FinalAssignment
         public frmMain()
         {
             InitializeComponent();
-            frmPageDisplay.Navigate(new pgLoginRegister());
-/*            StartApplication();
-*/        }
+            StartApplication();
+            NavigateLoginRegister();
+        }
 
         #endregion
 
@@ -66,7 +66,7 @@ namespace FinalAssignment
         /// </summary>
         /// <param name="sender">btnCloseWindow.</param>
         /// <param name="e">EventArgs.</param>
-        private void btnCloseWindow_Click(object sender, EventArgs e)
+        private void btnCloseWindow_Click(object? sender, EventArgs e)
         {
             RequestClose();
         }
@@ -81,6 +81,25 @@ namespace FinalAssignment
             WindowState = WindowState.Minimized;
         }
 
+        /// <summary>
+        /// Called when pgLoginRegister's LoggedIn event is invoked.
+        /// Proceeds to main menu
+        /// </summary>
+        private void PgToNavigate_LoggedIn()
+        {
+            NavigateMainMenu();
+        }
+
+        /// <summary>
+        /// Called when pgMainMenu's PageChanged event is invoked. Navigates to
+        /// the specified page.
+        /// </summary>
+        /// <param name="page">The page to navigate to.</param>
+        private void PgToNavigateTo_PageChanged(Page page)
+        {
+            NavigateProjects(page);
+        }
+
         #endregion
 
         #region Setup
@@ -93,6 +112,74 @@ namespace FinalAssignment
             // Splash screen will load all 132 notes into memory
             (new frmSplash(this)).Show();
             Hide();
+        }
+
+        #endregion
+
+        #region Page Navigation
+
+        /// <summary>
+        /// Navigates page display to pgLoginRegister, subscribing to it's events.
+        /// </summary>
+        private void NavigateLoginRegister()
+        {
+            // Instantiate and subscribe
+            pgLoginRegister pgToNavigate = new pgLoginRegister();
+            pgToNavigate.btnCancelLogin.Click += btnCloseWindow_Click;
+            pgToNavigate.btnCancelRegister.Click += btnCloseWindow_Click;
+            pgToNavigate.LoggedIn += PgToNavigate_LoggedIn;
+
+            // Navigate
+            frmPageDisplay.Navigate(pgToNavigate);
+        }
+
+        /// <summary>
+        /// Navigates page display to pgMainMenu, subscribing to it's events.
+        /// </summary>
+        private void NavigateMainMenu()
+        {
+            // Instantiate and subscribe
+            pgMainMenu pgToNavigateTo = new pgMainMenu();
+            pgToNavigateTo.btnQuit.Click += btnCloseWindow_Click;
+            pgToNavigateTo.PageChanged += PgToNavigateTo_PageChanged;
+
+            // Navigate
+            frmPageDisplay.Navigate(pgToNavigateTo);
+        }
+
+        /// <summary>
+        /// Navigates to the specified project page.
+        /// </summary>
+        /// <param name="page">An instance of the project page to navigate to.</param>
+        private void NavigateProjects(Page page)
+        {
+            // Navigate based on page type
+            if (page is pgMyProjects) { NavigateMyProjects(); }
+            else { NavigateCommunityProjects(); }
+        }
+
+        /// <summary>
+        /// Navigates page display to pgMyProjects, subscribing to it's events.
+        /// </summary>
+        private void NavigateMyProjects()
+        {
+            // Instantiate and subscribe
+            pgMyProjects pgToNavigateTo = new pgMyProjects();
+
+            // Navigate
+            frmPageDisplay.Navigate(pgToNavigateTo);
+        }
+
+        /// <summary>
+        /// Navigates page display to pgCommunityProjects, subscribing to it's events.
+        /// </summary>
+        private void NavigateCommunityProjects()
+        {
+            // Instantiate and subscribe
+            pgCommunityProjects pgToNavigateTo = new pgCommunityProjects();
+
+            // Navigate
+            frmPageDisplay.Navigate(pgToNavigateTo);
         }
 
         #endregion

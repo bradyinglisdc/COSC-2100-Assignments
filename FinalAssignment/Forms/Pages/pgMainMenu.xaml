@@ -1,0 +1,79 @@
+﻿<Page x:Class="FinalAssignment.pgMainMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinalAssignment"
+      mc:Ignorable="d" 
+      d:DesignHeight="850" d:DesignWidth="1300"
+      Title="Main Menu">
+    <Grid x:Name="grdMainContainer">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
+                <GradientStop Color="#001120" Offset="0"/>
+                <GradientStop Color="#001500" Offset="0.5"/>
+                <GradientStop Color="#002020" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+       <!-- Menu -->
+        <Image x:Name="imgLogo"
+               Source="pack://application:,,,/Resources/ProducerPalLogo.png"
+               Height="175"
+               VerticalAlignment="Top" Margin="0,10,0,0"
+               />
+        <Border x:Name="bdrMenu"
+                Width="500"
+                Height="780">
+            <Grid x:Name="grdMenuOptions"
+                  Height="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <local:GenericButton x:Name="btnMyProjects"
+                                     Width="500"
+                                     Height="60"
+                                     Style="{StaticResource MenuButtonStyle}"
+                                     BorderBrush="White"
+                                     BorderThickness="1"
+                                     CornerRadius="15"
+                                     Content="My Projects"
+                                     Foreground="White"
+                                     FontWeight="Light"
+                                     FontSize="18"
+                                     Click="btnMyProjects_Click"/>
+                <local:GenericButton x:Name="btnCommunityProjects"
+                                     Width="500"
+                                     Height="60"
+                                     Style="{StaticResource MenuButtonStyle}"
+                                     BorderBrush="White"
+                                     BorderThickness="1"
+                                     CornerRadius="15"
+                                     Content="Community Projects"
+                                     Foreground="White"
+                                     FontWeight="Light"
+                                     FontSize="18"
+                                     Grid.Row="1"
+                                     Click="btnCommunityProjects_Click"/>
+                <local:GenericButton x:Name="btnQuit"
+                                     Width="250"
+                                     Height="60"
+                                     Style="{StaticResource MenuButtonStyle}"
+                                     BorderBrush="#FFAAAA"
+                                     BorderThickness="1"
+                                     CornerRadius="15"
+                                     Content="Quit"
+                                     Foreground="#FFAAAA"
+                                     FontWeight="Light"
+                                     FontSize="18"
+                                     Grid.Row="2"/>
+
+            </Grid>
+            
+        </Border>
+
+
+
+    </Grid>
+</Page>

@@ -17,6 +17,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using FinalAssignment.Models;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -34,6 +35,13 @@ namespace FinalAssignment
     /// </summary>
     public partial class pgLoginRegister : Page
     {
+        #region Delegates and Events
+
+        public delegate void UserStatusHandler();
+        public event UserStatusHandler? LoggedIn;
+
+        #endregion
+
         #region Constants and Static Variables
 
         private static Brush HoverHeaderBackground = new SolidColorBrush(Color.FromArgb(32,255,255,255));
@@ -107,6 +115,120 @@ namespace FinalAssignment
             if (!OnLoginSection) { UpdateSection(); }
         }
 
+        /// <summary>
+        /// Shows registration password.
+        /// </summary>
+        /// <param name="sender"><cbxRegisterShowPassword./param>
+        /// <param name="e">Event Args.</param>
+        private void cbxRegisterShowPassword_Checked(object sender, RoutedEventArgs e)
+        {
+            pbxRegisterPassword.Show = true;
+        }
+
+        /// <summary>
+        /// Shows login password.
+        /// </summary>
+        /// <param name="sender"><cbxRegisterShowPassword./param>
+        /// <param name="e">Event Args.</param>
+        private void cbxLoginShowPassword_Checked(object sender, RoutedEventArgs e)
+        {
+            pbxLoginPassword.Show = true;
+        }
+
+        /// <summary>
+        /// Hides registration password.
+        /// </summary>
+        /// <param name="sender"><cbxRegisterShowPassword./param>
+        /// <param name="e">Event Args.</param>
+        private void cbxRegisterShowPassword_Unchecked(object sender, RoutedEventArgs e)
+        {
+            pbxRegisterPassword.Show = false;
+        }
+
+        /// <summary>
+        /// Hides login password.
+        /// </summary>
+        /// <param name="sender"><cbxRegisterShowPassword./param>
+        /// <param name="e">Event Args.</param>
+        private void cbxLoginShowPassword_Unchecked(object sender, RoutedEventArgs e)
+        {
+            pbxLoginPassword.Show = false;
+        }
+
+        /// <summary>
+        /// Calls AttemptLogin().
+        /// </summary>
+        /// <param name="sender">btnSubmitLogin.</param>
+        /// <param name="e">Event Args./param>
+        private void btnSubmitLogin_Click(object sender, EventArgs e)
+        {
+            AttemptLogin();
+        }
+
+        /// <summary>
+        /// Calls AttemptRegister().
+        /// </summary>
+        /// <param name="sender">btnSubmitRegister.</param>
+        /// <param name="e">Event Args./param>
+        private void btnSubmitRegister_Click(object sender, EventArgs e)
+        {
+            AttemptRegister();
+        }
+
+        #endregion
+
+        #region Login
+
+        /// <summary>
+        /// Attempts to log the user in, displaying an error if needed.
+        /// </summary>
+        private void AttemptLogin()
+        {
+            try
+            {
+                if (User.Login(tbxLoginUsername.Content, pbxLoginPassword.Content) == null)
+                {
+                    throw new Exception("Username or password incorrect.");
+                }
+                LoggedIn?.Invoke();
+            }
+
+            catch (Exception ex)
+            {
+                tboLoginError.Text = $"Login Error | {ex.Message}";
+
+                bdrLoginError.Visibility = Visibility.Visible;
+            }
+
+       
+        }
+
+        #endregion
+
+        #region Registration
+
+        /// <summary>
+        /// Attempts to register the user, displaying an error if needed.
+        /// </summary>
+        private void AttemptRegister()
+        {
+            try
+            {
+                User newRegister = new User(tbxRegisterUsername.Content, tbxRegisterEmail.Content);
+                newRegister.Insert(pbxRegisterPassword.Content);
+                LoggedIn?.Invoke();
+            }
+
+            catch (Exception ex)
+            {
+                tboRegisterError.Text = $"Registration Error | {ex.Message}";
+                bdrLoginError.Visibility = Visibility.Hidden;
+                bdrRegisterError.Visibility = Visibility.Visible;
+            }
+;
+        }
+
+
         #endregion
 
         #region Logic
@@ -119,18 +241,34 @@ namespace FinalAssignment
             OnLoginSection = !OnLoginSection;
             if (OnLoginSection) 
             { 
+                // Styling
                 grdLoginForm.Visibility = Visibility.Visible;
                 grdRegistrationForm.Visibility = Visibility.Hidden;
-
                 btnLogin.FontSize = SelectedHeaderFontSize;
                 btnRegister.FontSize = DefaultHeaderFontSize;
+                bdrRegisterError.Visibility = Visibility.Hidden;
+
+                // Accessability
+                btnCancelRegister.IsCancel = false;
+                btnCancelLogin.IsCancel = true;
+                btnSubmitRegister.IsDefault = false;
+                btnSubmitLogin.IsDefault = true;
+
                 return;
             }
+
+            // Styling
             grdLoginForm.Visibility = Visibility.Hidden;
             grdRegistrationForm.Visibility = Visibility.Visible;
-
             btnLogin.FontSize = DefaultHeaderFontSize;
             btnRegister.FontSize = SelectedHeaderFontSize;
+            bdrLoginError.Visibility = Visibility.Hidden;
+
+            // Accessability
+            btnCancelLogin.IsCancel = false;
+            btnCancelRegister.IsCancel = true;
+            btnSubmitLogin.IsDefault = false;
+            btnSubmitRegister.IsDefault = true;
         }
 
         #endregion

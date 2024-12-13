@@ -23,6 +23,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FinalAssignment.Models;
 
 #endregion
 
@@ -154,6 +155,7 @@ namespace FinalAssignment
         private async void Load()
         {
             await Task.Run(new Action(Note.FillParents));
+            await Task.Run(new Action(User.Fill));
             await Task.Delay(5000);
             Loaded = true;
         }

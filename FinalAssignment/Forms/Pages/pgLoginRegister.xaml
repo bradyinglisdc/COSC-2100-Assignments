@@ -13,15 +13,8 @@
       xmlns:local="clr-namespace:FinalAssignment"
       mc:Ignorable="d" 
       d:DesignHeight="850" d:DesignWidth="1300"
-      Title="pgLoginRegister">
+      Title="Login and Register">
     <Grid x:Name="grdUserAccessContainer">
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="1,1" EndPoint="0,0">
-                <GradientStop Color="#001120" Offset="0"/>
-                <GradientStop Color="#001500" Offset="0.5"/>
-                <GradientStop Color="#002020" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="90"/>
             <RowDefinition/>
@@ -103,7 +96,8 @@
                         <RowDefinition Height="125"/>
                     </Grid.RowDefinitions>
                     <!-- Username -->
-                    <Grid x:Name="grdLoginUsername">
+                    <Grid x:Name="grdLoginUsername"
+                          Margin="0,50,0,0">
                         <TextBlock x:Name="tboLoginUsername"
                                    Text="Username:"
                                    Foreground="White"
@@ -118,7 +112,9 @@
                                                 CornerRadius="10"
                                                 BorderBrush="#45FFEEBB"
                                                 BorderThickness="1"
-                                                Foreground="Black"/>
+                                                Foreground="Black"
+                                                Placeholder="Enter username..."
+                                                ToolTip="Click here, or navigate to tab index 0 to begin typing your username."/>
                     </Grid>
                     <!-- Password -->
                     <Grid x:Name="grdLoginPassword"
@@ -131,37 +127,71 @@
                                    FontSize="16"
                                    VerticalAlignment="Center"
                                    Margin="65,0,0,70"/>
-                        <local:FormEntryPasswordBox x:Name="pboLoginUsername"
+                        <local:FormEntryPasswordBox x:Name="pbxLoginPassword"
                                                     Width="400"
                                                     Height="35"
                                                     Background="#BBFFFFFF"
                                                     CornerRadius="10"
                                                     BorderBrush="#45FFEEBB"
                                                     BorderThickness="1"
-                                                    PasswordForeground="Black"/>
+                                                    PasswordForeground="Black"
+                                                    Placeholder="Enter password..."
+                                                    ToolTip="Click here, or navigate to tab index 1 to begin typing your password."
+                                                    Foreground="Black"/>
                     </Grid>
                     <CheckBox x:Name="cbxLoginShowPassword"
                               Grid.Row="1"
                               VerticalAlignment="Center"
                               Margin="70,15,0,0"
                               Content="Show password"
-                              Foreground="White"/>
+                              Foreground="White"
+                              Checked="cbxLoginShowPassword_Checked"
+                              Unchecked="cbxLoginShowPassword_Unchecked"/>
 
                     <!-- Submission -->
-                    <local:GenericButton x:Name="btnSubmitLogin"
-                                         VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"
-                                         Width="400"
-                                         Height="35"
-                                         CornerRadius="10"
-                                         BorderBrush="#CCFFFFFF"
-                                         BorderThickness="1"
-                                         Grid.Row="3"
-                                         Style="{StaticResource MenuButtonStyle}"
-                                         Content="Login"
-                                         Foreground="White"
-                                         FontWeight="Light"
-                                         FontSize="14"/>
+                    <Grid x:Name="grdLoginSubmissionArea"
+                          Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>    
+                        <local:GenericButton x:Name="btnSubmitLogin"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Right"
+                                             Margin="0,0,65,0"
+                                             Width="190"
+                                             Height="35"
+                                             CornerRadius="10"
+                                             BorderBrush="#CCFFFFFF"
+                                             BorderThickness="1"
+                                             Style="{StaticResource MenuButtonStyle}"
+                                             Content="Login"
+                                             Foreground="White"
+                                             FontWeight="Light"
+                                             FontSize="14"
+                                             Grid.Column="1"
+                                             ToolTip="Click here, or press 'alt + l' to login!"
+                                             Shortcut="_l"
+                                             Click="btnSubmitLogin_Click"/>
+                        <local:GenericButton x:Name="btnCancelLogin"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             Margin="65,0,0,0"
+                                             Width="190"
+                                             Height="35"
+                                             CornerRadius="10"
+                                             BorderBrush="#FFAAAA"
+                                             BorderThickness="1"
+                                             Style="{StaticResource MenuButtonStyle}"
+                                             Content="Cancel"
+                                             Foreground="#FFAAAA"
+                                             FontWeight="Light"
+                                             FontSize="14"
+                                             Grid.Column="0"
+                                             ToolTip="Click here, or press escape to cancel and exit."
+                                             Shortcut="_c"/>
+
+                    </Grid>
                 </Grid>
                 
                 <!-- Registration form -->
@@ -174,26 +204,30 @@
                         <RowDefinition/>
                         <RowDefinition Height="125"/>
                     </Grid.RowDefinitions>
-                    <!-- Email -->
-                    <Grid x:Name="grdRegisterEmail"
-                          Grid.Row="0"
-                          VerticalAlignment="Bottom">
-                        <TextBlock x:Name="tboRegisterEmail"
-                                   Text="Email:"
-                                   Foreground="White"
-                                   FontWeight="Light"
-                                   FontSize="16"
-                                   VerticalAlignment="Center"
-                                   Margin="65,0,0,70"/>
-                        <local:FormEntryTextBox x:Name="tbxRegisterEmail"
-                                                Width="400"
-                                                Height="35"
-                                                Background="#BBFFFFFF"
-                                                CornerRadius="10"
-                                                BorderBrush="#45FFEEBB"
-                                                BorderThickness="1"
-                                                Foreground="Black"/>
-                    </Grid>
+       
+                        
+                        <!-- Email -->
+                        <Grid x:Name="grdRegisterEmail"
+                              Grid.Row="0"
+                              VerticalAlignment="Bottom">
+                            <TextBlock x:Name="tboRegisterEmail"
+                                       Text="Email:"
+                                       Foreground="White"
+                                       FontWeight="Light"
+                                       FontSize="16"
+                                       VerticalAlignment="Center"
+                                       Margin="65,0,0,70"/>
+                            <local:FormEntryTextBox x:Name="tbxRegisterEmail"
+                                                    Width="400"
+                                                    Height="35"
+                                                    Background="#BBFFFFFF"
+                                                    CornerRadius="10"
+                                                    BorderBrush="#45FFEEBB"
+                                                    BorderThickness="1"
+                                                    Foreground="Black"
+                                                    Placeholder="Enter email..."
+                                                    ToolTip="Click here, or navigate to tab index 0 to begin typing your email."/>
+                        </Grid>
 
                     <!-- Username -->
                     <Grid x:Name="grdRegisterUsername"
@@ -212,7 +246,8 @@
                                                 CornerRadius="10"
                                                 BorderBrush="#45FFEEBB"
                                                 BorderThickness="1"
-                                                Foreground="Black"/>
+                                                Foreground="Black"
+                                                Placeholder="Enter username..."/>
                     </Grid>
                     <!-- Password -->
                     <Grid x:Name="grdRegisterPassword"
@@ -225,38 +260,112 @@
                                    FontSize="16"
                                    VerticalAlignment="Center"
                                    Margin="65,0,0,70"/>
-                        <local:FormEntryPasswordBox x:Name="pboRegisterUsername"
+                        <local:FormEntryPasswordBox x:Name="pbxRegisterPassword"
                                                     Width="400"
                                                     Height="35"
                                                     Background="#BBFFFFFF"
                                                     CornerRadius="10"
                                                     BorderBrush="#45FFEEBB"
                                                     BorderThickness="1"
-                                                    PasswordForeground="Black"/>
+                                                    PasswordForeground="Black"
+                                                    Placeholder="Enter password..."
+                                                    ToolTip="Click here, or navigate to tab index 2 to begin typing your password."
+                                                    Foreground="Black"/>
                     </Grid>
                     <CheckBox x:Name="cbxRegisterShowPassword"
                               Grid.Row="2"
                               VerticalAlignment="Center"
                               Margin="70,15,0,0"
                               Content="Show password"
-                              Foreground="White"/>
+                              Foreground="White"
+                              Checked="cbxRegisterShowPassword_Checked"
+                              Unchecked="cbxRegisterShowPassword_Unchecked"/>
 
                     <!-- Submission -->
-                    <local:GenericButton x:Name="btnSubmitRegister"
-                                         VerticalAlignment="Center"
-                                         HorizontalAlignment="Center"
-                                         Width="400"
-                                         Height="35"
-                                         CornerRadius="10"
-                                         BorderBrush="#CCFFFFFF"
-                                         BorderThickness="1"
-                                         Grid.Row="3"
-                                         Style="{StaticResource MenuButtonStyle}"
-                                         Content="Register"
-                                         Foreground="White"
-                                         FontWeight="Light"
-                                         FontSize="14"/>
+                    <Grid x:Name="grdRegisterSubmissionArea"
+                          Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <local:GenericButton x:Name="btnSubmitRegister"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Right"
+                                             Margin="0,0,65,0"
+                                             Width="190"
+                                             Height="35"
+                                             CornerRadius="10"
+                                             BorderBrush="#CCFFFFFF"
+                                             BorderThickness="1"
+                                             Style="{StaticResource MenuButtonStyle}"
+                                             Content="Register"
+                                             Foreground="White"
+                                             FontWeight="Light"
+                                             FontSize="14"
+                                             Grid.Column="1"
+                                             ToolTip="Click here, or press 'alt + r' to register!"
+                                             Shortcut="_l"
+                                             Click="btnSubmitRegister_Click"/>
+                        <local:GenericButton x:Name="btnCancelRegister"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             Margin="65,0,0,0"
+                                             Width="190"
+                                             Height="35"
+                                             CornerRadius="10"
+                                             BorderBrush="#FFAAAA"
+                                             BorderThickness="1"
+                                             Style="{StaticResource MenuButtonStyle}"
+                                             Content="Cancel"
+                                             Foreground="#FFAAAA"
+                                             FontWeight="Light"
+                                             FontSize="14"
+                                             Grid.Column="0"
+                                             ToolTip="Click here, or press escape to cancel and exit."
+                                             Shortcut="_c"/>
+
+                    </Grid>
                 </Grid>
+                
+                <!-- Login Error -->
+                <Border x:Name="bdrLoginError"
+                        Background="#32FFAAAA"
+                        BorderBrush="#FFAAAA"
+                        BorderThickness="1"
+                        Width="400"
+                        CornerRadius="10"
+                        Height="30"
+                        Margin="0,15,0,0"
+                        VerticalAlignment="Top"
+                        Grid.Row="1"
+                        Visibility="Hidden">
+                    <TextBlock x:Name="tboLoginError"
+                               Text="Some login error will go here."
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="#FFAAAA"/>
+                </Border>
+
+                <!-- Register Error -->
+                <Border x:Name="bdrRegisterError"
+                        Background="#32FFAAAA"
+                        BorderBrush="#FFAAAA"
+                        BorderThickness="1"
+                        Width="400"
+                        CornerRadius="10"
+                        Height="33"
+                        Margin="0,15,0,0"
+                        VerticalAlignment="Top"
+                        Grid.Row="1"
+                        Visibility="Hidden">
+                    <TextBlock x:Name="tboRegisterError"
+                               Text="Some register error will go here."
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="#FFAAAA"
+                               TextWrapping="Wrap"
+                               TextAlignment="Center"/>
+                </Border>
             </Grid>
         </Border>
     </Grid>
