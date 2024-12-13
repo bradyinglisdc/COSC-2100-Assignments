@@ -62,7 +62,7 @@ namespace FinalAssignment
         public frmProduction()
         {
             User.Fill();
-            User.CurrentUser = User.Users[0];
+            User.CurrentUser = User.Users[0]; // a change
             BoundProject = new Project() { TimelineLength = 10000 };
             InitializeComponent();
             Note.FillParents();

@@ -8,7 +8,7 @@
 
 #region Namespace Definition
 
-namespace FinalAssignment.Models.Project
+namespace FinalAssignment.Models
 {
     /// <summary>
     /// Provides an easily jsonable representation of a project, for database storage.
