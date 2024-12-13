@@ -3,7 +3,7 @@
  * Name: Brady Inglis(100926284)
  * Date: 2024-12-11
  * Purpose: To provide an organized collection of notes, forming a single project
- * AI Used: AI was used to develop the ComposeTimeline() and Play() method, more documentation found there (lines 98 and 137)
+ * AI Used: AI was used to help develop ComposeTimeline(), Play(), NoteExists(), and Fill(). More documentation can be found there.
 */
 
 #region Namespaces Used
@@ -15,12 +15,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows;
+using Microsoft.Data.SqlClient;
+using System.Text.Json;
+using System.IO;
+using System.IO.Compression;
 
 #endregion
 
 #region Namespace Definition
 
-namespace FinalAssignment.Models
+namespace FinalAssignment
 {
     /// <summary>
     /// A project is a collection of notes, where each note is placed in a conceptual timeline
@@ -28,6 +32,15 @@ namespace FinalAssignment.Models
     /// </summary>
     internal class Project
     {
+        #region Static Variables
+
+        /// <summary>
+        /// A populated list of all projects in memory, pulled from the database.
+        /// </summary>
+        public static List<Project> Projects = new List<Project>();
+
+        #endregion
+
         #region Backing Members
 
         private bool _playing;
@@ -35,6 +48,11 @@ namespace FinalAssignment.Models
         #endregion
 
         #region Instance Properties
+
+        /// <summary>
+        /// Gets and sets the ID for this project.
+        /// </summary>
+        public int ProjectID { get; set; }
 
         /// <summary>
         /// Gets and sets the timeline for this project, containing all project notes.
@@ -107,7 +125,7 @@ namespace FinalAssignment.Models
             ComposedTimeline = new List<Note?>();
         }
 
-        #region Instance Methods
+        #region Instance Methods - Timeline
 
         /// <summary>
         /// Adds a note to ComposedTimeline for each millisecond in timeline length.
@@ -245,6 +263,121 @@ namespace FinalAssignment.Models
 
             // Check if any note matches the given location
             return Timeline.Any(note => note.TimelineLocation == timelineLocation);
+        }
+
+        #endregion
+
+        #region Instance Methods - Saving
+
+        /// <summary>
+        /// Attempts to serialize this project into a json, convert to a base64, and then
+        /// write to database
+        /// AI Used: Yes
+        /// AI Prompt: I provided the Fill() method and prompted: "Create the save method to save a 
+        ///            given project to the database. Just takes in a connection string and saves the 
+        ///            instance it was called on"
+        /// Changes Made: A lot had to be changed to get this method to work, including overhauling the
+        ///               way I store projects from the ground up. 
+        ///               
+        ///               Storing entire project objects as base64s as suggested by AI resulted in read
+        ///               and writes crashing due to the massive size of each object.
+        ///               
+        ///               I opted to Projects in database as jsons instead, with a header containing the
+        ///               name and length, and a body containing notes (each note gets a note name and a 
+        ///               location on the timeline in milliseconds) 
+        /// </summary>
+      /*  public void Save()
+        {
+            try
+            {
+                // Serialize the current instance to JSON
+                string json = JsonSerializer.Serialize(this);
+
+                // Compress and encode the JSON string
+                string base64ProjectData = CompressAndEncode(json);
+
+                using (SqlConnection connection = new SqlConnection(Properties.Resources.CONNETION_STRING))
+                {
+                    connection.Open();
+
+                    string query = @"INSERT INTO Projects (ProjectID, ProjectData) 
+                             VALUES (@ProjectID, @ProjectData)
+                             ON DUPLICATE KEY UPDATE ProjectData = @ProjectData";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        // Set the parameter values
+                        command.Parameters.AddWithValue("@ProjectID", ProjectID);
+                        command.Parameters.AddWithValue("@ProjectData", base64ProjectData);
+
+                        // Execute the query
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                throw new Exception($"Error {ex.Message}");
+            }
+        }
+
+        #endregion
+
+        #region Static Methods
+
+        /// <summary>
+        /// TODO Add header
+        /// </summary>
+        /// <param name="connectionString"></param>
+        public static void Fill(string connectionString)
+        {
+            // Clear the Projects list to avoid duplication if called multiple times
+            Projects.Clear();
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = "SELECT ProjectData FROM Projects";
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                // Read the ProjectData as a base64 string
+                                string base64ProjectData = reader["ProjectData"].ToString();
+
+                                // Decode the base64 string to byte array
+                                byte[] projectBytes = Convert.FromBase64String(base64ProjectData);
+
+                                // Deserialize the byte array to a Project object
+                                Project project = DeserializeProject(projectBytes);
+
+                                // Add the deserialized project to the Projects list
+                                Projects.Add(project);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception as needed
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }*/
+
+        private static Project DeserializeProject(byte[] projectBytes)
+        {
+            // Convert the byte array to a JSON string
+            string json = Encoding.UTF8.GetString(projectBytes);
+
+            // Deserialize the JSON string back to a Project object
+            return System.Text.Json.JsonSerializer.Deserialize<Project>(json);
         }
 
 

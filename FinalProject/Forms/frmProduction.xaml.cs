@@ -20,7 +20,7 @@ using FinalAssignment.Models;
 
 #region Namespace Definition
 
-namespace FinalAssignment
+namespace FinalProject
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

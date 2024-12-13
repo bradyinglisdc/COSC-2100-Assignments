@@ -16,7 +16,7 @@ using System.Windows.Media;
 
 #region Namespace Definition
 
-namespace FinalAssignment
+namespace FinalProject
 {
     /// <summary>
     /// Interaction logic for GenericButton.xaml

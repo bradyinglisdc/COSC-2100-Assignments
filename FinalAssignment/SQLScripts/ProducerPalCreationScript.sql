@@ -9,9 +9,31 @@
  *					1. Create Project model in the database. A project will contain a ProjectID int, UserID int, and
  *					ProjectData string (base64).
  *					2. Create User model in the database. A user will contain a UserID int, UserName string, password string, email string."
-                    3. Create an insert stored procedure for User and Prokect.
+                    3. Create an insert stored procedure for User and Project.
  * 
- * Changes Made: Removed identity keywords from primary keys, changed from User to [User].
+ * Changes Made: Removed identity keywords from primary keys, changed from User to [User]. Switched from using base64 to storing json strings for project
+				 data, where each element has a millisecond where a note should be played, and a note. So a ProjectData string would look like:
+				 {
+					Header:
+							{
+								ProjectName: projectName,
+								ProjectLength: projectLength
+							}
+					Timeline:
+							{
+								{
+									NoteName: noteName
+									NoteLocation: locationInMillisecond
+								},
+								{
+									NoteName: noteName2
+									NoteLocation: locationInMillisecond2
+								}
+							}
+				 
+				 }
+
+				 
 */
 
 -- Create the database

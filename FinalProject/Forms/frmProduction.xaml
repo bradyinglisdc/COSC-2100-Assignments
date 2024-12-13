@@ -5,12 +5,12 @@
  * Purpose: To provide the production timeline interface for the user.
  -->
 
-<Window x:Class="FinalAssignment.frmProduction"
+<Window x:Class="FinalProject.frmProduction"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FinalAssignment"
+        xmlns:local="clr-namespace:FinalProject"
         mc:Ignorable="d"
         Title="Producer Pal - Production" Height="650" Width="1000"
         WindowStartupLocation="CenterScreen"
