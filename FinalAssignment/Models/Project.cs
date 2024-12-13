@@ -63,6 +63,11 @@ namespace FinalAssignment.Models
         public int ProjectID { get; set; }
 
         /// <summary>
+        /// Gets and sets the ID of teh owner of this project
+        /// </summary>
+        public int UserID { get; set; }
+
+        /// <summary>
         /// Gets and sets the name of this project.
         /// </summary>
         public string Name
@@ -360,38 +365,42 @@ namespace FinalAssignment.Models
         #region Static Methods
 
         /// <summary>
-        /// TODO Add header
+        /// Deserializes each json in Project table.
+        /// AI Used: Yes
+        /// Prompt: I provided the class, and asked: "Build me a fill method which fill's the static Project list
+        ///         by reading the ProjectData attribute as a base64 string. Projects are stored in the database
+        ///         with ProjectID, UserID, and ProjectData attributes.
+        /// Changes Made: Since I changed from base64 storage to json strings, I simply changed the method 
+        ///               so it reads as a string and desrializes to a PackagedProject, and then a Project.
         /// </summary>
-        /// <param name="connectionString"></param>
-        public static void Fill(string connectionString)
+        public static void Fill()
         {
             // Clear the Projects list to avoid duplication if called multiple times
             Projects.Clear();
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlConnection connection = new SqlConnection(Properties.Resources.CONNETION_STRING))
                 {
                     connection.Open();
 
-                    string query = "SELECT ProjectData FROM Projects";
+                    string query = "SELECT ProjectID, UserID, ProjectData FROM Project";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
+                            // Everything here is changed from what AI provided
                             while (reader.Read())
                             {
-                                // Read the ProjectData as a base64 string
-                                string base64ProjectData = reader["ProjectData"].ToString();
+                                // Read the ProjectData as a json 
+                                string jsonData = (string)reader["ProjectData"];
 
-                                // Decode the base64 string to byte array
-                                byte[] projectBytes = Convert.FromBase64String(base64ProjectData);
+                                // Changed AI's base 64 read deserialization to instead use a PackagedProject, and then just unpackage if not null
+                                PackagedProject? packagedProject = JsonSerializer.Deserialize<PackagedProject>(jsonData);
 
-                                // Deserialize the byte array to a Project object
-                                Project project = DeserializeProject(projectBytes);
-
-                                // Add the deserialized project to the Projects list
-                                Projects.Add(project);
+                                // Throw error if null, otherwise bring the project into memory.
+                                if (packagedProject == null) { throw new Exception("Could not unpackage project."); }
+                                Projects.Add(packagedProject.Unpackage((int)reader["ProjectID"], (int)reader["UserID"]));
                             }
                         }
                     }
@@ -399,18 +408,9 @@ namespace FinalAssignment.Models
             }
             catch (Exception ex)
             {
-                // Log or handle the exception as needed
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                // Throw an exception if fill failed
+                throw new Exception($"Error loading projects: {ex.Message}");
             }
-        }
-
-        private static Project DeserializeProject(byte[] projectBytes)
-        {
-            // Convert the byte array to a JSON string
-            string json = Encoding.UTF8.GetString(projectBytes);
-
-            // Deserialize the JSON string back to a Project object
-            return System.Text.Json.JsonSerializer.Deserialize<Project>(json);
         }
 
 

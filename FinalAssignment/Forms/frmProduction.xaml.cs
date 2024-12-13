@@ -62,10 +62,11 @@ namespace FinalAssignment
         public frmProduction()
         {
             User.Fill();
-            User.CurrentUser = User.Users[0]; 
-            BoundProject = new Project() { TimelineLength = 10000 };
-            InitializeComponent();
             Note.FillParents();
+            Project.Fill();
+            User.CurrentUser = User.Users[0];
+            BoundProject = Project.Projects[0];
+            InitializeComponent();
             CreateTimeline();
         }
 
@@ -287,6 +288,11 @@ namespace FinalAssignment
                     BorderThickness = TimelineGridThickness,
                     BorderBrush = TimelineGridBorderBrush
                 };
+
+                // Fill in the beat if theres a note on it's position. Multiply to get millisecond value.
+                if (Note.GetByNoteNumber() && BoundProject.NoteExists(i * (int)Note.NoteSize.QuarterBeat)) { beat.NegateCurrentState(); }
+
+
                 timelineGrid.Children.Add(beat);
 
                 // Set the beat's column and row to the last index
@@ -361,7 +367,7 @@ namespace FinalAssignment
         /// <summary>
         /// Plays the corresponding note, and adds a note
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">The beat which was clicked.</param>
         private void UpdateTimeline(object sender)
         {
             try

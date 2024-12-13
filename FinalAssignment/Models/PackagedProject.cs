@@ -77,6 +77,75 @@ namespace FinalAssignment.Models
             }
         }
 
+        /// <summary>
+        /// Reads the packaged project into a new Project and returns the result.
+        /// </summary>
+        /// <param name="projectID">The ID of the project.</param>
+        /// <param name="userID">The ID of the owner.</param>
+        /// <returns>The unpackaged project.</returns>
+        public Project Unpackage(int projectID, int userID)
+        {
+            // An error could happen if data can't be parsed, i.e. someone manually messed with the database.
+            try
+            {
+                // Set identification values
+                Project unpackagedProject = new Project()
+                {
+                    ProjectID = projectID,
+                    UserID = userID
+                };
+
+                // Unpackage headers and timeline then return
+                UnpackageHeaders(unpackagedProject);
+                UnpackageTimeline(unpackagedProject);
+                return unpackagedProject;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception($"Unpackage error: {ex.Message}");
+            }
+
+        }
+
+        /// <summary>
+        /// Sets all header values for a project based on this instance.
+        /// </summary>
+        /// <param name="unpackagedProject">The project to add headers to.</param>
+        private void UnpackageHeaders(Project unpackagedProject)
+        {
+            unpackagedProject.Name = Header["ProjectName"];
+            unpackagedProject.TimelineLength = int.Parse(Header["ProjectLength"]);
+        }
+
+        /// <summary>
+        /// Creaetes a note for every note description in the unpackaged timeline, adding it to 
+        /// a packaged timeline
+        /// </summary>
+        /// <param name="unpackagedProject">The project to add a timeline to.</param>
+        private void UnpackageTimeline(Project unpackagedProject)
+        {
+            // Add each note in the timeline
+            foreach (KeyValuePair<int, int> unpackagedNote in Timeline)
+            {
+                // Get the parent note. Throw an error if it was null
+                Note? parentNote = Note.GetByNoteNumber(unpackagedNote.Key);
+                if (parentNote == null) { throw new Exception("Could not read a note in your project."); }
+
+                // Clone the note
+                Note note = new Note()
+                {
+                    ParentNote = parentNote,
+                    CurrentNote = parentNote.CurrentNotePlayer,
+                    NoteNumber = parentNote.NoteNumber,
+                    TimelineLocation = unpackagedNote.Value
+                };
+
+                // Add the note to the packaged project timeline
+                unpackagedProject.Timeline.Add(note);
+            }
+        }
+
         #endregion
     }
 }
