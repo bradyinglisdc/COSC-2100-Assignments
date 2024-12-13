@@ -12,7 +12,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinalAssignment"
         mc:Ignorable="d"
-        Title="frmSplash" Height="350" Width="800"
+        Title="Producer Pal - Loading" Height="350" Width="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"

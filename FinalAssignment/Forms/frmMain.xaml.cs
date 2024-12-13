@@ -3,7 +3,7 @@
  * Name: Brady Inglis(100926284)
  * Date: 2024-12-12
  * Purpose: The main location for application interaction. This is the first form to be loaded. Within it,
- *          access is provided to a main menu, a 'My Projects' page, a 'Community Projects' page, and statistics
+ *          access is provided to a login/registration, main menu, a 'My Projects' page, a 'Community Projects' page, and statistics
  *          
  * AI Use and Documentation: Lines xx, xx, xx ,xx
 */
@@ -43,7 +43,42 @@ namespace FinalAssignment
         public frmMain()
         {
             InitializeComponent();
-            StartApplication();
+            frmPageDisplay.Navigate(new pgLoginRegister());
+/*            StartApplication();
+*/        }
+
+        #endregion
+
+        #region Event Handelrs
+
+        /// <summary>
+        /// Allows for window drag while left mouse button remains down on grdToolbar
+        /// </summary>
+        /// <param name="sender">grdToolbar.</param>
+        /// <param name="e">Event Args.</param>
+        private void grdToolbar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed) { DragMove(); }
+        }
+
+        /// <summary>
+        /// Calls RequestClose()
+        /// </summary>
+        /// <param name="sender">btnCloseWindow.</param>
+        /// <param name="e">EventArgs.</param>
+        private void btnCloseWindow_Click(object sender, EventArgs e)
+        {
+            RequestClose();
+        }
+
+        /// <summary>
+        /// Minimizes window.
+        /// </summary>
+        /// <param name="sender">btnMinimizeWindow.</param>
+        /// <param name="e">Event Args.</param>
+        private void btnMinimizeWindow_Click(object sender, EventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
 
         #endregion
@@ -62,6 +97,37 @@ namespace FinalAssignment
 
         #endregion
 
+        #region End States
+
+        /// <summary>
+        /// Prompts user before closing the window and all open windows.
+        /// </summary>
+        private void RequestClose()
+        {
+            if (MessageBox.Show("To confirm exit, please press 'OK'", "Exit Producer Pal?", MessageBoxButton.OKCancel) == 
+                MessageBoxResult.OK)
+            {
+                ConfirmClose();
+            }
+        }
+
+        /// <summary>
+        /// Closes the current window and all open windows.
+        /// 
+        /// AI Used: Yes
+        /// Prompt: "Complete a ConfirmClose() method based on RequestClose()"
+        /// Changes made: Nothing needed changing.
+        /// </summary>
+        private void ConfirmClose()
+        {
+            // Loop through all open windows and close them
+            foreach (Window window in Application.Current.Windows)
+            {
+                window.Close();
+            }
+        }
+
+        #endregion
 
     }
 }
