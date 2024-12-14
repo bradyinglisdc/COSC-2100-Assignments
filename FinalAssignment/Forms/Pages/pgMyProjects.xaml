@@ -27,7 +27,8 @@
                 VerticalAlignment="Top"
                 Margin="0,50,0,0">
             <ScrollViewer x:Name="svrMyProcts">
-                <StackPanel x:Name="pnlMyProjects">
+                <StackPanel x:Name="pnlMyProjects"
+                            Orientation="Vertical">
                     <local:GenericButton x:Name="btnNewroject"
                                          Style="{StaticResource MenuButtonStyle}"
                                          Content="Create New Project"
