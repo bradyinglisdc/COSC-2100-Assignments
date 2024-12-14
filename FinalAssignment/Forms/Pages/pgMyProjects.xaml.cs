@@ -36,23 +36,9 @@ namespace FinalAssignment
     /// </summary>
     public partial class pgMyProjects : Page
     {
-        #region Delegates and Events
+        #region Events
 
-        public delegate void EditRequestedHandler(Project projectToEdit);
-        public event EditRequestedHandler? EditRequested;
-
-        #endregion
-
-        #region Constants
-
-        private static Brush DEFAULT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(100, 170, 187, 187));
-        private static Brush HOVER_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(180, 170, 187, 187));
-        private static Brush SELECT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(200, 170, 187, 187));
-        private const int DEFAULT_BORDER_CONTAINER_WIDTH = 385;
-        private const int DEFAULT_BORDER_CONTAINER_HEIGHT = 50;
-        private const int DEFAULT_BORDER_CONTAINER_FONT_SIZE = 14;
-        private static Thickness DEFAULT_BORDER_CONTAINER_MARGIN = new Thickness(0, 10, 0, 0);
-        private static CornerRadius DEFAULT_BORDER_CONTAINER_CORNER_RADIUS = new CornerRadius(15);
+        public event ProjectContainerStyling.EditRequestedHandler? EditRequested;
 
         #endregion
 
@@ -102,7 +88,7 @@ namespace FinalAssignment
             // Do nothing if this container is selected
             if (projectContainer == SelectedProjectContainer) { return; }
 
-            projectContainer.Background = HOVER_BORDER_CONTAINER_BACKGROUND;
+            projectContainer.Background = ProjectContainerStyling.HOVER_BORDER_CONTAINER_BACKGROUND;
         }
 
         /// <summary>
@@ -117,7 +103,7 @@ namespace FinalAssignment
             // Do nothing if this container is selected
             if (projectContainer == SelectedProjectContainer) { return; }
 
-            projectContainer.Background = DEFAULT_BORDER_CONTAINER_BACKGROUND;
+            projectContainer.Background = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_BACKGROUND;
         }
 
         /// <summary>
@@ -182,18 +168,18 @@ namespace FinalAssignment
         {
             Border projectContainer = new Border()
             {
-                Background = DEFAULT_BORDER_CONTAINER_BACKGROUND,
-                Width = DEFAULT_BORDER_CONTAINER_WIDTH,
-                Height = DEFAULT_BORDER_CONTAINER_HEIGHT,
-                Margin = DEFAULT_BORDER_CONTAINER_MARGIN,
-                CornerRadius = DEFAULT_BORDER_CONTAINER_CORNER_RADIUS,
+                Background = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_BACKGROUND,
+                Width = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_WIDTH,
+                Height = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_HEIGHT,
+                Margin = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_MARGIN,
+                CornerRadius = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_CORNER_RADIUS,
                 Name = $"n{project.ProjectID.ToString()}"
             };
             projectContainer.Child = new TextBlock()
             {
                 Text = project.Name,
                 Foreground = Brushes.White,
-                FontSize = DEFAULT_BORDER_CONTAINER_FONT_SIZE,
+                FontSize = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_FONT_SIZE,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
@@ -217,10 +203,10 @@ namespace FinalAssignment
         private void SelectProject(Border projectContainer)
         {
             // Deselect current project and select current
-            if (SelectedProjectContainer != null) { SelectedProjectContainer.Background = DEFAULT_BORDER_CONTAINER_BACKGROUND; }
+            if (SelectedProjectContainer != null) { SelectedProjectContainer.Background = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_BACKGROUND; }
             
             SelectedProjectContainer = projectContainer;
-            projectContainer.Background = SELECT_BORDER_CONTAINER_BACKGROUND;
+            projectContainer.Background = ProjectContainerStyling.SELECT_BORDER_CONTAINER_BACKGROUND;
 
             // Set the currently selected project to the new one
             foreach (Project project in Projects)

@@ -5,10 +5,75 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FinalAssignment"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="pgCommunityProjects">
+      d:DesignHeight="850" d:DesignWidth="1300"
+      Title="pgMyProjects">
 
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#AA001125" Offset="0"/>
+                <GradientStop Color="#AA001000" Offset="0.5"/>
+                <GradientStop Color="#AA001020" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <!-- Projects Area -->
+        <Border x:Name="bdrProjects"
+                Background="#27FFFFFF"
+                Width="450"
+                Height="625"
+                CornerRadius="15"
+                BorderThickness="13"
+                BorderBrush="#DBFFFFFF"
+                VerticalAlignment="Top"
+                Margin="0,50,0,0">
+            <ScrollViewer x:Name="svrCommunityProjects">
+                <StackPanel x:Name="pnlCommunityProjects">
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        <!-- User Control Area -->
+        <Grid x:Name="grdControls"
+              VerticalAlignment="Bottom"
+              Margin="0,0,0,65"
+              Width="450">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <local:GenericButton x:Name="btnBack"
+                                 Style="{StaticResource MenuButtonStyle}"
+                                 Width="200"
+                                 Height="50"
+                                 CornerRadius="15"
+                                 BorderBrush="#FFAAAA"
+                                 BorderThickness="1"
+                                 Content="Back"
+                                 Foreground="#FFAAAA"
+                                 FontSize="16"
+                                 FontWeight="Light"
+                                 Margin="10,0,0,0"
+                                 Shortcut="_b"
+                                 ToolTip="Click here, or press 'alt + b' to return to the main menu."
+                                 IsCancel="True"/>
+
+            <local:GenericButton x:Name="btnView"
+                                 Style="{StaticResource MenuButtonStyle}"
+                                 Width="200"
+                                 Height="50"
+                                 Grid.Column="1"
+                                 CornerRadius="15"
+                                 BorderThickness="1"
+                                 BorderBrush="#DDFFFFFF"
+                                 Foreground="White"
+                                 FontSize="16"
+                                 FontWeight="Light"
+                                 Content="View"
+                                 Margin="0,0,10,0"
+                                 Shortcut="_e"
+                                 ToolTip="Click here, or press 'alt + v' to view the selected project."
+                                 IsDefault="True"
+                                 Click="btnEdit_Click"/>
+        </Grid>
     </Grid>
 </Page>
