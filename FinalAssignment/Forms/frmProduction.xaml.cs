@@ -65,6 +65,7 @@ namespace FinalAssignment
         public frmProduction()
         {
             BoundProject = new Project();
+            Project.Projects.Add(BoundProject);
             InitializeComponent();
             CreateTimeline();
             tbxProjectName.Content = "Project Name...";

@@ -4,7 +4,7 @@
  * Date: 2024-12-12
  * Purpose (Extra feature): Displays tips which the user can cycle through while they wait for notes to load into memory.
  *          
- * AI Use and Documentation: Lines xx, xx, xx ,xx
+ * AI Use and Documentation: AI not used for this class.
 */
 
 
@@ -154,11 +154,16 @@ namespace FinalAssignment
         /// </summary>
         private async void Load()
         {
-            await Task.Run(new Action(Note.FillParents));
-            await Task.Run(new Action(User.Fill));
-            await Task.Run(new Action(Project.Fill));
-            await Task.Delay(5000);
-            Loaded = true;
+            try
+            {
+                await Task.Run(new Action(Note.FillParents));
+                await Task.Run(new Action(User.Fill));
+                await Task.Run(new Action(Project.Fill));
+                await Task.Delay(5000); 
+                Loaded = true;
+            }
+            catch (Exception ex) { MessageBox.Show($"Error loading application: {ex.Message}"); }
+            
         }
 
         #endregion

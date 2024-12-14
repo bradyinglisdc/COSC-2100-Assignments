@@ -11,6 +11,7 @@
 
 using System.Windows.Media;
 using System.Windows;
+using System.Windows.Controls;
 using FinalAssignment.Models;
 
 #endregion
@@ -45,7 +46,23 @@ namespace FinalAssignment
 
         #region Methods
 
-
+        /// <summary>
+        /// Creates a styled border for the specified project
+        /// </summary>
+        /// <param name="project">The project to pull data from.</param>
+        /// <returns>A styled border.</returns>
+        public static Border Create(Project project)
+        {
+            return new Border()
+            {
+                Background = DEFAULT_BORDER_CONTAINER_BACKGROUND,
+                Width = DEFAULT_BORDER_CONTAINER_WIDTH,
+                Height = DEFAULT_BORDER_CONTAINER_HEIGHT,
+                Margin = DEFAULT_BORDER_CONTAINER_MARGIN,
+                CornerRadius = DEFAULT_BORDER_CONTAINER_CORNER_RADIUS,
+                Name = $"n{project.ProjectID.ToString()}"
+            };
+        }
 
         #endregion
 

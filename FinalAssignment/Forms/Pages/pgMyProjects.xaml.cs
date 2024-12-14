@@ -163,15 +163,7 @@ namespace FinalAssignment
         /// <param name="project">The project to display.</param>
         private void CreateProjectContainer(Project project)
         {
-            Border projectContainer = new Border()
-            {
-                Background = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_BACKGROUND,
-                Width = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_WIDTH,
-                Height = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_HEIGHT,
-                Margin = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_MARGIN,
-                CornerRadius = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_CORNER_RADIUS,
-                Name = $"n{project.ProjectID.ToString()}"
-            };
+            Border projectContainer = ProjectContainerStyling.Create(project);
             projectContainer.Child = new TextBlock()
             {
                 Text = project.Name,

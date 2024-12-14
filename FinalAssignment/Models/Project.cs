@@ -36,7 +36,7 @@ namespace FinalAssignment.Models
         #region Constants
 
         private const string DEFAULT_NAME = "Project name...";
-        private const int DEFAULT_TIMELINE_LENGTH = 100000;
+        private const int DEFAULT_TIMELINE_LENGTH = 10000;
         
         #endregion
 
