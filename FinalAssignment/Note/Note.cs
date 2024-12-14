@@ -31,7 +31,7 @@ namespace FinalAssignment
     /// 
     /// Essentially, on resize the front-end will hand down a NoteSize enum, and the corresponding .wav memory stream will be trimmed accordingly.
     /// </summary>
-    internal class Note
+    public class Note
     {
         #region Static Variables/Constants/Enums
 

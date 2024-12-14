@@ -23,6 +23,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FinalAssignment.Models;
 
 #endregion
 
@@ -100,6 +101,26 @@ namespace FinalAssignment
             NavigateProjects(page);
         }
 
+        /// <summary>
+        /// Opens a producer window for the requested project.
+        /// </summary>
+        /// <param name="projectToEdit">The project to edit.</param>
+        private void PgToNavigateTo_EditRequested(Project projectToEdit)
+        {
+            (new frmProduction(projectToEdit)).Show();
+        }
+
+        /// <summary>
+        /// Called whem btnBack is clicked on phMyProjects or pgCommunityProjects.
+        /// Navigates to man menu.
+        /// </summary>
+        /// <param name="sender">btnBack.</param>
+        /// <param name="e">Event Args.</param>
+        private void BtnBack_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region Setup
@@ -165,10 +186,13 @@ namespace FinalAssignment
         {
             // Instantiate and subscribe
             pgMyProjects pgToNavigateTo = new pgMyProjects();
+            pgToNavigateTo.btnBack.Click += BtnBack_Click;
+            pgToNavigateTo.EditRequested += PgToNavigateTo_EditRequested;
 
             // Navigate
             frmPageDisplay.Navigate(pgToNavigateTo);
         }
+
 
         /// <summary>
         /// Navigates page display to pgCommunityProjects, subscribing to it's events.

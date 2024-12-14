@@ -430,6 +430,21 @@ namespace FinalAssignment.Models
             return null;
         }
 
+        /// <summary>
+        /// Creates a list of all projects corresponding to a userID.
+        /// </summary>
+        /// <param name="userID">The owner of the projects.</param>
+        /// <returns></returns>
+        public static List<Project> GetProjectsByUserID(int userID)
+        {
+            List<Project> projects = new List<Project>();
+            foreach (Project project in Projects)
+            {
+                if (project.UserID == userID) { projects.Add(project); }
+            }
+            return projects;
+        }
+
 
         #endregion
     }

@@ -156,6 +156,7 @@ namespace FinalAssignment
         {
             await Task.Run(new Action(Note.FillParents));
             await Task.Run(new Action(User.Fill));
+            await Task.Run(new Action(Project.Fill));
             await Task.Delay(5000);
             Loaded = true;
         }
