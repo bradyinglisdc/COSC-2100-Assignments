@@ -10,19 +10,8 @@
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using FinalAssignment.Models;
 
 #endregion
@@ -39,6 +28,9 @@ namespace FinalAssignment
         #region Static Variables and Constants
 
         private static string[] LoadingStates = { "Loading", "Loading.", "Loading..", "Loading...", };
+        private static string[] TIPS = { "You can play the keys of the production piano without populating your timeline...", 
+                                         "The production area does not support chords.", 
+                                         "Due to a slight packaging issue, the timeline does't allow 2 of the same notes."};
         private const int LOADING_STATE_INTERVALS = 250;
 
         #endregion
@@ -56,6 +48,11 @@ namespace FinalAssignment
         /// </summary>
         private frmMain frmParent { get; set; }
 
+        /// <summary>
+        /// Gets and sets the index of currently displayd tip.
+        /// </summary>
+        private int CurrentTip { get; set; }
+
         #endregion
 
         #region Constructor(s)
@@ -65,6 +62,7 @@ namespace FinalAssignment
         /// </summary>
         public frmSplash()
         {
+            CurrentTip = 0;
             frmParent = new frmMain();
             InitializeComponent();
             BeginLoad();
@@ -77,6 +75,7 @@ namespace FinalAssignment
         /// <param name="main">The form to open on load finish.</param>
         public frmSplash(frmMain main)
         {
+            CurrentTip = 0;
             frmParent = main;
             InitializeComponent();
             BeginLoad();
@@ -115,6 +114,30 @@ namespace FinalAssignment
         private void btnProceed_Click(object sender, EventArgs e)
         {
             Proceed();
+        }
+
+        /// <summary>
+        /// Updates tboTip to display previous tip.
+        /// </summary>
+        /// <param name="sender">btnScrollLeftTip</param>
+        /// <param name="e">Event Args.</param>
+        private void btnScrollLeftTip_Click(object sender, EventArgs e)
+        {
+            if (CurrentTip == 0) { CurrentTip = TIPS.Length - 1; }
+            else { CurrentTip = CurrentTip - 1; }
+            tboTip.Text = TIPS[CurrentTip];
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">btnScrollRightTip</param>
+        /// <param name="e">Event Args.</param>
+        private void btnScrollRightTip_Click(object sender, EventArgs e)
+        {
+            if (CurrentTip == TIPS.Length - 1) { CurrentTip = 0; }
+            else { CurrentTip = CurrentTip + 1; }
+            tboTip.Text = TIPS[CurrentTip];
         }
 
         #endregion
@@ -189,6 +212,7 @@ namespace FinalAssignment
         }
 
         #endregion
+
     }
 }
 
