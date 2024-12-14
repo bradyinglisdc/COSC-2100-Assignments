@@ -384,7 +384,7 @@ namespace FinalAssignment.Models
         {
             foreach (Project project in Projects)
             {
-                if (project.UserID == UserID) { return true; }
+                if (project.ProjectID == ProjectID) { return true; }
             }
             return false;
         }

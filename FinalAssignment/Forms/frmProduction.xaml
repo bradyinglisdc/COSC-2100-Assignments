@@ -79,8 +79,6 @@
                             <MenuItem x:Name="mnuItmSave"
                                       Header="Save"
                                       Click="mnuItmSave_Click"/>
-                            <MenuItem x:Name="mnuItemExport" 
-                                      Header="Export"/>
                         </MenuItem>
                     </Menu>
                 </Border>
