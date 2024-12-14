@@ -67,17 +67,21 @@ namespace FinalAssignment
             BoundProject = new Project();
             InitializeComponent();
             CreateTimeline();
+            tbxProjectName.Content = "Project Name...";
         }
 
         /// <summary>
         /// Parameterized constructor - sets an existing project.
         /// </summary>
         /// <param name="boundProject">The project to bind to.</param>
-        public frmProduction(Project boundProject)
+        /// <param name="isReadOnly">If true, user cannot edit timeline.</param>
+        public frmProduction(Project boundProject, bool isReadOnly)
         {
             BoundProject = boundProject;
             InitializeComponent();
             CreateTimeline();
+            tbxProjectName.Content = boundProject.Name;
+            pnlTimeline.IsEnabled = !isReadOnly;
         }
 
         #endregion

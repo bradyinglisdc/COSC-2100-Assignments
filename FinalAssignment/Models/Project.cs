@@ -319,6 +319,7 @@ namespace FinalAssignment.Models
         /// <param name="projectName">The name to save project as.</param>
         public void Save(string projectName)
         {
+  
             try
             {
                 // Added check to ensure user is logged in
@@ -332,14 +333,18 @@ namespace FinalAssignment.Models
 
                 // Serialize the current instance to a packaged JSON - Changed AI's extremely inefficient base 64 conversion
                 string jsonData = JsonSerializer.Serialize(new PackagedProject(this));
-                MessageBox.Show(jsonData);
 
                 using (SqlConnection connection = new SqlConnection(Properties.Resources.CONNETION_STRING))
                 {
                     connection.Open();
 
-                    string query = @"INSERT INTO Project (ProjectID, UserID, ProjectData) 
-                                     VALUES (@ProjectID, @UserID, @ProjectData)";
+                    // Added check to update if project already exists
+                    string query = Exists() ? @"UPDATE Project
+                                                SET ProjectData = @ProjectData
+                                                WHERE ProjectID = @ProjectID AND UserID = @UserID" : 
+                                                
+                                                @"INSERT INTO Project (ProjectID, UserID, ProjectData) 
+                                                VALUES (@ProjectID, @UserID, @ProjectData)";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -358,6 +363,19 @@ namespace FinalAssignment.Models
                 // Log or handle the exception as needed
                 throw new Exception($"Error {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Returns true if a project exists in memory by this userID
+        /// </summary>
+        /// <returns>True if this project exists in memory.</returns>
+        public bool Exists()
+        {
+            foreach (Project project in Projects)
+            {
+                if (project.UserID == UserID) { return true; }
+            }
+            return false;
         }
 
         #endregion

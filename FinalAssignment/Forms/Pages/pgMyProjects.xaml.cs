@@ -45,11 +45,12 @@ namespace FinalAssignment
 
         #region Constants
 
-        private static Brush DEFAULT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(170, 170, 187, 187));
-        private static Brush HOVER_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(200, 170, 187, 187));
-        private static Brush SELECT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(255, 170, 187, 187));
+        private static Brush DEFAULT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(100, 170, 187, 187));
+        private static Brush HOVER_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(180, 170, 187, 187));
+        private static Brush SELECT_BORDER_CONTAINER_BACKGROUND = new SolidColorBrush(Color.FromArgb(200, 170, 187, 187));
         private const int DEFAULT_BORDER_CONTAINER_WIDTH = 385;
         private const int DEFAULT_BORDER_CONTAINER_HEIGHT = 50;
+        private const int DEFAULT_BORDER_CONTAINER_FONT_SIZE = 14;
         private static Thickness DEFAULT_BORDER_CONTAINER_MARGIN = new Thickness(0, 10, 0, 0);
         private static CornerRadius DEFAULT_BORDER_CONTAINER_CORNER_RADIUS = new CornerRadius(15);
 
@@ -132,12 +133,22 @@ namespace FinalAssignment
         /// <summary>
         /// Invokes EditRequested event with the selected project.
         /// </summary>
-        /// <param name="sender">btnBack</param>
+        /// <param name="sender">btnEdit</param>
         /// <param name="e">Event Args.</param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (SelectedProject == null) { return; }
             EditRequested?.Invoke(SelectedProject);
+        }
+
+        /// <summary>
+        /// Invokes EditRequested event with a new project.
+        /// </summary>
+        /// <param name="sender">btnEdit</param>
+        /// <param name="e">Event Args.</param>
+        private void btnNewProject_Click(object sender, EventArgs e)
+        {
+            EditRequested?.Invoke(new Project());
         }
 
         #endregion
@@ -178,6 +189,15 @@ namespace FinalAssignment
                 CornerRadius = DEFAULT_BORDER_CONTAINER_CORNER_RADIUS,
                 Name = $"n{project.ProjectID.ToString()}"
             };
+            projectContainer.Child = new TextBlock()
+            {
+                Text = project.Name,
+                Foreground = Brushes.White,
+                FontSize = DEFAULT_BORDER_CONTAINER_FONT_SIZE,
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+
             projectContainer.MouseEnter += ProjectContainer_MouseEnter;
             projectContainer.MouseLeave += ProjectContainer_MouseLeave;
             projectContainer.MouseLeftButtonDown += ProjectContainer_MouseLeftButtonDown;

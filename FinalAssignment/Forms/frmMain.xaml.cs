@@ -107,7 +107,7 @@ namespace FinalAssignment
         /// <param name="projectToEdit">The project to edit.</param>
         private void PgToNavigateTo_EditRequested(Project projectToEdit)
         {
-            (new frmProduction(projectToEdit)).Show();
+            (new frmProduction(projectToEdit, false)).Show();
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace FinalAssignment
         /// <param name="e">Event Args.</param>
         private void BtnBack_Click(object? sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigateMainMenu();
         }
 
         #endregion

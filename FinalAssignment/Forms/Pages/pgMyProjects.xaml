@@ -28,6 +28,18 @@
                 Margin="0,50,0,0">
             <ScrollViewer x:Name="svrMyProcts">
                 <StackPanel x:Name="pnlMyProjects">
+                    <local:GenericButton x:Name="btnNewroject"
+                                         Style="{StaticResource MenuButtonStyle}"
+                                         Content="Create New Project"
+                                         Width="450"
+                                         Height="50"
+                                         Foreground="White"
+                                         FontWeight="Light"
+                                         FontSize="16"
+                                         Click="btnNewProject_Click">
+                    </local:GenericButton>
+
+
                 </StackPanel>
             </ScrollViewer>
         </Border>

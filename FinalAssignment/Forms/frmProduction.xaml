@@ -58,7 +58,6 @@
                                         Grid.Column="1"
                                         Background="#D1D1D1"
                                         CornerRadius="5"
-                                        Placeholder="Project Name..."
                                         Foreground="Black"
                                         Margin="5,5,3,5"/>
                 <Border x:Name="bdrFileMenu"
@@ -85,11 +84,6 @@
                         </MenuItem>
                     </Menu>
                 </Border>
-   
-                
-
-                
-
    
             </Grid>
             <!-- Window controls -->
