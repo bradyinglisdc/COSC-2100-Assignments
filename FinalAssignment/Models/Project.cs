@@ -35,7 +35,8 @@ namespace FinalAssignment.Models
     {
         #region Constants
 
-        private const string DEFAULT_NAME = "Unnamed.";
+        private const string DEFAULT_NAME = "Project name...";
+        private const int DEFAULT_TIMELINE_LENGTH = 100000;
         
         #endregion
 
@@ -79,6 +80,15 @@ namespace FinalAssignment.Models
                 _name = value;
             }
         }
+
+        /// <summary>
+        /// Gets the username of the owner of this object.
+        /// </summary>
+        public string Owner
+        {
+            get { return User.GetUsername(UserID); }
+        }
+
 
         /// <summary>
         /// Gets and sets the timeline for this project, containing all project notes.
@@ -125,6 +135,7 @@ namespace FinalAssignment.Models
         public Project()
         {
             Timeline = new List<Note>();
+            TimelineLength = DEFAULT_TIMELINE_LENGTH;
             ComposedTimeline = new List<Note?>();
         }
 

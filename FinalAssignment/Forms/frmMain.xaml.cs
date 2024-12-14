@@ -121,6 +121,15 @@ namespace FinalAssignment
             NavigateMainMenu();
         }
 
+        /// <summary>
+        /// Opens a read only producer window for the requested project.
+        /// </summary>
+        /// <param name="projectToView">The project to view.</param>
+        private void PgToNavigateTo_ViewRequested(Project projectToView)
+        {
+            (new frmProduction(projectToView, true)).Show();
+        }
+
         #endregion
 
         #region Setup
@@ -201,6 +210,8 @@ namespace FinalAssignment
         {
             // Instantiate and subscribe
             pgCommunityProjects pgToNavigateTo = new pgCommunityProjects();
+            pgToNavigateTo.btnBack.Click += BtnBack_Click;
+            pgToNavigateTo.EditRequested += PgToNavigateTo_ViewRequested;
 
             // Navigate
             frmPageDisplay.Navigate(pgToNavigateTo);

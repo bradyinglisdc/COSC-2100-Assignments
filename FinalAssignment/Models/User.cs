@@ -249,6 +249,20 @@ namespace FinalAssignment.Models
             return null;
         }
 
+        /// <summary>
+        /// Returns the username corresponding to a userID.
+        /// </summary>
+        /// <param name="userID">The userID to search with.</param>
+        /// <returns>A username of the matching user.</returns>
+        public static string GetUsername(int userID)
+        {
+            foreach (User user in Users)
+            {
+                if (user.UserID == userID) { return user.Username; }
+            }
+            return DEFAULT_USERNAME;
+        }
+
         #endregion
 
         #region Static Methods - Database Access

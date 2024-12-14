@@ -73,7 +73,7 @@
                                  Shortcut="_e"
                                  ToolTip="Click here, or press 'alt + v' to view the selected project."
                                  IsDefault="True"
-                                 Click="btnEdit_Click"/>
+                                 Click="btnViewClick"/>
         </Grid>
     </Grid>
 </Page>

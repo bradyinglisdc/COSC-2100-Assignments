@@ -45,11 +45,6 @@ namespace FinalAssignment
         #region Instance Properties
 
         /// <summary>
-        /// List of all this user's projects.
-        /// </summary>
-        private List<Project> Projects = new List<Project>();
-
-        /// <summary>
         /// Keeps track of the currently selected project.
         /// </summary>
         private Project? SelectedProject;
@@ -121,7 +116,7 @@ namespace FinalAssignment
         /// </summary>
         /// <param name="sender">btnEdit</param>
         /// <param name="e">Event Args.</param>
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void btnViewClick(object sender, EventArgs e)
         {
             if (SelectedProject == null) { return; }
             EditRequested?.Invoke(SelectedProject);
@@ -154,7 +149,7 @@ namespace FinalAssignment
             }
 
             // Create a clickable styled border for each project
-            foreach (Project project in Project.GetProjectsByUserID(User.CurrentUser.UserID))
+            foreach (Project project in Project.Projects)
             {
                 CreateProjectContainer(project);
             }
@@ -177,18 +172,19 @@ namespace FinalAssignment
             };
             projectContainer.Child = new TextBlock()
             {
-                Text = project.Name,
+                Text = $"{project.Owner}'s Project:\n{project.Name}",
                 Foreground = Brushes.White,
                 FontSize = ProjectContainerStyling.DEFAULT_BORDER_CONTAINER_FONT_SIZE,
                 VerticalAlignment = VerticalAlignment.Center,
                 HorizontalAlignment = HorizontalAlignment.Center,
+                TextWrapping = TextWrapping.Wrap,
+                TextAlignment = TextAlignment.Center
             };
 
             projectContainer.MouseEnter += ProjectContainer_MouseEnter;
             projectContainer.MouseLeave += ProjectContainer_MouseLeave;
             projectContainer.MouseLeftButtonDown += ProjectContainer_MouseLeftButtonDown;
 
-            Projects.Add(project);
             pnlCommunityProjects.Children.Add(projectContainer);
         }
 
@@ -209,10 +205,12 @@ namespace FinalAssignment
             projectContainer.Background = ProjectContainerStyling.SELECT_BORDER_CONTAINER_BACKGROUND;
 
             // Set the currently selected project to the new one
-            foreach (Project project in Projects)
+            foreach (Project project in Project.Projects)
             {
+                
                 if (project.ProjectID.ToString() == projectContainer.Name.Split('n')[1])
                 {
+
                     SelectedProject = project;
                 }
             }
