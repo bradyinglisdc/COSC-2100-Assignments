@@ -1,29 +1,15 @@
 ﻿/*
- * Title: frmMain.xaml.cs
+ * Title: frmMainMenu.xaml.cs
  * Name: Brady Inglis(100926284)
- * Date: 2024-12-12
- * Purpose: The main location for application interaction. This is the first form to be loaded. Within it,
- *          access is provided to a login/registration, main menu, a 'My Projects' page, a 'Community Projects' page, and statistics
- *          
- * AI Use and Documentation: Lines xx, xx, xx ,xx
+ * Date: 2024-12-13
+ * Purpose: Displays main options to user.
+ *  
+ * AI Use and Documentation: No AI used for this class.
 */
 
 #region Namespaces Used
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 #endregion
 

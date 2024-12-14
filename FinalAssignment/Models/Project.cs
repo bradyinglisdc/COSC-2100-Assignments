@@ -31,7 +31,7 @@ namespace FinalAssignment.Models
     /// A project is a collection of notes, where each note is placed in a conceptual timeline
     /// corresponding to the acutal timeline the user placed them in.
     /// </summary>
-    internal class Project
+    public class Project
     {
         #region Constants
 
@@ -411,6 +411,23 @@ namespace FinalAssignment.Models
                 // Throw an exception if fill failed
                 throw new Exception($"Error loading projects: {ex.Message}");
             }
+        }
+
+        /// <summary>
+        /// Takes in a timeline location in milliseconds and returns the corresponding note.
+        /// </summary>
+        /// <param name="timelineLocation">The location to search at.</param>
+        /// <returns>The note which was found, or null</returns>
+        public Note? GetNoteByTimelineLocation(int timelineLocation)
+        {
+            foreach (Note note in Timeline)
+            {
+                if (note.TimelineLocation == timelineLocation)
+                {
+                    return note;
+                }
+            }
+            return null;
         }
 
 

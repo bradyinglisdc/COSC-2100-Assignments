@@ -59,13 +59,23 @@ namespace FinalAssignment
 
         #region Constructor(s)
 
+        /// <summary>
+        /// Default constructor just makes a new project.
+        /// </summary>
         public frmProduction()
         {
-            User.Fill();
-            Note.FillParents();
-            Project.Fill();
-            User.CurrentUser = User.Users[0];
-            BoundProject = Project.Projects[0];
+            BoundProject = new Project();
+            InitializeComponent();
+            CreateTimeline();
+        }
+
+        /// <summary>
+        /// Parameterized constructor - sets an existing project.
+        /// </summary>
+        /// <param name="boundProject">The project to bind to.</param>
+        public frmProduction(Project boundProject)
+        {
+            BoundProject = boundProject;
             InitializeComponent();
             CreateTimeline();
         }
@@ -284,19 +294,24 @@ namespace FinalAssignment
 
                 // Add a styled border to the column
                 Beat beat = new Beat()
-                {
+                { 
                     BorderThickness = TimelineGridThickness,
                     BorderBrush = TimelineGridBorderBrush
                 };
-
-                // Fill in the beat if theres a note on it's position. Multiply to get millisecond value.
-                if (Note.GetByNoteNumber() && BoundProject.NoteExists(i * (int)Note.NoteSize.QuarterBeat)) { beat.NegateCurrentState(); }
-
 
                 timelineGrid.Children.Add(beat);
 
                 // Set the beat's column and row to the last index
                 Grid.SetColumn(beat, timelineGrid.ColumnDefinitions.Count - 1);
+
+                // Check if there is a note at this location in the timeline, multiply by 1/4 note
+                Note? noteInTimeline = BoundProject.GetNoteByTimelineLocation(i * (int)Note.NoteSize.QuarterBeat);
+
+                // Get this keys note
+                Note? noteOfKey = Note.GetByNoteNumber(pnlTimeline.Children.Count);
+
+                // If there is a note at this point in the timeline and it's name is the same as the index of this beat, fill the beat
+                if (noteInTimeline != null && noteOfKey != null && noteOfKey.NoteNumber == noteInTimeline.NoteNumber) { beat.NegateCurrentState(); }
 
                 // Subscribe to click event so that backend timeline can be updated, and note can be played
                 beat.MouseLeftButtonDown += Beat_MouseLeftButtonDown;
@@ -329,7 +344,7 @@ namespace FinalAssignment
 
         /// <summary>
         /// Plays the note associated with the given piano key index based on it's
-        ///  index as a child of pnlPianoRoll.
+        /// index as a child of pnlPianoRoll.
         /// </summary>
         /// <param name="sender">They key that was pressed</param>
         private void PlayNote(object sender)
@@ -365,7 +380,7 @@ namespace FinalAssignment
         #region Backend Interface
 
         /// <summary>
-        /// Plays the corresponding note, and adds a note
+        /// Plays the corresponding note, and adds or removes a note
         /// </summary>
         /// <param name="sender">The beat which was clicked.</param>
         private void UpdateTimeline(object sender)
